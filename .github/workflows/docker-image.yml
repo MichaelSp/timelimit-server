@@ -28,6 +28,6 @@ jobs:
       with:
         context: .
         push: true
-        tags: michaelsp/timelimit-server/timelimit:latest
+        tags: ghcr.io/michaelsp/timelimit-server/timelimit:latest
         cache-from: type=gha
         cache-to: type=gha,mode=max
