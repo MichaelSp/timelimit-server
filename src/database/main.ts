@@ -140,7 +140,9 @@ const createDatabase = (sequelize: Sequelize.Sequelize): Database => ({
   dialect: sequelize.getDialect()
 })
 
-export const sequelize = new Sequelize.Sequelize(process.env.DATABASE_URL || 'sqlite://test.db', {
+const DB_URL = `${ process.env.DB_DRIVER || 'mariadb' }://${process.env.DB_USER || 'mariadb' }:${process.env.DB_PASS || 'password'}@${process.env.DB_HOST}:${process.env.DB_PORT || 3306 }/${process.env.DB_NAME ||'timelimit'}`
+
+export const sequelize = new Sequelize.Sequelize(DB_URL, {
   define: {
     timestamps: false
   },
