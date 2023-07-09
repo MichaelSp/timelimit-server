@@ -29,5 +29,5 @@ jobs:
         context: .
         push: true
         tags: michaelsp/timelimit-server/timelimit:latest
-        cache-from: type=registry,ref=michaelsp/timelimit-server/timelimit:latest
-        cache-to: type=registry,ref=michaelsp/timelimit-server/timelimit:buildcache,mode=max
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
