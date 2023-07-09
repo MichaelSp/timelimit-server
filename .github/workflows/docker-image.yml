@@ -15,8 +15,19 @@ jobs:
       
     steps:
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: |
-        docker build . --file Dockerfile --tag ghcr.io/michaelsp/timelimit-server/timelimit
-        echo ${ secrets.GITHUB_TOKEN } | docker login ghcr.io -u michaelsp --password-stdin
-          
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Build and push
+      uses: docker/build-push-action@v4
+      with:
+        context: .
+        push: true
+        tags: michaelsp/timelimit-server/timelimit:latest
+        cache-from: type=registry,ref=michaelsp/timelimit-server/timelimit:latest
+        cache-to: type=registry,ref=michaelsp/timelimit-server/timelimit:buildcache,mode=max
