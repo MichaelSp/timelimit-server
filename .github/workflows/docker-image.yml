@@ -3,6 +3,9 @@ name: Docker Image CI
 on:
   push:
     branches: [ "master" ]
+    paths-ignore:
+      - .github/workflows/helm-chart-publish.yml
+      - charts/**
   workflow_dispatch:
 jobs:
 
