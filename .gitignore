@@ -2,3 +2,6 @@ build
 node_modules
 test.db
 tempdb
+.database
+.idea
+.DS_Store

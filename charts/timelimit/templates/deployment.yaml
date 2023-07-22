@@ -1,0 +1,97 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "timelimit.fullname" . }}
+  labels:
+    {{- include "timelimit.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "timelimit.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "timelimit.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "timelimit.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: DB_NAME
+              value: "{{ include "timelimit.fullname" . }}"
+            - name: DB_USER
+              value: "{{ include "timelimit.fullname" . }}"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_HOST
+              value: "{{ include "timelimit.fullname" . }}-mariadb"
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mariadb.auth.existingSecret }}
+                  key: mariadb-password
+            - name: PORT
+              value: "8080"
+            {{- if .Values.mail.enabled }}
+            - name: MAIL_SENDER
+              value: {{ .Values.mail.sender }}
+            - name: MAIL_TRANSPORT
+              value: |
+                {"host": "{{ .Values.mail.host }}", "port": {{ .Values.mail.port }}, "tls": {"host": "{{ .Values.mail.tls }}"} }
+            {{- end }}
+            - name: ALWAYS_PRO
+              value: {{ default 'no' .Values.timelimit.alwaysPro }}
+            - name: ADMIN_TOKEN
+              {{- if .Values.timelimit.adminToken.existingSecret -}}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.timelimit.adminToken.existingSecret.secretName }}
+                  key: {{ .Values.timelimit.adminToken.existingSecret.secretKey }}
+              {{- else -}}
+              value: "{{.Values.timelimit.adminToken.literalValue }}"
+              {{- end -}}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /time
+              port: 8080
+          readinessProbe:
+            httpGet:
+              path: /time
+              port: 8080
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
