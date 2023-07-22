@@ -1,0 +1,22 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - .github/workflows/helm-chart-publish.yml
+      - charts
+      
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      
+    steps:      
+    - uses: actions/checkout@v3
+    - name: Helm Chart Releaser
+      uses: helm/chart-releaser-action@v1.5.0
