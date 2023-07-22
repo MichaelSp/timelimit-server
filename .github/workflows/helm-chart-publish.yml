@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Helm Chart CI
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
   
 jobs:
-  build:
+  chart:
     runs-on: ubuntu-latest
     permissions:
       contents: read
