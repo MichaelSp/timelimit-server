@@ -27,7 +27,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Get version
         run: |
-          echo ::set-env name=VERSION::$(npm pkg get version)
+          echo "VERSION=$(npm pkg get version)" >> "$GITHUB_ENV"
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
