@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:18-alpine
 
 # Create app directories
 RUN mkdir -p /usr/src/app
@@ -6,6 +6,7 @@ WORKDIR /usr/src/app
 
 # Install app dependencies
 COPY package.json package-lock.json tsconfig.json .eslintignore .eslintrc.js Readme.md /usr/src/app/
+RUN npm install --only=prod && npm cache clean --force
 COPY src/ /usr/src/app/src/
 COPY scripts/ /usr/src/app/scripts/
 COPY other/ /usr/src/app/other/
