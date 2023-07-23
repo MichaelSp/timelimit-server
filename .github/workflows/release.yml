@@ -1,4 +1,4 @@
-name: Helm Chart CI
+name: Release Docker image
 
 on:
   push:
@@ -33,6 +33,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/michaelsp/timelimit-server/timelimit:v${{ VERSION }}
+          tags: ghcr.io/michaelsp/timelimit-server/timelimit:v${{ VERSION }},ghcr.io/michaelsp/timelimit-server/timelimit:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
