@@ -1,9 +1,8 @@
 name: Release Docker image
 
 on:
-  push:
-    release:
-      types: [ published ]
+  release:
+    types: [ published ]
       
   workflow_dispatch:
   
