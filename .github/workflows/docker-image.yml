@@ -5,6 +5,7 @@ on:
     branches: [ "master" ]
     paths-ignore:
       - .github/workflows/helm-chart-publish.yml
+      - .github/workflows/release.yml
       - charts/**
   workflow_dispatch:
 jobs:

@@ -33,6 +33,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/michaelsp/timelimit-server/timelimit:v${{ VERSION }},ghcr.io/michaelsp/timelimit-server/timelimit:latest
+          tags: ghcr.io/michaelsp/timelimit-server/timelimit:v${{ env.VERSION }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
