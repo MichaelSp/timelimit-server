@@ -1,0 +1,31 @@
+# change the passwords and use https://docs.docker.com/compose/environment-variables/
+# to keep sensitives value in a .env file while using ${VAR_NAME} here instead
+version: '3.8'
+
+services:
+  api:
+    image: 'ghcr.io/michaelsp/timelimit-server/timelimit:latest'
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: mariadb://timelimit:timelimitpassword@database:3306/timelimit
+      PORT: 8080
+      MAIL_SENDER: me@my.timelimit.server
+      MAIL_TRANSPORT: '{"host": "localhost", "port": 25}'
+      ALWAYS_PRO: 'yes'
+      # put additional config variables here
+    ports:
+     - "8080:8080"
+    restart: always
+    links:
+    - database
+  database:
+    image: 'mariadb:10'
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: timelimit
+      MYSQL_USER: timelimit
+      MYSQL_PASSWORD: timelimitpassword
+    volumes:
+     - ./.database:/var/lib/mysql

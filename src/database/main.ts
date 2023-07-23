@@ -140,7 +140,9 @@ const createDatabase = (sequelize: Sequelize.Sequelize): Database => ({
   dialect: sequelize.getDialect()
 })
 
-const DB_URL = `${ process.env.DB_DRIVER || 'mariadb' }://${process.env.DB_USER || 'mariadb' }:${process.env.DB_PASS || 'password'}@${process.env.DB_HOST}:${process.env.DB_PORT || 3306 }/${process.env.DB_NAME ||'timelimit'}`
+const DB_URL_DB = `${ process.env.DB_DRIVER}://${process.env.DB_USER || 'mariadb' }:${process.env.DB_PASS || 'password'}@${process.env.DB_HOST}:${process.env.DB_PORT || 3306 }/${process.env.DB_NAME ||'timelimit'}`
+
+const DB_URL = (process.env.DB_DRIVER || 'sqlite') === 'sqlite' ? 'sqlite://test.db' : DB_URL_DB
 
 export const sequelize = new Sequelize.Sequelize(DB_URL, {
   define: {

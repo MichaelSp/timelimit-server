@@ -5,3 +5,4 @@ tempdb
 .database
 .idea
 .DS_Store
+charts/*/charts
