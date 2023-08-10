@@ -26,7 +26,7 @@ export const config = {
   expireTimeRounding: 1000 * 60 * 15
 }
 
-export function calculateExpireTime(now: bigint): BigInt {
+export function calculateExpireTime(now: bigint): bigint {
   const expireBaseTime = now + BigInt(config.expireDelay)
   const expireTime = expireBaseTime - expireBaseTime % BigInt(config.expireTimeRounding) + BigInt(config.expireTimeRounding)
 
