@@ -15,20 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { resolve } from 'path'
-import { Sequelize } from 'sequelize'
-import * as Umzug from 'umzug'
+import { Sequelize } from "sequelize";
+import { SequelizeStorage, Umzug } from "umzug";
 
-export const createUmzug = (sequelize: Sequelize) => (
+export const createUmzug = (sequelize: Sequelize) =>
   new Umzug({
-    storage: 'sequelize',
-    storageOptions: {
-      sequelize
-    },
+    storage: new SequelizeStorage({ sequelize }),
+    context: sequelize.getQueryInterface(),
     migrations: {
-      params: [sequelize.getQueryInterface(), sequelize],
-      path: resolve(__dirname, '../../../build/database/migration/migrations'),
-      pattern: /^\d+[\w-]+\.js$/
-    }
-  })
-)
+      glob: "src/database/migration/migrations/*.ts",
+    },
+    logger: console,
+  });
