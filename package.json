@@ -68,7 +68,7 @@
     "sequelize": "^6.25.5",
     "socket.io": "^4.0.1",
     "sqlite3": "^5.1.6",
-    "umzug": "^2.3.0"
+    "umzug": "^3.0.0"
   },
   "optionalDependencies": {
     "sqlite3": "^5.0.0"
