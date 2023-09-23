@@ -1,0 +1,7 @@
+suite: email Test Suite
+templates:
+  - deployment.yaml
+tests:
+  - it: Matches the snapshot
+    asserts:
+    - matchSnapshot: {}
