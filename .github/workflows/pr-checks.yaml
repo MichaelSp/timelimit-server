@@ -44,7 +44,9 @@ jobs:
           fi
       - name: install helm dependencies
         if: steps.list-changed.outputs.changed == 'true'
-        run: helm dependency update charts/*
+        run: |
+           helm dependency update charts/*
+           helm repo add bitname https://charts.bitnami.com/bitnami
 
       - name: Run chart-testing (lint)
         if: steps.list-changed.outputs.changed == 'true'
