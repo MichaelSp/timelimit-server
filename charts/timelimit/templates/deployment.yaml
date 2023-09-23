@@ -59,7 +59,7 @@ spec:
                 {"host": "{{ .Values.mail.host }}", "port": {{ .Values.mail.port }}, "tls": {"host": "{{ .Values.mail.tls }}"} }
             {{- end }}
             - name: ALWAYS_PRO
-              value: {{ default 'no' .Values.timelimit.alwaysPro }}
+              value: {{ default "no" .Values.timelimit.alwaysPro }}
             - name: ADMIN_TOKEN
               {{- if .Values.timelimit.adminToken.existingSecret -}}
               valueFrom:
