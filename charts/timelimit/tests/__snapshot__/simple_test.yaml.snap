@@ -8,7 +8,7 @@ Matches the snapshot:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: timelimit
         app.kubernetes.io/version: 1.17.0
-        helm.sh/chart: timelimit-0.2.5
+        helm.sh/chart: timelimit-0.2.6
       name: RELEASE-NAME-timelimit
     spec:
       replicas: 1
