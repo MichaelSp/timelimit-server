@@ -9,5 +9,8 @@
       "matchUpdateTypes": ["minor", "digest", "patch"],
       "automerge": true
     }
-  ]
+  ],
+   "postUpdateOptions": [
+    "helmUpdateSubChartArchives"
+  ],
 }
