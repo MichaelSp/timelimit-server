@@ -64,7 +64,7 @@
     "nodemailer": "^6.9.4",
     "pg": "^8.11.2",
     "pg-hstore": "^2.3.4",
-    "rate-limiter-flexible": "^4.0.0",
+    "rate-limiter-flexible": "^5.0.0",
     "sequelize": "^6.32.1",
     "socket.io": "^4.7.2",
     "sqlite3": "^5.1.6",
