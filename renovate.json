@@ -1,16 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base"
-  ],
+  "extends": ["github>MichaelSp/MichaelSp//.github/renovate.json5"],
   "packageRules": [
     {
       "description": "Automatically merge non-major updates",
       "matchUpdateTypes": ["minor", "digest", "patch"],
       "automerge": true
     }
-  ],
-   "postUpdateOptions": [
-    "helmUpdateSubChartArchives"
-  ],
+  ]
 }
