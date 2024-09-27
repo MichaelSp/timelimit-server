@@ -36,6 +36,8 @@ spec:
           env:
             - name: NODE_ENV
               value: "production"
+            - name: DB_DRIVER
+              value: {{ ternary .Values.mariadb.enabled "mysql" "sqlite" }}
             - name: DB_NAME
               value: "{{ include "timelimit.fullname" . }}"
             - name: DB_USER
