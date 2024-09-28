@@ -95,7 +95,7 @@ Supports DB_DRIVER:
                 - name: NODE_ENV
                   value: production
                 - name: DB_DRIVER
-                  value: mysql
+                  value: mariadb
                 - name: DB_NAME
                   value: RELEASE-NAME-timelimit
                 - name: DB_USER
