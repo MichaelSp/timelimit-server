@@ -7,3 +7,9 @@ tests:
 - it: Matches the snapshot
   asserts:
   - matchSnapshot: { }
+- it: Supports DB_DRIVER
+  set:
+    mariadb:
+      enabled: true
+  asserts:
+  - matchSnapshot: { }
