@@ -15,21 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const rimraf = require("rimraf")
 const { mkdir, readFile, writeFile } = require("fs")
 
 function mkdirAsync(path) {
   return new Promise((resolve, reject) => {
     mkdir(path, (err) => {
-      if (err) reject(err)
-      else resolve()
-    })
-  })
-}
-
-function rimrafAsync(path) {
-  return new Promise((resolve, reject) => {
-    rimraf(path, (err) => {
       if (err) reject(err)
       else resolve()
     })
@@ -54,4 +44,4 @@ function writeFileAsync(path, content) {
   })
 }
 
-module.exports = { mkdirAsync, rimrafAsync, readFileAsync, writeFileAsync }
+module.exports = { mkdirAsync, readFileAsync, writeFileAsync }

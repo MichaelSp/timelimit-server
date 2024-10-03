@@ -17,10 +17,10 @@
 
 const { resolve } = require("path")
 const { spawn } = require("child_process")
+const { rimraf } = require("rimraf")
 const { tempDir } = require("./helper.js")
 const { generateShortToken, generateToken } = require("../token.js")
 const {
-  rimrafAsync,
   mkdirAsync,
   readFileAsync,
   writeFileAsync,
@@ -37,11 +37,11 @@ async function startSqlite() {
 
   const instanceDir = resolve(tempDir, generateShortToken())
 
-  await rimrafAsync(instanceDir)
+  await rimraf(instanceDir)
   await mkdirAsync(instanceDir)
 
   return {
-    shutdown: () => rimrafAsync(instanceDir),
+    shutdown: () => rimraf(instanceDir),
     instanceDir,
     connectionUrl: "sqlite:///" + instanceDir + "/test.db",
     type: "sqlite",
