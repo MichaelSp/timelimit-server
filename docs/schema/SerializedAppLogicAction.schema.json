@@ -62,10 +62,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "apps",
-        "type"
-      ],
+      "required": ["apps", "type"],
       "title": "SerializedAddInstalledAppsAction"
     },
     "SerializedInstalledApp": {
@@ -85,20 +82,11 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "isLaunchable",
-        "packageName",
-        "recommendation",
-        "title"
-      ],
+      "required": ["isLaunchable", "packageName", "recommendation", "title"],
       "title": "SerializedInstalledApp"
     },
     "AppRecommendation": {
-      "enum": [
-        "blacklist",
-        "none",
-        "whitelist"
-      ],
+      "enum": ["blacklist", "none", "whitelist"],
       "type": "string",
       "title": "AppRecommendation"
     },
@@ -196,11 +184,7 @@
               }
             },
             "additionalProperties": false,
-            "required": [
-              "categoryId",
-              "etts",
-              "tta"
-            ]
+            "required": ["categoryId", "etts", "tta"]
           }
         },
         "t": {
@@ -208,11 +192,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "d",
-        "i",
-        "type"
-      ],
+      "required": ["d", "i", "type"],
       "title": "SerializedAddUsedTimeActionVersion2"
     },
     "SerializedFinishKeyRequestAction": {
@@ -227,10 +207,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "dsn",
-        "type"
-      ],
+      "required": ["dsn", "type"],
       "title": "SerializedFinishKeyRequestAction"
     },
     "SerializedForceSyncAction": {
@@ -242,9 +219,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "title": "SerializedForceSyncAction"
     },
     "SerializedMarkTaskPendingAction": {
@@ -259,10 +234,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "taskId",
-        "type"
-      ],
+      "required": ["taskId", "type"],
       "title": "SerializedMarkTaskPendingAction"
     },
     "SerializedRemoveInstalledAppsAction": {
@@ -280,10 +252,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "packageNames",
-        "type"
-      ],
+      "required": ["packageNames", "type"],
       "title": "SerializedRemoveInstalledAppsAction"
     },
     "SerializedReplyToKeyRequestAction": {
@@ -307,13 +276,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "encryptedKey",
-        "rsn",
-        "signature",
-        "tempKey",
-        "type"
-      ],
+      "required": ["encryptedKey", "rsn", "signature", "tempKey", "type"],
       "title": "SerializedReplyToKeyRequestAction"
     },
     "SerializedSendKeyRequestAction": {
@@ -343,13 +306,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "dataType",
-        "dsn",
-        "signature",
-        "tempKey",
-        "type"
-      ],
+      "required": ["dataType", "dsn", "signature", "tempKey", "type"],
       "title": "SerializedSendKeyRequestAction"
     },
     "SerializedSignOutAtDeviceAction": {
@@ -361,9 +318,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "title": "SerializedSignOutAtDeviceAction"
     },
     "SerialiezdTriedDisablingDeviceAdminAction": {
@@ -375,9 +330,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "title": "SerialiezdTriedDisablingDeviceAdminAction"
     },
     "SerializedUpdateAppActivitiesAction": {
@@ -411,11 +364,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "removed",
-        "type",
-        "updatedOrAdded"
-      ],
+      "required": ["removed", "type", "updatedOrAdded"],
       "title": "SerializedUpdateAppActivitiesAction"
     },
     "SerializedAppActivityItem": {
@@ -432,11 +381,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "c",
-        "p",
-        "t"
-      ],
+      "required": ["c", "p", "t"],
       "title": "SerializedAppActivityItem"
     },
     "SerializedUpdateDeviceStatusAction": {
@@ -456,27 +401,15 @@
           "type": "string"
         },
         "usageStats": {
-          "enum": [
-            "granted",
-            "not granted",
-            "not required"
-          ],
+          "enum": ["granted", "not granted", "not required"],
           "type": "string"
         },
         "notificationAccess": {
-          "enum": [
-            "granted",
-            "not granted",
-            "not supported"
-          ],
+          "enum": ["granted", "not granted", "not supported"],
           "type": "string"
         },
         "overlayPermission": {
-          "enum": [
-            "granted",
-            "not granted",
-            "not required"
-          ],
+          "enum": ["granted", "not granted", "not required"],
           "type": "string"
         },
         "accessibilityServiceEnabled": {
@@ -502,9 +435,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "title": "SerializedUpdateDeviceStatusAction"
     },
     "SerializedUpdateInstalledAppsAction": {
@@ -525,10 +456,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "type",
-        "w"
-      ],
+      "required": ["type", "w"],
       "title": "SerializedUpdateInstalledAppsAction"
     },
     "SerializedUploadDevicePublicKeyAction": {
@@ -543,10 +471,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "key",
-        "type"
-      ],
+      "required": ["key", "type"],
       "title": "SerializedUploadDevicePublicKeyAction"
     }
   },

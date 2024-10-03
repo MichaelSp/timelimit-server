@@ -15,14 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const { spawn } = require('child_process')
+const { spawn } = require("child_process")
 
 function spawnAsync(command, args, options) {
   return new Promise((resolve, reject) => {
     const task = spawn(command, args, options)
 
-    task.on('error', (ex) => reject(ex))
-    task.on('exit', (status) => resolve({ status }))
+    task.on("error", (ex) => reject(ex))
+    task.on("exit", (status) => resolve({ status }))
   })
 }
 

@@ -15,34 +15,34 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ApplyActionException } from './index'
+import { ApplyActionException } from "./index"
 
 export class IllegalStateException extends ApplyActionException {
-  constructor ({ staticMessage }: { staticMessage: string }) {
+  constructor({ staticMessage }: { staticMessage: string }) {
     super({ staticMessage })
   }
 }
 
 export class SourceDeviceNotFoundException extends IllegalStateException {
-  constructor () {
-    super({ staticMessage: 'source device not found' })
+  constructor() {
+    super({ staticMessage: "source device not found" })
   }
 }
 
 export class SourceUserNotFoundException extends IllegalStateException {
-  constructor () {
-    super({ staticMessage: 'source user not found' })
+  constructor() {
+    super({ staticMessage: "source user not found" })
   }
 }
 
 export class SourceFamilyNotFoundException extends IllegalStateException {
-  constructor () {
-    super({ staticMessage: 'family entry not found' })
+  constructor() {
+    super({ staticMessage: "family entry not found" })
   }
 }
 
 export class ActionObjectTypeNotHandledException extends IllegalStateException {
-  constructor () {
-    super({ staticMessage: 'action object type not handled' })
+  constructor() {
+    super({ staticMessage: "action object type not handled" })
   }
 }

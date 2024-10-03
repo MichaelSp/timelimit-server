@@ -15,31 +15,43 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'UpdateCategoryTitleAction'
+const actionType = "UpdateCategoryTitleAction"
 
 export class UpdateCategoryTitleAction extends ParentAction {
   readonly categoryId: string
   readonly newTitle: string
 
-  constructor ({ categoryId, newTitle }: {categoryId: string, newTitle: string}) {
+  constructor({
+    categoryId,
+    newTitle,
+  }: {
+    categoryId: string
+    newTitle: string
+  }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'categoryId', value: categoryId })
+    assertIdWithinFamily({
+      actionType,
+      field: "categoryId",
+      value: categoryId,
+    })
 
     this.categoryId = categoryId
     this.newTitle = newTitle
   }
 
-  static parse = ({ categoryId, newTitle }: SerializedUpdateCategoryTitleAction) => (
+  static parse = ({
+    categoryId,
+    newTitle,
+  }: SerializedUpdateCategoryTitleAction) =>
     new UpdateCategoryTitleAction({ categoryId, newTitle })
-  )
 }
 
 export interface SerializedUpdateCategoryTitleAction {
-  type: 'UPDATE_CATEGORY_TITLE'
+  type: "UPDATE_CATEGORY_TITLE"
   categoryId: string
   newTitle: string
 }

@@ -15,30 +15,42 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily, assertSafeInteger, throwOutOfRange } from './meta/util'
+import { ParentAction } from "./basetypes"
+import {
+  assertIdWithinFamily,
+  assertSafeInteger,
+  throwOutOfRange,
+} from "./meta/util"
 
-const actionType = 'UpdateCategoryBlockAllNotificationsAction'
+const actionType = "UpdateCategoryBlockAllNotificationsAction"
 
 export class UpdateCategoryBlockAllNotificationsAction extends ParentAction {
   readonly categoryId: string
   readonly blocked: boolean
   readonly blockDelay: number | undefined
 
-  constructor ({ categoryId, blocked, blockDelay }: {
+  constructor({
+    categoryId,
+    blocked,
+    blockDelay,
+  }: {
     categoryId: string
     blocked: boolean
     blockDelay: number | undefined
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'categoryId', value: categoryId })
+    assertIdWithinFamily({
+      actionType,
+      field: "categoryId",
+      value: categoryId,
+    })
 
     if (blockDelay !== undefined) {
-      assertSafeInteger({ actionType, field: 'blockDelay', value: blockDelay })
+      assertSafeInteger({ actionType, field: "blockDelay", value: blockDelay })
 
       if (blockDelay < 0) {
-        throwOutOfRange({ actionType, field: 'blockDelay', value: blockDelay })
+        throwOutOfRange({ actionType, field: "blockDelay", value: blockDelay })
       }
     }
 
@@ -47,17 +59,20 @@ export class UpdateCategoryBlockAllNotificationsAction extends ParentAction {
     this.blockDelay = blockDelay
   }
 
-  static parse = ({ categoryId, blocked, blockDelay }: SerializedUpdateCategoryBlockAllNotificationsAction) => (
+  static parse = ({
+    categoryId,
+    blocked,
+    blockDelay,
+  }: SerializedUpdateCategoryBlockAllNotificationsAction) =>
     new UpdateCategoryBlockAllNotificationsAction({
       categoryId,
       blocked,
-      blockDelay: blockDelay
+      blockDelay: blockDelay,
     })
-  )
 }
 
 export interface SerializedUpdateCategoryBlockAllNotificationsAction {
-  type: 'UPDATE_CATEGORY_BLOCK_ALL_NOTIFICATIONS'
+  type: "UPDATE_CATEGORY_BLOCK_ALL_NOTIFICATIONS"
   categoryId: string
   blocked: boolean
   blockDelay: number | undefined

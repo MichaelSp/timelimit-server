@@ -15,6 +15,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { StaticMessageException } from './static-message-exception';
+import { StaticMessageException } from "./static-message-exception"
 
 export class ValidationException extends StaticMessageException {}

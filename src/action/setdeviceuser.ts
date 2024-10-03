@@ -15,38 +15,34 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'SetDeviceUserAction'
+const actionType = "SetDeviceUserAction"
 
 export class SetDeviceUserAction extends ParentAction {
   readonly deviceId: string
   readonly userId: string // user id can be ""
 
-  constructor ({ deviceId, userId }: {
-    deviceId: string
-    userId: string
-  }) {
+  constructor({ deviceId, userId }: { deviceId: string; userId: string }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'deviceId', value: deviceId })
+    assertIdWithinFamily({ actionType, field: "deviceId", value: deviceId })
 
-    if (userId !== '') {
-      assertIdWithinFamily({ actionType, field: 'userId', value: userId })
+    if (userId !== "") {
+      assertIdWithinFamily({ actionType, field: "userId", value: userId })
     }
 
     this.deviceId = deviceId
     this.userId = userId
   }
 
-  static parse = ({ deviceId, userId }: SerializedSetDeviceUserAction) => (
+  static parse = ({ deviceId, userId }: SerializedSetDeviceUserAction) =>
     new SetDeviceUserAction({ deviceId, userId })
-  )
 }
 
 export interface SerializedSetDeviceUserAction {
-  type: 'SET_DEVICE_USER'
+  type: "SET_DEVICE_USER"
   deviceId: string
   userId: string
 }

@@ -15,30 +15,37 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Database, Transaction } from '../../database'
-import { WebsocketApi } from '../../websocket'
+import { Database, Transaction } from "../../database"
+import { WebsocketApi } from "../../websocket"
 
 export const notifyClientsAboutChangesDelayed = async ({
-  familyId, sourceDeviceId, database,
-  websocket, transaction, generalLevel, targetedLevels
+  familyId,
+  sourceDeviceId,
+  database,
+  websocket,
+  transaction,
+  generalLevel,
+  targetedLevels,
 }: {
   familyId: string
-  sourceDeviceId: string | null  // this device will not get an push
+  sourceDeviceId: string | null // this device will not get an push
   database: Database
   websocket: WebsocketApi
   transaction: Transaction
   generalLevel: 0 | 1 | 2
   targetedLevels: Map<string, 0 | 1 | 2>
 }) => {
-  const relatedDeviceEntries = (await database.device.findAll({
-    where: {
-      familyId
-    },
-    attributes: ['deviceId', 'deviceAuthToken'],
-    transaction
-  })).map((item) => ({
+  const relatedDeviceEntries = (
+    await database.device.findAll({
+      where: {
+        familyId,
+      },
+      attributes: ["deviceId", "deviceAuthToken"],
+      transaction,
+    })
+  ).map((item) => ({
     deviceId: item.deviceId,
-    deviceAuthToken: item.deviceAuthToken
+    deviceAuthToken: item.deviceAuthToken,
   }))
 
   transaction.afterCommit(() => {
@@ -51,7 +58,7 @@ export const notifyClientsAboutChangesDelayed = async ({
       if (effectiveLevel > 0) {
         websocket.triggerSyncByDeviceAuthToken({
           deviceAuthToken: deviceEntry.deviceAuthToken,
-          isImportant: effectiveLevel === 2
+          isImportant: effectiveLevel === 2,
         })
       }
     }

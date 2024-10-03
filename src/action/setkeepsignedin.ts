@@ -15,37 +15,42 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'SetKeepSignedInAction'
+const actionType = "SetKeepSignedInAction"
 
 export class SetKeepSignedInAction extends ParentAction {
   readonly deviceId: string
   readonly keepSignedIn: boolean
 
-  constructor ({ deviceId, keepSignedIn }: {
+  constructor({
+    deviceId,
+    keepSignedIn,
+  }: {
     deviceId: string
     keepSignedIn: boolean
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'deviceId', value: deviceId })
+    assertIdWithinFamily({ actionType, field: "deviceId", value: deviceId })
 
     this.deviceId = deviceId
     this.keepSignedIn = keepSignedIn
   }
 
-  static parse = ({ deviceId, keepSignedIn }: SerializedSetKeepSignedInAction) => (
+  static parse = ({
+    deviceId,
+    keepSignedIn,
+  }: SerializedSetKeepSignedInAction) =>
     new SetKeepSignedInAction({
       deviceId,
-      keepSignedIn
+      keepSignedIn,
     })
-  )
 }
 
 export interface SerializedSetKeepSignedInAction {
-  type: 'SET_KEEP_SIGNED_IN'
+  type: "SET_KEEP_SIGNED_IN"
   deviceId: string
   keepSignedIn: boolean
 }

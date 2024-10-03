@@ -15,28 +15,41 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Transaction } from 'sequelize'
-import { attributesVersion3 } from '../../device'
-import { Migration } from '../../main'
+import { Transaction } from "sequelize"
+import { attributesVersion3 } from "../../device"
+import { Migration } from "../../main"
 
-export const up: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.addColumn('Devices', 'isUserKeptSignedIn', {
-      ...attributesVersion3.isUserKeptSignedIn
-    }, {
-      transaction
-    })
-  })
+export const up: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.addColumn(
+        "Devices",
+        "isUserKeptSignedIn",
+        {
+          ...attributesVersion3.isUserKeptSignedIn,
+        },
+        {
+          transaction,
+        },
+      )
+    },
+  )
 }
 
-export const down: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.removeColumn('Devices', 'isUserKeptSignedIn', { transaction })
-  })
+export const down: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.removeColumn("Devices", "isUserKeptSignedIn", {
+        transaction,
+      })
+    },
+  )
 }

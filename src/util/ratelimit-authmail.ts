@@ -15,42 +15,43 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { RateLimiterAbstract, RateLimiterMemory } from 'rate-limiter-flexible'
+import { RateLimiterAbstract, RateLimiterMemory } from "rate-limiter-flexible"
 
 const globalMailSendLimitMinute: RateLimiterAbstract = new RateLimiterMemory({
-  keyPrefix: 'timelimit:sendmail-auth:global:minute',
+  keyPrefix: "timelimit:sendmail-auth:global:minute",
   points: 100,
-  duration: 60  // 1 minute
+  duration: 60, // 1 minute
 })
 
 const globalMailSendLimitHour: RateLimiterAbstract = new RateLimiterMemory({
-  keyPrefix: 'timelimit:sendmail-auth:global:hour',
+  keyPrefix: "timelimit:sendmail-auth:global:hour",
   points: 500,
-  duration: 60 * 60 // 1 hour
+  duration: 60 * 60, // 1 hour
 })
 
 const gloablMailSendLimitDay: RateLimiterAbstract = new RateLimiterMemory({
-  keyPrefix: 'timelimit:sendmail-auth:global:day',
+  keyPrefix: "timelimit:sendmail-auth:global:day",
   points: 1000,
-  duration: 60 * 60 * 24  // 1 day
+  duration: 60 * 60 * 24, // 1 day
 })
 
 const checkGlobalMailSendLimit = async () => {
-  await globalMailSendLimitMinute.consume('global')
-  await globalMailSendLimitHour.consume('global')
-  await gloablMailSendLimitDay.consume('global')
+  await globalMailSendLimitMinute.consume("global")
+  await globalMailSendLimitHour.consume("global")
+  await gloablMailSendLimitDay.consume("global")
 }
 
-const individualMailLimitFiveMinutes: RateLimiterAbstract = new RateLimiterMemory({
-  keyPrefix: 'timelimit:sendmail-auth:individual:5minutes',
-  points: 2,
-  duration: 60 * 5  // 5 minutes
-})
+const individualMailLimitFiveMinutes: RateLimiterAbstract =
+  new RateLimiterMemory({
+    keyPrefix: "timelimit:sendmail-auth:individual:5minutes",
+    points: 2,
+    duration: 60 * 5, // 5 minutes
+  })
 
 const individualMailLimitDay: RateLimiterAbstract = new RateLimiterMemory({
-  keyPrefix: 'timelimit:sendmail-auth:individual:day',
+  keyPrefix: "timelimit:sendmail-auth:individual:day",
   points: 6,
-  duration: 60 * 60 * 24  // 1 day
+  duration: 60 * 60 * 24, // 1 day
 })
 
 const checkIndividualMailSendLimit = async (receiver: string) => {

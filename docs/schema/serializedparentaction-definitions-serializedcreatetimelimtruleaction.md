@@ -4,8 +4,6 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateTimelimtRuleAction
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -23,17 +21,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateTimelim
 
 ## type
 
-
-
 `type`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedcreatetimelimtruleaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateTimelimtRuleAction/properties/type")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedcreatetimelimtruleaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateTimelimtRuleAction/properties/type")
 
 ### type Type
 
@@ -49,17 +45,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateTimelim
 
 ## rule
 
-
-
 `rule`
 
-* is required
+- is required
 
-* Type: `object` ([SerializedTimeLimitRule](serializedparentaction-definitions-serializedtimelimitrule.md))
+- Type: `object` ([SerializedTimeLimitRule](serializedparentaction-definitions-serializedtimelimitrule.md))
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateTimelimtRuleAction/properties/rule")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateTimelimtRuleAction/properties/rule")
 
 ### rule Type
 

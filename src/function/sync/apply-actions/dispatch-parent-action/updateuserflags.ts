@@ -15,21 +15,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateUserFlagsAction } from '../../../../action'
-import { Cache } from '../cache'
-import { IllegalStateException } from '../exception/illegal-state'
-import { MissingUserException } from '../exception/missing-item'
+import { UpdateUserFlagsAction } from "../../../../action"
+import { Cache } from "../cache"
+import { IllegalStateException } from "../exception/illegal-state"
+import { MissingUserException } from "../exception/missing-item"
 
-export async function dispatchUpdateUserFlagsAction ({ action, cache }: {
+export async function dispatchUpdateUserFlagsAction({
+  action,
+  cache,
+}: {
   action: UpdateUserFlagsAction
   cache: Cache
 }) {
   const userEntry = await cache.database.user.findOne({
     where: {
       familyId: cache.familyId,
-      userId: action.userId
+      userId: action.userId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!userEntry) {
@@ -39,7 +42,9 @@ export async function dispatchUpdateUserFlagsAction ({ action, cache }: {
   const oldFlags = parseInt(userEntry.flags, 10)
 
   if (!Number.isSafeInteger(oldFlags)) {
-    throw new IllegalStateException({ staticMessage: 'oldFlags is not a safe integer' })
+    throw new IllegalStateException({
+      staticMessage: "oldFlags is not a safe integer",
+    })
   }
 
   const newFlags = (oldFlags & ~action.modifiedBits) | action.newValues

@@ -4,8 +4,6 @@
 https://timelimit.io/ServerDataStatus#/definitions/ServerUserList
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [ServerDataStatus.schema.json\*](ServerDataStatus.schema.json "open original schema") |
@@ -23,17 +21,15 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUserList
 
 ## version
 
-
-
 `version`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserlist-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserList/properties/version")
+- defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserlist-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserList/properties/version")
 
 ### version Type
 
@@ -41,17 +37,15 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUserList
 
 ## data
 
-
-
 `data`
 
-* is required
+- is required
 
-* Type: `object[]` ([ServerUserEntry](serverdatastatus-definitions-serveruserentry.md))
+- Type: `object[]` ([ServerUserEntry](serverdatastatus-definitions-serveruserentry.md))
 
-* cannot be null
+- cannot be null
 
-* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserlist-properties-data.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserList/properties/data")
+- defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserlist-properties-data.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserList/properties/data")
 
 ### data Type
 

@@ -15,39 +15,43 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { createEnumColumn, familyIdColumn, timestampColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import { createEnumColumn, familyIdColumn, timestampColumn } from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export interface PurchaseAttributes {
   familyId: string
-  service: 'googleplay' | 'directpurchase'
+  service: "googleplay" | "directpurchase"
   transactionId: string
-  type: 'month' | 'year'
+  type: "month" | "year"
   loggedAt: string
   previousFullVersionEndTime: string
   newFullVersionEndTime: string
 }
 
-export type PurchaseModel = Sequelize.Model<PurchaseAttributes> & PurchaseAttributes
+export type PurchaseModel = Sequelize.Model<PurchaseAttributes> &
+  PurchaseAttributes
 export type PurchaseModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): PurchaseModel;
+  new (values?: object, options?: Sequelize.BuildOptions): PurchaseModel
 }
 
 export const attributes: SequelizeAttributes<PurchaseAttributes> = {
   familyId: { ...familyIdColumn },
   service: {
-    ...createEnumColumn(['googleplay', 'directpurchase']),
-    primaryKey: true
+    ...createEnumColumn(["googleplay", "directpurchase"]),
+    primaryKey: true,
   },
   transactionId: {
     type: Sequelize.STRING,
-    primaryKey: true
+    primaryKey: true,
   },
-  type: createEnumColumn(['month', 'year']),
+  type: createEnumColumn(["month", "year"]),
   loggedAt: { ...timestampColumn },
   previousFullVersionEndTime: { ...timestampColumn },
-  newFullVersionEndTime: { ...timestampColumn }
+  newFullVersionEndTime: { ...timestampColumn },
 }
 
-export const createPurchaseModel = (sequelize: Sequelize.Sequelize): PurchaseModelStatic => sequelize.define('Purchase', attributes) as PurchaseModelStatic
+export const createPurchaseModel = (
+  sequelize: Sequelize.Sequelize,
+): PurchaseModelStatic =>
+  sequelize.define("Purchase", attributes) as PurchaseModelStatic

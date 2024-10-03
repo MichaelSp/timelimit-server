@@ -4,8 +4,6 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefaultUserAction
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -24,17 +22,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefa
 
 ## type
 
-
-
 `type`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetdevicedefaultuseraction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefaultUserAction/properties/type")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetdevicedefaultuseraction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefaultUserAction/properties/type")
 
 ### type Type
 
@@ -50,17 +46,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefa
 
 ## deviceId
 
-
-
 `deviceId`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetdevicedefaultuseraction-properties-deviceid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefaultUserAction/properties/deviceId")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetdevicedefaultuseraction-properties-deviceid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefaultUserAction/properties/deviceId")
 
 ### deviceId Type
 
@@ -68,17 +62,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefa
 
 ## defaultUserId
 
-
-
 `defaultUserId`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetdevicedefaultuseraction-properties-defaultuserid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefaultUserAction/properties/defaultUserId")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetdevicedefaultuseraction-properties-defaultuserid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefaultUserAction/properties/defaultUserId")
 
 ### defaultUserId Type
 

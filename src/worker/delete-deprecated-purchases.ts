@@ -15,61 +15,80 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { Database } from '../database'
-import { notifyClientsAboutChangesDelayed } from '../function/websocket'
-import { WebsocketApi } from '../websocket'
+import * as Sequelize from "sequelize"
+import { Database } from "../database"
+import { notifyClientsAboutChangesDelayed } from "../function/websocket"
+import { WebsocketApi } from "../websocket"
 
-export function initDeleteDeprecatedPurchasesWorker ({ database, websocket }: {
+export function initDeleteDeprecatedPurchasesWorker({
+  database,
+  websocket,
+}: {
   database: Database
   websocket: WebsocketApi
 }) {
-  function doWorkSafe () {
-    console.log('deleting deprecated purchases now')
+  function doWorkSafe() {
+    console.log("deleting deprecated purchases now")
 
-    deleteDeprecatedPurchases({ database, websocket }).then(() => {
-      console.log('finished deleting deprecated purchases')
-    }).catch((ex) => {
-      console.warn('error deleting deprecated purchases', ex)
-    })
+    deleteDeprecatedPurchases({ database, websocket })
+      .then(() => {
+        console.log("finished deleting deprecated purchases")
+      })
+      .catch((ex) => {
+        console.warn("error deleting deprecated purchases", ex)
+      })
   }
 
-  setTimeout(() => {
-    doWorkSafe()
-
-    setInterval(() => {
+  setTimeout(
+    () => {
       doWorkSafe()
-    }, 1000 * 60 * 60 /* every hour */)
-  }, 1000 * 60 * 5 /* after 5 minutes */)
+
+      setInterval(
+        () => {
+          doWorkSafe()
+        },
+        1000 * 60 * 60 /* every hour */,
+      )
+    },
+    1000 * 60 * 5 /* after 5 minutes */,
+  )
 }
 
-async function deleteDeprecatedPurchases ({ database, websocket }: {
+async function deleteDeprecatedPurchases({
+  database,
+  websocket,
+}: {
   database: Database
   websocket: WebsocketApi
 }) {
   await database.transaction(async (transaction) => {
-    const affectedFamilyIds = (await database.family.findAll({
-      where: {
-        hasFullVersion: true,
-        fullVersionUntil: {
-          [Sequelize.Op.lt]: Date.now().toString(10)
-        }
-      },
-      attributes: ['familyId'],
-      transaction,
-      limit: 100
-    })).map((item) => item.familyId)
+    const affectedFamilyIds = (
+      await database.family.findAll({
+        where: {
+          hasFullVersion: true,
+          fullVersionUntil: {
+            [Sequelize.Op.lt]: Date.now().toString(10),
+          },
+        },
+        attributes: ["familyId"],
+        transaction,
+        limit: 100,
+      })
+    ).map((item) => item.familyId)
 
-    await database.family.update({
-      hasFullVersion: false
-    }, {
-      where: {
-        familyId: {
-          [Sequelize.Op.in]: affectedFamilyIds
-        }
+    await database.family.update(
+      {
+        hasFullVersion: false,
       },
-      transaction
-    })
+      {
+        where: {
+          familyId: {
+            [Sequelize.Op.in]: affectedFamilyIds,
+          },
+        },
+        transaction,
+      },
+    )
 
     for (const familyId of affectedFamilyIds) {
       await notifyClientsAboutChangesDelayed({
@@ -79,7 +98,7 @@ async function deleteDeprecatedPurchases ({ database, websocket }: {
         websocket,
         generalLevel: 2,
         targetedLevels: new Map(),
-        transaction
+        transaction,
       })
     }
 

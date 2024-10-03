@@ -15,9 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { familyIdColumn, idWithinFamilyColumn, labelColumn, timestampColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import {
+  familyIdColumn,
+  idWithinFamilyColumn,
+  labelColumn,
+  timestampColumn,
+} from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export interface AddDeviceTokenAttributes {
   token: string
@@ -26,19 +31,23 @@ export interface AddDeviceTokenAttributes {
   createdAt: string
 }
 
-export type AddDeviceTokenModel = Sequelize.Model<AddDeviceTokenAttributes> & AddDeviceTokenAttributes
+export type AddDeviceTokenModel = Sequelize.Model<AddDeviceTokenAttributes> &
+  AddDeviceTokenAttributes
 export type AddDeviceTokenModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): AddDeviceTokenModel;
+  new (values?: object, options?: Sequelize.BuildOptions): AddDeviceTokenModel
 }
 
 export const attributes: SequelizeAttributes<AddDeviceTokenAttributes> = {
   token: {
     ...labelColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   familyId: { ...familyIdColumn },
   deviceId: { ...idWithinFamilyColumn },
-  createdAt: { ...timestampColumn }
+  createdAt: { ...timestampColumn },
 }
 
-export const createAddDeviceTokenModel = (sequelize: Sequelize.Sequelize): AddDeviceTokenModelStatic => sequelize.define('AddDeviceToken', attributes) as AddDeviceTokenModelStatic
+export const createAddDeviceTokenModel = (
+  sequelize: Sequelize.Sequelize,
+): AddDeviceTokenModelStatic =>
+  sequelize.define("AddDeviceToken", attributes) as AddDeviceTokenModelStatic

@@ -15,13 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { EventEmitter } from 'events'
-import { Server } from 'socket.io'
-import { ConnectedDevicesManager, VisibleConnectedDevicesManager } from '../connected-devices'
-import { Database } from '../database'
-import { deviceByAuthTokenRoom } from './rooms'
+import { EventEmitter } from "events"
+import { Server } from "socket.io"
+import {
+  ConnectedDevicesManager,
+  VisibleConnectedDevicesManager,
+} from "../connected-devices"
+import { Database } from "../database"
+import { deviceByAuthTokenRoom } from "./rooms"
 
-export const createWebsocketHandler = ({ connectedDevicesManager, database }: {
+export const createWebsocketHandler = ({
+  connectedDevicesManager,
+  database,
+}: {
   connectedDevicesManager: VisibleConnectedDevicesManager
   database: Database
 }): {
@@ -34,101 +40,127 @@ export const createWebsocketHandler = ({ connectedDevicesManager, database }: {
   // this is required because every single socket causes listeners
   events.setMaxListeners(0)
 
-  const eventTriggerImportantSyncForAll = 'triggerimportantsyncforall'
+  const eventTriggerImportantSyncForAll = "triggerimportantsyncforall"
 
   let socketCounter = 0
   const server = new Server({
-    allowEIO3: true
+    allowEIO3: true,
   })
 
-  server.on('connection', (socket) => {
+  server.on("connection", (socket) => {
     socketCounter++
-    socket.on('disconnect', () => socketCounter--)
+    socket.on("disconnect", () => socketCounter--)
 
-    socket.on('devicelogin', (deviceAuthToken: unknown, ack: unknown) => {
+    socket.on("devicelogin", (deviceAuthToken: unknown, ack: unknown) => {
       socket.rooms.forEach((room) => socket.leave(room))
 
-      if (typeof deviceAuthToken !== 'string') {
+      if (typeof deviceAuthToken !== "string") {
         return
       }
 
       socket.join(deviceByAuthTokenRoom(deviceAuthToken))
 
       const importantSyncForAllListener = () => {
-        setTimeout(() => {
-          socket.connected && socket.emit('should sync', { isImportant: true })
-        }, Math.random() * 1000 * 60 /* wait up to one minute */)
+        setTimeout(
+          () => {
+            socket.connected &&
+              socket.emit("should sync", { isImportant: true })
+          },
+          Math.random() * 1000 * 60 /* wait up to one minute */,
+        )
       }
 
       events.on(eventTriggerImportantSyncForAll, importantSyncForAllListener)
-      socket.on('disconnect', () => events.removeListener(eventTriggerImportantSyncForAll, importantSyncForAllListener))
-
+      socket.on("disconnect", () =>
+        events.removeListener(
+          eventTriggerImportantSyncForAll,
+          importantSyncForAllListener,
+        ),
+      )
       ;(async () => {
         const deviceEntryUnsafe = await database.device.findOne({
           where: {
-            deviceAuthToken
+            deviceAuthToken,
           },
-          attributes: ['familyId', 'deviceId']
+          attributes: ["familyId", "deviceId"],
         })
 
         if (deviceEntryUnsafe && socket.connected) {
           const deviceEntry = {
             familyId: deviceEntryUnsafe.familyId,
-            deviceId: deviceEntryUnsafe.deviceId
+            deviceId: deviceEntryUnsafe.deviceId,
           }
 
           const key = ConnectedDevicesManager.buildKey({
             familyId: deviceEntry.familyId,
-            deviceId: deviceEntry.deviceId
+            deviceId: deviceEntry.deviceId,
           })
 
-          connectedDevicesManager.connectedDevicesManager.reportDeviceConnected({ key })
-          const { shutdown } = connectedDevicesManager.observeConnectedDevicesOfFamily({
-            familyId: deviceEntry.familyId,
-            listener: (connectedDevices) => {
-              socket.emit('connected devices', connectedDevices)
-            }
-          })
+          connectedDevicesManager.connectedDevicesManager.reportDeviceConnected(
+            { key },
+          )
+          const { shutdown } =
+            connectedDevicesManager.observeConnectedDevicesOfFamily({
+              familyId: deviceEntry.familyId,
+              listener: (connectedDevices) => {
+                socket.emit("connected devices", connectedDevices)
+              },
+            })
 
-          socket.on('disconnect', () => {
-            connectedDevicesManager.connectedDevicesManager.reportDeviceDisconnected({ key })
+          socket.on("disconnect", () => {
+            connectedDevicesManager.connectedDevicesManager.reportDeviceDisconnected(
+              { key },
+            )
             shutdown()
           })
         }
-      })().catch(() => { /* ignore */ })
+      })().catch(() => {
+        /* ignore */
+      })
 
-      if (typeof ack === 'function') {
+      if (typeof ack === "function") {
         ack()
       }
     })
   })
 
   const websocketApi: WebsocketApi = {
-    triggerSyncByDeviceAuthToken: ({ deviceAuthToken, isImportant }: {deviceAuthToken: string, isImportant: boolean}) => {
+    triggerSyncByDeviceAuthToken: ({
+      deviceAuthToken,
+      isImportant,
+    }: {
+      deviceAuthToken: string
+      isImportant: boolean
+    }) => {
       server
         .to(deviceByAuthTokenRoom(deviceAuthToken))
-        .emit('should sync', { isImportant })
+        .emit("should sync", { isImportant })
     },
-    triggerLogoutByDeviceAuthToken: ({ deviceAuthToken }: {deviceAuthToken: string}) => {
-      server
-        .to(deviceByAuthTokenRoom(deviceAuthToken))
-        .emit('sign out')
+    triggerLogoutByDeviceAuthToken: ({
+      deviceAuthToken,
+    }: {
+      deviceAuthToken: string
+    }) => {
+      server.to(deviceByAuthTokenRoom(deviceAuthToken)).emit("sign out")
     },
     triggerImportantSyncAtAllDevicesInBackground: () => {
       events.emit(eventTriggerImportantSyncForAll)
     },
-    countConnections: () => socketCounter
+    countConnections: () => socketCounter,
   }
 
   return {
     websocketServer: server,
-    websocketApi
+    websocketApi,
   }
 }
 
 export interface WebsocketApi {
-  triggerSyncByDeviceAuthToken: (params: {deviceAuthToken: string, isImportant: boolean}) => void
-  triggerLogoutByDeviceAuthToken: (params: {deviceAuthToken: string}) => void
+  triggerSyncByDeviceAuthToken: (params: {
+    deviceAuthToken: string
+    isImportant: boolean
+  }) => void
+  triggerLogoutByDeviceAuthToken: (params: { deviceAuthToken: string }) => void
   triggerImportantSyncAtAllDevicesInBackground: () => void
   countConnections: () => number
 }

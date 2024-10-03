@@ -4,8 +4,6 @@
 https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/ParentPassword
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [CreateFamilyByMailTokenRequest.schema.json\*](CreateFamilyByMailTokenRequest.schema.json "open original schema") |
@@ -24,17 +22,15 @@ https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/ParentPassword
 
 ## hash
 
-
-
 `hash`
 
-*   is required
+- is required
 
-*   Type: `string`
+- Type: `string`
 
-*   cannot be null
+- cannot be null
 
-*   defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-parentpassword-properties-hash.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/ParentPassword/properties/hash")
+- defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-parentpassword-properties-hash.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/ParentPassword/properties/hash")
 
 ### hash Type
 
@@ -42,17 +38,15 @@ https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/ParentPassword
 
 ## secondHash
 
-
-
 `secondHash`
 
-*   is required
+- is required
 
-*   Type: `string`
+- Type: `string`
 
-*   cannot be null
+- cannot be null
 
-*   defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-parentpassword-properties-secondhash.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/ParentPassword/properties/secondHash")
+- defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-parentpassword-properties-secondhash.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/ParentPassword/properties/secondHash")
 
 ### secondHash Type
 
@@ -60,17 +54,15 @@ https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/ParentPassword
 
 ## secondSalt
 
-
-
 `secondSalt`
 
-*   is required
+- is required
 
-*   Type: `string`
+- Type: `string`
 
-*   cannot be null
+- cannot be null
 
-*   defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-parentpassword-properties-secondsalt.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/ParentPassword/properties/secondSalt")
+- defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-parentpassword-properties-secondsalt.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/ParentPassword/properties/secondSalt")
 
 ### secondSalt Type
 

@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { familyIdColumn, idWithinFamilyColumn, versionColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import { familyIdColumn, idWithinFamilyColumn, versionColumn } from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export interface EncryptedAppListAttributes {
   familyId: string
@@ -29,38 +29,45 @@ export interface EncryptedAppListAttributes {
 
 export const types = {
   base: 1,
-  diff: 2
+  diff: 2,
 }
 
-export type EncryptedAppListModel = Sequelize.Model<EncryptedAppListAttributes> & EncryptedAppListAttributes
+export type EncryptedAppListModel =
+  Sequelize.Model<EncryptedAppListAttributes> & EncryptedAppListAttributes
 export type EncryptedAppListModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): EncryptedAppListModel;
+  new (values?: object, options?: Sequelize.BuildOptions): EncryptedAppListModel
 }
 
 export const attributes: SequelizeAttributes<EncryptedAppListAttributes> = {
   familyId: {
     ...familyIdColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   deviceId: {
     ...idWithinFamilyColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   type: {
     type: Sequelize.INTEGER,
     primaryKey: true,
     validate: {
       min: 1,
-      max: 2
-    }
+      max: 2,
+    },
   },
   version: {
-    ...versionColumn
+    ...versionColumn,
   },
   data: {
     type: Sequelize.BLOB,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 }
 
-export const createEncryptedAppListModel = (sequelize: Sequelize.Sequelize): EncryptedAppListModelStatic => sequelize.define('EncryptedAppList', attributes) as EncryptedAppListModelStatic
+export const createEncryptedAppListModel = (
+  sequelize: Sequelize.Sequelize,
+): EncryptedAppListModelStatic =>
+  sequelize.define(
+    "EncryptedAppList",
+    attributes,
+  ) as EncryptedAppListModelStatic

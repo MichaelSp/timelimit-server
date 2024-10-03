@@ -4,8 +4,6 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryTimeWarningsAction
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -26,17 +24,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategor
 
 ## type
 
-
-
 `type`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategorytimewarningsaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryTimeWarningsAction/properties/type")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategorytimewarningsaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryTimeWarningsAction/properties/type")
 
 ### type Type
 
@@ -52,17 +48,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategor
 
 ## categoryId
 
-
-
 `categoryId`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategorytimewarningsaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryTimeWarningsAction/properties/categoryId")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategorytimewarningsaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryTimeWarningsAction/properties/categoryId")
 
 ### categoryId Type
 
@@ -70,17 +64,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategor
 
 ## enable
 
-
-
 `enable`
 
-* is required
+- is required
 
-* Type: `boolean`
+- Type: `boolean`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategorytimewarningsaction-properties-enable.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryTimeWarningsAction/properties/enable")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategorytimewarningsaction-properties-enable.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryTimeWarningsAction/properties/enable")
 
 ### enable Type
 
@@ -88,17 +80,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategor
 
 ## flags
 
-
-
 `flags`
 
-* is required
+- is required
 
-* Type: `number`
+- Type: `number`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategorytimewarningsaction-properties-flags.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryTimeWarningsAction/properties/flags")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategorytimewarningsaction-properties-flags.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryTimeWarningsAction/properties/flags")
 
 ### flags Type
 
@@ -106,17 +96,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategor
 
 ## minutes
 
-
-
 `minutes`
 
-* is optional
+- is optional
 
-* Type: `number`
+- Type: `number`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategorytimewarningsaction-properties-minutes.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryTimeWarningsAction/properties/minutes")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategorytimewarningsaction-properties-minutes.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryTimeWarningsAction/properties/minutes")
 
 ### minutes Type
 

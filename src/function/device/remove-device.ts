@@ -15,13 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Conflict } from 'http-errors'
-import { Database, Transaction } from '../../database'
-import { generateVersionId } from '../../util/token'
-import { WebsocketApi } from '../../websocket'
-import { notifyClientsAboutChangesDelayed } from '../websocket'
+import { Conflict } from "http-errors"
+import { Database, Transaction } from "../../database"
+import { generateVersionId } from "../../util/token"
+import { WebsocketApi } from "../../websocket"
+import { notifyClientsAboutChangesDelayed } from "../websocket"
 
-export async function removeDevice ({ database, familyId, deviceId, websocket, transaction }: {
+export async function removeDevice({
+  database,
+  familyId,
+  deviceId,
+  websocket,
+  transaction,
+}: {
   database: Database
   familyId: string
   deviceId: string
@@ -31,9 +37,9 @@ export async function removeDevice ({ database, familyId, deviceId, websocket, t
   const deviceEntry = await database.device.findOne({
     where: {
       familyId,
-      deviceId
+      deviceId,
     },
-    transaction
+    transaction,
   })
 
   if (!deviceEntry) {
@@ -41,46 +47,55 @@ export async function removeDevice ({ database, familyId, deviceId, websocket, t
   }
 
   // remove as current device
-  await database.user.update({
-    currentDevice: ''
-  }, {
-    where: {
-      familyId,
-      currentDevice: deviceId
+  await database.user.update(
+    {
+      currentDevice: "",
     },
-    transaction
-  })
+    {
+      where: {
+        familyId,
+        currentDevice: deviceId,
+      },
+      transaction,
+    },
+  )
 
   // add to old devices if it is not yet there (it could be there if it reported a uninstall)
   const oldOldDeviceEntry = await database.oldDevice.findOne({
     where: {
-      deviceAuthToken: deviceEntry.deviceAuthToken
+      deviceAuthToken: deviceEntry.deviceAuthToken,
     },
-    transaction
+    transaction,
   })
 
   if (!oldOldDeviceEntry) {
-    await database.oldDevice.create({
-      deviceAuthToken: deviceEntry.deviceAuthToken
-    }, {
-      transaction
-    })
+    await database.oldDevice.create(
+      {
+        deviceAuthToken: deviceEntry.deviceAuthToken,
+      },
+      {
+        transaction,
+      },
+    )
   }
 
   // remove from the device list
   await deviceEntry.destroy({ transaction })
 
   // invalidiate the caches
-  await database.family.update({
-    deviceListVersion: generateVersionId(),
-    // the device could have become unassigned during this
-    userListVersion: generateVersionId()
-  }, {
-    where: {
-      familyId: deviceEntry.familyId
+  await database.family.update(
+    {
+      deviceListVersion: generateVersionId(),
+      // the device could have become unassigned during this
+      userListVersion: generateVersionId(),
     },
-    transaction
-  })
+    {
+      where: {
+        familyId: deviceEntry.familyId,
+      },
+      transaction,
+    },
+  )
 
   await notifyClientsAboutChangesDelayed({
     database,
@@ -89,13 +104,13 @@ export async function removeDevice ({ database, familyId, deviceId, websocket, t
     sourceDeviceId: null,
     generalLevel: 1,
     targetedLevels: new Map(),
-    transaction
+    transaction,
   })
 
   transaction.afterCommit(() => {
     websocket.triggerSyncByDeviceAuthToken({
       deviceAuthToken: deviceEntry.deviceAuthToken,
-      isImportant: true
+      isImportant: true,
     })
   })
 }

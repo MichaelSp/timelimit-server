@@ -15,43 +15,57 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Transaction } from 'sequelize'
-import { Migration } from '../../main'
+import { Transaction } from "sequelize"
+import { Migration } from "../../main"
 
-export const up: Migration = async ({context}) => {
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    const dialect = context.getDialect()
-    const isMysql = dialect === 'mysql' || dialect === 'mariadb'
+export const up: Migration = async ({ context }) => {
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      const dialect = context.getDialect()
+      const isMysql = dialect === "mysql" || dialect === "mariadb"
 
-    if (isMysql) {
-      await context.query(
-        'CREATE TABLE `UserLimitLoginCategories`' +
-        '(`familyId` VARCHAR(10) NOT NULL, `userId` VARCHAR(6) NOT NULL, `categoryId` VARCHAR(6) NOT NULL,' +
-        'PRIMARY KEY(`familyId`, `userId`), FOREIGN KEY(`familyId`, `userId`) REFERENCES `Users`(`familyId`, `userId`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`familyId`, `categoryId`) REFERENCES `Categories`(`familyId`, `categoryId`) ON UPDATE CASCADE ON DELETE CASCADE )',
-        { transaction }
-      )
+      if (isMysql) {
+        await context.query(
+          "CREATE TABLE `UserLimitLoginCategories`" +
+            "(`familyId` VARCHAR(10) NOT NULL, `userId` VARCHAR(6) NOT NULL, `categoryId` VARCHAR(6) NOT NULL," +
+            "PRIMARY KEY(`familyId`, `userId`), FOREIGN KEY(`familyId`, `userId`) REFERENCES `Users`(`familyId`, `userId`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`familyId`, `categoryId`) REFERENCES `Categories`(`familyId`, `categoryId`) ON UPDATE CASCADE ON DELETE CASCADE )",
+          { transaction },
+        )
 
-      await context.query('CREATE INDEX `UserLimitLoginCategoriesIndexCategoryId` ON `UserLimitLoginCategories` (`familyId`, `categoryId`)', { transaction })
-    } else {
-      await context.query(
-        'CREATE TABLE "UserLimitLoginCategories"' +
-        '("familyId" VARCHAR(10) NOT NULL, "userId" VARCHAR(6) NOT NULL, "categoryId" VARCHAR(6) NOT NULL,' +
-        'PRIMARY KEY("familyId", "userId"), FOREIGN KEY("familyId", "userId") REFERENCES "Users" ("familyId", "userId") ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY("familyId", "categoryId") REFERENCES "Categories" ("familyId", "categoryId") ON UPDATE CASCADE ON DELETE CASCADE )',
-        { transaction }
-      )
+        await context.query(
+          "CREATE INDEX `UserLimitLoginCategoriesIndexCategoryId` ON `UserLimitLoginCategories` (`familyId`, `categoryId`)",
+          { transaction },
+        )
+      } else {
+        await context.query(
+          'CREATE TABLE "UserLimitLoginCategories"' +
+            '("familyId" VARCHAR(10) NOT NULL, "userId" VARCHAR(6) NOT NULL, "categoryId" VARCHAR(6) NOT NULL,' +
+            'PRIMARY KEY("familyId", "userId"), FOREIGN KEY("familyId", "userId") REFERENCES "Users" ("familyId", "userId") ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY("familyId", "categoryId") REFERENCES "Categories" ("familyId", "categoryId") ON UPDATE CASCADE ON DELETE CASCADE )',
+          { transaction },
+        )
 
-      await context.query('CREATE INDEX "UserLimitLoginCategoriesIndexCategoryId" ON "UserLimitLoginCategories" ("familyId", "categoryId")', { transaction })
-    }
-  })
+        await context.query(
+          'CREATE INDEX "UserLimitLoginCategoriesIndexCategoryId" ON "UserLimitLoginCategories" ("familyId", "categoryId")',
+          { transaction },
+        )
+      }
+    },
+  )
 }
 
-export const down: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.dropTable('UserLimitLoginCategories', { transaction })
-  })
+export const down: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.dropTable("UserLimitLoginCategories", {
+        transaction,
+      })
+    },
+  )
 }

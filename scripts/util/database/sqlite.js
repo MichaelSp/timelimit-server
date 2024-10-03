@@ -15,16 +15,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const { resolve } = require('path')
-const { spawn } = require('child_process')
-const { tempDir } = require('./helper.js')
-const { generateShortToken, generateToken } = require('../token.js')
-const { rimrafAsync, mkdirAsync, readFileAsync, writeFileAsync } = require('../filesystem.js')
-const { spawnAsync } = require('../process.js')
-const { sleep } = require('../sleep.js')
+const { resolve } = require("path")
+const { spawn } = require("child_process")
+const { tempDir } = require("./helper.js")
+const { generateShortToken, generateToken } = require("../token.js")
+const {
+  rimrafAsync,
+  mkdirAsync,
+  readFileAsync,
+  writeFileAsync,
+} = require("../filesystem.js")
+const { spawnAsync } = require("../process.js")
+const { sleep } = require("../sleep.js")
 
 async function startSqlite() {
-  try { await mkdirAsync(tempDir) } catch (ex) {/* ignore */}
+  try {
+    await mkdirAsync(tempDir)
+  } catch (ex) {
+    /* ignore */
+  }
 
   const instanceDir = resolve(tempDir, generateShortToken())
 
@@ -34,8 +43,8 @@ async function startSqlite() {
   return {
     shutdown: () => rimrafAsync(instanceDir),
     instanceDir,
-    connectionUrl: 'sqlite:///' +  instanceDir + '/test.db',
-    type: 'sqlite'
+    connectionUrl: "sqlite:///" + instanceDir + "/test.db",
+    type: "sqlite",
   }
 }
 

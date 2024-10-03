@@ -15,36 +15,36 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ApplyActionException } from './index'
+import { ApplyActionException } from "./index"
 
 export class MissingItemException extends ApplyActionException {}
 
 export class MissingCategoryException extends MissingItemException {
-  constructor () {
-    super({ staticMessage: 'referenced category which does not exist' })
+  constructor() {
+    super({ staticMessage: "referenced category which does not exist" })
   }
 }
 
 export class MissingUserException extends MissingItemException {
-  constructor () {
-    super({ staticMessage: 'referenced user which does not exist' })
+  constructor() {
+    super({ staticMessage: "referenced user which does not exist" })
   }
 }
 
 export class MissingRuleException extends MissingItemException {
-  constructor () {
-    super({ staticMessage: 'referenced rule which does not exist' })
+  constructor() {
+    super({ staticMessage: "referenced rule which does not exist" })
   }
 }
 
 export class MissingDeviceException extends MissingItemException {
-  constructor () {
-    super({ staticMessage: 'referenced device which does not exist' })
+  constructor() {
+    super({ staticMessage: "referenced device which does not exist" })
   }
 }
 
 export class MissingTaskException extends MissingItemException {
-  constructor () {
-    super({ staticMessage: 'referenced task which does not exist' })
+  constructor() {
+    super({ staticMessage: "referenced task which does not exist" })
   }
 }

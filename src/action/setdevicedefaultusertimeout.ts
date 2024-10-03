@@ -15,30 +15,28 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
-import { assertIdWithinFamily, assertSafeInteger } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { InvalidActionParameterException } from "./meta/exception"
+import { assertIdWithinFamily, assertSafeInteger } from "./meta/util"
 
-const actionType = 'SetDeviceDefaultUserTimeoutAction'
+const actionType = "SetDeviceDefaultUserTimeoutAction"
 
 export class SetDeviceDefaultUserTimeoutAction extends ParentAction {
   readonly deviceId: string
   readonly timeout: number
 
-  constructor ({ deviceId, timeout }: {
-    deviceId: string
-    timeout: number
-  }) {
+  constructor({ deviceId, timeout }: { deviceId: string; timeout: number }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'deviceId', value: deviceId })
-    assertSafeInteger({ actionType, field: 'timeout', value: timeout })
+    assertIdWithinFamily({ actionType, field: "deviceId", value: deviceId })
+    assertSafeInteger({ actionType, field: "timeout", value: timeout })
 
     if (timeout < 0) {
       throw new InvalidActionParameterException({
         actionType,
-        staticMessage: 'timeout must be a non-negative integer',
-        dynamicMessage: 'timeout must be a non-negative integer, was ' + timeout
+        staticMessage: "timeout must be a non-negative integer",
+        dynamicMessage:
+          "timeout must be a non-negative integer, was " + timeout,
       })
     }
 
@@ -46,13 +44,15 @@ export class SetDeviceDefaultUserTimeoutAction extends ParentAction {
     this.timeout = timeout
   }
 
-  static parse = ({ deviceId, timeout }: SerializedSetDeviceDefaultUserTimeoutAction) => (
+  static parse = ({
+    deviceId,
+    timeout,
+  }: SerializedSetDeviceDefaultUserTimeoutAction) =>
     new SetDeviceDefaultUserTimeoutAction({ deviceId, timeout })
-  )
 }
 
 export interface SerializedSetDeviceDefaultUserTimeoutAction {
-  type: 'SET_DEVICE_DEFAULT_USER_TIMEOUT'
+  type: "SET_DEVICE_DEFAULT_USER_TIMEOUT"
   deviceId: string
   timeout: number
 }

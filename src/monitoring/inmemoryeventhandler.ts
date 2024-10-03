@@ -15,40 +15,34 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { EventHandler } from './eventhandler'
+import { EventHandler } from "./eventhandler"
 
 export class InMemoryEventHandler implements EventHandler {
   private counters = new Map<string, number>()
   private maxValues = new Map<string, number>()
 
-  countEvent (name: string) {
-    this.counters.set(
-      name,
-      (this.counters.get(name) || 0) + 1
-    )
+  countEvent(name: string) {
+    this.counters.set(name, (this.counters.get(name) || 0) + 1)
   }
 
-  reportMax (name: string, value: number) {
-    this.maxValues.set(
-      name,
-      Math.max((this.maxValues.get(name) || 0), value)
-    )
+  reportMax(name: string, value: number) {
+    this.maxValues.set(name, Math.max(this.maxValues.get(name) || 0, value))
   }
 
-  async getValues () {
+  async getValues() {
     return {
       counters: this.buildObject(this.counters),
-      maxValues: this.buildObject(this.maxValues)
+      maxValues: this.buildObject(this.maxValues),
     }
   }
 
-  async reset () {
+  async reset() {
     this.counters.clear()
     this.maxValues.clear()
   }
 
-  private buildObject<T> (map: Map<string, T>): {[key: string]: T} {
-    const result: {[key: string]: T} = {}
+  private buildObject<T>(map: Map<string, T>): { [key: string]: T } {
+    const result: { [key: string]: T } = {}
 
     const keys: Array<string> = []
     map.forEach((_, key) => keys.push(key))

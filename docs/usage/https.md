@@ -45,4 +45,4 @@ server {
 You can obtain valid certificates using certbot. If your server is not public,
 then avoid serving it on a subdomain called timelimit. Most CAs provide a public
 log of all issued certificates and using this, it is easy to find your timelimit-server
-installation if the certificate is for ``timelimit.[yourdomain].[tld]``.
+installation if the certificate is for `timelimit.[yourdomain].[tld]`.

@@ -15,11 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { difference } from 'lodash'
-import * as Sequelize from 'sequelize'
-import { Database, Transaction } from '../../database'
+import { difference } from "lodash"
+import * as Sequelize from "sequelize"
+import { Database, Transaction } from "../../database"
 
-export async function deleteFamilies ({ database, transaction, familiyIds }: {
+export async function deleteFamilies({
+  database,
+  transaction,
+  familiyIds,
+}: {
   database: Database
   transaction: Transaction
   familiyIds: Array<string>
@@ -33,111 +37,118 @@ export async function deleteFamilies ({ database, transaction, familiyIds }: {
   await database.category.destroy({
     where: {
       familyId: {
-        [Sequelize.Op.in]: familiyIds
-      }
+        [Sequelize.Op.in]: familiyIds,
+      },
     },
-    transaction
+    transaction,
   })
 
   // categoryapp
   await database.categoryApp.destroy({
     where: {
       familyId: {
-        [Sequelize.Op.in]: familiyIds
-      }
+        [Sequelize.Op.in]: familiyIds,
+      },
     },
-    transaction
+    transaction,
   })
 
   // purchase
   await database.purchase.destroy({
     where: {
       familyId: {
-        [Sequelize.Op.in]: familiyIds
-      }
+        [Sequelize.Op.in]: familiyIds,
+      },
     },
-    transaction
+    transaction,
   })
 
   // timelimitrule
   await database.timelimitRule.destroy({
     where: {
       familyId: {
-        [Sequelize.Op.in]: familiyIds
-      }
+        [Sequelize.Op.in]: familiyIds,
+      },
     },
-    transaction
+    transaction,
   })
 
   // usedtime
   await database.usedTime.destroy({
     where: {
       familyId: {
-        [Sequelize.Op.in]: familiyIds
-      }
+        [Sequelize.Op.in]: familiyIds,
+      },
     },
-    transaction
+    transaction,
   })
 
   // session durations
   await database.sessionDuration.destroy({
     where: {
       familyId: {
-        [Sequelize.Op.in]: familiyIds
-      }
+        [Sequelize.Op.in]: familiyIds,
+      },
     },
-    transaction
+    transaction,
   })
 
   // user
   await database.user.destroy({
     where: {
       familyId: {
-        [Sequelize.Op.in]: familiyIds
-      }
+        [Sequelize.Op.in]: familiyIds,
+      },
     },
-    transaction
+    transaction,
   })
 
   // device
-  const oldDeviceAuthTokens = (await database.device.findAll({
-    where: {
-      familyId: {
-        [Sequelize.Op.in]: familiyIds
-      }
-    },
-    attributes: ['deviceAuthToken'],
-    transaction
-  })).map((item) => item.deviceAuthToken)
+  const oldDeviceAuthTokens = (
+    await database.device.findAll({
+      where: {
+        familyId: {
+          [Sequelize.Op.in]: familiyIds,
+        },
+      },
+      attributes: ["deviceAuthToken"],
+      transaction,
+    })
+  ).map((item) => item.deviceAuthToken)
 
   await database.device.destroy({
     where: {
       familyId: {
-        [Sequelize.Op.in]: familiyIds
-      }
+        [Sequelize.Op.in]: familiyIds,
+      },
     },
-    transaction
+    transaction,
   })
 
   // olddevice
   if (oldDeviceAuthTokens.length > 0) {
-    const knownOldDeviceAuthTokens = (await database.oldDevice.findAll({
-      where: {
-        deviceAuthToken: {
-          [Sequelize.Op.in]: oldDeviceAuthTokens
-        }
-      },
-      transaction
-    })).map((item) => item.deviceAuthToken)
+    const knownOldDeviceAuthTokens = (
+      await database.oldDevice.findAll({
+        where: {
+          deviceAuthToken: {
+            [Sequelize.Op.in]: oldDeviceAuthTokens,
+          },
+        },
+        transaction,
+      })
+    ).map((item) => item.deviceAuthToken)
 
-    const oldDeviceAuthTokensToAdd = difference(oldDeviceAuthTokens, knownOldDeviceAuthTokens)
+    const oldDeviceAuthTokensToAdd = difference(
+      oldDeviceAuthTokens,
+      knownOldDeviceAuthTokens,
+    )
 
     if (oldDeviceAuthTokensToAdd.length > 0) {
       await database.oldDevice.bulkCreate(
         oldDeviceAuthTokensToAdd.map((item) => ({
-          deviceAuthToken: item
+          deviceAuthToken: item,
         })),
-        { transaction }
+        { transaction },
       )
     }
   }
@@ -146,9 +157,9 @@ export async function deleteFamilies ({ database, transaction, familiyIds }: {
   await database.family.destroy({
     where: {
       familyId: {
-        [Sequelize.Op.in]: familiyIds
-      }
+        [Sequelize.Op.in]: familiyIds,
+      },
     },
-    transaction
+    transaction,
   })
 }

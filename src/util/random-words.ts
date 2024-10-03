@@ -15,30 +15,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { randomInt } from 'crypto'
-import { readFileSync } from 'fs'
-import { range } from 'lodash'
-import { resolve } from 'path'
+import { randomInt } from "crypto"
+import { readFileSync } from "fs"
+import { range } from "lodash"
+import { resolve } from "path"
 
-const wordlist = readFileSync(resolve(__dirname, '../../other/wordlist/de.txt'))
+const wordlist = readFileSync(resolve(__dirname, "../../other/wordlist/de.txt"))
   .toString()
-  .split('\n')
+  .split("\n")
   .filter((item) => item.trim().length > 0)
 
 const randomWord = () => wordlist[randomInt(wordlist.length)]
 
-export const randomWords = (numberOfWords: number) => (
+export const randomWords = (numberOfWords: number) =>
   range(numberOfWords)
     .map(() => randomWord())
-    .join(' ')
-)
+    .join(" ")
 
-const preprocessStringForComparing = (input: string) => (
-  input
-    .replace(/ |\*/g, '')
-    .toLowerCase()
-)
+const preprocessStringForComparing = (input: string) =>
+  input.replace(/ |\*/g, "").toLowerCase()
 
-export const areWordSequencesEqual = (a: string, b: string) => (
+export const areWordSequencesEqual = (a: string, b: string) =>
   preprocessStringForComparing(a) === preprocessStringForComparing(b)
-)

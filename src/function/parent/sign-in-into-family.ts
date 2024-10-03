@@ -15,21 +15,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Conflict } from 'http-errors'
-import { NewDeviceInfo } from '../../api/schema'
-import { Database } from '../../database'
-import { EventHandler } from '../../monitoring/eventhandler'
-import { createEmptyClientDataStatus } from '../../object/clientdatastatus'
-import { ServerDataStatus } from '../../object/serverdatastatus'
-import { sendDeviceLinkedMail } from '../../util/mail'
-import { generateAuthToken, generateIdWithinFamily, generateVersionId } from '../../util/token'
-import { WebsocketApi } from '../../websocket'
-import { requireMailAndLocaleByAuthToken } from '../authentication'
-import { prepareDeviceEntry } from '../device/prepare-device-entry'
-import { generateServerDataStatus } from '../sync/get-server-data-status'
-import { notifyClientsAboutChangesDelayed } from '../websocket'
+import { Conflict } from "http-errors"
+import { NewDeviceInfo } from "../../api/schema"
+import { Database } from "../../database"
+import { EventHandler } from "../../monitoring/eventhandler"
+import { createEmptyClientDataStatus } from "../../object/clientdatastatus"
+import { ServerDataStatus } from "../../object/serverdatastatus"
+import { sendDeviceLinkedMail } from "../../util/mail"
+import {
+  generateAuthToken,
+  generateIdWithinFamily,
+  generateVersionId,
+} from "../../util/token"
+import { WebsocketApi } from "../../websocket"
+import { requireMailAndLocaleByAuthToken } from "../authentication"
+import { prepareDeviceEntry } from "../device/prepare-device-entry"
+import { generateServerDataStatus } from "../sync/get-server-data-status"
+import { notifyClientsAboutChangesDelayed } from "../websocket"
 
-export const signInIntoFamily = async ({ database, eventHandler, mailAuthToken, newDeviceInfo, deviceName, websocket, clientLevel }: {
+export const signInIntoFamily = async ({
+  database,
+  eventHandler,
+  mailAuthToken,
+  newDeviceInfo,
+  deviceName,
+  websocket,
+  clientLevel,
+}: {
   database: Database
   eventHandler: EventHandler
   mailAuthToken: string
@@ -38,16 +50,25 @@ export const signInIntoFamily = async ({ database, eventHandler, mailAuthToken, 
   websocket: WebsocketApi
   clientLevel: number | null
   // no transaction here because this is directly called from an API endpoint
-}): Promise<{ deviceId: string; deviceAuthToken: string; data: ServerDataStatus }> => {
+}): Promise<{
+  deviceId: string
+  deviceAuthToken: string
+  data: ServerDataStatus
+}> => {
   return database.transaction(async (transaction) => {
-    const mailInfo = await requireMailAndLocaleByAuthToken({ database, mailAuthToken, transaction, invalidate: true })
+    const mailInfo = await requireMailAndLocaleByAuthToken({
+      database,
+      mailAuthToken,
+      transaction,
+      invalidate: true,
+    })
 
     const userEntryUnsafe = await database.user.findOne({
       where: {
-        mail: mailInfo.mail
+        mail: mailInfo.mail,
       },
-      attributes: ['familyId', 'userId'],
-      transaction
+      attributes: ["familyId", "userId"],
+      transaction,
     })
 
     if (!userEntryUnsafe) {
@@ -56,31 +77,37 @@ export const signInIntoFamily = async ({ database, eventHandler, mailAuthToken, 
 
     const userEntry = {
       familyId: userEntryUnsafe.familyId,
-      userId: userEntryUnsafe.userId
+      userId: userEntryUnsafe.userId,
     }
 
     const deviceAuthToken = generateAuthToken()
     const deviceId = generateIdWithinFamily()
 
-    await database.device.create(prepareDeviceEntry({
-      familyId: userEntry.familyId,
-      deviceId,
-      userId: userEntry.userId,
-      deviceName,
-      deviceAuthToken,
-      newDeviceInfo,
-      isUserKeptSignedIn: true
-    }), { transaction })
+    await database.device.create(
+      prepareDeviceEntry({
+        familyId: userEntry.familyId,
+        deviceId,
+        userId: userEntry.userId,
+        deviceName,
+        deviceAuthToken,
+        newDeviceInfo,
+        isUserKeptSignedIn: true,
+      }),
+      { transaction },
+    )
 
     // notify about changes
-    await database.family.update({
-      deviceListVersion: generateVersionId()
-    }, {
-      where: {
-        familyId: userEntry.familyId
+    await database.family.update(
+      {
+        deviceListVersion: generateVersionId(),
       },
-      transaction
-    })
+      {
+        where: {
+          familyId: userEntry.familyId,
+        },
+        transaction,
+      },
+    )
 
     await notifyClientsAboutChangesDelayed({
       familyId: userEntry.familyId,
@@ -89,14 +116,14 @@ export const signInIntoFamily = async ({ database, eventHandler, mailAuthToken, 
       generalLevel: 1,
       targetedLevels: new Map(),
       sourceDeviceId: deviceId,
-      transaction
+      transaction,
     })
 
     transaction.afterCommit(async () => {
       await sendDeviceLinkedMail({
         receiver: mailInfo.mail,
         locale: mailInfo.locale,
-        deviceName
+        deviceName,
       })
     })
 
@@ -106,13 +133,13 @@ export const signInIntoFamily = async ({ database, eventHandler, mailAuthToken, 
       familyId: userEntry.familyId,
       deviceId,
       transaction,
-      eventHandler
+      eventHandler,
     })
 
     return {
       deviceId,
       deviceAuthToken,
-      data
+      data,
     }
   })
 }

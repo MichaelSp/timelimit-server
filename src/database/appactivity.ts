@@ -15,9 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { familyIdColumn, idWithinFamilyColumn, optionalLabelColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import {
+  familyIdColumn,
+  idWithinFamilyColumn,
+  optionalLabelColumn,
+} from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export interface AppActivityAttributes {
   familyId: string
@@ -27,9 +31,10 @@ export interface AppActivityAttributes {
   title: string
 }
 
-export type AppActivityModel = Sequelize.Model<AppActivityAttributes> & AppActivityAttributes
+export type AppActivityModel = Sequelize.Model<AppActivityAttributes> &
+  AppActivityAttributes
 export type AppActivityModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): AppActivityModel;
+  new (values?: object, options?: Sequelize.BuildOptions): AppActivityModel
 }
 
 export const maxPackageNameLength = 255
@@ -38,29 +43,32 @@ export const maxActivityNameLength = 255
 export const attributes: SequelizeAttributes<AppActivityAttributes> = {
   familyId: {
     ...familyIdColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   deviceId: {
     ...idWithinFamilyColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   packageName: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
+      notEmpty: true,
     },
-    primaryKey: true
+    primaryKey: true,
   },
   activityName: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
+      notEmpty: true,
     },
-    primaryKey: true
+    primaryKey: true,
   },
-  title: { ...optionalLabelColumn }
+  title: { ...optionalLabelColumn },
 }
 
-export const createAppActivityModel = (sequelize: Sequelize.Sequelize): AppActivityModelStatic => sequelize.define('AppActivity', attributes) as AppActivityModelStatic
+export const createAppActivityModel = (
+  sequelize: Sequelize.Sequelize,
+): AppActivityModelStatic =>
+  sequelize.define("AppActivity", attributes) as AppActivityModelStatic

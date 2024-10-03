@@ -15,38 +15,47 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'SetCategoryForUnassignedAppsAction'
+const actionType = "SetCategoryForUnassignedAppsAction"
 
 export class SetCategoryForUnassignedAppsAction extends ParentAction {
   readonly childId: string
   readonly categoryId: string
 
-  constructor ({ childId, categoryId }: {
+  constructor({
+    childId,
+    categoryId,
+  }: {
     childId: string
     categoryId: string
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'childId', value: childId })
+    assertIdWithinFamily({ actionType, field: "childId", value: childId })
 
-    if (categoryId !== '') {
-      assertIdWithinFamily({ actionType, field: 'categoryId', value: categoryId })
+    if (categoryId !== "") {
+      assertIdWithinFamily({
+        actionType,
+        field: "categoryId",
+        value: categoryId,
+      })
     }
 
     this.childId = childId
     this.categoryId = categoryId
   }
 
-  static parse = ({ childId, categoryId }: SerializedSetCategoryForUnassignedAppsAction) => (
+  static parse = ({
+    childId,
+    categoryId,
+  }: SerializedSetCategoryForUnassignedAppsAction) =>
     new SetCategoryForUnassignedAppsAction({ childId, categoryId })
-  )
 }
 
 export interface SerializedSetCategoryForUnassignedAppsAction {
-  type: 'SET_CATEGORY_FOR_UNASSIGNED_APPS'
+  type: "SET_CATEGORY_FOR_UNASSIGNED_APPS"
   childId: string
   categoryId: string
 }

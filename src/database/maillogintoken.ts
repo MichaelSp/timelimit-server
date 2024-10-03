@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { authTokenColumn, timestampColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import { authTokenColumn, timestampColumn } from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export interface MailLoginTokenAttributesVersion1 {
   mailLoginToken: string
@@ -31,53 +31,60 @@ export interface MailLoginTokenAttributesVersion2 {
   locale: string
 }
 
-export type MailLoginTokenAttributes = MailLoginTokenAttributesVersion1 & MailLoginTokenAttributesVersion2
+export type MailLoginTokenAttributes = MailLoginTokenAttributesVersion1 &
+  MailLoginTokenAttributesVersion2
 
-export type MailLoginTokenModel = Sequelize.Model<MailLoginTokenAttributes> & MailLoginTokenAttributes
+export type MailLoginTokenModel = Sequelize.Model<MailLoginTokenAttributes> &
+  MailLoginTokenAttributes
 export type MailLoginTokenModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): MailLoginTokenModel;
+  new (values?: object, options?: Sequelize.BuildOptions): MailLoginTokenModel
 }
 
-export const attributesVersion1: SequelizeAttributes<MailLoginTokenAttributesVersion1> = {
-  mailLoginToken: {
-    ...authTokenColumn,
-    primaryKey: true
-  },
-  receivedCode: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
-  },
-  mail: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
-  },
-  createdAt: { ...timestampColumn },
-  remainingAttempts: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    validate: {
-      min: 0
-    }
+export const attributesVersion1: SequelizeAttributes<MailLoginTokenAttributesVersion1> =
+  {
+    mailLoginToken: {
+      ...authTokenColumn,
+      primaryKey: true,
+    },
+    receivedCode: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    mail: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    createdAt: { ...timestampColumn },
+    remainingAttempts: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 0,
+      },
+    },
   }
-}
 
-export const attributesVersion2: SequelizeAttributes<MailLoginTokenAttributesVersion2> = {
-  locale: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    defaultValue: 'en'
+export const attributesVersion2: SequelizeAttributes<MailLoginTokenAttributesVersion2> =
+  {
+    locale: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      defaultValue: "en",
+    },
   }
-}
 
 export const attributes: SequelizeAttributes<MailLoginTokenAttributes> = {
   ...attributesVersion1,
-  ...attributesVersion2
+  ...attributesVersion2,
 }
 
-export const createMailLoginTokenModel = (sequelize: Sequelize.Sequelize): MailLoginTokenModelStatic => sequelize.define('MailLoginToken', attributes) as MailLoginTokenModelStatic
+export const createMailLoginTokenModel = (
+  sequelize: Sequelize.Sequelize,
+): MailLoginTokenModelStatic =>
+  sequelize.define("MailLoginToken", attributes) as MailLoginTokenModelStatic

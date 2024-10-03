@@ -15,6 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export const canDoNextPurchase = ({ fullVersionUntil }: {fullVersionUntil: number}) => (
-  fullVersionUntil < (Date.now() + 1000 * 60 * 60 * 24 * 31)  // 31 days
-)
+export const canDoNextPurchase = ({
+  fullVersionUntil,
+}: {
+  fullVersionUntil: number
+}) => fullVersionUntil < Date.now() + 1000 * 60 * 60 * 24 * 31 // 31 days

@@ -15,16 +15,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ForeignKeyConstraintError, UniqueConstraintError } from 'sequelize'
-import { ClientPushChangesRequestAction } from '../../../../api/schema'
-import { EventHandler } from '../../../../monitoring/eventhandler'
-import { ApplyActionDatabaseException } from '../exception/database'
-import { ApplyActionException } from '../exception/index'
-import { EncodedActionSchemaMismatchException } from '../exception/invalidaction'
-import { parseEncodedAction } from '../parse-encoded-action'
+import { ForeignKeyConstraintError, UniqueConstraintError } from "sequelize"
+import { ClientPushChangesRequestAction } from "../../../../api/schema"
+import { EventHandler } from "../../../../monitoring/eventhandler"
+import { ApplyActionDatabaseException } from "../exception/database"
+import { ApplyActionException } from "../exception/index"
+import { EncodedActionSchemaMismatchException } from "../exception/invalidaction"
+import { parseEncodedAction } from "../parse-encoded-action"
 
-export async function dispatch<T1 extends { type: string }, T2> ({ type, action, validator, parser, applier, eventHandler }: {
-  type: 'app logic' | 'parent' | 'child'
+export async function dispatch<T1 extends { type: string }, T2>({
+  type,
+  action,
+  validator,
+  parser,
+  applier,
+  eventHandler,
+}: {
+  type: "app logic" | "parent" | "child"
   action: ClientPushChangesRequestAction
   validator: (input: unknown) => input is T1
   parser: (input: T1) => T2
@@ -34,7 +41,10 @@ export async function dispatch<T1 extends { type: string }, T2> ({ type, action,
   const parsedSerializedAction = parseEncodedAction(action)
 
   if (!validator(parsedSerializedAction)) {
-    throw new EncodedActionSchemaMismatchException({ type, action: parsedSerializedAction })
+    throw new EncodedActionSchemaMismatchException({
+      type,
+      action: parsedSerializedAction,
+    })
   }
 
   const actionType = parsedSerializedAction.type
@@ -47,21 +57,30 @@ export async function dispatch<T1 extends { type: string }, T2> ({ type, action,
     } catch (ex) {
       if (ex instanceof UniqueConstraintError) {
         throw new ApplyActionDatabaseException({
-          staticMessage: 'database unique constraint violation of the fields ' + Object.keys(ex.fields).join(', ')
+          staticMessage:
+            "database unique constraint violation of the fields " +
+            Object.keys(ex.fields).join(", "),
         })
       } else if (ex instanceof ForeignKeyConstraintError) {
         throw new ApplyActionDatabaseException({
-          staticMessage: 'database foreign key violation at the table ' + ex.table + '/' + ex.index
+          staticMessage:
+            "database foreign key violation at the table " +
+            ex.table +
+            "/" +
+            ex.index,
         })
       } else throw ex
     }
 
-    eventHandler.countEvent('dispatched action:' + actionType)
+    eventHandler.countEvent("dispatched action:" + actionType)
   } catch (ex) {
     if (ex instanceof ApplyActionException) {
       throw new ApplyActionException({
-        staticMessage: 'error during dispatching ' + actionType + ': ' + ex.staticMessage,
-        dynamicMessage: ex.dynamicMessage ? 'error during dispatching ' + actionType + ': ' + ex.dynamicMessage : undefined
+        staticMessage:
+          "error during dispatching " + actionType + ": " + ex.staticMessage,
+        dynamicMessage: ex.dynamicMessage
+          ? "error during dispatching " + actionType + ": " + ex.dynamicMessage
+          : undefined,
       })
     } else throw ex
   }

@@ -4,8 +4,6 @@
 https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeAction
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedAppLogicAction.schema.json\*](SerializedAppLogicAction.schema.json "open original schema") |
@@ -26,17 +24,15 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTime
 
 ## type
 
-
-
 `type`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeAction/properties/type")
+- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeAction/properties/type")
 
 ### type Type
 
@@ -52,17 +48,15 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTime
 
 ## categoryId
 
-
-
 `categoryId`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeaction-properties-categoryid.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeAction/properties/categoryId")
+- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeaction-properties-categoryid.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeAction/properties/categoryId")
 
 ### categoryId Type
 
@@ -70,17 +64,15 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTime
 
 ## day
 
-
-
 `day`
 
-* is required
+- is required
 
-* Type: `number`
+- Type: `number`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeaction-properties-day.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeAction/properties/day")
+- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeaction-properties-day.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeAction/properties/day")
 
 ### day Type
 
@@ -88,17 +80,15 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTime
 
 ## timeToAdd
 
-
-
 `timeToAdd`
 
-* is required
+- is required
 
-* Type: `number`
+- Type: `number`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeaction-properties-timetoadd.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeAction/properties/timeToAdd")
+- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeaction-properties-timetoadd.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeAction/properties/timeToAdd")
 
 ### timeToAdd Type
 
@@ -106,17 +96,15 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTime
 
 ## extraTimeToSubtract
 
-
-
 `extraTimeToSubtract`
 
-* is required
+- is required
 
-* Type: `number`
+- Type: `number`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeaction-properties-extratimetosubtract.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeAction/properties/extraTimeToSubtract")
+- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeaction-properties-extratimetosubtract.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeAction/properties/extraTimeToSubtract")
 
 ### extraTimeToSubtract Type
 

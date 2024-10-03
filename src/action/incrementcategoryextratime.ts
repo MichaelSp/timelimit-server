@@ -15,31 +15,55 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily, assertSafeInteger, throwOutOfRange } from './meta/util'
+import { ParentAction } from "./basetypes"
+import {
+  assertIdWithinFamily,
+  assertSafeInteger,
+  throwOutOfRange,
+} from "./meta/util"
 
-const actionType = 'IncrementCategoryExtraTimeAction'
+const actionType = "IncrementCategoryExtraTimeAction"
 
 export class IncrementCategoryExtraTimeAction extends ParentAction {
   readonly categoryId: string
   readonly addedExtraTime: number
   readonly day: number
 
-  constructor ({ categoryId, addedExtraTime, day }: {categoryId: string, addedExtraTime: number, day: number}) {
+  constructor({
+    categoryId,
+    addedExtraTime,
+    day,
+  }: {
+    categoryId: string
+    addedExtraTime: number
+    day: number
+  }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'categoryId', value: categoryId })
+    assertIdWithinFamily({
+      actionType,
+      field: "categoryId",
+      value: categoryId,
+    })
 
-    assertSafeInteger({ actionType, field: 'addedExtraTime', value: addedExtraTime })
+    assertSafeInteger({
+      actionType,
+      field: "addedExtraTime",
+      value: addedExtraTime,
+    })
 
     if (addedExtraTime < 0) {
-      throwOutOfRange({ actionType, field: 'addedExtraTime', value: addedExtraTime })
+      throwOutOfRange({
+        actionType,
+        field: "addedExtraTime",
+        value: addedExtraTime,
+      })
     }
 
-    assertSafeInteger({ actionType, field: 'day', value: day })
+    assertSafeInteger({ actionType, field: "day", value: day })
 
     if (day < -1) {
-      throwOutOfRange({ actionType, field: 'day', value: day })
+      throwOutOfRange({ actionType, field: "day", value: day })
     }
 
     this.categoryId = categoryId
@@ -47,13 +71,20 @@ export class IncrementCategoryExtraTimeAction extends ParentAction {
     this.day = day
   }
 
-  static parse = ({ categoryId, addedExtraTime, day }: SerializedIncrementCategoryExtraTimeAction) => (
-    new IncrementCategoryExtraTimeAction({ categoryId, addedExtraTime, day: day ?? -1 })
-  )
+  static parse = ({
+    categoryId,
+    addedExtraTime,
+    day,
+  }: SerializedIncrementCategoryExtraTimeAction) =>
+    new IncrementCategoryExtraTimeAction({
+      categoryId,
+      addedExtraTime,
+      day: day ?? -1,
+    })
 }
 
 export interface SerializedIncrementCategoryExtraTimeAction {
-  type: 'INCREMENT_CATEGORY_EXTRATIME'
+  type: "INCREMENT_CATEGORY_EXTRATIME"
   categoryId: string
   addedExtraTime: number
   day?: number

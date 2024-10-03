@@ -15,26 +15,32 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ApplyActionException } from './index'
+import { ApplyActionException } from "./index"
 
 export class SelfLimitationException extends ApplyActionException {}
 
 export class CanNotModifyOtherUsersBySelfLimitationException extends SelfLimitationException {
-  constructor () {
-    super({ staticMessage: 'can not modify other users with the self limitation' })
+  constructor() {
+    super({
+      staticMessage: "can not modify other users with the self limitation",
+    })
   }
 }
 
 export class ActionNotSupportedBySelfLimitationException extends SelfLimitationException {
-  constructor () {
-    super({ staticMessage: 'can not dispatch this action with the self limitation' })
+  constructor() {
+    super({
+      staticMessage: "can not dispatch this action with the self limitation",
+    })
   }
 }
 
 export class SelfLimitNotPossibleException extends SelfLimitationException {}
 
 export class CanNotRelaxRestrictionsSelfLimitException extends SelfLimitationException {
-  constructor () {
-    super({ staticMessage: 'can not relax restrictions with the self limitation' })
+  constructor() {
+    super({
+      staticMessage: "can not relax restrictions with the self limitation",
+    })
   }
 }

@@ -15,21 +15,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SendKeyRequestAction } from '../../../../action'
-import { Cache } from '../cache'
-import { SourceFamilyNotFoundException } from '../exception/illegal-state'
+import { SendKeyRequestAction } from "../../../../action"
+import { Cache } from "../cache"
+import { SourceFamilyNotFoundException } from "../exception/illegal-state"
 
-export async function dispatchSendKeyRequestAction ({ action, cache, deviceId }: {
+export async function dispatchSendKeyRequestAction({
+  action,
+  cache,
+  deviceId,
+}: {
   deviceId: string
   action: SendKeyRequestAction
   cache: Cache
 }) {
   const familyEntryUnsafe = await cache.database.family.findOne({
     where: {
-      familyId: cache.familyId
+      familyId: cache.familyId,
     },
     transaction: cache.transaction,
-    attributes: ['nextServerKeyRequestSeq']
+    attributes: ["nextServerKeyRequestSeq"],
   })
 
   if (!familyEntryUnsafe) {
@@ -38,14 +42,19 @@ export async function dispatchSendKeyRequestAction ({ action, cache, deviceId }:
 
   const serverSequenceNumber = familyEntryUnsafe.nextServerKeyRequestSeq
 
-  await cache.database.family.update({
-    nextServerKeyRequestSeq: (parseInt(serverSequenceNumber, 10) + 1).toString(10)
-  }, {
-    where: {
-      familyId: cache.familyId
+  await cache.database.family.update(
+    {
+      nextServerKeyRequestSeq: (
+        parseInt(serverSequenceNumber, 10) + 1
+      ).toString(10),
     },
-    transaction: cache.transaction
-  })
+    {
+      where: {
+        familyId: cache.familyId,
+      },
+      transaction: cache.transaction,
+    },
+  )
 
   await cache.database.keyRequest.destroy({
     where: {
@@ -53,24 +62,27 @@ export async function dispatchSendKeyRequestAction ({ action, cache, deviceId }:
       senderDeviceId: deviceId,
       type: action.type,
       deviceId: action.deviceId || null,
-      categoryId: action.categoryId || null
+      categoryId: action.categoryId || null,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
-  await cache.database.keyRequest.create({
-    familyId: cache.familyId,
-    serverSequenceNumber: serverSequenceNumber,
-    senderDeviceId: deviceId,
-    senderSequenceNumber: action.deviceSequenceNumber.toString(10),
-    deviceId: action.deviceId || null,
-    categoryId: action.categoryId || null,
-    type: action.type,
-    tempKey: action.tempKey,
-    signature: action.signature
-  }, {
-    transaction: cache.transaction
-  })
+  await cache.database.keyRequest.create(
+    {
+      familyId: cache.familyId,
+      serverSequenceNumber: serverSequenceNumber,
+      senderDeviceId: deviceId,
+      senderSequenceNumber: action.deviceSequenceNumber.toString(10),
+      deviceId: action.deviceId || null,
+      categoryId: action.categoryId || null,
+      type: action.type,
+      tempKey: action.tempKey,
+      signature: action.signature,
+    },
+    {
+      transaction: cache.transaction,
+    },
+  )
 
   cache.incrementTriggeredSyncLevel(2)
 }

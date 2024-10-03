@@ -15,17 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ReportU2fLoginAction } from '../../../../action'
-import { Cache } from '../cache'
-import { ApplyActionUnacceptableAuthMethodException } from '../exception/auth'
-import { AuthenticationMethod } from '../types'
+import { ReportU2fLoginAction } from "../../../../action"
+import { Cache } from "../cache"
+import { ApplyActionUnacceptableAuthMethodException } from "../exception/auth"
+import { AuthenticationMethod } from "../types"
 
-export async function dispatchReportU2fLogin ({ authentication }: {
+export async function dispatchReportU2fLogin({
+  authentication,
+}: {
   action: ReportU2fLoginAction
   cache: Cache
   authentication: AuthenticationMethod
 }) {
-  if (authentication !== 'u2f') {
+  if (authentication !== "u2f") {
     throw new ApplyActionUnacceptableAuthMethodException()
   }
 

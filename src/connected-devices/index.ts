@@ -15,17 +15,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { EventEmitter } from 'events'
-import { Database } from '../database'
+import { EventEmitter } from "events"
+import { Database } from "../database"
 
 export class ConnectedDevicesManager {
   private deviceConnectionCounters = new Map<string, number>()
   // event name = key, value = boolean/ isConnected
   deviceConnectionChangeEmitter = new EventEmitter()
 
-  static buildKey = ({ familyId, deviceId }: {familyId: string, deviceId: string}) => `${familyId}_${deviceId}`
+  static buildKey = ({
+    familyId,
+    deviceId,
+  }: {
+    familyId: string
+    deviceId: string
+  }) => `${familyId}_${deviceId}`
 
-  reportDeviceConnected = ({ key }: {key: string}) => {
+  reportDeviceConnected = ({ key }: { key: string }) => {
     const oldValue = this.deviceConnectionCounters.get(key) || 0
     const newValue = oldValue + 1
 
@@ -36,7 +42,7 @@ export class ConnectedDevicesManager {
     }
   }
 
-  reportDeviceDisconnected = ({ key }: {key: string}) => {
+  reportDeviceDisconnected = ({ key }: { key: string }) => {
     const oldValue = this.deviceConnectionCounters.get(key) || 0
     const newValue = Math.max(0, oldValue - 1)
 
@@ -51,29 +57,40 @@ export class ConnectedDevicesManager {
     }
   }
 
-  isDeviceConnected = ({ key }: {key: string}) => (
+  isDeviceConnected = ({ key }: { key: string }) =>
     this.deviceConnectionCounters.has(key) &&
-    (this.deviceConnectionCounters.get(key) !== 0)
-  )
+    this.deviceConnectionCounters.get(key) !== 0
 }
 
 export class VisibleConnectedDevicesManager {
   connectedDevicesManager = new ConnectedDevicesManager()
   private database: Database
 
-  constructor ({ database }: {
-    database: Database
-  }) {
+  constructor({ database }: { database: Database }) {
     this.database = database
   }
 
   private familyDeviceShareConnectedChangeEmitter = new EventEmitter()
 
-  notifyShareConnectedChanged = ({ familyId, deviceId, showDeviceConnected }: { familyId: string, deviceId: string, showDeviceConnected: boolean }) => {
-    this.familyDeviceShareConnectedChangeEmitter.emit(familyId, { deviceId, showDeviceConnected })
+  notifyShareConnectedChanged = ({
+    familyId,
+    deviceId,
+    showDeviceConnected,
+  }: {
+    familyId: string
+    deviceId: string
+    showDeviceConnected: boolean
+  }) => {
+    this.familyDeviceShareConnectedChangeEmitter.emit(familyId, {
+      deviceId,
+      showDeviceConnected,
+    })
   }
 
-  observeConnectedDevicesOfFamily = ({ familyId, listener }: {
+  observeConnectedDevicesOfFamily = ({
+    familyId,
+    listener,
+  }: {
     familyId: string
     listener: (deviceIds: Array<string>) => void
   }): {
@@ -104,12 +121,17 @@ export class VisibleConnectedDevicesManager {
       listener(result)
     }
 
-    const addDevice = ({ deviceId, showDeviceConnected }: {
+    const addDevice = ({
+      deviceId,
+      showDeviceConnected,
+    }: {
       deviceId: string
       showDeviceConnected: boolean
     }) => {
       const key = ConnectedDevicesManager.buildKey({ familyId, deviceId })
-      const isConnected = this.connectedDevicesManager.isDeviceConnected({ key })
+      const isConnected = this.connectedDevicesManager.isDeviceConnected({
+        key,
+      })
 
       if (!observesDevices.has(deviceId)) {
         observesDevices.add(deviceId)
@@ -141,10 +163,16 @@ export class VisibleConnectedDevicesManager {
             }
           }
 
-          this.connectedDevicesManager.deviceConnectionChangeEmitter.addListener(key, listener)
+          this.connectedDevicesManager.deviceConnectionChangeEmitter.addListener(
+            key,
+            listener,
+          )
 
           shutdownHooks.push(() => {
-            this.connectedDevicesManager.deviceConnectionChangeEmitter.removeListener(key, listener)
+            this.connectedDevicesManager.deviceConnectionChangeEmitter.removeListener(
+              key,
+              listener,
+            )
           })
         }
       }
@@ -176,37 +204,50 @@ export class VisibleConnectedDevicesManager {
     ;(async () => {
       const devicesUnsafe = await this.database.device.findAll({
         where: {
-          familyId
+          familyId,
         },
-        attributes: [
-          'deviceId',
-          'showDeviceConnected'
-        ]
+        attributes: ["deviceId", "showDeviceConnected"],
       })
 
-      const devices = devicesUnsafe.map(({ deviceId, showDeviceConnected }) => ({
-        deviceId, showDeviceConnected
-      }))
+      const devices = devicesUnsafe.map(
+        ({ deviceId, showDeviceConnected }) => ({
+          deviceId,
+          showDeviceConnected,
+        }),
+      )
 
       devices.forEach(({ deviceId, showDeviceConnected }) => {
         addDevice({ deviceId, showDeviceConnected })
       })
-    })().catch(() => { /* ignore */ })
+    })().catch(() => {
+      /* ignore */
+    })
 
     {
       // add all new devices + apply changes of sharing
-      const listener = ({ deviceId, showDeviceConnected }: {
+      const listener = ({
+        deviceId,
+        showDeviceConnected,
+      }: {
         deviceId: string
         showDeviceConnected: boolean
       }) => {
         addDevice({
           deviceId,
-          showDeviceConnected
+          showDeviceConnected,
         })
       }
 
-      this.familyDeviceShareConnectedChangeEmitter.addListener(familyId, listener)
-      shutdownHooks.push(() => this.familyDeviceShareConnectedChangeEmitter.removeListener(familyId, listener))
+      this.familyDeviceShareConnectedChangeEmitter.addListener(
+        familyId,
+        listener,
+      )
+      shutdownHooks.push(() =>
+        this.familyDeviceShareConnectedChangeEmitter.removeListener(
+          familyId,
+          listener,
+        ),
+      )
     }
 
     return { shutdown }

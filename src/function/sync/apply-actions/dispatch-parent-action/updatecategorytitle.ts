@@ -15,35 +15,41 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateCategoryTitleAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingCategoryException } from '../exception/missing-item'
+import { UpdateCategoryTitleAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingCategoryException } from "../exception/missing-item"
 
-export async function dispatchUpdateCategoryTitle ({ action, cache }: {
+export async function dispatchUpdateCategoryTitle({
+  action,
+  cache,
+}: {
   action: UpdateCategoryTitleAction
   cache: Cache
 }) {
   const oldCategory = await cache.database.category.findOne({
     where: {
       familyId: cache.familyId,
-      categoryId: action.categoryId
+      categoryId: action.categoryId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!oldCategory) {
     throw new MissingCategoryException()
   }
 
-  const [affectedRows] = await cache.database.category.update({
-    title: action.newTitle
-  }, {
-    where: {
-      familyId: cache.familyId,
-      categoryId: action.categoryId
+  const [affectedRows] = await cache.database.category.update(
+    {
+      title: action.newTitle,
     },
-    transaction: cache.transaction
-  })
+    {
+      where: {
+        familyId: cache.familyId,
+        categoryId: action.categoryId,
+      },
+      transaction: cache.transaction,
+    },
+  )
 
   if (affectedRows !== 0) {
     cache.categoriesWithModifiedBaseData.add(action.categoryId)

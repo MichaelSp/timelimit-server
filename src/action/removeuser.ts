@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'RemoveUserAction'
+const actionType = "RemoveUserAction"
 
 export class RemoveUserAction extends ParentAction {
   readonly userId: string
@@ -27,25 +27,27 @@ export class RemoveUserAction extends ParentAction {
   // this should be the value of sha512(userId + secondPasswordHash + 'remove').substring(0, 16)
   readonly authentication?: string
 
-  constructor ({ userId, authentication }: {
+  constructor({
+    userId,
+    authentication,
+  }: {
     userId: string
     authentication?: string
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'userId', value: userId })
+    assertIdWithinFamily({ actionType, field: "userId", value: userId })
 
     this.userId = userId
     this.authentication = authentication
   }
 
-  static parse = ({ userId, authentication }: SerializedRemoveUserAction) => (
+  static parse = ({ userId, authentication }: SerializedRemoveUserAction) =>
     new RemoveUserAction({ userId, authentication })
-  )
 }
 
 export interface SerializedRemoveUserAction {
-  type: 'REMOVE_USER'
+  type: "REMOVE_USER"
   userId: string
   authentication?: string
 }

@@ -15,32 +15,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'ResetCategoryNetworkIdsAction'
+const actionType = "ResetCategoryNetworkIdsAction"
 
 export class ResetCategoryNetworkIdsAction extends ParentAction {
   readonly categoryId: string
 
-  constructor ({ categoryId }: {
-    categoryId: string
-  }) {
+  constructor({ categoryId }: { categoryId: string }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'categoryId', value: categoryId })
+    assertIdWithinFamily({
+      actionType,
+      field: "categoryId",
+      value: categoryId,
+    })
 
     this.categoryId = categoryId
   }
 
-  static parse = ({ categoryId }: SerializeResetCategoryNetworkIdsAction) => (
+  static parse = ({ categoryId }: SerializeResetCategoryNetworkIdsAction) =>
     new ResetCategoryNetworkIdsAction({
-      categoryId
+      categoryId,
     })
-  )
 }
 
 export interface SerializeResetCategoryNetworkIdsAction {
-  type: 'RESET_CATEGORY_NETWORK_IDS'
+  type: "RESET_CATEGORY_NETWORK_IDS"
   categoryId: string
 }

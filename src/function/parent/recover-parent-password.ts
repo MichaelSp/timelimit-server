@@ -15,16 +15,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Conflict } from 'http-errors'
-import { PlaintextParentPassword, assertPlaintextParentPasswordValid } from '../../api/schema'
-import { Database } from '../../database'
-import { sendPasswordRecoveryUsedMail } from '../../util/mail'
-import { generateVersionId } from '../../util/token'
-import { WebsocketApi } from '../../websocket'
-import { requireMailAndLocaleByAuthToken } from '../authentication'
-import { notifyClientsAboutChangesDelayed } from '../websocket'
+import { Conflict } from "http-errors"
+import {
+  PlaintextParentPassword,
+  assertPlaintextParentPasswordValid,
+} from "../../api/schema"
+import { Database } from "../../database"
+import { sendPasswordRecoveryUsedMail } from "../../util/mail"
+import { generateVersionId } from "../../util/token"
+import { WebsocketApi } from "../../websocket"
+import { requireMailAndLocaleByAuthToken } from "../authentication"
+import { notifyClientsAboutChangesDelayed } from "../websocket"
 
-export const recoverParentPassword = async ({ database, websocket, password, mailAuthToken }: {
+export const recoverParentPassword = async ({
+  database,
+  websocket,
+  password,
+  mailAuthToken,
+}: {
   database: Database
   websocket: WebsocketApi
   password: PlaintextParentPassword
@@ -34,14 +42,19 @@ export const recoverParentPassword = async ({ database, websocket, password, mai
   assertPlaintextParentPasswordValid(password)
 
   await database.transaction(async (transaction) => {
-    const mailInfo = await requireMailAndLocaleByAuthToken({ mailAuthToken, database, transaction, invalidate: true })
+    const mailInfo = await requireMailAndLocaleByAuthToken({
+      mailAuthToken,
+      database,
+      transaction,
+      invalidate: true,
+    })
 
     // update the user entry
     const userEntry = await database.user.findOne({
       where: {
-        mail: mailInfo.mail
+        mail: mailInfo.mail,
       },
-      transaction
+      transaction,
     })
 
     if (!userEntry) {
@@ -55,14 +68,17 @@ export const recoverParentPassword = async ({ database, websocket, password, mai
     await userEntry.save({ transaction })
 
     // invalidate the user list
-    await database.family.update({
-      userListVersion: generateVersionId()
-    }, {
-      where: {
-        familyId: userEntry.familyId
+    await database.family.update(
+      {
+        userListVersion: generateVersionId(),
       },
-      transaction
-    })
+      {
+        where: {
+          familyId: userEntry.familyId,
+        },
+        transaction,
+      },
+    )
 
     await notifyClientsAboutChangesDelayed({
       database,
@@ -71,13 +87,13 @@ export const recoverParentPassword = async ({ database, websocket, password, mai
       generalLevel: 2,
       targetedLevels: new Map(),
       sourceDeviceId: null,
-      transaction
+      transaction,
     })
 
     transaction.afterCommit(async () => {
       await sendPasswordRecoveryUsedMail({
         receiver: mailInfo.mail,
-        locale: mailInfo.locale
+        locale: mailInfo.locale,
       })
     })
   })

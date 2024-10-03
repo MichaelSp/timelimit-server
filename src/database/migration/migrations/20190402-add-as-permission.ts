@@ -15,35 +15,55 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Transaction } from 'sequelize'
-import { attributesVersion8 } from '../../device'
-import { Migration } from '../../main'
+import { Transaction } from "sequelize"
+import { attributesVersion8 } from "../../device"
+import { Migration } from "../../main"
 
-export const up: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.addColumn('Devices', 'asEnabled', {
-      ...attributesVersion8.asEnabled
-    }, {
-      transaction
-    })
+export const up: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.addColumn(
+        "Devices",
+        "asEnabled",
+        {
+          ...attributesVersion8.asEnabled,
+        },
+        {
+          transaction,
+        },
+      )
 
-    await queryInterface.addColumn('Devices', 'wasAsEnabled', {
-      ...attributesVersion8.wasAsEnabled
-    }, {
-      transaction
-    })
-  })
+      await queryInterface.addColumn(
+        "Devices",
+        "wasAsEnabled",
+        {
+          ...attributesVersion8.wasAsEnabled,
+        },
+        {
+          transaction,
+        },
+      )
+    },
+  )
 }
 
-export const down: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.removeColumn('Devices', 'asEnabled', { transaction })
-    await queryInterface.removeColumn('Devices', 'wasAsEnabled', { transaction })
-  })
+export const down: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.removeColumn("Devices", "asEnabled", {
+        transaction,
+      })
+      await queryInterface.removeColumn("Devices", "wasAsEnabled", {
+        transaction,
+      })
+    },
+  )
 }

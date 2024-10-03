@@ -15,9 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { booleanColumn, familyIdColumn, optionalLabelColumn, timestampColumn, versionColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import {
+  booleanColumn,
+  familyIdColumn,
+  optionalLabelColumn,
+  timestampColumn,
+  versionColumn,
+} from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export interface FamilyAttributesVersion1 {
   familyId: string
@@ -38,48 +44,55 @@ export interface FamilyAttributesVersion3 {
 }
 
 export type FamilyAttributes = FamilyAttributesVersion1 &
-  FamilyAttributesVersion2 & FamilyAttributesVersion3
+  FamilyAttributesVersion2 &
+  FamilyAttributesVersion3
 
 export type FamilyModel = Sequelize.Model<FamilyAttributes> & FamilyAttributes
 export type FamilyModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): FamilyModel;
+  new (values?: object, options?: Sequelize.BuildOptions): FamilyModel
 }
 
-export const attributesVersion1: SequelizeAttributes<FamilyAttributesVersion1> = {
-  familyId: {
-    ...familyIdColumn,
-    primaryKey: true
-  },
-  name: { ...optionalLabelColumn },
-  createdAt: { ...timestampColumn },
-  userListVersion: { ...versionColumn },
-  deviceListVersion: { ...versionColumn },
-  fullVersionUntil: { ...timestampColumn },
-  hasFullVersion: { ...booleanColumn }
-}
-
-export const attributesVersion2: SequelizeAttributes<FamilyAttributesVersion2> = {
-  nextServerKeyRequestSeq: {
-    type: Sequelize.BIGINT,
-    allowNull: false,
-    defaultValue: 1,
-    validate: {
-      min: 1
-    }
+export const attributesVersion1: SequelizeAttributes<FamilyAttributesVersion1> =
+  {
+    familyId: {
+      ...familyIdColumn,
+      primaryKey: true,
+    },
+    name: { ...optionalLabelColumn },
+    createdAt: { ...timestampColumn },
+    userListVersion: { ...versionColumn },
+    deviceListVersion: { ...versionColumn },
+    fullVersionUntil: { ...timestampColumn },
+    hasFullVersion: { ...booleanColumn },
   }
-}
 
-export const attributesVersion3: SequelizeAttributes<FamilyAttributesVersion3> = {
-  u2fKeysVersion: {
-    ...versionColumn,
-    defaultValue: '0000'
+export const attributesVersion2: SequelizeAttributes<FamilyAttributesVersion2> =
+  {
+    nextServerKeyRequestSeq: {
+      type: Sequelize.BIGINT,
+      allowNull: false,
+      defaultValue: 1,
+      validate: {
+        min: 1,
+      },
+    },
   }
-}
+
+export const attributesVersion3: SequelizeAttributes<FamilyAttributesVersion3> =
+  {
+    u2fKeysVersion: {
+      ...versionColumn,
+      defaultValue: "0000",
+    },
+  }
 
 export const attributes: SequelizeAttributes<FamilyAttributes> = {
   ...attributesVersion1,
   ...attributesVersion2,
-  ...attributesVersion3
+  ...attributesVersion3,
 }
 
-export const createFamilyModel = (sequelize: Sequelize.Sequelize): FamilyModelStatic => sequelize.define('Family', attributes) as FamilyModelStatic
+export const createFamilyModel = (
+  sequelize: Sequelize.Sequelize,
+): FamilyModelStatic =>
+  sequelize.define("Family", attributes) as FamilyModelStatic

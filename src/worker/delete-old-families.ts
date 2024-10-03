@@ -15,27 +15,37 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Database } from '../database'
-import { deleteOldFamilies } from '../function/cleanup/delete-old-families'
+import { Database } from "../database"
+import { deleteOldFamilies } from "../function/cleanup/delete-old-families"
 
-export function initDeleteOldFamiliesWorker ({ database }: {
+export function initDeleteOldFamiliesWorker({
+  database,
+}: {
   database: Database
 }) {
-  function doWorkSafe () {
-    console.log('deleting old families now')
+  function doWorkSafe() {
+    console.log("deleting old families now")
 
-    deleteOldFamilies(database).then(() => {
-      console.log('finished deleting old families')
-    }).catch((ex) => {
-      console.warn('error deleting old families', ex)
-    })
+    deleteOldFamilies(database)
+      .then(() => {
+        console.log("finished deleting old families")
+      })
+      .catch((ex) => {
+        console.warn("error deleting old families", ex)
+      })
   }
 
-  setTimeout(() => {
-    doWorkSafe()
-
-    setInterval(() => {
+  setTimeout(
+    () => {
       doWorkSafe()
-    }, 1000 * 60 * 60 /* every 4 hours */)
-  }, 1000 * 60 * 23 /* after 23 minutes */)
+
+      setInterval(
+        () => {
+          doWorkSafe()
+        },
+        1000 * 60 * 60 /* every 4 hours */,
+      )
+    },
+    1000 * 60 * 23 /* after 23 minutes */,
+  )
 }

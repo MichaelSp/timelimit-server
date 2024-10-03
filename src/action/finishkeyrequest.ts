@@ -15,30 +15,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AppLogicAction } from './basetypes'
-import { assertSafeInteger } from './meta/util'
+import { AppLogicAction } from "./basetypes"
+import { assertSafeInteger } from "./meta/util"
 
-const actionType = 'FinishKeyRequestAction'
+const actionType = "FinishKeyRequestAction"
 
 export class FinishKeyRequestAction extends AppLogicAction {
   readonly deviceSequenceNumber: number
 
-  constructor ({ deviceSequenceNumber }: { deviceSequenceNumber: number }) {
+  constructor({ deviceSequenceNumber }: { deviceSequenceNumber: number }) {
     super()
 
-    assertSafeInteger({ value: deviceSequenceNumber, field: 'deviceSequenceNumber', actionType })
+    assertSafeInteger({
+      value: deviceSequenceNumber,
+      field: "deviceSequenceNumber",
+      actionType,
+    })
 
     this.deviceSequenceNumber = deviceSequenceNumber
   }
 
-  static parse = ({ dsn }: SerializedFinishKeyRequestAction) => (
+  static parse = ({ dsn }: SerializedFinishKeyRequestAction) =>
     new FinishKeyRequestAction({
       deviceSequenceNumber: dsn,
     })
-  )
 }
 
 export interface SerializedFinishKeyRequestAction {
-  type: 'FINISH_KEY_REQUEST'
+  type: "FINISH_KEY_REQUEST"
   dsn: number
 }

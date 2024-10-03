@@ -22,37 +22,41 @@ export interface ClientDataStatus {
   users: string // userListVersion
   clientLevel?: number
   devicesDetail?: ClientDataStatusDevicesExtended
-  kri?: number  // last key request index
-  kr?: number   // last key response index
-  dh?: string   // last Diffie Hellman key version
-  u2f?: string  // last u2f list version
+  kri?: number // last key request index
+  kr?: number // last key response index
+  dh?: string // last Diffie Hellman key version
+  u2f?: string // last u2f list version
 }
 
-export function createEmptyClientDataStatus({ clientLevel }: {
+export function createEmptyClientDataStatus({
+  clientLevel,
+}: {
   clientLevel: number | null
 }): ClientDataStatus {
   return {
-    devices: '',
+    devices: "",
     apps: {},
     categories: {},
-    users: '',
-    clientLevel: clientLevel || undefined
+    users: "",
+    clientLevel: clientLevel || undefined,
   }
 }
 
-export type ClientDataStatusApps = {[key: string]: string} // installedAppsVersionsByDeviceId
-export type ClientDataStatusCategories = {[key: string]: CategoryDataStatus}
-export type ClientDataStatusDevicesExtended = {[key: string]: DeviceDataStatus}
+export type ClientDataStatusApps = { [key: string]: string } // installedAppsVersionsByDeviceId
+export type ClientDataStatusCategories = { [key: string]: CategoryDataStatus }
+export type ClientDataStatusDevicesExtended = {
+  [key: string]: DeviceDataStatus
+}
 
 export interface CategoryDataStatus {
-  base: string  // baseVersion
-  apps: string  // assignedAppsVersion
-  rules: string  // timeLimitRulesVersion
-  usedTime: string  // usedTimeItemsVersion
-  tasks?: string   // taskListVersion
+  base: string // baseVersion
+  apps: string // assignedAppsVersion
+  rules: string // timeLimitRulesVersion
+  usedTime: string // usedTimeItemsVersion
+  tasks?: string // taskListVersion
 }
 
 export interface DeviceDataStatus {
-  appsB?: string   // encrypted app list base version
-  appsD?: string   // encrypted app list diff version
+  appsB?: string // encrypted app list base version
+  appsD?: string // encrypted app list diff version
 }

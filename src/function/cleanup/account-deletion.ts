@@ -15,15 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Unauthorized } from 'http-errors'
-import { DeleteAccountPayload } from '../../api/schema'
-import { Database } from '../../database'
-import { sendAccountDeletedMail } from '../../util/mail'
-import { WebsocketApi } from '../../websocket'
-import { requireMailAndLocaleByAuthToken } from '../authentication'
-import { deleteFamilies } from './delete-families'
+import { Unauthorized } from "http-errors"
+import { DeleteAccountPayload } from "../../api/schema"
+import { Database } from "../../database"
+import { sendAccountDeletedMail } from "../../util/mail"
+import { WebsocketApi } from "../../websocket"
+import { requireMailAndLocaleByAuthToken } from "../authentication"
+import { deleteFamilies } from "./delete-families"
 
-export async function deleteAccount({ request, database, websocket }: {
+export async function deleteAccount({
+  request,
+  database,
+  websocket,
+}: {
   request: DeleteAccountPayload
   database: Database
   websocket: WebsocketApi
@@ -31,8 +35,8 @@ export async function deleteAccount({ request, database, websocket }: {
   await database.transaction(async (transaction) => {
     const deviceEntryUnsafe = await database.device.findOne({
       where: { deviceAuthToken: request.deviceAuthToken },
-      attributes: ['familyId'],
-      transaction
+      attributes: ["familyId"],
+      transaction,
     })
 
     if (!deviceEntryUnsafe) {
@@ -40,22 +44,24 @@ export async function deleteAccount({ request, database, websocket }: {
     }
 
     const deviceEntry = {
-      familyId: deviceEntryUnsafe.familyId
+      familyId: deviceEntryUnsafe.familyId,
     }
 
-    const userEntries = (await database.user.findAll({
-      where: {
-        familyId: deviceEntry.familyId,
-        type: 'parent'
-      },
-      attributes: ['mail'],
-      transaction
-    })).map((item) => ({ mail: item.mail }))
+    const userEntries = (
+      await database.user.findAll({
+        where: {
+          familyId: deviceEntry.familyId,
+          type: "parent",
+        },
+        attributes: ["mail"],
+        transaction,
+      })
+    ).map((item) => ({ mail: item.mail }))
 
     const registeredMailAddresses = new Set<string>()
 
     userEntries.forEach((item) => {
-      if (item.mail !== '') registeredMailAddresses.add(item.mail)
+      if (item.mail !== "") registeredMailAddresses.add(item.mail)
     })
 
     const authenticatedMailAddresses = new Set<string>()
@@ -65,7 +71,7 @@ export async function deleteAccount({ request, database, websocket }: {
         mailAuthToken,
         database,
         transaction,
-        invalidate: true
+        invalidate: true,
       })
 
       if (!registeredMailAddresses.has(info.mail)) throw new Unauthorized()
@@ -73,33 +79,43 @@ export async function deleteAccount({ request, database, websocket }: {
       authenticatedMailAddresses.add(info.mail)
     }
 
-    if (registeredMailAddresses.size !== authenticatedMailAddresses.size) throw new Unauthorized()
+    if (registeredMailAddresses.size !== authenticatedMailAddresses.size)
+      throw new Unauthorized()
 
     registeredMailAddresses.forEach((mail) => {
       if (!authenticatedMailAddresses.has(mail)) throw new Unauthorized()
     })
 
-    const deviceEntries = (await database.device.findAll({
-      where: {
-        familyId: deviceEntry.familyId
-      },
-      transaction,
-      attributes: ['deviceAuthToken']
-    })).map((item) => ({ deviceAuthToken: item.deviceAuthToken }))
+    const deviceEntries = (
+      await database.device.findAll({
+        where: {
+          familyId: deviceEntry.familyId,
+        },
+        transaction,
+        attributes: ["deviceAuthToken"],
+      })
+    ).map((item) => ({ deviceAuthToken: item.deviceAuthToken }))
 
-    await deleteFamilies({ database, transaction, familiyIds: [deviceEntry.familyId] })
+    await deleteFamilies({
+      database,
+      transaction,
+      familiyIds: [deviceEntry.familyId],
+    })
 
     transaction.afterCommit(() => {
       for (const device of deviceEntries) {
         websocket.triggerSyncByDeviceAuthToken({
           deviceAuthToken: device.deviceAuthToken,
-          isImportant: true
+          isImportant: true,
         })
       }
 
       registeredMailAddresses.forEach((receiver) => {
         sendAccountDeletedMail({ receiver }).catch((ex) => {
-          console.warn('failure while sending account deletion confirmation', ex)
+          console.warn(
+            "failure while sending account deletion confirmation",
+            ex,
+          )
         })
       })
     })

@@ -15,12 +15,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { maxExtraTime, maxTitleLength } from '../database/childtask'
-import { ParentAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
-import { assertIdWithinFamily, assertSafeInteger, throwOutOfRange } from './meta/util'
+import { maxExtraTime, maxTitleLength } from "../database/childtask"
+import { ParentAction } from "./basetypes"
+import { InvalidActionParameterException } from "./meta/exception"
+import {
+  assertIdWithinFamily,
+  assertSafeInteger,
+  throwOutOfRange,
+} from "./meta/util"
 
-const actionType = 'UpdateChildTaskAction'
+const actionType = "UpdateChildTaskAction"
 
 export class UpdateChildTaskAction extends ParentAction {
   readonly isNew: boolean
@@ -29,7 +33,13 @@ export class UpdateChildTaskAction extends ParentAction {
   readonly taskTitle: string
   readonly extraTimeDuration: number
 
-  constructor ({ isNew, taskId, categoryId, taskTitle, extraTimeDuration }: {
+  constructor({
+    isNew,
+    taskId,
+    categoryId,
+    taskTitle,
+    extraTimeDuration,
+  }: {
     isNew: boolean
     taskId: string
     categoryId: string
@@ -38,16 +48,31 @@ export class UpdateChildTaskAction extends ParentAction {
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'taskId', value: taskId })
-    assertIdWithinFamily({ actionType, field: 'categoryId', value: categoryId })
-    assertSafeInteger({ actionType, field: 'extraTimeDuration', value: extraTimeDuration })
+    assertIdWithinFamily({ actionType, field: "taskId", value: taskId })
+    assertIdWithinFamily({
+      actionType,
+      field: "categoryId",
+      value: categoryId,
+    })
+    assertSafeInteger({
+      actionType,
+      field: "extraTimeDuration",
+      value: extraTimeDuration,
+    })
 
-    if (taskTitle === '' || taskTitle.length > maxTitleLength) {
-      throw new InvalidActionParameterException({ actionType, staticMessage: 'invalid title' })
+    if (taskTitle === "" || taskTitle.length > maxTitleLength) {
+      throw new InvalidActionParameterException({
+        actionType,
+        staticMessage: "invalid title",
+      })
     }
 
     if (extraTimeDuration <= 0 || extraTimeDuration > maxExtraTime) {
-      throwOutOfRange({ actionType, field: 'extraTimeDuration', value: extraTimeDuration })
+      throwOutOfRange({
+        actionType,
+        field: "extraTimeDuration",
+        value: extraTimeDuration,
+      })
     }
 
     this.isNew = isNew
@@ -57,13 +82,24 @@ export class UpdateChildTaskAction extends ParentAction {
     this.extraTimeDuration = extraTimeDuration
   }
 
-  static parse = ({ isNew, taskId, categoryId, taskTitle, extraTimeDuration }: SerializedUpdateChildTaskAction) => (
-    new UpdateChildTaskAction({ isNew, taskId, categoryId, taskTitle, extraTimeDuration })
-  )
+  static parse = ({
+    isNew,
+    taskId,
+    categoryId,
+    taskTitle,
+    extraTimeDuration,
+  }: SerializedUpdateChildTaskAction) =>
+    new UpdateChildTaskAction({
+      isNew,
+      taskId,
+      categoryId,
+      taskTitle,
+      extraTimeDuration,
+    })
 }
 
 export interface SerializedUpdateChildTaskAction {
-  type: 'UPDATE_CHILD_TASK'
+  type: "UPDATE_CHILD_TASK"
   isNew: boolean
   taskId: string
   categoryId: string

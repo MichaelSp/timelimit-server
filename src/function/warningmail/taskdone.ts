@@ -15,12 +15,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Database, Transaction } from '../../database'
-import { mailNotificationFlags } from '../../database/user'
-import { sendTaskDoneMail } from '../../util/mail'
-import { canSendTaskDoneMail } from '../../util/ratelimit-taskdonemail'
+import { Database, Transaction } from "../../database"
+import { mailNotificationFlags } from "../../database/user"
+import { sendTaskDoneMail } from "../../util/mail"
+import { canSendTaskDoneMail } from "../../util/ratelimit-taskdonemail"
 
-export const sendTaskDoneMails = async ({ database, familyId, childName, taskTitle, transaction }: {
+export const sendTaskDoneMails = async ({
+  database,
+  familyId,
+  childName,
+  taskTitle,
+  transaction,
+}: {
   database: Database
   familyId: string
   childName: string
@@ -30,23 +36,31 @@ export const sendTaskDoneMails = async ({ database, familyId, childName, taskTit
   const parentEntries = await database.user.findAll({
     where: {
       familyId,
-      type: 'parent'
+      type: "parent",
     },
-    transaction
+    transaction,
   })
 
   const targetMailAddresses = parentEntries
-    .filter((item) => item.mail !== '')
-    .filter((item) => (item.mailNotificationFlags & mailNotificationFlags.tasks) === mailNotificationFlags.tasks)
+    .filter((item) => item.mail !== "")
+    .filter(
+      (item) =>
+        (item.mailNotificationFlags & mailNotificationFlags.tasks) ===
+        mailNotificationFlags.tasks,
+    )
     .map((item) => item.mail)
 
   transaction.afterCommit(async () => {
     await Promise.all(
       targetMailAddresses.map(async (receiver) => {
         if (await canSendTaskDoneMail(receiver)) {
-          await sendTaskDoneMail({ receiver, child: childName, task: taskTitle })
+          await sendTaskDoneMail({
+            receiver,
+            child: childName,
+            task: taskTitle,
+          })
         }
-      })
+      }),
     )
   })
 }

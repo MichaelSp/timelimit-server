@@ -15,13 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { defaultDatabase } from '../database'
-import { deleteOldFamilies } from '../function/cleanup/delete-old-families'
+import { defaultDatabase } from "../database"
+import { deleteOldFamilies } from "../function/cleanup/delete-old-families"
 
 const database = defaultDatabase
 
 deleteOldFamilies(database)
-  .then(() => console.log('done'))
+  .then(() => console.log("done"))
   .catch((ex) => {
     console.warn(ex)
     process.exit(1)

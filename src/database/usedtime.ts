@@ -15,11 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { ValidationException } from '../exception'
-import { MinuteOfDay } from '../util/minuteofday'
-import { familyIdColumn, idWithinFamilyColumn, timestampColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import { ValidationException } from "../exception"
+import { MinuteOfDay } from "../util/minuteofday"
+import {
+  familyIdColumn,
+  idWithinFamilyColumn,
+  timestampColumn,
+} from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export interface UsedTimeAttributesVersion1 {
   familyId: string
@@ -38,84 +42,101 @@ export interface UsedTimeAttributesVersion3 {
 }
 
 export type UsedTimeAttributes = UsedTimeAttributesVersion1 &
-  UsedTimeAttributesVersion2 & UsedTimeAttributesVersion3
+  UsedTimeAttributesVersion2 &
+  UsedTimeAttributesVersion3
 
-export type UsedTimeModel = Sequelize.Model<UsedTimeAttributes> & UsedTimeAttributes
+export type UsedTimeModel = Sequelize.Model<UsedTimeAttributes> &
+  UsedTimeAttributes
 export type UsedTimeModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): UsedTimeModel;
+  new (values?: object, options?: Sequelize.BuildOptions): UsedTimeModel
 }
 
-export const attributesVersion1: SequelizeAttributes<UsedTimeAttributesVersion1> = {
-  familyId: {
-    ...familyIdColumn,
-    primaryKey: true
-  },
-  categoryId: {
-    ...idWithinFamilyColumn,
-    primaryKey: true
-  },
-  dayOfEpoch: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    validate: {
-      min: 0
+export const attributesVersion1: SequelizeAttributes<UsedTimeAttributesVersion1> =
+  {
+    familyId: {
+      ...familyIdColumn,
+      primaryKey: true,
     },
-    primaryKey: true
-  },
-  usedTime: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    validate: {
-      min: 0
-    }
+    categoryId: {
+      ...idWithinFamilyColumn,
+      primaryKey: true,
+    },
+    dayOfEpoch: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 0,
+      },
+      primaryKey: true,
+    },
+    usedTime: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 0,
+      },
+    },
   }
-}
 
-export const attributesVersion2: SequelizeAttributes<UsedTimeAttributesVersion2> = {
-  lastUpdate: {
-    ...timestampColumn,
-    defaultValue: 0
+export const attributesVersion2: SequelizeAttributes<UsedTimeAttributesVersion2> =
+  {
+    lastUpdate: {
+      ...timestampColumn,
+      defaultValue: 0,
+    },
   }
-}
 
-export const attributesVersion3: SequelizeAttributes<UsedTimeAttributesVersion3> = {
-  startMinuteOfDay: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: MinuteOfDay.MIN,
-    primaryKey: true,
-    validate: {
-      min: MinuteOfDay.MIN,
-      max: MinuteOfDay.MAX
-    }
-  },
-  endMinuteOfDay: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: MinuteOfDay.MAX,
-    primaryKey: true,
-    validate: {
-      min: MinuteOfDay.MIN,
-      max: MinuteOfDay.MAX,
-      customValidator (endMinuteOfDay: unknown) {
-        const startMinuteOfDay = this.startMinuteOfDay
+export const attributesVersion3: SequelizeAttributes<UsedTimeAttributesVersion3> =
+  {
+    startMinuteOfDay: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      defaultValue: MinuteOfDay.MIN,
+      primaryKey: true,
+      validate: {
+        min: MinuteOfDay.MIN,
+        max: MinuteOfDay.MAX,
+      },
+    },
+    endMinuteOfDay: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      defaultValue: MinuteOfDay.MAX,
+      primaryKey: true,
+      validate: {
+        min: MinuteOfDay.MIN,
+        max: MinuteOfDay.MAX,
+        customValidator(endMinuteOfDay: unknown) {
+          const startMinuteOfDay = this.startMinuteOfDay
 
-        if (typeof endMinuteOfDay !== 'number' || typeof startMinuteOfDay !== 'number') {
-          throw new ValidationException({ staticMessage: 'wrong data types for start and end minute at the used time' })
-        }
+          if (
+            typeof endMinuteOfDay !== "number" ||
+            typeof startMinuteOfDay !== "number"
+          ) {
+            throw new ValidationException({
+              staticMessage:
+                "wrong data types for start and end minute at the used time",
+            })
+          }
 
-        if (startMinuteOfDay > endMinuteOfDay) {
-          throw new ValidationException({ staticMessage: 'startMinuteOfDay must not be bigger than endMinuteOfDay for a used time' })
-        }
-      }
-    }
+          if (startMinuteOfDay > endMinuteOfDay) {
+            throw new ValidationException({
+              staticMessage:
+                "startMinuteOfDay must not be bigger than endMinuteOfDay for a used time",
+            })
+          }
+        },
+      },
+    },
   }
-}
 
 export const attributes: SequelizeAttributes<UsedTimeAttributesVersion3> = {
   ...attributesVersion1,
   ...attributesVersion2,
-  ...attributesVersion3
+  ...attributesVersion3,
 }
 
-export const createUsedTimeModel = (sequelize: Sequelize.Sequelize): UsedTimeModelStatic => sequelize.define('UsedTime', attributes) as UsedTimeModelStatic
+export const createUsedTimeModel = (
+  sequelize: Sequelize.Sequelize,
+): UsedTimeModelStatic =>
+  sequelize.define("UsedTime", attributes) as UsedTimeModelStatic

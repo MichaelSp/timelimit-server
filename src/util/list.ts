@@ -15,13 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { uniq } from 'lodash'
+import { uniq } from "lodash"
 
-export function hasDuplicates (list: Array<string>): boolean {
+export function hasDuplicates(list: Array<string>): boolean {
   return uniq(list).length !== list.length
 }
 
-export function setToList<T> (set: Set<T>): Array<T> {
+export function setToList<T>(set: Set<T>): Array<T> {
   const result: Array<T> = []
 
   set.forEach((item) => result.push(item))

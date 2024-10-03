@@ -15,36 +15,56 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Transaction } from 'sequelize'
-import { attributesVersion2 as authTokenAttributes } from '../../authtoken'
-import { attributesVersion2 as mailLoginTokenAttributes } from '../../maillogintoken'
-import { Migration } from '../../main'
+import { Transaction } from "sequelize"
+import { attributesVersion2 as authTokenAttributes } from "../../authtoken"
+import { attributesVersion2 as mailLoginTokenAttributes } from "../../maillogintoken"
+import { Migration } from "../../main"
 
-export const up: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.addColumn('AuthTokens', 'locale', {
-      ...authTokenAttributes.locale
-    }, {
-      transaction
-    })
+export const up: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.addColumn(
+        "AuthTokens",
+        "locale",
+        {
+          ...authTokenAttributes.locale,
+        },
+        {
+          transaction,
+        },
+      )
 
-    await queryInterface.addColumn('MailLoginTokens', 'locale', {
-      ...mailLoginTokenAttributes.locale
-    }, {
-      transaction
-    })
-  })
+      await queryInterface.addColumn(
+        "MailLoginTokens",
+        "locale",
+        {
+          ...mailLoginTokenAttributes.locale,
+        },
+        {
+          transaction,
+        },
+      )
+    },
+  )
 }
 
-export const down: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.removeColumn('AuthTokens', 'locale', { transaction })
-    await queryInterface.removeColumn('MailLoginTokens', 'locale', { transaction })
-  })
+export const down: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.removeColumn("AuthTokens", "locale", {
+        transaction,
+      })
+      await queryInterface.removeColumn("MailLoginTokens", "locale", {
+        transaction,
+      })
+    },
+  )
 }

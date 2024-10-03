@@ -15,37 +15,50 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { Database } from '../../database'
-import { configItemIds } from '../../database/config'
+import * as Sequelize from "sequelize"
+import { Database } from "../../database"
+import { configItemIds } from "../../database/config"
 
-export const getStatusMessage = async ({ database, transaction }: {
+export const getStatusMessage = async ({
+  database,
+  transaction,
+}: {
   database: Database
   transaction?: Sequelize.Transaction
 }) => {
-  const currentStatusMessageItem = await database.config.findByPk(configItemIds.statusMessage, { transaction })
-  const currentStatusMessage = (currentStatusMessageItem ? currentStatusMessageItem.value : null) || ''
+  const currentStatusMessageItem = await database.config.findByPk(
+    configItemIds.statusMessage,
+    { transaction },
+  )
+  const currentStatusMessage =
+    (currentStatusMessageItem ? currentStatusMessageItem.value : null) || ""
 
   return currentStatusMessage
 }
 
-export const setStatusMessage = async ({ database, newStatusMessage }: {
+export const setStatusMessage = async ({
+  database,
+  newStatusMessage,
+}: {
   database: Database
   newStatusMessage: string
 }) => {
   await database.transaction(async (transaction) => {
-    if (newStatusMessage === '') {
+    if (newStatusMessage === "") {
       await database.config.destroy({
         where: {
-          id: configItemIds.statusMessage
+          id: configItemIds.statusMessage,
         },
-        transaction
+        transaction,
       })
     } else {
-      await database.config.upsert({
-        id: configItemIds.statusMessage,
-        value: newStatusMessage
-      }, { transaction })
+      await database.config.upsert(
+        {
+          id: configItemIds.statusMessage,
+          value: newStatusMessage,
+        },
+        { transaction },
+      )
     }
   })
 }

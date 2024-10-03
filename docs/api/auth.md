@@ -37,11 +37,11 @@ If the rate limit was exceeded: HTTP status code 429 Too Many Requests
 
 If a deviceAuthToken was sent which is invalid: HTTP status code 401 Unauthorized
 
-If a whitelist was configured and the mail address is not within it: ``{"mailAddressNotWhitelisted": true}``
+If a whitelist was configured and the mail address is not within it: `{"mailAddressNotWhitelisted": true}`
 
-If a blacklist was configured and the mail server is within it: ``{"mailServerBlacklisted": true}``
+If a blacklist was configured and the mail server is within it: `{"mailServerBlacklisted": true}`
 
-On success: a object with a ``mailLoginToken`` of the type string
+On success: a object with a `mailLoginToken` of the type string
 
 #### example response
 
@@ -82,8 +82,8 @@ If the mail login token is unknown: HTTP status code 410 Gone
 
 If the received code is wrong and it can be tried again: HTTP status code 403 Forbidden
 
-On success: A object with a ``mailAuthToken`` of the type string
+On success: A object with a `mailAuthToken` of the type string
 
 #### example response
 
-``{"mailAuthToken": "wthdktjdejd"}``
+`{"mailAuthToken": "wthdktjdejd"}`

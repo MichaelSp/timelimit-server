@@ -15,37 +15,42 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'UpdateNetworkTimeVerificationAction'
+const actionType = "UpdateNetworkTimeVerificationAction"
 
 export class UpdateNetworkTimeVerificationAction extends ParentAction {
   readonly deviceId: string
-  readonly mode: 'disabled' | 'if possible' | 'enabled'
+  readonly mode: "disabled" | "if possible" | "enabled"
 
-  constructor ({ deviceId, mode }: {
+  constructor({
+    deviceId,
+    mode,
+  }: {
     deviceId: string
-    mode: 'disabled' | 'if possible' | 'enabled'
+    mode: "disabled" | "if possible" | "enabled"
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'deviceId', value: deviceId })
+    assertIdWithinFamily({ actionType, field: "deviceId", value: deviceId })
 
     this.deviceId = deviceId
     this.mode = mode
   }
 
-  static parse = ({ deviceId, mode }: SerialiizedUpdateNetworkTimeVerificationAction) => (
+  static parse = ({
+    deviceId,
+    mode,
+  }: SerialiizedUpdateNetworkTimeVerificationAction) =>
     new UpdateNetworkTimeVerificationAction({
       deviceId,
-      mode
+      mode,
     })
-  )
 }
 
 export interface SerialiizedUpdateNetworkTimeVerificationAction {
-  type: 'UPDATE_NETWORK_TIME_VERIFICATION'
+  type: "UPDATE_NETWORK_TIME_VERIFICATION"
   deviceId: string
-  mode: 'disabled' | 'if possible' | 'enabled'
+  mode: "disabled" | "if possible" | "enabled"
 }

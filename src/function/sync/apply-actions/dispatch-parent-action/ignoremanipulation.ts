@@ -15,20 +15,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { IgnoreManipulationAction } from '../../../../action'
-import { Cache } from '../cache'
-import { SourceDeviceNotFoundException } from '../exception/illegal-state'
+import { IgnoreManipulationAction } from "../../../../action"
+import { Cache } from "../cache"
+import { SourceDeviceNotFoundException } from "../exception/illegal-state"
 
-export async function dispatchIgnoreManipulation ({ action, cache }: {
+export async function dispatchIgnoreManipulation({
+  action,
+  cache,
+}: {
   action: IgnoreManipulationAction
   cache: Cache
 }) {
   const deviceEntry = await cache.database.device.findOne({
     where: {
       familyId: cache.familyId,
-      deviceId: action.deviceId
+      deviceId: action.deviceId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (deviceEntry === null) {
@@ -48,11 +51,13 @@ export async function dispatchIgnoreManipulation ({ action, cache }: {
   }
 
   if (action.ignoreNotificationAccessManipulation) {
-    deviceEntry.highestNotificationAccessPermission = deviceEntry.currentNotificationAccessPermission
+    deviceEntry.highestNotificationAccessPermission =
+      deviceEntry.currentNotificationAccessPermission
   }
 
   if (action.ignoreUsageStatsAccessManipulation) {
-    deviceEntry.highestUsageStatsPermission = deviceEntry.currentUsageStatsPermission
+    deviceEntry.highestUsageStatsPermission =
+      deviceEntry.currentUsageStatsPermission
   }
 
   if (action.ignoreOverlayPermissionManipulation) {
@@ -72,7 +77,8 @@ export async function dispatchIgnoreManipulation ({ action, cache }: {
   }
 
   if (action.ignoreHadManipulationFlags !== 0) {
-    const newFlags = deviceEntry.hadManipulationFlags & (~action.ignoreHadManipulationFlags)
+    const newFlags =
+      deviceEntry.hadManipulationFlags & ~action.ignoreHadManipulationFlags
 
     deviceEntry.hadManipulationFlags = newFlags
 
@@ -82,7 +88,8 @@ export async function dispatchIgnoreManipulation ({ action, cache }: {
   }
 
   if (action.ignoreManipulationFlags !== 0) {
-    deviceEntry.manipulationFlags = deviceEntry.manipulationFlags & (~action.ignoreManipulationFlags)
+    deviceEntry.manipulationFlags =
+      deviceEntry.manipulationFlags & ~action.ignoreManipulationFlags
   }
 
   await deviceEntry.save({ transaction: cache.transaction })

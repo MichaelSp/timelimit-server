@@ -15,9 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Sequelize } from "sequelize";
-import { SequelizeStorage, Umzug } from "umzug";
-require('ts-node/register')
+import { Sequelize } from "sequelize"
+import { SequelizeStorage, Umzug } from "umzug"
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+require("ts-node/register")
 
 export const createUmzug = (sequelize: Sequelize) =>
   new Umzug({
@@ -27,4 +29,4 @@ export const createUmzug = (sequelize: Sequelize) =>
       glob: "src/database/migration/migrations/*.ts",
     },
     logger: console,
-  });
+  })

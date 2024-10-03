@@ -15,9 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export { canDoNextPurchase } from './can-do-next-purchase'
-export { requireFamilyEntry } from './require-family-entry'
+export { canDoNextPurchase } from "./can-do-next-purchase"
+export { requireFamilyEntry } from "./require-family-entry"
 export {
-  isGooglePlayPurchaseSignatureValid, areGooglePlayPaymentsPossible, googlePlayPublicKey
-} from './verification'
-export { addPurchase } from './add-purchase'
+  isGooglePlayPurchaseSignatureValid,
+  areGooglePlayPaymentsPossible,
+  googlePlayPublicKey,
+} from "./verification"
+export { addPurchase } from "./add-purchase"

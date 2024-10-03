@@ -4,8 +4,6 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLimitLoginCategory
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -24,17 +22,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLim
 
 ## type
 
-
-
 `type`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserlimitlogincategory-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLimitLoginCategory/properties/type")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserlimitlogincategory-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLimitLoginCategory/properties/type")
 
 ### type Type
 
@@ -50,17 +46,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLim
 
 ## userId
 
-
-
 `userId`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserlimitlogincategory-properties-userid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLimitLoginCategory/properties/userId")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserlimitlogincategory-properties-userid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLimitLoginCategory/properties/userId")
 
 ### userId Type
 
@@ -68,17 +62,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLim
 
 ## categoryId
 
-
-
 `categoryId`
 
-* is optional
+- is optional
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserlimitlogincategory-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLimitLoginCategory/properties/categoryId")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserlimitlogincategory-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLimitLoginCategory/properties/categoryId")
 
 ### categoryId Type
 

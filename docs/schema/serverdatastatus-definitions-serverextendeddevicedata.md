@@ -4,8 +4,6 @@
 https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [ServerDataStatus.schema.json\*](ServerDataStatus.schema.json "open original schema") |
@@ -24,17 +22,15 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData
 
 ## deviceId
 
-
-
 `deviceId`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [ServerDataStatus](serverdatastatus-definitions-serverextendeddevicedata-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData/properties/deviceId")
+- defined in: [ServerDataStatus](serverdatastatus-definitions-serverextendeddevicedata-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData/properties/deviceId")
 
 ### deviceId Type
 
@@ -42,17 +38,15 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData
 
 ## appsBase
 
-
-
 `appsBase`
 
-* is optional
+- is optional
 
-* Type: `object` ([ServerCryptContainer](serverdatastatus-definitions-servercryptcontainer.md))
+- Type: `object` ([ServerCryptContainer](serverdatastatus-definitions-servercryptcontainer.md))
 
-* cannot be null
+- cannot be null
 
-* defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer.md "https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData/properties/appsBase")
+- defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer.md "https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData/properties/appsBase")
 
 ### appsBase Type
 
@@ -60,17 +54,15 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData
 
 ## appsDiff
 
-
-
 `appsDiff`
 
-* is optional
+- is optional
 
-* Type: `object` ([ServerCryptContainer](serverdatastatus-definitions-servercryptcontainer.md))
+- Type: `object` ([ServerCryptContainer](serverdatastatus-definitions-servercryptcontainer.md))
 
-* cannot be null
+- cannot be null
 
-* defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer.md "https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData/properties/appsDiff")
+- defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer.md "https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData/properties/appsDiff")
 
 ### appsDiff Type
 

@@ -15,41 +15,54 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'SetParentCategoryAction'
+const actionType = "SetParentCategoryAction"
 
 export class SetParentCategoryAction extends ParentAction {
   readonly categoryId: string
   readonly parentCategory: string
 
-  constructor ({ categoryId, parentCategory }: {
+  constructor({
+    categoryId,
+    parentCategory,
+  }: {
     categoryId: string
     parentCategory: string
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'categoryId', value: categoryId })
+    assertIdWithinFamily({
+      actionType,
+      field: "categoryId",
+      value: categoryId,
+    })
 
-    if (parentCategory !== '') {
-      assertIdWithinFamily({ actionType, field: 'parentCategory', value: parentCategory })
+    if (parentCategory !== "") {
+      assertIdWithinFamily({
+        actionType,
+        field: "parentCategory",
+        value: parentCategory,
+      })
     }
 
     this.categoryId = categoryId
     this.parentCategory = parentCategory
   }
 
-  static parse = ({ categoryId, parentCategory }: SerializedSetParentCategoryAction) => (
+  static parse = ({
+    categoryId,
+    parentCategory,
+  }: SerializedSetParentCategoryAction) =>
     new SetParentCategoryAction({
       categoryId,
-      parentCategory
+      parentCategory,
     })
-  )
 }
 
 export interface SerializedSetParentCategoryAction {
-  type: 'SET_PARENT_CATEGORY'
+  type: "SET_PARENT_CATEGORY"
   categoryId: string
   parentCategory: string
 }

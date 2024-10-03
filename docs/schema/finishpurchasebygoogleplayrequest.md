@@ -4,8 +4,6 @@
 https://timelimit.io/FinishPurchaseByGooglePlayRequest
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :-------------------------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [FinishPurchaseByGooglePlayRequest.schema.json](FinishPurchaseByGooglePlayRequest.schema.json "open original schema") |
@@ -24,17 +22,15 @@ https://timelimit.io/FinishPurchaseByGooglePlayRequest
 
 ## deviceAuthToken
 
-
-
 `deviceAuthToken`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [FinishPurchaseByGooglePlayRequest](finishpurchasebygoogleplayrequest-properties-deviceauthtoken.md "https://timelimit.io/FinishPurchaseByGooglePlayRequest#/properties/deviceAuthToken")
+- defined in: [FinishPurchaseByGooglePlayRequest](finishpurchasebygoogleplayrequest-properties-deviceauthtoken.md "https://timelimit.io/FinishPurchaseByGooglePlayRequest#/properties/deviceAuthToken")
 
 ### deviceAuthToken Type
 
@@ -42,17 +38,15 @@ https://timelimit.io/FinishPurchaseByGooglePlayRequest
 
 ## receipt
 
-
-
 `receipt`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [FinishPurchaseByGooglePlayRequest](finishpurchasebygoogleplayrequest-properties-receipt.md "https://timelimit.io/FinishPurchaseByGooglePlayRequest#/properties/receipt")
+- defined in: [FinishPurchaseByGooglePlayRequest](finishpurchasebygoogleplayrequest-properties-receipt.md "https://timelimit.io/FinishPurchaseByGooglePlayRequest#/properties/receipt")
 
 ### receipt Type
 
@@ -60,17 +54,15 @@ https://timelimit.io/FinishPurchaseByGooglePlayRequest
 
 ## signature
 
-
-
 `signature`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [FinishPurchaseByGooglePlayRequest](finishpurchasebygoogleplayrequest-properties-signature.md "https://timelimit.io/FinishPurchaseByGooglePlayRequest#/properties/signature")
+- defined in: [FinishPurchaseByGooglePlayRequest](finishpurchasebygoogleplayrequest-properties-signature.md "https://timelimit.io/FinishPurchaseByGooglePlayRequest#/properties/signature")
 
 ### signature Type
 

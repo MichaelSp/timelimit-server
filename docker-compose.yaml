@@ -3,7 +3,7 @@
 
 services:
   api:
-    image: 'ghcr.io/michaelsp/timelimit-server/timelimit:latest'
+    image: "ghcr.io/michaelsp/timelimit-server/timelimit:latest"
     build:
       context: .
     environment:
@@ -12,19 +12,19 @@ services:
       PORT: 8080
       MAIL_SENDER: me@my.timelimit.server
       MAIL_TRANSPORT: '{"host": "localhost", "port": 25}'
-      ALWAYS_PRO: 'yes'
+      ALWAYS_PRO: "yes"
       # put additional config variables here
     ports:
-     - "8080:8080"
+      - "8080:8080"
     restart: always
     links:
-    - database
+      - database
   database:
-    image: 'mariadb:11'
+    image: "mariadb:11"
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: timelimit
       MYSQL_USER: timelimit
       MYSQL_PASSWORD: timelimitpassword
     volumes:
-     - ./.database:/var/lib/mysql
+      - ./.database:/var/lib/mysql

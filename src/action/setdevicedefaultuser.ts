@@ -15,38 +15,47 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'SetDeviceDefaultUserAction'
+const actionType = "SetDeviceDefaultUserAction"
 
 export class SetDeviceDefaultUserAction extends ParentAction {
   readonly deviceId: string
   readonly defaultUserId: string
 
-  constructor ({ deviceId, defaultUserId }: {
+  constructor({
+    deviceId,
+    defaultUserId,
+  }: {
     deviceId: string
     defaultUserId: string
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'deviceId', value: deviceId })
+    assertIdWithinFamily({ actionType, field: "deviceId", value: deviceId })
 
-    if (defaultUserId !== '') {
-      assertIdWithinFamily({ actionType, field: 'defaultUserId', value: defaultUserId })
+    if (defaultUserId !== "") {
+      assertIdWithinFamily({
+        actionType,
+        field: "defaultUserId",
+        value: defaultUserId,
+      })
     }
 
     this.deviceId = deviceId
     this.defaultUserId = defaultUserId
   }
 
-  static parse = ({ deviceId, defaultUserId }: SerializedSetDeviceDefaultUserAction) => (
+  static parse = ({
+    deviceId,
+    defaultUserId,
+  }: SerializedSetDeviceDefaultUserAction) =>
     new SetDeviceDefaultUserAction({ deviceId, defaultUserId })
-  )
 }
 
 export interface SerializedSetDeviceDefaultUserAction {
-  type: 'SET_DEVICE_DEFAULT_USER'
+  type: "SET_DEVICE_DEFAULT_USER"
   deviceId: string
   defaultUserId: string
 }

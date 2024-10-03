@@ -15,27 +15,40 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Transaction } from 'sequelize'
-import { Migration } from '../../main'
-import { attributesVersion3 as ruleAttributes } from '../../timelimitrule'
+import { Transaction } from "sequelize"
+import { Migration } from "../../main"
+import { attributesVersion3 as ruleAttributes } from "../../timelimitrule"
 
-export const up: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    // timelimit rule table
-    await queryInterface.addColumn('TimelimitRules', 'perDay', {
-      ...ruleAttributes.perDay
-    }, { transaction })
-  })
+export const up: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      // timelimit rule table
+      await queryInterface.addColumn(
+        "TimelimitRules",
+        "perDay",
+        {
+          ...ruleAttributes.perDay,
+        },
+        { transaction },
+      )
+    },
+  )
 }
 
-export const down: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.removeColumn('TimelimitRules', 'perDay', { transaction })
-  })
+export const down: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.removeColumn("TimelimitRules", "perDay", {
+        transaction,
+      })
+    },
+  )
 }

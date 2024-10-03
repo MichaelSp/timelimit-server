@@ -15,9 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { familyIdColumn, idWithinFamilyColumn, timestampColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import {
+  familyIdColumn,
+  idWithinFamilyColumn,
+  timestampColumn,
+} from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export interface ChildTaskAttributes {
   familyId: string
@@ -33,35 +37,39 @@ export interface ChildTaskAttributes {
 export const maxExtraTime = 1000 * 60 * 60 * 24
 export const maxTitleLength = 50
 
-export type ChildTaskModel = Sequelize.Model<ChildTaskAttributes> & ChildTaskAttributes
+export type ChildTaskModel = Sequelize.Model<ChildTaskAttributes> &
+  ChildTaskAttributes
 export type ChildTaskModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): ChildTaskModel;
+  new (values?: object, options?: Sequelize.BuildOptions): ChildTaskModel
 }
 
 export const attributes: SequelizeAttributes<ChildTaskAttributes> = {
   familyId: {
     ...familyIdColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   taskId: {
     ...idWithinFamilyColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   categoryId: { ...idWithinFamilyColumn },
   taskTitle: {
     type: Sequelize.STRING(maxTitleLength),
-    allowNull: false
+    allowNull: false,
   },
   extraTimeDuration: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    validate: { min: 1, max: maxExtraTime }
+    validate: { min: 1, max: maxExtraTime },
   },
   pendingRequest: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: false,
   },
-  lastGrantTimestamp: { ...timestampColumn }
+  lastGrantTimestamp: { ...timestampColumn },
 }
 
-export const createChildTaskModel = (sequelize: Sequelize.Sequelize): ChildTaskModelStatic => sequelize.define('ChildTask', attributes) as ChildTaskModelStatic
+export const createChildTaskModel = (
+  sequelize: Sequelize.Sequelize,
+): ChildTaskModelStatic =>
+  sequelize.define("ChildTask", attributes) as ChildTaskModelStatic

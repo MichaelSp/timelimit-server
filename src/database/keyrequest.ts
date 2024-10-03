@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { familyIdColumn, idWithinFamilyColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import { familyIdColumn, idWithinFamilyColumn } from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export interface KeyRequestAttributes {
   familyId: string
@@ -34,54 +34,58 @@ export interface KeyRequestAttributes {
 export const types = {
   appListBase: 1,
   appListDiff: 2,
-  all: [1, 2]
+  all: [1, 2],
 }
 
-export type KeyRequestModel = Sequelize.Model<KeyRequestAttributes> & KeyRequestAttributes
+export type KeyRequestModel = Sequelize.Model<KeyRequestAttributes> &
+  KeyRequestAttributes
 export type KeyRequestModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): KeyRequestModel;
+  new (values?: object, options?: Sequelize.BuildOptions): KeyRequestModel
 }
 
 export const attributes: SequelizeAttributes<KeyRequestAttributes> = {
   familyId: {
     ...familyIdColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   serverSequenceNumber: {
     type: Sequelize.BIGINT,
     primaryKey: true,
-    allowNull: false
+    allowNull: false,
   },
   senderDeviceId: {
-    ...idWithinFamilyColumn
+    ...idWithinFamilyColumn,
   },
   senderSequenceNumber: {
     type: Sequelize.BIGINT,
-    allowNull: false
+    allowNull: false,
   },
   deviceId: {
     ...idWithinFamilyColumn,
-    allowNull: true
+    allowNull: true,
   },
   categoryId: {
     ...idWithinFamilyColumn,
-    allowNull: true
+    allowNull: true,
   },
   type: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-      isIn: [types.all]
-    }
+      isIn: [types.all],
+    },
   },
   tempKey: {
     type: Sequelize.BLOB,
-    allowNull: false
+    allowNull: false,
   },
   signature: {
     type: Sequelize.BLOB,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 }
 
-export const createKeyRequestModel = (sequelize: Sequelize.Sequelize): KeyRequestModelStatic => sequelize.define('KeyRequest', attributes) as KeyRequestModelStatic
+export const createKeyRequestModel = (
+  sequelize: Sequelize.Sequelize,
+): KeyRequestModelStatic =>
+  sequelize.define("KeyRequest", attributes) as KeyRequestModelStatic

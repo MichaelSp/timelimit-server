@@ -15,13 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SetDeviceUserAction, SignOutAtDeviceAction } from '../../../../action'
-import { Cache } from '../cache'
-import { dispatchSetDeviceUser } from '../dispatch-parent-action/setdeviceuser'
-import { IllegalStateException, SourceDeviceNotFoundException } from '../exception/illegal-state'
-import { PremiumVersionMissingException } from '../exception/premium'
+import { SetDeviceUserAction, SignOutAtDeviceAction } from "../../../../action"
+import { Cache } from "../cache"
+import { dispatchSetDeviceUser } from "../dispatch-parent-action/setdeviceuser"
+import {
+  IllegalStateException,
+  SourceDeviceNotFoundException,
+} from "../exception/illegal-state"
+import { PremiumVersionMissingException } from "../exception/premium"
 
-export async function dispatchSignOutAtDevice ({ deviceId, cache }: {
+export async function dispatchSignOutAtDevice({
+  deviceId,
+  cache,
+}: {
   deviceId: string
   action: SignOutAtDeviceAction
   cache: Cache
@@ -33,18 +39,19 @@ export async function dispatchSignOutAtDevice ({ deviceId, cache }: {
   const deviceEntry = await cache.database.device.findOne({
     where: {
       familyId: cache.familyId,
-      deviceId
+      deviceId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!deviceEntry) {
     throw new SourceDeviceNotFoundException()
   }
 
-  if (deviceEntry.defaultUserId === '') {
+  if (deviceEntry.defaultUserId === "") {
     throw new IllegalStateException({
-      staticMessage: 'tried to switch to the default user where it does not exist'
+      staticMessage:
+        "tried to switch to the default user where it does not exist",
     })
   }
 
@@ -53,8 +60,8 @@ export async function dispatchSignOutAtDevice ({ deviceId, cache }: {
       cache,
       action: new SetDeviceUserAction({
         deviceId,
-        userId: deviceEntry.defaultUserId
-      })
+        userId: deviceEntry.defaultUserId,
+      }),
     })
   }
 

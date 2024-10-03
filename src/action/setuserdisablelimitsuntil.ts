@@ -15,30 +15,30 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
-import { assertIdWithinFamily, assertSafeInteger } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { InvalidActionParameterException } from "./meta/exception"
+import { assertIdWithinFamily, assertSafeInteger } from "./meta/util"
 
-const actionType = 'SetUserDisableLimitsUntilAction'
+const actionType = "SetUserDisableLimitsUntilAction"
 
 export class SetUserDisableLimitsUntilAction extends ParentAction {
   readonly childId: string
   readonly timestamp: number
 
-  constructor ({ childId, timestamp }: {
-    childId: string
-    timestamp: number
-  }) {
+  constructor({ childId, timestamp }: { childId: string; timestamp: number }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'childId', value: childId })
-    assertSafeInteger({ actionType, field: 'timestamp', value: timestamp })
+    assertIdWithinFamily({ actionType, field: "childId", value: childId })
+    assertSafeInteger({ actionType, field: "timestamp", value: timestamp })
 
     if (timestamp < 0) {
       throw new InvalidActionParameterException({
         actionType,
-        staticMessage: 'timestamp for set user disabe limits until must be >= 0',
-        dynamicMessage: 'timestamp for set user disabe limits until must be >= 0, but was ' + timestamp
+        staticMessage:
+          "timestamp for set user disabe limits until must be >= 0",
+        dynamicMessage:
+          "timestamp for set user disabe limits until must be >= 0, but was " +
+          timestamp,
       })
     }
 
@@ -46,16 +46,18 @@ export class SetUserDisableLimitsUntilAction extends ParentAction {
     this.timestamp = timestamp
   }
 
-  static parse = ({ childId, time }: SerializedSetUserDisableLimitsUntilAction) => (
+  static parse = ({
+    childId,
+    time,
+  }: SerializedSetUserDisableLimitsUntilAction) =>
     new SetUserDisableLimitsUntilAction({
       childId,
-      timestamp: time
+      timestamp: time,
     })
-  )
 }
 
 export interface SerializedSetUserDisableLimitsUntilAction {
-  type: 'SET_USER_DISABLE_LIMITS_UNTIL'
+  type: "SET_USER_DISABLE_LIMITS_UNTIL"
   childId: string
   time: number
 }

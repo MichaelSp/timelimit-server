@@ -15,5 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export type NewPermissionStatus = 'not granted' | 'not supported' | 'granted'
-export const newPermissionStatusValues: Array<NewPermissionStatus> = ['not granted', 'not supported', 'granted']
+export type NewPermissionStatus = "not granted" | "not supported" | "granted"
+export const newPermissionStatusValues: Array<NewPermissionStatus> = [
+  "not granted",
+  "not supported",
+  "granted",
+]

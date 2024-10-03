@@ -15,117 +15,130 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { uniqBy } from 'lodash'
-import * as Sequelize from 'sequelize'
-import { Database } from '../database'
-import { generateVersionId } from '../util/token'
+import { uniqBy } from "lodash"
+import * as Sequelize from "sequelize"
+import { Database } from "../database"
+import { generateVersionId } from "../util/token"
 
-export function initDeleteOldUsedTimesWorker ({ database }: {
+export function initDeleteOldUsedTimesWorker({
+  database,
+}: {
   database: Database
 }) {
-  function doWorkSafe () {
-    console.log('deleting old used times now')
+  function doWorkSafe() {
+    console.log("deleting old used times now")
 
-    deleteOldUsedTimes({ database }).then(() => {
-      console.log('finished deleting old used times')
-    }).catch((ex) => {
-      console.warn('error deleting old used times', ex)
-    })
+    deleteOldUsedTimes({ database })
+      .then(() => {
+        console.log("finished deleting old used times")
+      })
+      .catch((ex) => {
+        console.warn("error deleting old used times", ex)
+      })
   }
 
-  setTimeout(() => {
-    doWorkSafe()
-
-    setInterval(() => {
+  setTimeout(
+    () => {
       doWorkSafe()
-    }, 1000 * 60 * 30 /* every 30 minutes */)
-  }, 1000 * 60 * 13 /* after 13 minutes */)
+
+      setInterval(
+        () => {
+          doWorkSafe()
+        },
+        1000 * 60 * 30 /* every 30 minutes */,
+      )
+    },
+    1000 * 60 * 13 /* after 13 minutes */,
+  )
 }
 
-async function deleteOldUsedTimes ({ database }: {
-  database: Database
-}) {
+async function deleteOldUsedTimes({ database }: { database: Database }) {
   const now = Date.now()
 
   await database.transaction(async (transaction) => {
     // get matching categories
-    const categoriesToCleanUpOne = (await database.usedTime.findAll({
-      transaction,
-      where: {
-        lastUpdate: {
-          [Sequelize.Op.lt]: (now - 1000 * 60 * 60 * 24 * 10 /* 10 days */).toString()
-        }
-      },
-      attributes: [
-        'familyId',
-        'categoryId'
-      ],
-      limit: 1000,
-      order: [['lastUpdate', 'ASC']]
-    })).map((item) => ({
+    const categoriesToCleanUpOne = (
+      await database.usedTime.findAll({
+        transaction,
+        where: {
+          lastUpdate: {
+            [Sequelize.Op.lt]: (now - 1000 * 60 * 60 * 24 * 10) /* 10 days */
+              .toString(),
+          },
+        },
+        attributes: ["familyId", "categoryId"],
+        limit: 1000,
+        order: [["lastUpdate", "ASC"]],
+      })
+    ).map((item) => ({
       familyId: item.familyId,
-      categoryId: item.categoryId
+      categoryId: item.categoryId,
     }))
 
-    const categoriesToCleanUpTwo = (await database.sessionDuration.findAll({
-      transaction,
-      where: {
-        roundedLastUpdate: {
-          [Sequelize.Op.lt]: (now - 1000 * 60 * 60 * 24 * 3 /* 3 days */).toString()
-        }
-      },
-      attributes: [
-        'familyId',
-        'categoryId'
-      ],
-      limit: 1000,
-      order: [['roundedLastUpdate', 'ASC']]
-    })).map((item) => ({
+    const categoriesToCleanUpTwo = (
+      await database.sessionDuration.findAll({
+        transaction,
+        where: {
+          roundedLastUpdate: {
+            [Sequelize.Op.lt]: (now - 1000 * 60 * 60 * 24 * 3) /* 3 days */
+              .toString(),
+          },
+        },
+        attributes: ["familyId", "categoryId"],
+        limit: 1000,
+        order: [["roundedLastUpdate", "ASC"]],
+      })
+    ).map((item) => ({
       familyId: item.familyId,
-      categoryId: item.categoryId
+      categoryId: item.categoryId,
     }))
 
-    const categoriesToCleanUp = [ ...categoriesToCleanUpOne, ...categoriesToCleanUpTwo ]
+    const categoriesToCleanUp = [
+      ...categoriesToCleanUpOne,
+      ...categoriesToCleanUpTwo,
+    ]
 
-    const distinctCategoriesToCleanUp = uniqBy(categoriesToCleanUp, (item) => item.familyId + '_' + item.categoryId)
+    const distinctCategoriesToCleanUp = uniqBy(
+      categoriesToCleanUp,
+      (item) => item.familyId + "_" + item.categoryId,
+    )
 
     if (distinctCategoriesToCleanUp.length > 0) {
       // delete old items of matching categories
       await database.usedTime.destroy({
         transaction,
         where: {
-          [Sequelize.Op.or]: (
-            distinctCategoriesToCleanUp
-          ),
+          [Sequelize.Op.or]: distinctCategoriesToCleanUp,
           lastUpdate: {
-            [Sequelize.Op.lt]: (now - 1000 * 60 * 60 * 24 * 10 /* 10 days */).toString()
-          }
-        }
+            [Sequelize.Op.lt]: (now - 1000 * 60 * 60 * 24 * 10) /* 10 days */
+              .toString(),
+          },
+        },
       })
 
       await database.sessionDuration.destroy({
         transaction,
         where: {
-          [Sequelize.Op.or]: (
-            distinctCategoriesToCleanUp
-          ),
+          [Sequelize.Op.or]: distinctCategoriesToCleanUp,
           roundedLastUpdate: {
-            [Sequelize.Op.lt]: (now - 1000 * 60 * 60 * 24 * 3 /* 3 days */).toString()
-          }
-        }
+            [Sequelize.Op.lt]: (now - 1000 * 60 * 60 * 24 * 3) /* 3 days */
+              .toString(),
+          },
+        },
       })
 
       // invalidiate categories
-      await database.category.update({
-        usedTimesVersion: generateVersionId()
-      }, {
-        transaction,
-        where: {
-          [Sequelize.Op.or]: (
-            distinctCategoriesToCleanUp
-          )
-        }
-      })
+      await database.category.update(
+        {
+          usedTimesVersion: generateVersionId(),
+        },
+        {
+          transaction,
+          where: {
+            [Sequelize.Op.or]: distinctCategoriesToCleanUp,
+          },
+        },
+      )
     }
   })
 }

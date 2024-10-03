@@ -4,8 +4,6 @@
 https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPassword
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                      |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedChildAction.schema.json\*](SerializedChildAction.schema.json "open original schema") |
@@ -25,17 +23,15 @@ https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPasswor
 
 ## hash
 
-
-
 `hash`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedChildAction](serializedchildaction-definitions-encryptableparentpassword-properties-hash.md "https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPassword/properties/hash")
+- defined in: [SerializedChildAction](serializedchildaction-definitions-encryptableparentpassword-properties-hash.md "https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPassword/properties/hash")
 
 ### hash Type
 
@@ -43,17 +39,15 @@ https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPasswor
 
 ## secondHash
 
-
-
 `secondHash`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedChildAction](serializedchildaction-definitions-encryptableparentpassword-properties-secondhash.md "https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPassword/properties/secondHash")
+- defined in: [SerializedChildAction](serializedchildaction-definitions-encryptableparentpassword-properties-secondhash.md "https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPassword/properties/secondHash")
 
 ### secondHash Type
 
@@ -61,17 +55,15 @@ https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPasswor
 
 ## secondSalt
 
-
-
 `secondSalt`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedChildAction](serializedchildaction-definitions-encryptableparentpassword-properties-secondsalt.md "https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPassword/properties/secondSalt")
+- defined in: [SerializedChildAction](serializedchildaction-definitions-encryptableparentpassword-properties-secondsalt.md "https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPassword/properties/secondSalt")
 
 ### secondSalt Type
 
@@ -79,17 +71,15 @@ https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPasswor
 
 ## encrypted
 
-
-
 `encrypted`
 
-* is optional
+- is optional
 
-* Type: `boolean`
+- Type: `boolean`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedChildAction](serializedchildaction-definitions-encryptableparentpassword-properties-encrypted.md "https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPassword/properties/encrypted")
+- defined in: [SerializedChildAction](serializedchildaction-definitions-encryptableparentpassword-properties-encrypted.md "https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPassword/properties/encrypted")
 
 ### encrypted Type
 

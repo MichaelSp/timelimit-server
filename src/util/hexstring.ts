@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export function checkIfHexString (value: string) {
+export function checkIfHexString(value: string) {
   if (value.length % 2 !== 0) {
     return false
   }
@@ -23,7 +23,7 @@ export function checkIfHexString (value: string) {
   for (let i = 0; i < value.length; i++) {
     const char = value[i]
 
-    if ('0123456789abcdef'.indexOf(char) === -1) {
+    if ("0123456789abcdef".indexOf(char) === -1) {
       return false
     }
   }
@@ -31,9 +31,11 @@ export function checkIfHexString (value: string) {
   return true
 }
 
-export function assertIsHexString (value: string) {
+export function assertIsHexString(value: string) {
   if (!checkIfHexString(value)) {
-    throw new HexStringValidationException('wanted hex string but did not get one')
+    throw new HexStringValidationException(
+      "wanted hex string but did not get one",
+    )
   }
 }
 

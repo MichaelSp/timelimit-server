@@ -15,29 +15,32 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { configItemIds } from '../config'
-import { Database } from '../main'
+import * as Sequelize from "sequelize"
+import { configItemIds } from "../config"
+import { Database } from "../main"
 
 export class SerializationFeatureCheckException extends Error {}
 
-export function shouldRetryWithException (database: Database, e: unknown): boolean {
+export function shouldRetryWithException(
+  database: Database,
+  e: unknown,
+): boolean {
   if (e instanceof Sequelize.TimeoutError) return true
 
   if (!(e instanceof Sequelize.DatabaseError)) return false
 
   const parent = e.parent
 
-  if (database.dialect === 'sqlite') {
-    if (parent.message.startsWith('SQLITE_BUSY:')) return true
-  } else if (database.dialect === 'postgres') {
+  if (database.dialect === "sqlite") {
+    if (parent.message.startsWith("SQLITE_BUSY:")) return true
+  } else if (database.dialect === "postgres") {
     // 40001 = serialization_failure
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if ((parent as any).code === '40001') return true
+    if ((parent as any).code === "40001") return true
     // 40P01 = deadlock detected
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    if ((parent as any).code === '40P01') return true
-  } else if (database.dialect === 'mariadb') {
+    if ((parent as any).code === "40P01") return true
+  } else if (database.dialect === "mariadb") {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errno = (parent as any).errno
 
@@ -49,45 +52,68 @@ export function shouldRetryWithException (database: Database, e: unknown): boole
   return false
 }
 
-export async function assertSerializeableTransactionsAreWorking (database: Database) {
+export async function assertSerializeableTransactionsAreWorking(
+  database: Database,
+) {
   // clean up just for the case
   await database.config.destroy({
     where: {
       id: {
-        [Sequelize.Op.in]: [ configItemIds.selfTestData, configItemIds.secondSelfTestData ]
-      }
-    }
+        [Sequelize.Op.in]: [
+          configItemIds.selfTestData,
+          configItemIds.secondSelfTestData,
+        ],
+      },
+    },
   })
 
   // insert specific data
   await database.config.bulkCreate([
     {
       id: configItemIds.selfTestData,
-      value: '123'
+      value: "123",
     },
     {
       id: configItemIds.secondSelfTestData,
-      value: '456'
-    }
+      value: "456",
+    },
   ])
 
   try {
     // use two parallel transactions
-    await database.transaction(async (transactionOne) => {
-      await database.transaction(async (transactionTwo) => {
-        await database.config.findAll({ transaction: transactionOne })
-        await database.config.findAll({ transaction: transactionTwo })
+    await database.transaction(
+      async (transactionOne) => {
+        await database.transaction(
+          async (transactionTwo) => {
+            await database.config.findAll({ transaction: transactionOne })
+            await database.config.findAll({ transaction: transactionTwo })
 
-        await Promise.all([
-          (async () => {
-            await database.config.update({ value: 'c' }, { where: { id: configItemIds.selfTestData }, transaction: transactionOne })
-          })(),
-          (async () => {
-            await database.config.update({ value: 'd' }, { where: { id: configItemIds.secondSelfTestData }, transaction: transactionTwo })
-          })()
-        ])
-      }, { disableRetry: true })
-    }, { disableRetry: true })
+            await Promise.all([
+              (async () => {
+                await database.config.update(
+                  { value: "c" },
+                  {
+                    where: { id: configItemIds.selfTestData },
+                    transaction: transactionOne,
+                  },
+                )
+              })(),
+              (async () => {
+                await database.config.update(
+                  { value: "d" },
+                  {
+                    where: { id: configItemIds.secondSelfTestData },
+                    transaction: transactionTwo,
+                  },
+                )
+              })(),
+            ])
+          },
+          { disableRetry: true },
+        )
+      },
+      { disableRetry: true },
+    )
 
     throw new SerializationFeatureCheckException()
   } catch (ex) {
@@ -100,8 +126,11 @@ export async function assertSerializeableTransactionsAreWorking (database: Datab
   await database.config.destroy({
     where: {
       id: {
-        [Sequelize.Op.in]: [ configItemIds.selfTestData, configItemIds.secondSelfTestData ]
-      }
-    }
+        [Sequelize.Op.in]: [
+          configItemIds.selfTestData,
+          configItemIds.secondSelfTestData,
+        ],
+      },
+    },
   })
 }

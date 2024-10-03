@@ -15,13 +15,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { CreateCategoryAction } from '../../../../action'
-import { generateVersionId } from '../../../../util/token'
-import { Cache } from '../cache'
-import { MissingUserException } from '../exception/missing-item'
-import { CanNotModifyOtherUsersBySelfLimitationException } from '../exception/self-limit'
+import { CreateCategoryAction } from "../../../../action"
+import { generateVersionId } from "../../../../util/token"
+import { Cache } from "../cache"
+import { MissingUserException } from "../exception/missing-item"
+import { CanNotModifyOtherUsersBySelfLimitationException } from "../exception/self-limit"
 
-export async function dispatchCreateCategory ({ action, cache, fromChildSelfLimitAddChildUserId }: {
+export async function dispatchCreateCategory({
+  action,
+  cache,
+  fromChildSelfLimitAddChildUserId,
+}: {
   action: CreateCategoryAction
   cache: Cache
   fromChildSelfLimitAddChildUserId: string | null
@@ -37,52 +41,55 @@ export async function dispatchCreateCategory ({ action, cache, fromChildSelfLimi
     where: {
       familyId: cache.familyId,
       userId: action.childId,
-      type: 'child'
+      type: "child",
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!childEntry) {
     throw new MissingUserException()
   }
 
-  const oldMaxSort: number = await cache.database.category.max('sort', {
+  const oldMaxSort: number = await cache.database.category.max("sort", {
     transaction: cache.transaction,
     where: {
       familyId: cache.familyId,
-      childId: action.childId
-    }
+      childId: action.childId,
+    },
   })
 
   // if there are no categories, then this is not a number
-  const sort = Number.isSafeInteger(oldMaxSort + 1) ? (oldMaxSort + 1) : 0
+  const sort = Number.isSafeInteger(oldMaxSort + 1) ? oldMaxSort + 1 : 0
 
   // no version number needs to be updated
-  await cache.database.category.create({
-    familyId: cache.familyId,
-    categoryId: action.categoryId,
-    childId: action.childId,
-    title: action.title,
-    blockedMinutesInWeek: '',
-    temporarilyBlocked: false,
-    temporarilyBlockedEndTime: '0',
-    extraTimeInMillis: 0,
-    extraTimeDay: -1,
-    timeLimitRulesVersion: generateVersionId(),
-    baseVersion: generateVersionId(),
-    assignedAppsVersion: generateVersionId(),
-    usedTimesVersion: generateVersionId(),
-    parentCategoryId: '',
-    blockAllNotifications: false,
-    timeWarningFlags: 0,
-    sort,
-    disableLimitsUntil: '0',
-    taskListVersion: generateVersionId(),
-    minBatteryCharging: 0,
-    minBatteryMobile: 0,
-    flags: '0',
-    blockNotificationDelay: '0'
-  }, { transaction: cache.transaction })
+  await cache.database.category.create(
+    {
+      familyId: cache.familyId,
+      categoryId: action.categoryId,
+      childId: action.childId,
+      title: action.title,
+      blockedMinutesInWeek: "",
+      temporarilyBlocked: false,
+      temporarilyBlockedEndTime: "0",
+      extraTimeInMillis: 0,
+      extraTimeDay: -1,
+      timeLimitRulesVersion: generateVersionId(),
+      baseVersion: generateVersionId(),
+      assignedAppsVersion: generateVersionId(),
+      usedTimesVersion: generateVersionId(),
+      parentCategoryId: "",
+      blockAllNotifications: false,
+      timeWarningFlags: 0,
+      sort,
+      disableLimitsUntil: "0",
+      taskListVersion: generateVersionId(),
+      minBatteryCharging: 0,
+      minBatteryMobile: 0,
+      flags: "0",
+      blockNotificationDelay: "0",
+    },
+    { transaction: cache.transaction },
+  )
 
   // update the cache
   cache.doesCategoryExist.cache.set(action.categoryId, true)

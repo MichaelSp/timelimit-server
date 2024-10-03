@@ -15,26 +15,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { StaticMessageException } from '../../exception'
+import { StaticMessageException } from "../../exception"
 
 export class InvalidActionParameterException extends StaticMessageException {
-  constructor ({ actionType, staticMessage, dynamicMessage }: {
+  constructor({
+    actionType,
+    staticMessage,
+    dynamicMessage,
+  }: {
     actionType: string
     staticMessage: string
     dynamicMessage?: string
   }) {
     super({
-      staticMessage: 'invalid action paramters:' + actionType + ':' + staticMessage,
-      dynamicMessage: dynamicMessage ? 'invalid action paramters:' + actionType + ':' + dynamicMessage : undefined
+      staticMessage:
+        "invalid action paramters:" + actionType + ":" + staticMessage,
+      dynamicMessage: dynamicMessage
+        ? "invalid action paramters:" + actionType + ":" + dynamicMessage
+        : undefined,
     })
   }
 }
 
 export class UnknownActionTypeException extends InvalidActionParameterException {
-  constructor ({ group }: { group: string }) {
+  constructor({ group }: { group: string }) {
     super({
       actionType: group,
-      staticMessage: 'unknown action type'
+      staticMessage: "unknown action type",
     })
   }
 }

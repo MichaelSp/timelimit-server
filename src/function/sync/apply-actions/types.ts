@@ -15,4 +15,4 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export type AuthenticationMethod = 'device' | 'password' | 'u2f'
+export type AuthenticationMethod = "device" | "password" | "u2f"

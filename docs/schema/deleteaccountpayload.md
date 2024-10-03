@@ -4,8 +4,6 @@
 https://timelimit.io/DeleteAccountPayload
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                  |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [DeleteAccountPayload.schema.json](DeleteAccountPayload.schema.json "open original schema") |
@@ -23,17 +21,15 @@ https://timelimit.io/DeleteAccountPayload
 
 ## deviceAuthToken
 
-
-
 `deviceAuthToken`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [DeleteAccountPayload](deleteaccountpayload-properties-deviceauthtoken.md "https://timelimit.io/DeleteAccountPayload#/properties/deviceAuthToken")
+- defined in: [DeleteAccountPayload](deleteaccountpayload-properties-deviceauthtoken.md "https://timelimit.io/DeleteAccountPayload#/properties/deviceAuthToken")
 
 ### deviceAuthToken Type
 
@@ -41,17 +37,15 @@ https://timelimit.io/DeleteAccountPayload
 
 ## mailAuthTokens
 
-
-
 `mailAuthTokens`
 
-* is required
+- is required
 
-* Type: `string[]`
+- Type: `string[]`
 
-* cannot be null
+- cannot be null
 
-* defined in: [DeleteAccountPayload](deleteaccountpayload-properties-mailauthtokens.md "https://timelimit.io/DeleteAccountPayload#/properties/mailAuthTokens")
+- defined in: [DeleteAccountPayload](deleteaccountpayload-properties-mailauthtokens.md "https://timelimit.io/DeleteAccountPayload#/properties/mailAuthTokens")
 
 ### mailAuthTokens Type
 

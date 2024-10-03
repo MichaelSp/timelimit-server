@@ -15,14 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MinuteOfDay } from '../util/minuteofday'
-import { assertIdWithinFamily } from '../util/token'
+import { MinuteOfDay } from "../util/minuteofday"
+import { assertIdWithinFamily } from "../util/token"
 
 export class TimelimitRule {
   readonly ruleId: string
   readonly categoryId: string
   readonly maxTimeInMillis: number
-  readonly dayMask: number  // stored as bitmask
+  readonly dayMask: number // stored as bitmask
   readonly applyToExtraTimeUsage: boolean
   readonly start: number
   readonly end: number
@@ -30,10 +30,17 @@ export class TimelimitRule {
   readonly sessionPauseMilliseconds: number
   readonly perDay: boolean
 
-  constructor ({
-    ruleId, categoryId, maxTimeInMillis, dayMask, applyToExtraTimeUsage,
-    start, end, sessionDurationMilliseconds, sessionPauseMilliseconds,
-    perDay
+  constructor({
+    ruleId,
+    categoryId,
+    maxTimeInMillis,
+    dayMask,
+    applyToExtraTimeUsage,
+    start,
+    end,
+    sessionDurationMilliseconds,
+    sessionPauseMilliseconds,
+    perDay,
   }: {
     ruleId: string
     categoryId: string
@@ -60,23 +67,25 @@ export class TimelimitRule {
     assertIdWithinFamily(ruleId)
     assertIdWithinFamily(categoryId)
 
-    if (maxTimeInMillis < 0 || (!Number.isSafeInteger(maxTimeInMillis))) {
-      throw new ParseTimeLimitRuleException('maxTimeInMillis must be >= 0')
-    }
-
-    if (!(
-      Number.isSafeInteger(dayMask) ||
-      dayMask < 0 ||
-      dayMask > (1 | 2 | 4 | 8 | 16 | 32 | 64)
-    )) {
-      throw new ParseTimeLimitRuleException('invalid day mask')
+    if (maxTimeInMillis < 0 || !Number.isSafeInteger(maxTimeInMillis)) {
+      throw new ParseTimeLimitRuleException("maxTimeInMillis must be >= 0")
     }
 
     if (
-      (!Number.isSafeInteger(start)) ||
-      (!Number.isSafeInteger(end)) ||
-      (!Number.isSafeInteger(sessionDurationMilliseconds)) ||
-      (!Number.isSafeInteger(sessionPauseMilliseconds))
+      !(
+        Number.isSafeInteger(dayMask) ||
+        dayMask < 0 ||
+        dayMask > (1 | 2 | 4 | 8 | 16 | 32 | 64)
+      )
+    ) {
+      throw new ParseTimeLimitRuleException("invalid day mask")
+    }
+
+    if (
+      !Number.isSafeInteger(start) ||
+      !Number.isSafeInteger(end) ||
+      !Number.isSafeInteger(sessionDurationMilliseconds) ||
+      !Number.isSafeInteger(sessionPauseMilliseconds)
     ) {
       throw new ParseTimeLimitRuleException()
     }
@@ -99,10 +108,21 @@ export class TimelimitRule {
     start: this.start,
     end: this.end,
     pause: this.sessionPauseMilliseconds,
-    dur: this.sessionDurationMilliseconds
+    dur: this.sessionDurationMilliseconds,
   })
 
-  static parse = ({ ruleId, categoryId, time, days, extraTime, start, end, dur, pause, perDay }: SerializedTimeLimitRule) => (
+  static parse = ({
+    ruleId,
+    categoryId,
+    time,
+    days,
+    extraTime,
+    start,
+    end,
+    dur,
+    pause,
+    perDay,
+  }: SerializedTimeLimitRule) =>
     new TimelimitRule({
       ruleId,
       categoryId,
@@ -113,9 +133,8 @@ export class TimelimitRule {
       end: end ?? MinuteOfDay.MAX,
       sessionDurationMilliseconds: dur ?? 0,
       sessionPauseMilliseconds: pause ?? 0,
-      perDay: perDay ?? false
+      perDay: perDay ?? false,
     })
-  )
 }
 
 export interface SerializedTimeLimitRule {

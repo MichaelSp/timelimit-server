@@ -15,31 +15,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'SetConsiderRebootManipulationAction'
+const actionType = "SetConsiderRebootManipulationAction"
 
 export class SetConsiderRebootManipulationAction extends ParentAction {
   readonly deviceId: string
   readonly enable: boolean
 
-  constructor ({ deviceId, enable }: {deviceId: string, enable: boolean}) {
+  constructor({ deviceId, enable }: { deviceId: string; enable: boolean }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'deviceId', value: deviceId })
+    assertIdWithinFamily({ actionType, field: "deviceId", value: deviceId })
 
     this.deviceId = deviceId
     this.enable = enable
   }
 
-  static parse = ({ deviceId, enable }: SerializedSetConsiderRebootManipulationAction) => (
+  static parse = ({
+    deviceId,
+    enable,
+  }: SerializedSetConsiderRebootManipulationAction) =>
     new SetConsiderRebootManipulationAction({ deviceId, enable })
-  )
 }
 
 export interface SerializedSetConsiderRebootManipulationAction {
-  type: 'SET_CONSIDER_REBOOT_MANIPULATION'
+  type: "SET_CONSIDER_REBOOT_MANIPULATION"
   deviceId: string
   enable: boolean
 }

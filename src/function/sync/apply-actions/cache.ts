@@ -15,15 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { memoize } from 'lodash'
-import * as Sequelize from 'sequelize'
-import { config } from '../../../config'
-import { VisibleConnectedDevicesManager } from '../../../connected-devices'
-import { Database } from '../../../database'
-import { setToList } from '../../../util/list'
-import { generateVersionId } from '../../../util/token'
-import { SourceUserNotFoundException } from './exception/illegal-state'
-import { InvalidChildActionIntegrityValue } from './exception/integrity'
+import { memoize } from "lodash"
+import * as Sequelize from "sequelize"
+import { config } from "../../../config"
+import { VisibleConnectedDevicesManager } from "../../../connected-devices"
+import { Database } from "../../../database"
+import { setToList } from "../../../util/list"
+import { generateVersionId } from "../../../util/token"
+import { SourceUserNotFoundException } from "./exception/illegal-state"
+import { InvalidChildActionIntegrityValue } from "./exception/integrity"
 
 export class Cache {
   readonly familyId: string
@@ -48,7 +48,14 @@ export class Cache {
   triggeredSyncLevel: 0 | 1 | 2 = 0 // 0 = no, 1 = unimportant, 2 = important
   targetedTriggeredSyncLevels = new Map<string, 0 | 1 | 2>()
 
-  constructor ({ familyId, deviceId, hasFullVersion, database, transaction, connectedDevicesManager }: {
+  constructor({
+    familyId,
+    deviceId,
+    hasFullVersion,
+    database,
+    transaction,
+    connectedDevicesManager,
+  }: {
     familyId: string
     deviceId: string
     hasFullVersion: boolean
@@ -71,23 +78,27 @@ export class Cache {
   incrementTargetedTriggeredSyncLevel(deviceId: string, newLevel: 1 | 2) {
     const oldLevel = this.targetedTriggeredSyncLevels.get(deviceId) || 0
 
-    if (newLevel > oldLevel) this.targetedTriggeredSyncLevels.set(deviceId, newLevel)
+    if (newLevel > oldLevel)
+      this.targetedTriggeredSyncLevels.set(deviceId, newLevel)
   }
 
-  async subtransaction<T> (callback: () => Promise<T>): Promise<T> {
+  async subtransaction<T>(callback: () => Promise<T>): Promise<T> {
     const oldTransaction = this.transaction
 
-    return this.database.transaction(async (newTransaction) => {
-      try {
-        this.transaction = newTransaction
+    return this.database.transaction(
+      async (newTransaction) => {
+        try {
+          this.transaction = newTransaction
 
-        const result = await callback()
+          const result = await callback()
 
-        return result
-      } finally {
-        this.transaction = oldTransaction
-      }
-    }, { transaction: oldTransaction })
+          return result
+        } finally {
+          this.transaction = oldTransaction
+        }
+      },
+      { transaction: oldTransaction },
+    )
   }
 
   getSecondPasswordHashOfParent = memoize(async (parentId: string) => {
@@ -95,10 +106,10 @@ export class Cache {
       where: {
         familyId: this.familyId,
         userId: parentId,
-        type: 'parent'
+        type: "parent",
       },
-      attributes: ['secondPasswordHash'],
-      transaction: this.transaction
+      attributes: ["secondPasswordHash"],
+      transaction: this.transaction,
     })
 
     if (!userEntryUnsafe) {
@@ -113,10 +124,10 @@ export class Cache {
       where: {
         familyId: this.familyId,
         userId: childId,
-        type: 'child'
+        type: "child",
       },
-      attributes: ['secondPasswordHash'],
-      transaction: this.transaction
+      attributes: ["secondPasswordHash"],
+      transaction: this.transaction,
     })
 
     if (!userEntryUnsafe) {
@@ -134,9 +145,9 @@ export class Cache {
     const categoryEntry = await this.database.category.findOne({
       where: {
         familyId: this.familyId,
-        categoryId
+        categoryId,
       },
-      transaction: this.transaction
+      transaction: this.transaction,
     })
 
     return !!categoryEntry
@@ -146,145 +157,176 @@ export class Cache {
     const userEntry = await this.database.user.findOne({
       where: {
         familyId: this.familyId,
-        userId
+        userId,
       },
-      transaction: this.transaction
+      transaction: this.transaction,
     })
 
     return !!userEntry
   })
 
   isSenderDoFullSyncTrue = () => this.requireSenderDoFullSync
-  requireSenderFullSync: () => void = () => this.requireSenderDoFullSync = true
+  requireSenderFullSync: () => void = () =>
+    (this.requireSenderDoFullSync = true)
 
-  async saveModifiedVersionNumbers () {
+  async saveModifiedVersionNumbers() {
     const { database, transaction, familyId } = this
 
     if (this.categoriesWithModifiedApps.size > 0) {
-      await database.category.update({
-        assignedAppsVersion: generateVersionId()
-      }, {
-        where: {
-          familyId,
-          categoryId: {
-            [Sequelize.Op.in]: setToList(this.categoriesWithModifiedApps)
-          }
+      await database.category.update(
+        {
+          assignedAppsVersion: generateVersionId(),
         },
-        transaction
-      })
+        {
+          where: {
+            familyId,
+            categoryId: {
+              [Sequelize.Op.in]: setToList(this.categoriesWithModifiedApps),
+            },
+          },
+          transaction,
+        },
+      )
 
       this.categoriesWithModifiedApps.clear()
     }
 
     if (this.categoriesWithModifiedBaseData.size > 0) {
-      await database.category.update({
-        baseVersion: generateVersionId()
-      }, {
-        where: {
-          familyId,
-          categoryId: {
-            [Sequelize.Op.in]: setToList(this.categoriesWithModifiedBaseData)
-          }
+      await database.category.update(
+        {
+          baseVersion: generateVersionId(),
         },
-        transaction
-      })
+        {
+          where: {
+            familyId,
+            categoryId: {
+              [Sequelize.Op.in]: setToList(this.categoriesWithModifiedBaseData),
+            },
+          },
+          transaction,
+        },
+      )
 
       this.categoriesWithModifiedBaseData.clear()
     }
 
     if (this.categoriesWithModifiedTimeLimitRules.size > 0) {
-      await database.category.update({
-        timeLimitRulesVersion: generateVersionId()
-      }, {
-        where: {
-          familyId,
-          categoryId: {
-            [Sequelize.Op.in]: setToList(this.categoriesWithModifiedTimeLimitRules)
-          }
+      await database.category.update(
+        {
+          timeLimitRulesVersion: generateVersionId(),
         },
-        transaction
-      })
+        {
+          where: {
+            familyId,
+            categoryId: {
+              [Sequelize.Op.in]: setToList(
+                this.categoriesWithModifiedTimeLimitRules,
+              ),
+            },
+          },
+          transaction,
+        },
+      )
 
       this.categoriesWithModifiedTimeLimitRules.clear()
     }
 
     if (this.categoriesWithModifiedUsedTimes.size > 0) {
-      await database.category.update({
-        usedTimesVersion: generateVersionId()
-      }, {
-        where: {
-          familyId,
-          categoryId: {
-            [Sequelize.Op.in]: setToList(this.categoriesWithModifiedUsedTimes)
-          }
+      await database.category.update(
+        {
+          usedTimesVersion: generateVersionId(),
         },
-        transaction
-      })
+        {
+          where: {
+            familyId,
+            categoryId: {
+              [Sequelize.Op.in]: setToList(
+                this.categoriesWithModifiedUsedTimes,
+              ),
+            },
+          },
+          transaction,
+        },
+      )
 
       this.categoriesWithModifiedUsedTimes.clear()
     }
 
     if (this.categoriesWithModifiedTasks.size > 0) {
-      await database.category.update({
-        taskListVersion: generateVersionId()
-      }, {
-        where: {
-          familyId,
-          categoryId: {
-            [Sequelize.Op.in]: setToList(this.categoriesWithModifiedTasks)
-          }
+      await database.category.update(
+        {
+          taskListVersion: generateVersionId(),
         },
-        transaction
-      })
+        {
+          where: {
+            familyId,
+            categoryId: {
+              [Sequelize.Op.in]: setToList(this.categoriesWithModifiedTasks),
+            },
+          },
+          transaction,
+        },
+      )
 
       this.categoriesWithModifiedUsedTimes.clear()
     }
 
     if (this.invalidiateUserList) {
-      await database.family.update({
-        userListVersion: generateVersionId()
-      }, {
-        where: {
-          familyId: this.familyId
+      await database.family.update(
+        {
+          userListVersion: generateVersionId(),
         },
-        transaction
-      })
+        {
+          where: {
+            familyId: this.familyId,
+          },
+          transaction,
+        },
+      )
 
       this.invalidiateUserList = false
     }
 
     if (this.invalidiateDeviceList) {
-      await database.family.update({
-        deviceListVersion: generateVersionId()
-      }, {
-        where: {
-          familyId: this.familyId
+      await database.family.update(
+        {
+          deviceListVersion: generateVersionId(),
         },
-        transaction
-      })
+        {
+          where: {
+            familyId: this.familyId,
+          },
+          transaction,
+        },
+      )
 
       this.invalidiateDeviceList = false
     }
 
     if (this.invalidateU2fList) {
-      await database.family.update({
-        u2fKeysVersion: generateVersionId()
-      }, {
-        where: {
-          familyId: this.familyId
+      await database.family.update(
+        {
+          u2fKeysVersion: generateVersionId(),
         },
-        transaction
-      })
+        {
+          where: {
+            familyId: this.familyId,
+          },
+          transaction,
+        },
+      )
 
       this.invalidateU2fList = false
     }
 
-    this.devicesWithModifiedShowDeviceConnected.forEach((showDeviceConnected, deviceId) => {
-      this.connectedDevicesManager.notifyShareConnectedChanged({
-        familyId: this.familyId,
-        deviceId,
-        showDeviceConnected
-      })
-    })
+    this.devicesWithModifiedShowDeviceConnected.forEach(
+      (showDeviceConnected, deviceId) => {
+        this.connectedDevicesManager.notifyShareConnectedChanged({
+          familyId: this.familyId,
+          deviceId,
+          showDeviceConnected,
+        })
+      },
+    )
   }
 }

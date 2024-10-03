@@ -2,21 +2,21 @@ name: Helm Chart CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
     paths:
       - .github/workflows/helm-chart-publish.yml
       - charts/**
-      
+
   workflow_dispatch:
-  
+
 jobs:
   chart:
     runs-on: ubuntu-latest
     permissions:
       contents: write
       packages: write
-      
-    steps:     
+
+    steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0

@@ -15,43 +15,60 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { maxPreBlockDuration } from '../database/userlimitlogincategory'
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily, assertSafeInteger, throwOutOfRange } from './meta/util'
+import { maxPreBlockDuration } from "../database/userlimitlogincategory"
+import { ParentAction } from "./basetypes"
+import {
+  assertIdWithinFamily,
+  assertSafeInteger,
+  throwOutOfRange,
+} from "./meta/util"
 
-const actionType = 'UpdateUserLimitLoginPreBlockDuration'
+const actionType = "UpdateUserLimitLoginPreBlockDuration"
 
 export class UpdateUserLimitLoginPreBlockDuration extends ParentAction {
   readonly userId: string
   readonly preBlockDuration: number
 
-  constructor ({ userId, preBlockDuration }: {
-    userId: string,
+  constructor({
+    userId,
+    preBlockDuration,
+  }: {
+    userId: string
     preBlockDuration: number
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'userId', value: userId })
-    assertSafeInteger({ actionType, field: 'preBlockDuration', value: preBlockDuration })
+    assertIdWithinFamily({ actionType, field: "userId", value: userId })
+    assertSafeInteger({
+      actionType,
+      field: "preBlockDuration",
+      value: preBlockDuration,
+    })
 
     if (preBlockDuration < 0 || preBlockDuration > maxPreBlockDuration) {
-      throwOutOfRange({ actionType, field: 'preBlockDuration', value: preBlockDuration })
+      throwOutOfRange({
+        actionType,
+        field: "preBlockDuration",
+        value: preBlockDuration,
+      })
     }
 
     this.userId = userId
     this.preBlockDuration = preBlockDuration
   }
 
-  static parse = ({ userId, preBlockDuration }: SerializedUpdateUserLimitLoginPreBlockDuration) => (
+  static parse = ({
+    userId,
+    preBlockDuration,
+  }: SerializedUpdateUserLimitLoginPreBlockDuration) =>
     new UpdateUserLimitLoginPreBlockDuration({
       userId,
-      preBlockDuration
+      preBlockDuration,
     })
-  )
 }
 
 export interface SerializedUpdateUserLimitLoginPreBlockDuration {
-  type: 'UPDATE_USER_LIMIT_LOGIN_PRE_BLOCK_DURATION'
+  type: "UPDATE_USER_LIMIT_LOGIN_PRE_BLOCK_DURATION"
   userId: string
   preBlockDuration: number
 }

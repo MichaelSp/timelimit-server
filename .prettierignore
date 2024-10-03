@@ -1,0 +1,6 @@
+# Ignore artifacts:
+build
+coverage
+# this one is strange, but it's the only one that works
+charts/timelimit/templates/*.yaml
+charts/timelimit/templates/tests/*.yaml

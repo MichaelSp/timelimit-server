@@ -15,11 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Database, Transaction } from '../../database'
-import { randomWords } from '../../util/random-words'
-import { generateIdWithinFamily } from '../../util/token'
+import { Database, Transaction } from "../../database"
+import { randomWords } from "../../util/random-words"
+import { generateIdWithinFamily } from "../../util/token"
 
-export const createAddDeviceToken = async ({ familyId, database, transaction }: {
+export const createAddDeviceToken = async ({
+  familyId,
+  database,
+  transaction,
+}: {
   familyId: string
   database: Database
   transaction: Transaction
@@ -29,17 +33,20 @@ export const createAddDeviceToken = async ({ familyId, database, transaction }: 
 
   await database.addDeviceToken.destroy({
     where: {
-      familyId
+      familyId,
     },
-    transaction
+    transaction,
   })
 
-  await database.addDeviceToken.create({
-    familyId,
-    token: token.toLowerCase(),
-    deviceId,
-    createdAt: Date.now().toString()
-  }, { transaction })
+  await database.addDeviceToken.create(
+    {
+      familyId,
+      token: token.toLowerCase(),
+      deviceId,
+      createdAt: Date.now().toString(),
+    },
+    { transaction },
+  )
 
   return { token, deviceId }
 }

@@ -15,15 +15,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { InvalidActionParameterException } from '../../../action/meta/exception'
-import { ClientPushChangesRequestAction } from '../../../api/schema'
-import { BadEncodedActionJsonException, InvalidActionParamterException } from './exception/invalidaction'
+import { InvalidActionParameterException } from "../../../action/meta/exception"
+import { ClientPushChangesRequestAction } from "../../../api/schema"
+import {
+  BadEncodedActionJsonException,
+  InvalidActionParamterException,
+} from "./exception/invalidaction"
 
-export function parseEncodedAction (action: ClientPushChangesRequestAction): object {
+export function parseEncodedAction(
+  action: ClientPushChangesRequestAction,
+): object {
   try {
     const result = JSON.parse(action.encodedAction)
 
-    if (typeof result !== 'object') throw new BadEncodedActionJsonException()
+    if (typeof result !== "object") throw new BadEncodedActionJsonException()
 
     return result
   } catch (ex) {

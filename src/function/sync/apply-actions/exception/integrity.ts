@@ -15,22 +15,32 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ApplyActionException } from './index'
+import { ApplyActionException } from "./index"
 
 export class ApplyActionIntegrityException extends ApplyActionException {}
 
 export class ParentDeviceActionWithoutParentDeviceException extends ApplyActionIntegrityException {
-  constructor () { super({ staticMessage: 'parent device action but no parent device' }) }
+  constructor() {
+    super({ staticMessage: "parent device action but no parent device" })
+  }
 }
 
 export class InvalidParentActionIntegrityValue extends ApplyActionIntegrityException {
-  constructor () { super({ staticMessage: 'invalid parent action integrity value' }) }
+  constructor() {
+    super({ staticMessage: "invalid parent action integrity value" })
+  }
 }
 
 export class InvalidU2fIntegrityValue extends ApplyActionIntegrityException {
-  constructor (message: string) { super({ staticMessage: 'invalid parent action u2f integrity value: ' + message }) }
+  constructor(message: string) {
+    super({
+      staticMessage: "invalid parent action u2f integrity value: " + message,
+    })
+  }
 }
 
 export class InvalidChildActionIntegrityValue extends ApplyActionIntegrityException {
-  constructor () { super({ staticMessage: 'invalid child action integrity value' }) }
+  constructor() {
+    super({ staticMessage: "invalid child action integrity value" })
+  }
 }

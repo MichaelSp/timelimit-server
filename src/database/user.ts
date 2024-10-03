@@ -15,18 +15,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { UserFlags } from '../model/userflags'
-import { serializedBitmaskRegex } from '../util/bitmask'
-import { optionalPasswordRegex, optionalSaltRegex } from '../util/password'
-import { booleanColumn, createEnumColumn, familyIdColumn, idWithinFamilyColumn, labelColumn, optionalIdWithinFamilyColumn, timestampColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import { UserFlags } from "../model/userflags"
+import { serializedBitmaskRegex } from "../util/bitmask"
+import { optionalPasswordRegex, optionalSaltRegex } from "../util/password"
+import {
+  booleanColumn,
+  createEnumColumn,
+  familyIdColumn,
+  idWithinFamilyColumn,
+  labelColumn,
+  optionalIdWithinFamilyColumn,
+  timestampColumn,
+} from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export const maxMailNotificationFlags = 1 | 2
 
 export const mailNotificationFlags = {
   warnings: 1,
-  tasks: 2
+  tasks: 2,
 }
 
 export interface UserAttributesVersion1 {
@@ -36,7 +44,7 @@ export interface UserAttributesVersion1 {
   passwordHash: string
   secondPasswordHash: string
   secondPasswordSalt: string
-  type: 'parent' | 'child'
+  type: "parent" | "child"
   mail: string
   timeZone: string
   disableTimelimitsUntil: string
@@ -67,67 +75,71 @@ export interface UserAttributesVersion6 {
   flags: string
 }
 
-export type UserAttributes = UserAttributesVersion1 & UserAttributesVersion2 &
-  UserAttributesVersion3 & UserAttributesVersion4 & UserAttributesVersion5 & UserAttributesVersion6
+export type UserAttributes = UserAttributesVersion1 &
+  UserAttributesVersion2 &
+  UserAttributesVersion3 &
+  UserAttributesVersion4 &
+  UserAttributesVersion5 &
+  UserAttributesVersion6
 
 export type UserModel = Sequelize.Model<UserAttributes> & UserAttributes
 export type UserModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): UserModel;
+  new (values?: object, options?: Sequelize.BuildOptions): UserModel
 }
 
 export const attributesVersion1: SequelizeAttributes<UserAttributesVersion1> = {
   familyId: {
     ...familyIdColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   userId: {
     ...idWithinFamilyColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   name: { ...labelColumn },
   passwordHash: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      is: optionalPasswordRegex
-    }
+      is: optionalPasswordRegex,
+    },
   },
   secondPasswordHash: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      is: optionalPasswordRegex
-    }
+      is: optionalPasswordRegex,
+    },
   },
   secondPasswordSalt: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      is: optionalSaltRegex
-    }
+      is: optionalSaltRegex,
+    },
   },
-  type: createEnumColumn(['parent', 'child']),
+  type: createEnumColumn(["parent", "child"]),
   mail: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   timeZone: { ...labelColumn },
   disableTimelimitsUntil: { ...timestampColumn },
-  currentDevice: { ...optionalIdWithinFamilyColumn }
+  currentDevice: { ...optionalIdWithinFamilyColumn },
 }
 
 export const attributesVersion2: SequelizeAttributes<UserAttributesVersion2> = {
   categoryForNotAssignedApps: {
     ...optionalIdWithinFamilyColumn,
-    defaultValue: ''
-  }
+    defaultValue: "",
+  },
 }
 
 export const attributesVersion3: SequelizeAttributes<UserAttributesVersion3> = {
   relaxPrimaryDeviceRule: {
     ...booleanColumn,
-    defaultValue: false
-  }
+    defaultValue: false,
+  },
 }
 
 export const attributesVersion4: SequelizeAttributes<UserAttributesVersion4> = {
@@ -136,20 +148,20 @@ export const attributesVersion4: SequelizeAttributes<UserAttributesVersion4> = {
     defaultValue: 0,
     validate: {
       min: 0,
-      max: maxMailNotificationFlags
-    }
-  }
+      max: maxMailNotificationFlags,
+    },
+  },
 }
 
 export const attributesVersion5: SequelizeAttributes<UserAttributesVersion5> = {
   blockedTimes: {
     type: Sequelize.TEXT,
     allowNull: false,
-    defaultValue: '',
+    defaultValue: "",
     validate: {
-      is: serializedBitmaskRegex
-    }
-  }
+      is: serializedBitmaskRegex,
+    },
+  },
 }
 
 export const attributesVersion6: SequelizeAttributes<UserAttributesVersion6> = {
@@ -159,9 +171,9 @@ export const attributesVersion6: SequelizeAttributes<UserAttributesVersion6> = {
     defaultValue: 0,
     validate: {
       min: 0,
-      max: UserFlags.ALL_FLAGS
-    }
-  }
+      max: UserFlags.ALL_FLAGS,
+    },
+  },
 }
 
 export const attributes: SequelizeAttributes<UserAttributes> = {
@@ -170,7 +182,9 @@ export const attributes: SequelizeAttributes<UserAttributes> = {
   ...attributesVersion3,
   ...attributesVersion4,
   ...attributesVersion5,
-  ...attributesVersion6
+  ...attributesVersion6,
 }
 
-export const createUserModel = (sequelize: Sequelize.Sequelize): UserModelStatic => sequelize.define('User', attributes) as UserModelStatic
+export const createUserModel = (
+  sequelize: Sequelize.Sequelize,
+): UserModelStatic => sequelize.define("User", attributes) as UserModelStatic

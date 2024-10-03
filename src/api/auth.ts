@@ -15,21 +15,28 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { json } from 'body-parser'
-import { Router } from 'express'
-import { BadRequest } from 'http-errors'
-import { Database } from '../database'
-import { sendLoginCode, signInByMailCode } from '../function/authentication/login-by-mail'
-import { isMailAddressCoveredByWhitelist, isMailServerBlacklisted, sanitizeMailAddress } from '../util/mail'
+import { json } from "body-parser"
+import { Router } from "express"
+import { BadRequest } from "http-errors"
+import { Database } from "../database"
 import {
-    isSendMailLoginCodeRequest,
-    isSignInByMailCodeRequest
-} from './validator'
+  sendLoginCode,
+  signInByMailCode,
+} from "../function/authentication/login-by-mail"
+import {
+  isMailAddressCoveredByWhitelist,
+  isMailServerBlacklisted,
+  sanitizeMailAddress,
+} from "../util/mail"
+import {
+  isSendMailLoginCodeRequest,
+  isSignInByMailCodeRequest,
+} from "./validator"
 
 export const createAuthRouter = (database: Database) => {
   const router = Router()
 
-  router.post('/send-mail-login-code-v2', json(), async (req, res, next) => {
+  router.post("/send-mail-login-code-v2", json(), async (req, res, next) => {
     try {
       if (!isSendMailLoginCodeRequest(req.body)) {
         throw new BadRequest()
@@ -50,7 +57,7 @@ export const createAuthRouter = (database: Database) => {
           mail,
           deviceAuthToken: req.body.deviceAuthToken,
           locale: req.body.locale,
-          database
+          database,
         })
 
         res.json({ mailLoginToken })
@@ -60,7 +67,7 @@ export const createAuthRouter = (database: Database) => {
     }
   })
 
-  router.post('/sign-in-by-mail-code', json(), async (req, res, next) => {
+  router.post("/sign-in-by-mail-code", json(), async (req, res, next) => {
     try {
       if (!isSignInByMailCodeRequest(req.body)) {
         throw new BadRequest()
@@ -69,7 +76,7 @@ export const createAuthRouter = (database: Database) => {
       const { mailAuthToken } = await signInByMailCode({
         receivedCode: req.body.receivedCode,
         mailLoginToken: req.body.mailLoginToken,
-        database
+        database,
       })
 
       res.json({ mailAuthToken })

@@ -15,29 +15,36 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
-import { assertIdWithinFamily, assertSafeInteger } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { InvalidActionParameterException } from "./meta/exception"
+import { assertIdWithinFamily, assertSafeInteger } from "./meta/util"
 
-const actionType = 'UpdateCategoryDisableLimitsAction'
+const actionType = "UpdateCategoryDisableLimitsAction"
 
 export class UpdateCategoryDisableLimitsAction extends ParentAction {
   readonly categoryId: string
   readonly endTime: number
 
-  constructor ({ categoryId, endTime }: {
+  constructor({
+    categoryId,
+    endTime,
+  }: {
     categoryId: string
     endTime: number
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'categoryId', value: categoryId })
-    assertSafeInteger({ actionType, field: 'endTime', value: endTime })
+    assertIdWithinFamily({
+      actionType,
+      field: "categoryId",
+      value: categoryId,
+    })
+    assertSafeInteger({ actionType, field: "endTime", value: endTime })
 
     if (endTime < 0) {
       throw new InvalidActionParameterException({
         actionType,
-        staticMessage: 'endTime must not be smaller than zero'
+        staticMessage: "endTime must not be smaller than zero",
       })
     }
 
@@ -45,13 +52,15 @@ export class UpdateCategoryDisableLimitsAction extends ParentAction {
     this.endTime = endTime
   }
 
-  static parse = ({ categoryId, endTime }: SerializedUpdatCategoryDisableLimitsAction) => (
+  static parse = ({
+    categoryId,
+    endTime,
+  }: SerializedUpdatCategoryDisableLimitsAction) =>
     new UpdateCategoryDisableLimitsAction({ categoryId, endTime })
-  )
 }
 
 export interface SerializedUpdatCategoryDisableLimitsAction {
-  type: 'UPDATE_CATEGORY_DISABLE_LIMITS'
+  type: "UPDATE_CATEGORY_DISABLE_LIMITS"
   categoryId: string
   endTime: number
 }

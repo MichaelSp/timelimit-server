@@ -15,10 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { AppRecommendation, appRecommendationValues } from '../model/apprecommendation'
-import { booleanColumn, createEnumColumn, familyIdColumn, idWithinFamilyColumn, optionalLabelColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import {
+  AppRecommendation,
+  appRecommendationValues,
+} from "../model/apprecommendation"
+import {
+  booleanColumn,
+  createEnumColumn,
+  familyIdColumn,
+  idWithinFamilyColumn,
+  optionalLabelColumn,
+} from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export interface AppAttributes {
   familyId: string
@@ -31,7 +40,7 @@ export interface AppAttributes {
 
 export type AppModel = Sequelize.Model<AppAttributes> & AppAttributes
 export type AppModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): AppModel;
+  new (values?: object, options?: Sequelize.BuildOptions): AppModel
 }
 
 export const maxPackageNameLength = 255
@@ -39,23 +48,25 @@ export const maxPackageNameLength = 255
 export const attributes: SequelizeAttributes<AppAttributes> = {
   familyId: {
     ...familyIdColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   deviceId: {
     ...idWithinFamilyColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   packageName: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
+      notEmpty: true,
     },
-    primaryKey: true
+    primaryKey: true,
   },
   title: { ...optionalLabelColumn },
   isLaunchable: { ...booleanColumn },
-  recommendation: createEnumColumn(appRecommendationValues)
+  recommendation: createEnumColumn(appRecommendationValues),
 }
 
-export const createAppModel = (sequelize: Sequelize.Sequelize): AppModelStatic => sequelize.define('App', attributes) as AppModelStatic
+export const createAppModel = (
+  sequelize: Sequelize.Sequelize,
+): AppModelStatic => sequelize.define("App", attributes) as AppModelStatic

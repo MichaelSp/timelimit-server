@@ -4,8 +4,6 @@
 https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedForceSyncAction
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedAppLogicAction.schema.json\*](SerializedAppLogicAction.schema.json "open original schema") |
@@ -22,17 +20,15 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedForceSyncAc
 
 ## type
 
-
-
 `type`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedforcesyncaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedForceSyncAction/properties/type")
+- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedforcesyncaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedForceSyncAction/properties/type")
 
 ### type Type
 

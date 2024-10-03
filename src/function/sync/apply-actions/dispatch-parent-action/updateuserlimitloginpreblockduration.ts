@@ -15,12 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateUserLimitLoginPreBlockDuration } from '../../../../action'
-import { Cache } from '../cache'
-import { ApplyActionException } from '../exception/index'
-import { MissingItemException, MissingUserException } from '../exception/missing-item'
+import { UpdateUserLimitLoginPreBlockDuration } from "../../../../action"
+import { Cache } from "../cache"
+import { ApplyActionException } from "../exception/index"
+import {
+  MissingItemException,
+  MissingUserException,
+} from "../exception/missing-item"
 
-export async function dispatchUpdateUserLimitPreBlockDuration ({ action, cache, parentUserId }: {
+export async function dispatchUpdateUserLimitPreBlockDuration({
+  action,
+  cache,
+  parentUserId,
+}: {
   action: UpdateUserLimitLoginPreBlockDuration
   cache: Cache
   parentUserId: string
@@ -29,9 +36,9 @@ export async function dispatchUpdateUserLimitPreBlockDuration ({ action, cache, 
     where: {
       familyId: cache.familyId,
       userId: action.userId,
-      type: 'parent'
+      type: "parent",
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!userEntry) {
@@ -40,7 +47,8 @@ export async function dispatchUpdateUserLimitPreBlockDuration ({ action, cache, 
 
   if (action.preBlockDuration !== 0 && parentUserId !== action.userId) {
     throw new ApplyActionException({
-      staticMessage: 'only the parent user itself can add a limit login pre block duration'
+      staticMessage:
+        "only the parent user itself can add a limit login pre block duration",
     })
   }
 
@@ -48,25 +56,29 @@ export async function dispatchUpdateUserLimitPreBlockDuration ({ action, cache, 
     transaction: cache.transaction,
     where: {
       familyId: cache.familyId,
-      userId: action.userId
-    }
+      userId: action.userId,
+    },
   })
 
   if (preBlockItem === null) {
     throw new MissingItemException({
-      staticMessage: 'you can not set a pre block duration if there is no pre block item'
+      staticMessage:
+        "you can not set a pre block duration if there is no pre block item",
     })
   }
 
-  await cache.database.userLimitLoginCategory.update({
-    preBlockDuration: action.preBlockDuration
-  }, {
-    transaction: cache.transaction,
-    where: {
-      familyId: cache.familyId,
-      userId: action.userId
-    }
-  })
+  await cache.database.userLimitLoginCategory.update(
+    {
+      preBlockDuration: action.preBlockDuration,
+    },
+    {
+      transaction: cache.transaction,
+      where: {
+        familyId: cache.familyId,
+        userId: action.userId,
+      },
+    },
+  )
 
   cache.invalidiateUserList = true
   cache.incrementTriggeredSyncLevel(2)

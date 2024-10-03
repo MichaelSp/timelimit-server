@@ -15,12 +15,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { checkIfHexString } from '../../util/hexstring'
-import { hasDuplicates } from '../../util/list'
-import { isIdWithinFamily } from '../../util/token'
-import { InvalidActionParameterException } from './exception'
+import { checkIfHexString } from "../../util/hexstring"
+import { hasDuplicates } from "../../util/list"
+import { isIdWithinFamily } from "../../util/token"
+import { InvalidActionParameterException } from "./exception"
 
-export const assertIdWithinFamily = ({ value, actionType, field }: {
+export const assertIdWithinFamily = ({
+  value,
+  actionType,
+  field,
+}: {
   value: string
   actionType: string
   field: string
@@ -28,13 +32,17 @@ export const assertIdWithinFamily = ({ value, actionType, field }: {
   if (!isIdWithinFamily(value)) {
     throw new InvalidActionParameterException({
       actionType,
-      staticMessage: 'invalid id within family for ' + field,
-      dynamicMessage: 'invalid id within family for ' + field + ': ' + value
+      staticMessage: "invalid id within family for " + field,
+      dynamicMessage: "invalid id within family for " + field + ": " + value,
     })
   }
 }
 
-export const assertHexString = ({ value, actionType, field }: {
+export const assertHexString = ({
+  value,
+  actionType,
+  field,
+}: {
   value: string
   actionType: string
   field: string
@@ -42,13 +50,17 @@ export const assertHexString = ({ value, actionType, field }: {
   if (!checkIfHexString(value)) {
     throw new InvalidActionParameterException({
       actionType,
-      staticMessage: 'invalid hex string for ' + field,
-      dynamicMessage: 'invalid hex string for ' + field + ': ' + value
+      staticMessage: "invalid hex string for " + field,
+      dynamicMessage: "invalid hex string for " + field + ": " + value,
     })
   }
 }
 
-export const assertSafeInteger = ({ value, actionType, field }: {
+export const assertSafeInteger = ({
+  value,
+  actionType,
+  field,
+}: {
   value: number
   actionType: string
   field: string
@@ -56,25 +68,33 @@ export const assertSafeInteger = ({ value, actionType, field }: {
   if (!Number.isSafeInteger(value)) {
     throw new InvalidActionParameterException({
       actionType,
-      staticMessage: 'require number for ' + field,
-      dynamicMessage: 'require number for ' + field + ': ' + value
+      staticMessage: "require number for " + field,
+      dynamicMessage: "require number for " + field + ": " + value,
     })
   }
 }
 
-export const throwOutOfRange = ({ value, actionType, field }: {
+export const throwOutOfRange = ({
+  value,
+  actionType,
+  field,
+}: {
   value: number
   actionType: string
   field: string
 }) => {
   throw new InvalidActionParameterException({
     actionType,
-    staticMessage: field + ' out of range',
-    dynamicMessage: field + ' out of range: ' + value
+    staticMessage: field + " out of range",
+    dynamicMessage: field + " out of range: " + value,
   })
 }
 
-export function assertNonEmptyListWithoutDuplicates ({ list, actionType, field }: {
+export function assertNonEmptyListWithoutDuplicates({
+  list,
+  actionType,
+  field,
+}: {
   list: Array<string>
   actionType: string
   field: string
@@ -84,12 +104,16 @@ export function assertNonEmptyListWithoutDuplicates ({ list, actionType, field }
   if (hasDuplicates(list)) {
     throw new InvalidActionParameterException({
       actionType,
-      staticMessage: 'empty list for ' + field
+      staticMessage: "empty list for " + field,
     })
   }
 }
 
-export function assertListWithoutDuplicates ({ list, actionType, field }: {
+export function assertListWithoutDuplicates({
+  list,
+  actionType,
+  field,
+}: {
   list: Array<string>
   actionType: string
   field: string
@@ -97,8 +121,9 @@ export function assertListWithoutDuplicates ({ list, actionType, field }: {
   if (hasDuplicates(list)) {
     throw new InvalidActionParameterException({
       actionType,
-      staticMessage: 'list has duplicates for ' + field,
-      dynamicMessage: 'list has duplicates for ' + field + ': ' + list.join(';')
+      staticMessage: "list has duplicates for " + field,
+      dynamicMessage:
+        "list has duplicates for " + field + ": " + list.join(";"),
     })
   }
 }

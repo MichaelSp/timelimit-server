@@ -15,37 +15,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'SetSendDeviceConnected'
+const actionType = "SetSendDeviceConnected"
 
 export class SetSendDeviceConnected extends ParentAction {
   readonly deviceId: string
   readonly enable: boolean
 
-  constructor ({ deviceId, enable }: {
-    deviceId: string
-    enable: boolean
-  }) {
+  constructor({ deviceId, enable }: { deviceId: string; enable: boolean }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'deviceId', value: deviceId })
+    assertIdWithinFamily({ actionType, field: "deviceId", value: deviceId })
 
     this.deviceId = deviceId
     this.enable = enable
   }
 
-  static parse = ({ deviceId, enable }: SerializedSetSendDeviceConnected) => (
+  static parse = ({ deviceId, enable }: SerializedSetSendDeviceConnected) =>
     new SetSendDeviceConnected({
       deviceId,
-      enable
+      enable,
     })
-  )
 }
 
 export interface SerializedSetSendDeviceConnected {
-  type: 'SET_SEND_DEVICE_CONNECTED'
+  type: "SET_SEND_DEVICE_CONNECTED"
   deviceId: string
   enable: boolean
 }

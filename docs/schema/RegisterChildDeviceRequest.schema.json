@@ -15,11 +15,7 @@
     }
   },
   "additionalProperties": false,
-  "required": [
-    "childDevice",
-    "deviceName",
-    "registerToken"
-  ],
+  "required": ["childDevice", "deviceName", "registerToken"],
   "definitions": {
     "NewDeviceInfo": {
       "type": "object",
@@ -29,9 +25,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "model"
-      ],
+      "required": ["model"],
       "title": "NewDeviceInfo"
     }
   },

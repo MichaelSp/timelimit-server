@@ -4,7 +4,7 @@ You can run the timelimit server with docker. Here are two example configuration
 
 ## Important
 
-Watch out to actually rebuild the images and restart the containers after updates (for example using ``docker-compose up --build``).
+Watch out to actually rebuild the images and restart the containers after updates (for example using `docker-compose up --build`).
 
 ## example docker-compose.yml with included database
 

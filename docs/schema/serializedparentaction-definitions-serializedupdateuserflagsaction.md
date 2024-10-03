@@ -4,8 +4,6 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserFlagsAction
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -25,17 +23,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserFla
 
 ## type
 
-
-
 `type`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserflagsaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserFlagsAction/properties/type")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserflagsaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserFlagsAction/properties/type")
 
 ### type Type
 
@@ -51,17 +47,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserFla
 
 ## userId
 
-
-
 `userId`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserflagsaction-properties-userid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserFlagsAction/properties/userId")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserflagsaction-properties-userid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserFlagsAction/properties/userId")
 
 ### userId Type
 
@@ -69,17 +63,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserFla
 
 ## modified
 
-
-
 `modified`
 
-* is required
+- is required
 
-* Type: `number`
+- Type: `number`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserflagsaction-properties-modified.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserFlagsAction/properties/modified")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserflagsaction-properties-modified.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserFlagsAction/properties/modified")
 
 ### modified Type
 
@@ -87,17 +79,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserFla
 
 ## values
 
-
-
 `values`
 
-* is required
+- is required
 
-* Type: `number`
+- Type: `number`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserflagsaction-properties-values.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserFlagsAction/properties/values")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserflagsaction-properties-values.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserFlagsAction/properties/values")
 
 ### values Type
 

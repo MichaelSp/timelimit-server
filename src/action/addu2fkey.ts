@@ -15,38 +15,50 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { throwOutOfRange } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { throwOutOfRange } from "./meta/util"
 
-const actionType = 'AddParentU2fKey'
+const actionType = "AddParentU2fKey"
 
 export class AddParentU2fKeyAction extends ParentAction {
   readonly keyHandle: Buffer
   readonly publicKey: Buffer
 
-  constructor ({ keyHandle, publicKey }: {
+  constructor({
+    keyHandle,
+    publicKey,
+  }: {
     keyHandle: Buffer
     publicKey: Buffer
   }) {
     super()
 
-    if (keyHandle.length > 2048) throwOutOfRange({ actionType, field: 'keyHandle', value: keyHandle.length })
-    if (publicKey.length > 2048) throwOutOfRange({ actionType, field: 'publicKey', value: publicKey.length })
+    if (keyHandle.length > 2048)
+      throwOutOfRange({
+        actionType,
+        field: "keyHandle",
+        value: keyHandle.length,
+      })
+    if (publicKey.length > 2048)
+      throwOutOfRange({
+        actionType,
+        field: "publicKey",
+        value: publicKey.length,
+      })
 
     this.keyHandle = keyHandle
     this.publicKey = publicKey
   }
 
-  static parse = ({ keyHandle, publicKey }: SerializedAddParentU2fKeyAction) => (
+  static parse = ({ keyHandle, publicKey }: SerializedAddParentU2fKeyAction) =>
     new AddParentU2fKeyAction({
-      keyHandle: Buffer.from(keyHandle, 'base64'),
-      publicKey: Buffer.from(publicKey, 'base64')
+      keyHandle: Buffer.from(keyHandle, "base64"),
+      publicKey: Buffer.from(publicKey, "base64"),
     })
-  )
 }
 
 export interface SerializedAddParentU2fKeyAction {
-  type: 'ADD_PARENT_U2F'
+  type: "ADD_PARENT_U2F"
   keyHandle: string
   publicKey: string
 }

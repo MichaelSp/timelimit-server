@@ -15,12 +15,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { allowedTimeWarningFlags } from '../database/category'
-import { categoryTimeWarningConstants } from '../database/categorytimewarning'
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily, assertSafeInteger, throwOutOfRange } from './meta/util'
+import { allowedTimeWarningFlags } from "../database/category"
+import { categoryTimeWarningConstants } from "../database/categorytimewarning"
+import { ParentAction } from "./basetypes"
+import {
+  assertIdWithinFamily,
+  assertSafeInteger,
+  throwOutOfRange,
+} from "./meta/util"
 
-const actionType = 'UpdateCategoryTimeWarningsAction'
+const actionType = "UpdateCategoryTimeWarningsAction"
 
 export class UpdateCategoryTimeWarningsAction extends ParentAction {
   readonly categoryId: string
@@ -28,29 +32,38 @@ export class UpdateCategoryTimeWarningsAction extends ParentAction {
   readonly flags: number
   readonly minutes?: number
 
-  constructor ({ categoryId, enable, flags, minutes }: {
+  constructor({
+    categoryId,
+    enable,
+    flags,
+    minutes,
+  }: {
     categoryId: string
     enable: boolean
-    flags: number,
+    flags: number
     minutes?: number
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'categoryId', value: categoryId })
-    assertSafeInteger({ actionType, field: 'flags', value: flags })
+    assertIdWithinFamily({
+      actionType,
+      field: "categoryId",
+      value: categoryId,
+    })
+    assertSafeInteger({ actionType, field: "flags", value: flags })
 
     if ((flags & allowedTimeWarningFlags) !== flags) {
-      throwOutOfRange({ actionType, field: 'flags', value: flags })
+      throwOutOfRange({ actionType, field: "flags", value: flags })
     }
 
     if (minutes !== undefined) {
-      assertSafeInteger({ actionType, field: 'minutes', value: minutes })
+      assertSafeInteger({ actionType, field: "minutes", value: minutes })
 
       if (
         minutes < categoryTimeWarningConstants.minMinutes ||
         minutes > categoryTimeWarningConstants.maxMinutes
       ) {
-        throwOutOfRange({ actionType, field: 'minutes', value: minutes })
+        throwOutOfRange({ actionType, field: "minutes", value: minutes })
       }
     }
 
@@ -60,13 +73,22 @@ export class UpdateCategoryTimeWarningsAction extends ParentAction {
     this.minutes = minutes
   }
 
-  static parse = ({ categoryId, enable, flags, minutes }: SerializedUpdateCategoryTimeWarningsAction) => (
-    new UpdateCategoryTimeWarningsAction({ categoryId, enable, flags, minutes })
-  )
+  static parse = ({
+    categoryId,
+    enable,
+    flags,
+    minutes,
+  }: SerializedUpdateCategoryTimeWarningsAction) =>
+    new UpdateCategoryTimeWarningsAction({
+      categoryId,
+      enable,
+      flags,
+      minutes,
+    })
 }
 
 export interface SerializedUpdateCategoryTimeWarningsAction {
-  type: 'UPDATE_CATEGORY_TIME_WARNINGS'
+  type: "UPDATE_CATEGORY_TIME_WARNINGS"
   categoryId: string
   enable: boolean
   flags: number

@@ -15,15 +15,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SetDeviceDefaultUserAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingDeviceException, MissingUserException } from '../exception/missing-item'
+import { SetDeviceDefaultUserAction } from "../../../../action"
+import { Cache } from "../cache"
+import {
+  MissingDeviceException,
+  MissingUserException,
+} from "../exception/missing-item"
 
-export async function dispatchSetDeviceDefaultUser ({ action, cache }: {
+export async function dispatchSetDeviceDefaultUser({
+  action,
+  cache,
+}: {
   action: SetDeviceDefaultUserAction
   cache: Cache
 }) {
-  if (action.defaultUserId !== '') {
+  if (action.defaultUserId !== "") {
     const doesUserExist = await cache.doesUserExist(action.defaultUserId)
 
     if (!doesUserExist) {
@@ -35,23 +41,26 @@ export async function dispatchSetDeviceDefaultUser ({ action, cache }: {
     transaction: cache.transaction,
     where: {
       familyId: cache.familyId,
-      deviceId: action.deviceId
-    }
+      deviceId: action.deviceId,
+    },
   })
 
   if (!oldDeviceItem) {
     throw new MissingDeviceException()
   }
 
-  await cache.database.device.update({
-    defaultUserId: action.defaultUserId
-  }, {
-    transaction: cache.transaction,
-    where: {
-      familyId: cache.familyId,
-      deviceId: action.deviceId
-    }
-  })
+  await cache.database.device.update(
+    {
+      defaultUserId: action.defaultUserId,
+    },
+    {
+      transaction: cache.transaction,
+      where: {
+        familyId: cache.familyId,
+        deviceId: action.deviceId,
+      },
+    },
+  )
 
   cache.invalidiateDeviceList = true
 

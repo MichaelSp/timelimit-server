@@ -20,10 +20,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "password",
-        "type"
-      ],
+      "required": ["password", "type"],
       "title": "SerializedChildChangePasswordAction"
     },
     "EncryptableParentPassword": {
@@ -43,11 +40,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "hash",
-        "secondHash",
-        "secondSalt"
-      ],
+      "required": ["hash", "secondHash", "secondSalt"],
       "title": "EncryptableParentPassword"
     },
     "SerializedChildSignInAction": {
@@ -59,9 +52,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "type"
-      ],
+      "required": ["type"],
       "title": "SerializedChildSignInAction"
     }
   },

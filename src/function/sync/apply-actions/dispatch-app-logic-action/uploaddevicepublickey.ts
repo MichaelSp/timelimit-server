@@ -15,12 +15,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UploadDevicePublicKeyAction } from '../../../../action'
-import { EventHandler } from '../../../../monitoring/eventhandler'
-import { Cache } from '../cache'
-import { SourceDeviceNotFoundException } from '../exception/illegal-state'
+import { UploadDevicePublicKeyAction } from "../../../../action"
+import { EventHandler } from "../../../../monitoring/eventhandler"
+import { Cache } from "../cache"
+import { SourceDeviceNotFoundException } from "../exception/illegal-state"
 
-export async function dispatchUploadDevicePublicKeyAction ({ deviceId, action, cache, eventHandler }: {
+export async function dispatchUploadDevicePublicKeyAction({
+  deviceId,
+  action,
+  cache,
+  eventHandler,
+}: {
   deviceId: string
   action: UploadDevicePublicKeyAction
   cache: Cache
@@ -29,9 +34,9 @@ export async function dispatchUploadDevicePublicKeyAction ({ deviceId, action, c
   const deviceEntry = await cache.database.device.findOne({
     where: {
       familyId: cache.familyId,
-      deviceId
+      deviceId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (deviceEntry === null) {
@@ -44,8 +49,12 @@ export async function dispatchUploadDevicePublicKeyAction ({ deviceId, action, c
     cache.invalidiateDeviceList = true
     cache.incrementTriggeredSyncLevel(2)
   } else if (deviceEntry.publicKey.equals(action.key)) {
-    eventHandler.countEvent('dispatchUploadDevicePublicKeyAction:duplicate action')
+    eventHandler.countEvent(
+      "dispatchUploadDevicePublicKeyAction:duplicate action",
+    )
   } else {
-    eventHandler.countEvent('dispatchUploadDevicePublicKeyAction:got new public key for existing device')
+    eventHandler.countEvent(
+      "dispatchUploadDevicePublicKeyAction:got new public key for existing device",
+    )
   }
 }

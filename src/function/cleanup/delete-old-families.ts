@@ -15,55 +15,70 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { difference } from 'lodash'
-import * as Sequelize from 'sequelize'
-import { Database } from '../../database'
-import { deleteFamilies } from './delete-families'
+import { difference } from "lodash"
+import * as Sequelize from "sequelize"
+import { Database } from "../../database"
+import { deleteFamilies } from "./delete-families"
 
-export async function deleteOldFamilies (database: Database) {
+export async function deleteOldFamilies(database: Database) {
   const oldFamilyIds = await findOldFamilyIds(database)
 
   if (oldFamilyIds.length > 0) {
-    const familyIdsToDelete = oldFamilyIds.slice(0, 256) /* limit to 256 families per execution */
+    const familyIdsToDelete = oldFamilyIds.slice(
+      0,
+      256,
+    ) /* limit to 256 families per execution */
 
     await database.transaction(async (transaction) => {
       await deleteFamilies({
         database,
         transaction,
-        familiyIds: familyIdsToDelete
+        familiyIds: familyIdsToDelete,
       })
     })
   }
 }
 
-export async function findOldFamilyIds (database: Database) {
+export async function findOldFamilyIds(database: Database) {
   return database.transaction(async (transaction) => {
-    const familyIdsWithExpiredLicenses = (await database.family.findAll({
-      where: {
-        fullVersionUntil: {
-          [Sequelize.Op.lt]: (Date.now() - 1000 * 60 * 60 * 24 * 90 /* 90 days */).toString(10)
-        }
-      },
-      attributes: ['familyId'],
-      transaction
-    })).map((item) => item.familyId)
+    const familyIdsWithExpiredLicenses = (
+      await database.family.findAll({
+        where: {
+          fullVersionUntil: {
+            [Sequelize.Op.lt]: (
+              Date.now() -
+              1000 * 60 * 60 * 24 * 90
+            ) /* 90 days */
+              .toString(10),
+          },
+        },
+        attributes: ["familyId"],
+        transaction,
+      })
+    ).map((item) => item.familyId)
 
     if (familyIdsWithExpiredLicenses.length === 0) {
       return []
     }
 
-    const recentlyUsedFamilyIds = (await database.device.findAll({
-      where: {
-        familyId: {
-          [Sequelize.Op.in]: familyIdsWithExpiredLicenses
+    const recentlyUsedFamilyIds = (
+      await database.device.findAll({
+        where: {
+          familyId: {
+            [Sequelize.Op.in]: familyIdsWithExpiredLicenses,
+          },
+          lastConnectivity: {
+            [Sequelize.Op.gt]: (
+              Date.now() -
+              1000 * 60 * 60 * 24 * 90
+            ) /* 90 days */
+              .toString(10),
+          },
         },
-        lastConnectivity: {
-          [Sequelize.Op.gt]: (Date.now() - 1000 * 60 * 60 * 24 * 90 /* 90 days */).toString(10)
-        }
-      },
-      attributes: ['familyId'],
-      transaction
-    })).map((item) => item.familyId)
+        attributes: ["familyId"],
+        transaction,
+      })
+    ).map((item) => item.familyId)
 
     return difference(familyIdsWithExpiredLicenses, recentlyUsedFamilyIds)
   })

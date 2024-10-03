@@ -16,16 +16,21 @@
  */
 
 import {
-    ChildAction,
-    ChildChangePasswordAction,
-    ChildSignInAction
-} from '../../../../action'
-import { Cache } from '../cache'
-import { ActionObjectTypeNotHandledException } from '../exception/illegal-state'
-import { dispatchChildChangePassword } from './childchangepassword'
-import { dispatchChildSignIn } from './childsignin'
+  ChildAction,
+  ChildChangePasswordAction,
+  ChildSignInAction,
+} from "../../../../action"
+import { Cache } from "../cache"
+import { ActionObjectTypeNotHandledException } from "../exception/illegal-state"
+import { dispatchChildChangePassword } from "./childchangepassword"
+import { dispatchChildSignIn } from "./childsignin"
 
-export const dispatchChildAction = async ({ action, deviceId, childUserId, cache }: {
+export const dispatchChildAction = async ({
+  action,
+  deviceId,
+  childUserId,
+  cache,
+}: {
   action: ChildAction
   deviceId: string
   childUserId: string

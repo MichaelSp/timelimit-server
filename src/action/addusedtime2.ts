@@ -15,12 +15,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MinuteOfDay } from '../util/minuteofday'
-import { AppLogicAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
-import { assertIdWithinFamily, assertListWithoutDuplicates, assertSafeInteger, throwOutOfRange } from './meta/util'
+import { MinuteOfDay } from "../util/minuteofday"
+import { AppLogicAction } from "./basetypes"
+import { InvalidActionParameterException } from "./meta/exception"
+import {
+  assertIdWithinFamily,
+  assertListWithoutDuplicates,
+  assertSafeInteger,
+  throwOutOfRange,
+} from "./meta/util"
 
-const actionType = 'AddUsedTimeActionVersion2'
+const actionType = "AddUsedTimeActionVersion2"
 
 export class AddUsedTimeActionVersion2 extends AppLogicAction {
   readonly dayOfEpoch: number
@@ -33,7 +38,11 @@ export class AddUsedTimeActionVersion2 extends AppLogicAction {
   }>
   readonly trustedTimestamp: number
 
-  constructor ({ dayOfEpoch, items, trustedTimestamp }: {
+  constructor({
+    dayOfEpoch,
+    items,
+    trustedTimestamp,
+  }: {
     dayOfEpoch: number
     items: Array<{
       categoryId: string
@@ -46,53 +55,88 @@ export class AddUsedTimeActionVersion2 extends AppLogicAction {
   }) {
     super()
 
-    assertSafeInteger({ actionType, field: 'dayOfEpoch', value: dayOfEpoch })
+    assertSafeInteger({ actionType, field: "dayOfEpoch", value: dayOfEpoch })
 
     if (dayOfEpoch < 0) {
-      throwOutOfRange({ actionType, field: 'dayOfEpoch', value: dayOfEpoch })
+      throwOutOfRange({ actionType, field: "dayOfEpoch", value: dayOfEpoch })
     }
 
-    assertSafeInteger({ actionType, field: 'trustedTimestamp', value: trustedTimestamp })
+    assertSafeInteger({
+      actionType,
+      field: "trustedTimestamp",
+      value: trustedTimestamp,
+    })
 
     if (trustedTimestamp < 0) {
-      throwOutOfRange({ actionType, field: 'trustedTimestamp', value: trustedTimestamp })
+      throwOutOfRange({
+        actionType,
+        field: "trustedTimestamp",
+        value: trustedTimestamp,
+      })
     }
 
     if (items.length === 0) {
-      throw new InvalidActionParameterException({ actionType, staticMessage: 'no items' })
+      throw new InvalidActionParameterException({
+        actionType,
+        staticMessage: "no items",
+      })
     }
 
     assertListWithoutDuplicates({
       actionType,
-      field: 'categoryIds',
-      list: items.map((item) => item.categoryId)
+      field: "categoryIds",
+      list: items.map((item) => item.categoryId),
     })
 
     items.forEach((item) => {
-      assertIdWithinFamily({ actionType, field: 'categoryId', value: item.categoryId })
+      assertIdWithinFamily({
+        actionType,
+        field: "categoryId",
+        value: item.categoryId,
+      })
 
-      assertSafeInteger({ actionType, field: 'timeToAdd', value: item.timeToAdd })
+      assertSafeInteger({
+        actionType,
+        field: "timeToAdd",
+        value: item.timeToAdd,
+      })
 
       if (item.timeToAdd < 0) {
-        throwOutOfRange({ actionType, field: 'timeToAdd', value: item.timeToAdd })
+        throwOutOfRange({
+          actionType,
+          field: "timeToAdd",
+          value: item.timeToAdd,
+        })
       }
 
-      assertSafeInteger({ actionType, field: 'extraTimeToSubtract', value: item.extraTimeToSubtract })
+      assertSafeInteger({
+        actionType,
+        field: "extraTimeToSubtract",
+        value: item.extraTimeToSubtract,
+      })
 
       if (item.extraTimeToSubtract < 0) {
-        throwOutOfRange({ actionType, field: 'extraTimeToSubtract', value: item.extraTimeToSubtract })
+        throwOutOfRange({
+          actionType,
+          field: "extraTimeToSubtract",
+          value: item.extraTimeToSubtract,
+        })
       }
 
       assertListWithoutDuplicates({
         actionType,
-        field: 'additionalCountingSlots',
-        list: item.additionalCountingSlots.map((item) => JSON.stringify(item.serialize()))
+        field: "additionalCountingSlots",
+        list: item.additionalCountingSlots.map((item) =>
+          JSON.stringify(item.serialize()),
+        ),
       })
 
       assertListWithoutDuplicates({
         actionType,
-        field: 'sessionDurationLimits',
-        list: item.sessionDurationLimits.map((item) => JSON.stringify(item.serialize()))
+        field: "sessionDurationLimits",
+        list: item.sessionDurationLimits.map((item) =>
+          JSON.stringify(item.serialize()),
+        ),
       })
     })
 
@@ -101,44 +145,54 @@ export class AddUsedTimeActionVersion2 extends AppLogicAction {
     this.trustedTimestamp = trustedTimestamp
   }
 
-  static parse = ({ d, i, t }: SerializedAddUsedTimeActionVersion2) => (
+  static parse = ({ d, i, t }: SerializedAddUsedTimeActionVersion2) =>
     new AddUsedTimeActionVersion2({
       dayOfEpoch: d,
       items: i.map((item) => ({
         categoryId: item.categoryId,
         timeToAdd: item.tta,
         extraTimeToSubtract: item.etts,
-        sessionDurationLimits: (item.sdl ?? []).map((item) => AddUsedTimeActionItemSessionDurationLimitSlot.parse(item)),
-        additionalCountingSlots: (item.as ?? []).map((item) => AddUsedTimeActionItemAdditionalCountingSlot.parse(item))
+        sessionDurationLimits: (item.sdl ?? []).map((item) =>
+          AddUsedTimeActionItemSessionDurationLimitSlot.parse(item),
+        ),
+        additionalCountingSlots: (item.as ?? []).map((item) =>
+          AddUsedTimeActionItemAdditionalCountingSlot.parse(item),
+        ),
       })),
-      trustedTimestamp: t ?? 0
+      trustedTimestamp: t ?? 0,
     })
-  )
 }
 
 class AddUsedTimeActionItemAdditionalCountingSlot {
   readonly start: number
   readonly end: number
 
-  constructor ({ start, end }: { start: number, end: number }) {
-    assertSafeInteger({ actionType, field: 'start', value: start })
-    assertSafeInteger({ actionType, field: 'end', value: end })
+  constructor({ start, end }: { start: number; end: number }) {
+    assertSafeInteger({ actionType, field: "start", value: start })
+    assertSafeInteger({ actionType, field: "end", value: end })
 
     if (start < MinuteOfDay.MIN || end > MinuteOfDay.MAX || start > end) {
-      throw new InvalidActionParameterException({ actionType, staticMessage: 'start or end out of range' })
+      throw new InvalidActionParameterException({
+        actionType,
+        staticMessage: "start or end out of range",
+      })
     }
 
     if (start === MinuteOfDay.MIN && end === MinuteOfDay.MAX) {
-      throw new InvalidActionParameterException({ actionType, staticMessage: 'couting slot can not fill the whole day' })
+      throw new InvalidActionParameterException({
+        actionType,
+        staticMessage: "couting slot can not fill the whole day",
+      })
     }
 
     this.start = start
     this.end = end
   }
 
-  serialize = () => [ this.start, this.end ]
+  serialize = () => [this.start, this.end]
 
-  static parse = ([ start, end ]: [number, number]) => new AddUsedTimeActionItemAdditionalCountingSlot({ start, end })
+  static parse = ([start, end]: [number, number]) =>
+    new AddUsedTimeActionItemAdditionalCountingSlot({ start, end })
 }
 
 class AddUsedTimeActionItemSessionDurationLimitSlot {
@@ -147,18 +201,34 @@ class AddUsedTimeActionItemSessionDurationLimitSlot {
   readonly duration: number
   readonly pause: number
 
-  constructor ({ start, end, duration, pause }: { start: number, end: number, duration: number, pause: number }) {
-    assertSafeInteger({ actionType, field: 'start', value: start })
-    assertSafeInteger({ actionType, field: 'end', value: end })
-    assertSafeInteger({ actionType, field: 'duration', value: duration })
-    assertSafeInteger({ actionType, field: 'pause', value: pause })
+  constructor({
+    start,
+    end,
+    duration,
+    pause,
+  }: {
+    start: number
+    end: number
+    duration: number
+    pause: number
+  }) {
+    assertSafeInteger({ actionType, field: "start", value: start })
+    assertSafeInteger({ actionType, field: "end", value: end })
+    assertSafeInteger({ actionType, field: "duration", value: duration })
+    assertSafeInteger({ actionType, field: "pause", value: pause })
 
     if (start < MinuteOfDay.MIN || end > MinuteOfDay.MAX || start > end) {
-      throw new InvalidActionParameterException({ actionType, staticMessage: 'start or end out of range' })
+      throw new InvalidActionParameterException({
+        actionType,
+        staticMessage: "start or end out of range",
+      })
     }
 
     if (duration <= 0 || pause <= 0) {
-      throw new InvalidActionParameterException({ actionType, staticMessage: 'duration and pause must not be zero or smaller' })
+      throw new InvalidActionParameterException({
+        actionType,
+        staticMessage: "duration and pause must not be zero or smaller",
+      })
     }
 
     this.start = start
@@ -167,13 +237,24 @@ class AddUsedTimeActionItemSessionDurationLimitSlot {
     this.pause = pause
   }
 
-  serialize = () => [ this.start, this.end, this.duration, this.pause ]
+  serialize = () => [this.start, this.end, this.duration, this.pause]
 
-  static parse = ([ start, end, duration, pause ]: [number, number, number, number]) => new AddUsedTimeActionItemSessionDurationLimitSlot({ start, end, duration, pause })
+  static parse = ([start, end, duration, pause]: [
+    number,
+    number,
+    number,
+    number,
+  ]) =>
+    new AddUsedTimeActionItemSessionDurationLimitSlot({
+      start,
+      end,
+      duration,
+      pause,
+    })
 }
 
 export interface SerializedAddUsedTimeActionVersion2 {
-  type: 'ADD_USED_TIME_V2'
+  type: "ADD_USED_TIME_V2"
   d: number
   i: Array<{
     categoryId: string

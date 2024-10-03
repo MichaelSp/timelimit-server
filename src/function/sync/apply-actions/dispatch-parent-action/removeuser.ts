@@ -15,17 +15,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { createHash } from 'crypto'
-import { InternalServerError } from 'http-errors'
-import { difference } from 'lodash'
-import * as Sequelize from 'sequelize'
-import { RemoveUserAction } from '../../../../action'
-import { Cache } from '../cache'
-import { ApplyActionException } from '../exception/index'
-import { ApplyActionIntegrityException } from '../exception/integrity'
-import { MissingUserException } from '../exception/missing-item'
+import { createHash } from "crypto"
+import { InternalServerError } from "http-errors"
+import { difference } from "lodash"
+import * as Sequelize from "sequelize"
+import { RemoveUserAction } from "../../../../action"
+import { Cache } from "../cache"
+import { ApplyActionException } from "../exception/index"
+import { ApplyActionIntegrityException } from "../exception/integrity"
+import { MissingUserException } from "../exception/missing-item"
 
-export async function dispatchRemoveUser ({ action, cache, parentUserId }: {
+export async function dispatchRemoveUser({
+  action,
+  cache,
+  parentUserId,
+}: {
   action: RemoveUserAction
   cache: Cache
   parentUserId: string
@@ -33,143 +37,168 @@ export async function dispatchRemoveUser ({ action, cache, parentUserId }: {
   const user = await cache.database.user.findOne({
     where: {
       familyId: cache.familyId,
-      userId: action.userId
+      userId: action.userId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!user) {
     throw new MissingUserException()
   }
 
-  if (user.type === 'parent') {
+  if (user.type === "parent") {
     if (!parentUserId) {
       throw new InternalServerError()
     }
 
     if (parentUserId === action.userId) {
-      throw new ApplyActionException({ staticMessage: 'users can not delete themself' })
+      throw new ApplyActionException({
+        staticMessage: "users can not delete themself",
+      })
     }
 
-    const expectedIntegrityValue = createHash('sha512').update(
-      action.userId + user.secondPasswordHash + 'remove'
-    ).digest('hex').substring(0, 16)
+    const expectedIntegrityValue = createHash("sha512")
+      .update(action.userId + user.secondPasswordHash + "remove")
+      .digest("hex")
+      .substring(0, 16)
 
     if (expectedIntegrityValue !== action.authentication) {
-      throw new ApplyActionIntegrityException({ staticMessage: 'invalid authentication value for removing a user' })
+      throw new ApplyActionIntegrityException({
+        staticMessage: "invalid authentication value for removing a user",
+      })
     }
 
-    if (user.mail !== '') {
+    if (user.mail !== "") {
       const usersWithLinkedMail = await cache.database.user.count({
         transaction: cache.transaction,
         where: {
           familyId: cache.familyId,
-          type: 'parent',
+          type: "parent",
           mail: {
-            [Sequelize.Op.not]: ''
-          }
-        }
+            [Sequelize.Op.not]: "",
+          },
+        },
       })
 
       if (usersWithLinkedMail <= 1) {
-        throw new ApplyActionException({ staticMessage: 'this user is the last one with a linked mail address' })
+        throw new ApplyActionException({
+          staticMessage: "this user is the last one with a linked mail address",
+        })
       }
     }
 
-    const usersWithLimitLoginCategories = (await cache.database.userLimitLoginCategory.findAll({
-      transaction: cache.transaction,
-      where: {
-        familyId: cache.familyId
-      },
-      attributes: ['userId']
-    })).map((item) => item.userId)
+    const usersWithLimitLoginCategories = (
+      await cache.database.userLimitLoginCategory.findAll({
+        transaction: cache.transaction,
+        where: {
+          familyId: cache.familyId,
+        },
+        attributes: ["userId"],
+      })
+    ).map((item) => item.userId)
 
-    const allParentUserIds = (await cache.database.user.findAll({
-      transaction: cache.transaction,
-      where: {
-        familyId: cache.familyId,
-        type: 'parent'
-      },
-      attributes: ['userId']
-    })).map((item) => item.userId)
+    const allParentUserIds = (
+      await cache.database.user.findAll({
+        transaction: cache.transaction,
+        where: {
+          familyId: cache.familyId,
+          type: "parent",
+        },
+        attributes: ["userId"],
+      })
+    ).map((item) => item.userId)
 
-    const allOtherParentUserIds = allParentUserIds.filter((item) => item !== action.userId)
+    const allOtherParentUserIds = allParentUserIds.filter(
+      (item) => item !== action.userId,
+    )
 
-    if (difference(allOtherParentUserIds, usersWithLimitLoginCategories).length === 0) {
-      throw new ApplyActionException({ staticMessage: 'can not delete the last user without limit login category' })
+    if (
+      difference(allOtherParentUserIds, usersWithLimitLoginCategories)
+        .length === 0
+    ) {
+      throw new ApplyActionException({
+        staticMessage:
+          "can not delete the last user without limit login category",
+      })
     }
   }
 
-  if (user.type === 'child') {
+  if (user.type === "child") {
     const categories = await cache.database.category.findAll({
       where: {
         familyId: cache.familyId,
-        childId: action.userId
+        childId: action.userId,
       },
-      transaction: cache.transaction
+      transaction: cache.transaction,
     })
 
     await cache.database.categoryApp.destroy({
       where: {
         familyId: cache.familyId,
         categoryId: {
-          [Sequelize.Op.in]: categories.map((category) => category.categoryId)
-        }
+          [Sequelize.Op.in]: categories.map((category) => category.categoryId),
+        },
       },
-      transaction: cache.transaction
+      transaction: cache.transaction,
     })
 
     await cache.database.timelimitRule.destroy({
       where: {
         familyId: cache.familyId,
         categoryId: {
-          [Sequelize.Op.in]: categories.map((category) => category.categoryId)
-        }
+          [Sequelize.Op.in]: categories.map((category) => category.categoryId),
+        },
       },
-      transaction: cache.transaction
+      transaction: cache.transaction,
     })
 
     await cache.database.usedTime.destroy({
       where: {
         familyId: cache.familyId,
         categoryId: {
-          [Sequelize.Op.in]: categories.map((category) => category.categoryId)
-        }
+          [Sequelize.Op.in]: categories.map((category) => category.categoryId),
+        },
       },
-      transaction: cache.transaction
+      transaction: cache.transaction,
     })
 
     await cache.database.category.destroy({
       where: {
         familyId: cache.familyId,
         categoryId: {
-          [Sequelize.Op.in]: categories.map((category) => category.categoryId)
-        }
+          [Sequelize.Op.in]: categories.map((category) => category.categoryId),
+        },
       },
-      transaction: cache.transaction
+      transaction: cache.transaction,
     })
   }
 
-  const [updatedDevices1] = await cache.database.device.update({
-    currentUserId: '',
-    isUserKeptSignedIn: false
-  }, {
-    where: {
-      familyId: cache.familyId,
-      currentUserId: action.userId
+  const [updatedDevices1] = await cache.database.device.update(
+    {
+      currentUserId: "",
+      isUserKeptSignedIn: false,
     },
-    transaction: cache.transaction
-  })
+    {
+      where: {
+        familyId: cache.familyId,
+        currentUserId: action.userId,
+      },
+      transaction: cache.transaction,
+    },
+  )
 
-  const [updatedDevices2] = await cache.database.device.update({
-    defaultUserId: ''
-  }, {
-    where: {
-      familyId: cache.familyId,
-      defaultUserId: action.userId
+  const [updatedDevices2] = await cache.database.device.update(
+    {
+      defaultUserId: "",
     },
-    transaction: cache.transaction
-  })
+    {
+      where: {
+        familyId: cache.familyId,
+        defaultUserId: action.userId,
+      },
+      transaction: cache.transaction,
+    },
+  )
 
   if (updatedDevices1 > 0 || updatedDevices2 > 0) {
     cache.invalidiateDeviceList = true

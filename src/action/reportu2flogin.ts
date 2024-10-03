@@ -15,16 +15,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
+import { ParentAction } from "./basetypes"
 
 export class ReportU2fLoginAction extends ParentAction {
   static instance = new ReportU2fLoginAction()
 
-  private constructor () {
+  private constructor() {
     super()
   }
 }
 
 export interface SerializedReportU2fLoginAction {
-  type: 'REPORT_U2F_LOGIN'
+  type: "REPORT_U2F_LOGIN"
 }

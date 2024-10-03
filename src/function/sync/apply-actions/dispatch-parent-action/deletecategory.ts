@@ -15,11 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { DeleteCategoryAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingCategoryException } from '../exception/missing-item'
+import { DeleteCategoryAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingCategoryException } from "../exception/missing-item"
 
-export async function dispatchDeleteCategory ({ action, cache }: {
+export async function dispatchDeleteCategory({
+  action,
+  cache,
+}: {
   action: DeleteCategoryAction
   cache: Cache
 }) {
@@ -29,53 +32,58 @@ export async function dispatchDeleteCategory ({ action, cache }: {
   const categoryEntry = await cache.database.category.findOne({
     where: {
       familyId,
-      categoryId
+      categoryId,
     },
-    transaction
+    transaction,
   })
 
-  if (!categoryEntry) { throw new MissingCategoryException() }
+  if (!categoryEntry) {
+    throw new MissingCategoryException()
+  }
 
   await cache.database.timelimitRule.destroy({
     where: {
       familyId,
-      categoryId
+      categoryId,
     },
-    transaction
+    transaction,
   })
 
   await cache.database.usedTime.destroy({
     where: {
       familyId,
-      categoryId
+      categoryId,
     },
-    transaction
+    transaction,
   })
 
   await cache.database.categoryApp.destroy({
     where: {
       familyId,
-      categoryId
+      categoryId,
     },
-    transaction
+    transaction,
   })
 
-  const [affectedUserRows] = await cache.database.user.update({
-    categoryForNotAssignedApps: ''
-  }, {
-    where: {
-      familyId,
-      categoryForNotAssignedApps: categoryId
+  const [affectedUserRows] = await cache.database.user.update(
+    {
+      categoryForNotAssignedApps: "",
     },
-    transaction
-  })
+    {
+      where: {
+        familyId,
+        categoryForNotAssignedApps: categoryId,
+      },
+      transaction,
+    },
+  )
 
   await cache.database.category.destroy({
     where: {
       familyId,
-      categoryId
+      categoryId,
     },
-    transaction
+    transaction,
   })
 
   // update the cache

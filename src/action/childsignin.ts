@@ -15,16 +15,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ChildAction } from './basetypes'
+import { ChildAction } from "./basetypes"
 
 export class ChildSignInAction extends ChildAction {
   static instance = new ChildSignInAction()
 
-  constructor () {
+  constructor() {
     super()
   }
 }
 
 export interface SerializedChildSignInAction {
-  type: 'CHILD_SIGN_IN'
+  type: "CHILD_SIGN_IN"
 }

@@ -2,18 +2,18 @@
 
 - DATABASE_URL
   - this specifies the database to use
-  - default value: ``sqlite://test.db`` (sqlite database in the source code directory)
+  - default value: `sqlite://test.db` (sqlite database in the source code directory)
   - supports mysql, postgresql and sqlite (sqlite in development builds only because it's declared as dev dependency)
-  - looks like ``postgres://user:pass@example.com:5432/dbname``
+  - looks like `postgres://user:pass@example.com:5432/dbname`
   - no extra setup needed
-      - when starting the application, the database tables are created/ migrated
-        - this only works for upgrading; if you intend to eventually downgrade, make a backup first (you should make backups in all cases before an upgrade)
+    - when starting the application, the database tables are created/ migrated
+      - this only works for upgrading; if you intend to eventually downgrade, make a backup first (you should make backups in all cases before an upgrade)
 - PORT
   - the port at which the server should listen
   - default value: 8080
 - NODE_ENV
-  - should be set to ``production`` in production
-  - when using ``development``, then mails are not sent; instead they are print to the console
+  - should be set to `production` in production
+  - when using `development`, then mails are not sent; instead they are print to the console
 - GOOGLE_PLAY_PUBLIC_KEY
   - key for validating purchases
   - purchases using google play don't work without it/ when it is not set
@@ -24,15 +24,15 @@
   - a JSON encoded configuration for nodemailer
   - supports setting a smtp server configuration, see <https://nodemailer.com/smtp/>
   - allows easier configuration in case of a [well known services](https://nodemailer.com/smtp/well-known/)
-  - default value is ``null``
+  - default value is `null`
   - examples
-    - ``{"host": "localhost", "port": 25}`` (using a local mail server which does not require any authentication)
-    - ``{"service": "1und1", "auth": {"user": "me@my.timelimit.server", "pass": "my password"}}`` (using a well known service)
-    - ``{"host": "my.mail.server", "secure": true, "auth": {"user": "me@my.timelimit.server", "pass": "my password"}}`` (using a external smtp server)
-  - in case of a docker-compose file, you should escape this, e.g. sourround it with ``'`` single quotes
+    - `{"host": "localhost", "port": 25}` (using a local mail server which does not require any authentication)
+    - `{"service": "1und1", "auth": {"user": "me@my.timelimit.server", "pass": "my password"}}` (using a well known service)
+    - `{"host": "my.mail.server", "secure": true, "auth": {"user": "me@my.timelimit.server", "pass": "my password"}}` (using a external smtp server)
+  - in case of a docker-compose file, you should escape this, e.g. sourround it with `'` single quotes
 - MAIL_IMPRINT
   - a string which is added to the footer of the sent mails
-  - default value: ``not defined``
+  - default value: `not defined`
 - ADMIN_TOKEN
   - a password which allows to use some APIs
   - admin APIs are disabled when this is not set
@@ -41,19 +41,19 @@
   - if the user tries to use such a mail service, then he will get the notification that this provider is not supported
   - the blacklist is empty if this is not set
 - MAIL_WHITELIST
-  - list of mail addresses (``someone@somewhere.com``) or domains (``mailbox.org``), separated by comma
+  - list of mail addresses (`someone@somewhere.com`) or domains (`mailbox.org`), separated by comma
   - if a user requests signing in with a mail address which is not in this list, then the request is rejected
   - if the list is empty/ the variable is not set, then any mail address (except with domains from the blacklist) is allowed
   - note: this allows a third party who knows the server url to check if a certain mail address is allowed by trying to sign in with it
 - DISABLE_SIGNUP
-  - ``yes`` or ``no`` (default: no)
-  - disables creating new families if ``yes`` is selected
+  - `yes` or `no` (default: no)
+  - disables creating new families if `yes` is selected
 - ALWAYS_PRO
-  - ``yes`` or ``no`` (default: ``no``)
-  - if ``yes``, then the features of the premium version are unlocked for all users
+  - `yes` or `no` (default: `no`)
+  - if `yes`, then the features of the premium version are unlocked for all users
 - PING_INTERVAL_SEC
   - ping interval at the websocket in seconds
-  - the default value is ``25``
+  - the default value is `25`
 - SIGN_SECRET
   - used for signing tokens
   - if not set or set to an empty string, then the features that depend on it are disabled

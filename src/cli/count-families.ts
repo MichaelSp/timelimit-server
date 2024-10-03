@@ -15,11 +15,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { defaultDatabase } from '../database'
+import { defaultDatabase } from "../database"
 
 const database = defaultDatabase
 
-database.family.count()
+database.family
+  .count()
   .then((res) => console.log(JSON.stringify(res)))
   .catch((ex) => {
     console.warn(ex)

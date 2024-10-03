@@ -4,8 +4,6 @@
 https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeActionVersion2/properties/i/items
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedAppLogicAction.schema.json\*](SerializedAppLogicAction.schema.json "open original schema") |
@@ -26,17 +24,15 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTime
 
 ## categoryId
 
-
-
 `categoryId`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeactionversion2-properties-i-items-properties-categoryid.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeActionVersion2/properties/i/items/properties/categoryId")
+- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeactionversion2-properties-i-items-properties-categoryid.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeActionVersion2/properties/i/items/properties/categoryId")
 
 ### categoryId Type
 
@@ -44,17 +40,15 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTime
 
 ## tta
 
-
-
 `tta`
 
-* is required
+- is required
 
-* Type: `number`
+- Type: `number`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeactionversion2-properties-i-items-properties-tta.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeActionVersion2/properties/i/items/properties/tta")
+- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeactionversion2-properties-i-items-properties-tta.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeActionVersion2/properties/i/items/properties/tta")
 
 ### tta Type
 
@@ -62,17 +56,15 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTime
 
 ## etts
 
-
-
 `etts`
 
-* is required
+- is required
 
-* Type: `number`
+- Type: `number`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeactionversion2-properties-i-items-properties-etts.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeActionVersion2/properties/i/items/properties/etts")
+- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeactionversion2-properties-i-items-properties-etts.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeActionVersion2/properties/i/items/properties/etts")
 
 ### etts Type
 
@@ -80,21 +72,19 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTime
 
 ## as
 
-
-
 `as`
 
-* is optional
+- is optional
 
-* Type: an array where each item follows the corresponding schema in the following list:
+- Type: an array where each item follows the corresponding schema in the following list:
 
   1. [Untitled number in SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeactionversion2-properties-i-items-properties-as-items-items-0.md "check type definition")
 
   2. [Untitled number in SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeactionversion2-properties-i-items-properties-as-items-items-1.md "check type definition")
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeactionversion2-properties-i-items-properties-as.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeActionVersion2/properties/i/items/properties/as")
+- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeactionversion2-properties-i-items-properties-as.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeActionVersion2/properties/i/items/properties/as")
 
 ### as Type
 
@@ -106,13 +96,11 @@ an array where each item follows the corresponding schema in the following list:
 
 ## sdl
 
-
-
 `sdl`
 
-* is optional
+- is optional
 
-* Type: an array where each item follows the corresponding schema in the following list:
+- Type: an array where each item follows the corresponding schema in the following list:
 
   1. [Untitled number in SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeactionversion2-properties-i-items-properties-sdl-items-items-0.md "check type definition")
 
@@ -122,9 +110,9 @@ an array where each item follows the corresponding schema in the following list:
 
   4. [Untitled number in SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeactionversion2-properties-i-items-properties-sdl-items-items-3.md "check type definition")
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeactionversion2-properties-i-items-properties-sdl.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeActionVersion2/properties/i/items/properties/sdl")
+- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddusedtimeactionversion2-properties-i-items-properties-sdl.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeActionVersion2/properties/i/items/properties/sdl")
 
 ### sdl Type
 

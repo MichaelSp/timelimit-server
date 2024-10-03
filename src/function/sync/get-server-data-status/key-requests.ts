@@ -15,12 +15,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { Database } from '../../../database'
-import { ServerKeyRequest } from '../../../object/serverdatastatus'
-import { FamilyEntry } from './family-entry'
+import * as Sequelize from "sequelize"
+import { Database } from "../../../database"
+import { ServerKeyRequest } from "../../../object/serverdatastatus"
+import { FamilyEntry } from "./family-entry"
 
-export async function getKeyRequests ({ database, transaction, familyEntry, lastSeenRequestIndex, deviceId }: {
+export async function getKeyRequests({
+  database,
+  transaction,
+  familyEntry,
+  lastSeenRequestIndex,
+  deviceId,
+}: {
   database: Database
   transaction: Sequelize.Transaction
   familyEntry: FamilyEntry
@@ -31,16 +37,18 @@ export async function getKeyRequests ({ database, transaction, familyEntry, last
     where: {
       familyId: familyEntry.familyId,
       senderDeviceId: {
-        [Sequelize.Op.ne]: deviceId
+        [Sequelize.Op.ne]: deviceId,
       },
-      ...(lastSeenRequestIndex === null ? {} : {
-        serverSequenceNumber: {
-          [Sequelize.Op.gt]: lastSeenRequestIndex
-        }
-      })
+      ...(lastSeenRequestIndex === null
+        ? {}
+        : {
+            serverSequenceNumber: {
+              [Sequelize.Op.gt]: lastSeenRequestIndex,
+            },
+          }),
     },
     transaction,
-    limit: 32
+    limit: 32,
   })
 
   if (data.length === 0) return null
@@ -52,7 +60,7 @@ export async function getKeyRequests ({ database, transaction, familyEntry, last
     deviceId: item.deviceId || undefined,
     categoryId: item.categoryId || undefined,
     type: item.type,
-    tempKey: item.tempKey.toString('base64'),
-    signature: item.signature.toString('base64')
+    tempKey: item.tempKey.toString("base64"),
+    signature: item.signature.toString("base64"),
   }))
 }

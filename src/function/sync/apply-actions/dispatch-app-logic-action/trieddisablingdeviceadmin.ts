@@ -15,13 +15,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { TriedDisablingDeviceAdminAction } from '../../../../action'
-import { hasDeviceManipulation } from '../../../../database/device'
-import { sendManipulationWarnings } from '../../../warningmail/manipulation'
-import { Cache } from '../cache'
-import { SourceDeviceNotFoundException } from '../exception/illegal-state'
+import { TriedDisablingDeviceAdminAction } from "../../../../action"
+import { hasDeviceManipulation } from "../../../../database/device"
+import { sendManipulationWarnings } from "../../../warningmail/manipulation"
+import { Cache } from "../cache"
+import { SourceDeviceNotFoundException } from "../exception/illegal-state"
 
-export async function dispatchTriedDisablingDeviceAdmin ({ deviceId, cache }: {
+export async function dispatchTriedDisablingDeviceAdmin({
+  deviceId,
+  cache,
+}: {
   deviceId: string
   action: TriedDisablingDeviceAdminAction
   cache: Cache
@@ -29,9 +32,9 @@ export async function dispatchTriedDisablingDeviceAdmin ({ deviceId, cache }: {
   const deviceEntry = await cache.database.device.findOne({
     where: {
       familyId: cache.familyId,
-      deviceId
+      deviceId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (deviceEntry === null) {
@@ -54,7 +57,7 @@ export async function dispatchTriedDisablingDeviceAdmin ({ deviceId, cache }: {
       database: cache.database,
       transaction: cache.transaction,
       deviceName: deviceEntry.name,
-      familyId: cache.familyId
+      familyId: cache.familyId,
     })
   }
 }

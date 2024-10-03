@@ -15,34 +15,49 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UserFlags } from '../model/userflags'
-import { ParentAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
-import { assertIdWithinFamily, assertSafeInteger } from './meta/util'
+import { UserFlags } from "../model/userflags"
+import { ParentAction } from "./basetypes"
+import { InvalidActionParameterException } from "./meta/exception"
+import { assertIdWithinFamily, assertSafeInteger } from "./meta/util"
 
-const actionType = 'UpdateUserFlagsAction'
+const actionType = "UpdateUserFlagsAction"
 
 export class UpdateUserFlagsAction extends ParentAction {
   readonly userId: string
   readonly modifiedBits: number
   readonly newValues: number
 
-  constructor ({ userId, modifiedBits, newValues }: {
+  constructor({
+    userId,
+    modifiedBits,
+    newValues,
+  }: {
     userId: string
     modifiedBits: number
     newValues: number
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'userId', value: userId })
-    assertSafeInteger({ actionType, field: 'modifiedBits', value: modifiedBits })
-    assertSafeInteger({ actionType, field: 'newValues', value: newValues })
+    assertIdWithinFamily({ actionType, field: "userId", value: userId })
+    assertSafeInteger({
+      actionType,
+      field: "modifiedBits",
+      value: modifiedBits,
+    })
+    assertSafeInteger({ actionType, field: "newValues", value: newValues })
 
-    if ((modifiedBits | UserFlags.ALL_FLAGS) !== UserFlags.ALL_FLAGS || (modifiedBits | newValues) !== modifiedBits) {
+    if (
+      (modifiedBits | UserFlags.ALL_FLAGS) !== UserFlags.ALL_FLAGS ||
+      (modifiedBits | newValues) !== modifiedBits
+    ) {
       throw new InvalidActionParameterException({
         actionType,
-        staticMessage: 'flags are out of the valid range',
-        dynamicMessage: 'flags are out of the valid range: ' + modifiedBits + ', ' + newValues
+        staticMessage: "flags are out of the valid range",
+        dynamicMessage:
+          "flags are out of the valid range: " +
+          modifiedBits +
+          ", " +
+          newValues,
       })
     }
 
@@ -51,17 +66,20 @@ export class UpdateUserFlagsAction extends ParentAction {
     this.newValues = newValues
   }
 
-  static parse = ({ userId, modified, values }: SerializedUpdateUserFlagsAction) => (
+  static parse = ({
+    userId,
+    modified,
+    values,
+  }: SerializedUpdateUserFlagsAction) =>
     new UpdateUserFlagsAction({
       userId,
       modifiedBits: modified,
-      newValues: values
+      newValues: values,
     })
-  )
 }
 
 export interface SerializedUpdateUserFlagsAction {
-  type: 'UPDATE_USER_FLAGS'
+  type: "UPDATE_USER_FLAGS"
   userId: string
   modified: number
   values: number

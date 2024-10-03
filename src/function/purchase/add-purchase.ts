@@ -15,20 +15,28 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Conflict } from 'http-errors'
-import { Database, Transaction } from '../../database'
-import { notifyClientsAboutChangesDelayed } from '../../function/websocket'
-import { WebsocketApi } from '../../websocket'
+import { Conflict } from "http-errors"
+import { Database, Transaction } from "../../database"
+import { notifyClientsAboutChangesDelayed } from "../../function/websocket"
+import { WebsocketApi } from "../../websocket"
 
 const day = 1000 * 60 * 60 * 24
 const month = day * 31
 const year = day * 366
 
-export const addPurchase = async ({ database, familyId, type, service, transactionId, websocket, transaction }: {
+export const addPurchase = async ({
+  database,
+  familyId,
+  type,
+  service,
+  transactionId,
+  websocket,
+  transaction,
+}: {
   database: Database
   familyId: string
-  type: 'month' | 'year'
-  service: 'googleplay' | 'directpurchase'
+  type: "month" | "year"
+  service: "googleplay" | "directpurchase"
   transactionId: string
   websocket: WebsocketApi
   transaction: Transaction
@@ -36,9 +44,9 @@ export const addPurchase = async ({ database, familyId, type, service, transacti
   const oldPurchaseEntry = await database.purchase.findOne({
     where: {
       service,
-      transactionId
+      transactionId,
     },
-    transaction
+    transaction,
   })
 
   if (oldPurchaseEntry) {
@@ -47,9 +55,9 @@ export const addPurchase = async ({ database, familyId, type, service, transacti
 
   const familyEntry = await database.family.findOne({
     where: {
-      familyId
+      familyId,
     },
-    transaction
+    transaction,
   })
 
   if (!familyEntry) {
@@ -58,24 +66,29 @@ export const addPurchase = async ({ database, familyId, type, service, transacti
 
   const previousFullVersionEndTime = familyEntry.fullVersionUntil
 
-  const newFullVersionUntil = Math.max(parseInt(familyEntry.fullVersionUntil, 10), Date.now()) + (type === 'year' ? year : month)
+  const newFullVersionUntil =
+    Math.max(parseInt(familyEntry.fullVersionUntil, 10), Date.now()) +
+    (type === "year" ? year : month)
 
   familyEntry.fullVersionUntil = newFullVersionUntil.toString(10)
   familyEntry.hasFullVersion = true
 
   await familyEntry.save({ transaction })
 
-  await database.purchase.create({
-    familyId,
-    service,
-    transactionId,
-    type,
-    loggedAt: Date.now().toString(10),
-    previousFullVersionEndTime,
-    newFullVersionEndTime: newFullVersionUntil.toString(10)
-  }, {
-    transaction
-  })
+  await database.purchase.create(
+    {
+      familyId,
+      service,
+      transactionId,
+      type,
+      loggedAt: Date.now().toString(10),
+      previousFullVersionEndTime,
+      newFullVersionEndTime: newFullVersionUntil.toString(10),
+    },
+    {
+      transaction,
+    },
+  )
 
   await notifyClientsAboutChangesDelayed({
     familyId,
@@ -84,6 +97,6 @@ export const addPurchase = async ({ database, familyId, type, service, transacti
     websocket,
     generalLevel: 2,
     targetedLevels: new Map(),
-    transaction
+    transaction,
   })
 }

@@ -15,46 +15,61 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Unauthorized } from 'http-errors'
-import { Database, Transaction } from '../../database'
-import { generateAuthToken } from '../../util/token'
+import { Unauthorized } from "http-errors"
+import { Database, Transaction } from "../../database"
+import { generateAuthToken } from "../../util/token"
 
 export const createAuthTokenByMailAddress = async ({
-  mail, database, transaction, locale
+  mail,
+  database,
+  transaction,
+  locale,
 }: {
-  mail: string, database: Database, transaction: Transaction, locale: string
+  mail: string
+  database: Database
+  transaction: Transaction
+  locale: string
 }) => {
   const token = generateAuthToken()
 
-  await database.authtoken.create({
-    token,
-    mail,
-    createdAt: Date.now().toString(),
-    locale
-  }, { transaction })
+  await database.authtoken.create(
+    {
+      token,
+      mail,
+      createdAt: Date.now().toString(),
+      locale,
+    },
+    { transaction },
+  )
 
   return token
 }
 
 export const getMailAndLocaleByAuthToken = async ({
-  mailAuthToken, database, transaction, invalidate
+  mailAuthToken,
+  database,
+  transaction,
+  invalidate,
 }: {
-  mailAuthToken: string, database: Database, transaction: Transaction, invalidate: boolean
+  mailAuthToken: string
+  database: Database
+  transaction: Transaction
+  invalidate: boolean
 }) => {
   const entry = await database.authtoken.findOne({
     where: {
-      token: mailAuthToken
+      token: mailAuthToken,
     },
-    transaction
+    transaction,
   })
 
   if (entry) {
     if (invalidate) {
       const rowCounter = await database.authtoken.destroy({
         where: {
-          token: mailAuthToken
+          token: mailAuthToken,
         },
-        transaction
+        transaction,
       })
 
       if (rowCounter !== 1) {
@@ -64,7 +79,7 @@ export const getMailAndLocaleByAuthToken = async ({
 
     return {
       mail: entry.mail,
-      locale: entry.locale
+      locale: entry.locale,
     }
   } else {
     return null
@@ -72,11 +87,22 @@ export const getMailAndLocaleByAuthToken = async ({
 }
 
 export const requireMailAndLocaleByAuthToken = async ({
-  mailAuthToken, database, transaction, invalidate
+  mailAuthToken,
+  database,
+  transaction,
+  invalidate,
 }: {
-  mailAuthToken: string, database: Database, transaction: Transaction, invalidate: boolean
+  mailAuthToken: string
+  database: Database
+  transaction: Transaction
+  invalidate: boolean
 }) => {
-  const result = await getMailAndLocaleByAuthToken({ mailAuthToken, database, transaction, invalidate })
+  const result = await getMailAndLocaleByAuthToken({
+    mailAuthToken,
+    database,
+    transaction,
+    invalidate,
+  })
 
   if (!result) {
     throw new Unauthorized()

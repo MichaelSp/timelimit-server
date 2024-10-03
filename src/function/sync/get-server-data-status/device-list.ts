@@ -15,22 +15,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { Database } from '../../../database'
-import { ServerDeviceList } from '../../../object/serverdatastatus'
-import { FamilyEntry } from './family-entry'
+import * as Sequelize from "sequelize"
+import { Database } from "../../../database"
+import { ServerDeviceList } from "../../../object/serverdatastatus"
+import { FamilyEntry } from "./family-entry"
 
-export async function getDeviceList ({ database, transaction, familyEntry }: {
+export async function getDeviceList({
+  database,
+  transaction,
+  familyEntry,
+}: {
   database: Database
   transaction: Sequelize.Transaction
   familyEntry: FamilyEntry
 }): Promise<ServerDeviceList> {
-  const devices = (await database.device.findAll({
+  const devices = await database.device.findAll({
     where: {
-      familyId: familyEntry.familyId
+      familyId: familyEntry.familyId,
     },
-    transaction
-  }))
+    transaction,
+  })
 
   return {
     version: familyEntry.deviceListVersion,
@@ -66,9 +70,9 @@ export async function getDeviceList ({ database, transaction, familyEntry }: {
       activityLevelBlocking: item.activityLevelBlocking,
       qOrLater: item.isQorLater,
       mFlags: item.manipulationFlags,
-      pk: item.publicKey ? item.publicKey.toString('base64') : undefined,
+      pk: item.publicKey ? item.publicKey.toString("base64") : undefined,
       pType: item.platformType || undefined,
-      pLevel: item.platformLevel
-    }))
+      pLevel: item.platformLevel,
+    })),
   }
 }

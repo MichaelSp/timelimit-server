@@ -15,28 +15,41 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Transaction } from 'sequelize'
-import { attributesVersion9 as categoryAttributes } from '../../category'
-import { Migration } from '../../main'
+import { Transaction } from "sequelize"
+import { attributesVersion9 as categoryAttributes } from "../../category"
+import { Migration } from "../../main"
 
-export const up: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.addColumn('Categories', 'disableLimitsUntil', {
-      ...categoryAttributes.disableLimitsUntil
-    }, {
-      transaction
-    })
-  })
+export const up: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.addColumn(
+        "Categories",
+        "disableLimitsUntil",
+        {
+          ...categoryAttributes.disableLimitsUntil,
+        },
+        {
+          transaction,
+        },
+      )
+    },
+  )
 }
 
-export const down: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.removeColumn('Categories', 'disableLimitsUntil', { transaction })
-  })
+export const down: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.removeColumn("Categories", "disableLimitsUntil", {
+        transaction,
+      })
+    },
+  )
 }

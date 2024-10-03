@@ -15,11 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { NewDeviceInfo } from '../../api/schema'
-import { DeviceAttributes } from '../../database/device'
-import { generateVersionId } from '../../util/token'
+import { NewDeviceInfo } from "../../api/schema"
+import { DeviceAttributes } from "../../database/device"
+import { generateVersionId } from "../../util/token"
 
-export const prepareDeviceEntry = ({ familyId, userId, deviceAuthToken, deviceId, deviceName, newDeviceInfo, isUserKeptSignedIn }: {
+export const prepareDeviceEntry = ({
+  familyId,
+  userId,
+  deviceAuthToken,
+  deviceId,
+  deviceName,
+  newDeviceInfo,
+  isUserKeptSignedIn,
+}: {
   familyId: string
   userId: string
   deviceAuthToken: string
@@ -36,37 +44,37 @@ export const prepareDeviceEntry = ({ familyId, userId, deviceAuthToken, deviceId
   model: newDeviceInfo.model,
   addedAt: Date.now().toString(10),
   deviceAuthToken,
-  networkTime: 'disabled',
+  networkTime: "disabled",
   nextSequenceNumber: 0,
-  currentProtectionLevel: 'none',
-  highestProtectionLevel: 'none',
-  currentUsageStatsPermission: 'not granted',
-  highestUsageStatsPermission: 'not granted',
-  currentNotificationAccessPermission: 'not granted',
-  highestNotificationAccessPermission: 'not granted',
+  currentProtectionLevel: "none",
+  highestProtectionLevel: "none",
+  currentUsageStatsPermission: "not granted",
+  highestUsageStatsPermission: "not granted",
+  currentNotificationAccessPermission: "not granted",
+  highestNotificationAccessPermission: "not granted",
   currentAppVersion: 0,
   highestAppVersion: 0,
   triedDisablingDeviceAdmin: false,
   didReboot: false,
   hadManipulation: false,
   hadManipulationFlags: 0,
-  lastConnectivity: '0',
+  lastConnectivity: "0",
   notSeenForLongTime: false,
   didDeviceReportUninstall: false,
   isUserKeptSignedIn,
   showDeviceConnected: false,
-  defaultUserId: '',
+  defaultUserId: "",
   defaultUserTimeout: 0,
   considerRebootManipulation: false,
-  currentOverlayPermission: 'not granted',
-  highestOverlayPermission: 'not granted',
+  currentOverlayPermission: "not granted",
+  highestOverlayPermission: "not granted",
   asEnabled: false,
   wasAsEnabled: false,
   activityLevelBlocking: false,
   isQorLater: false,
   manipulationFlags: 0,
   publicKey: null,
-  nextKeyReplySequenceNumber: '1',
+  nextKeyReplySequenceNumber: "1",
   platformType: null,
-  platformLevel: 0
+  platformLevel: 0,
 })

@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { defaultDatabase } from '../database'
-import { findOldFamilyIds } from '../function/cleanup/delete-old-families'
+import { defaultDatabase } from "../database"
+import { findOldFamilyIds } from "../function/cleanup/delete-old-families"
 
 const database = defaultDatabase
 

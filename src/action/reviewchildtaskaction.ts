@@ -15,10 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily, assertSafeInteger, throwOutOfRange } from './meta/util'
+import { ParentAction } from "./basetypes"
+import {
+  assertIdWithinFamily,
+  assertSafeInteger,
+  throwOutOfRange,
+} from "./meta/util"
 
-const actionType = 'ReviewChildTaskAction'
+const actionType = "ReviewChildTaskAction"
 
 export class ReviewChildTaskAction extends ParentAction {
   readonly taskId: string
@@ -26,7 +30,12 @@ export class ReviewChildTaskAction extends ParentAction {
   readonly time: number
   readonly day?: number
 
-  constructor ({ taskId, ok, time, day }: {
+  constructor({
+    taskId,
+    ok,
+    time,
+    day,
+  }: {
     taskId: string
     ok: boolean
     time: number
@@ -34,18 +43,18 @@ export class ReviewChildTaskAction extends ParentAction {
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'taskId', value: taskId })
-    assertSafeInteger({ actionType, field: 'time', value: time })
+    assertIdWithinFamily({ actionType, field: "taskId", value: taskId })
+    assertSafeInteger({ actionType, field: "time", value: time })
 
     if (time <= 0) {
-      throwOutOfRange({ actionType, field: 'time', value: time })
+      throwOutOfRange({ actionType, field: "time", value: time })
     }
 
     if (day !== undefined) {
-      assertSafeInteger({ actionType, field: 'day', value: day })
+      assertSafeInteger({ actionType, field: "day", value: day })
 
       if (day < 0) {
-        throwOutOfRange({ actionType, field: 'day', value: day })
+        throwOutOfRange({ actionType, field: "day", value: day })
       }
     }
 
@@ -55,13 +64,12 @@ export class ReviewChildTaskAction extends ParentAction {
     this.day = day
   }
 
-  static parse = ({ taskId, ok, time, day }: SerializedReviewChildTaskAction) => (
+  static parse = ({ taskId, ok, time, day }: SerializedReviewChildTaskAction) =>
     new ReviewChildTaskAction({ taskId, ok, time, day })
-  )
 }
 
 export interface SerializedReviewChildTaskAction {
-  type: 'REVIEW_CHILD_TASK'
+  type: "REVIEW_CHILD_TASK"
   taskId: string
   ok: boolean
   time: number

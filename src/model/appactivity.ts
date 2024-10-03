@@ -9,13 +9,17 @@ export class AppActivityItem {
   readonly activityName: string
   readonly title: string
 
-  constructor ({ packageName, activityName, title }: {
+  constructor({
+    packageName,
+    activityName,
+    title,
+  }: {
     packageName: string
     activityName: string
     title: string
   }) {
-    if ((!packageName) || (!activityName)) {
-      throw new IncompleteAppActivityItemException('incomplete app activity')
+    if (!packageName || !activityName) {
+      throw new IncompleteAppActivityItemException("incomplete app activity")
     }
 
     this.packageName = packageName
@@ -23,18 +27,17 @@ export class AppActivityItem {
     this.title = title
   }
 
-  static parse = ({ p, c, t }: SerializedAppActivityItem) => (
+  static parse = ({ p, c, t }: SerializedAppActivityItem) =>
     new AppActivityItem({
       packageName: p,
       activityName: c,
-      title: t
+      title: t,
     })
-  )
 
   serialize = (): SerializedAppActivityItem => ({
     p: this.packageName,
     c: this.activityName,
-    t: this.title
+    t: this.title,
   })
 }
 
@@ -44,29 +47,31 @@ export class RemovedAppActivityItem {
   readonly packageName: string
   readonly activityName: string
 
-  constructor ({ packageName, activityName }: {
+  constructor({
+    packageName,
+    activityName,
+  }: {
     packageName: string
     activityName: string
   }) {
-    if ((!packageName) || (!activityName)) {
-      throw new IncompleteAppActivityItemException('incomplete app activity')
+    if (!packageName || !activityName) {
+      throw new IncompleteAppActivityItemException("incomplete app activity")
     }
 
     this.packageName = packageName
     this.activityName = activityName
   }
 
-  static parse = (data: SerializedRemovedAppActivityItem) => (
+  static parse = (data: SerializedRemovedAppActivityItem) =>
     new RemovedAppActivityItem({
       packageName: data[0],
-      activityName: data[1]
+      activityName: data[1],
     })
-  )
 
-  serialize = (): SerializedRemovedAppActivityItem => ([
+  serialize = (): SerializedRemovedAppActivityItem => [
     this.packageName,
-    this.activityName
-  ])
+    this.activityName,
+  ]
 }
 
 export class IncompleteAppActivityItemException extends Error {}

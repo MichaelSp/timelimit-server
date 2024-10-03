@@ -15,21 +15,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { DeleteChildTaskAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingTaskException } from '../exception/missing-item'
+import { DeleteChildTaskAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingTaskException } from "../exception/missing-item"
 
-export async function dispatchDeleteChildTaskAction ({ action, cache }: {
+export async function dispatchDeleteChildTaskAction({
+  action,
+  cache,
+}: {
   action: DeleteChildTaskAction
   cache: Cache
 }) {
   const taskInfoUnsafe = await cache.database.childTask.findOne({
     where: {
       familyId: cache.familyId,
-      taskId: action.taskId
+      taskId: action.taskId,
     },
     transaction: cache.transaction,
-    attributes: ['categoryId']
+    attributes: ["categoryId"],
   })
 
   if (taskInfoUnsafe === null) throw new MissingTaskException()
@@ -39,9 +42,9 @@ export async function dispatchDeleteChildTaskAction ({ action, cache }: {
   await cache.database.childTask.destroy({
     where: {
       familyId: cache.familyId,
-      taskId: action.taskId
+      taskId: action.taskId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   cache.categoriesWithModifiedTasks.add(taskInfo.categoryId)

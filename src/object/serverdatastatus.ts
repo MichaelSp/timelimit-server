@@ -15,28 +15,28 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SerializedAppActivityItem } from '../model/appactivity'
-import { SerializedInstalledApp } from '../model/installedapp'
-import { NewPermissionStatus } from '../model/newpermissionstatus'
-import { ProtectionLevel } from '../model/protectionlevel'
-import { RuntimePermissionStatus } from '../model/runtimepermissionstatus'
+import { SerializedAppActivityItem } from "../model/appactivity"
+import { SerializedInstalledApp } from "../model/installedapp"
+import { NewPermissionStatus } from "../model/newpermissionstatus"
+import { ProtectionLevel } from "../model/protectionlevel"
+import { RuntimePermissionStatus } from "../model/runtimepermissionstatus"
 
 export interface ServerDataStatus {
-  devices?: ServerDeviceList  // newDeviceList
+  devices?: ServerDeviceList // newDeviceList
   devices2?: Array<ServerExtendedDeviceData> // updatedExtendedDeviceData
   apps?: Array<ServerInstalledAppsData> // newInstalledApps
   rmCategories?: Array<string> // removedCategories
-  categoryBase?: Array<ServerUpdatedCategoryBaseData>  // newCategoryBaseData
-  categoryApp?: Array<ServerUpdatedCategoryAssignedApps>  // newCategoryAssignedApps
-  usedTimes?: Array<ServerUpdatedCategoryUsedTimes>  // newCategoryUsedTimes
+  categoryBase?: Array<ServerUpdatedCategoryBaseData> // newCategoryBaseData
+  categoryApp?: Array<ServerUpdatedCategoryAssignedApps> // newCategoryAssignedApps
+  usedTimes?: Array<ServerUpdatedCategoryUsedTimes> // newCategoryUsedTimes
   rules?: Array<ServerUpdatedTimeLimitRules> // newOrUpdatedTimeLimitRules
   tasks?: Array<ServerUpdatedCategoryTasks> // newOrUpdatedTasks
-  users?: ServerUserList  // newUserList
+  users?: ServerUserList // newUserList
   krq?: Array<ServerKeyRequest> // pendingKeyRequests
   kr?: Array<ServerKeyResponse> // keyResponses
   dh?: ServerDhKey // Diffie Hellman
   u2f?: U2fData
-  fullVersion: number     // fullVersionUntil
+  fullVersion: number // fullVersionUntil
   message?: string
   apiLevel: number
 }
@@ -56,7 +56,7 @@ export interface ServerUserEntry {
   name: string
   password: string
   secondPasswordSalt: string
-  type: 'parent' | 'child'
+  type: "parent" | "child"
   timeZone: string
   disableLimitsUntil: number
   mail: string
@@ -66,8 +66,8 @@ export interface ServerUserEntry {
   mailNotificationFlags: number
   blockedTimes: string
   flags: number
-  llc?: string  // limit login category
-  pbd?: number  // pre block duration, default is zero
+  llc?: string // limit login category
+  pbd?: number // pre block duration, default is zero
 }
 
 export interface ServerDeviceData {
@@ -76,7 +76,7 @@ export interface ServerDeviceData {
   model: string
   addedAt: number
   currentUserId: string
-  networkTime: 'disabled' | 'if possible' | 'enabled'
+  networkTime: "disabled" | "if possible" | "enabled"
   cProtectionLevel: ProtectionLevel
   hProtectionLevel: ProtectionLevel
   cUsageStats: RuntimePermissionStatus
@@ -101,8 +101,8 @@ export interface ServerDeviceData {
   wasAsEnabled: boolean
   activityLevelBlocking: boolean
   qOrLater: boolean
-  mFlags: number  // manipulation flags
-  pk?: string     // public key
+  mFlags: number // manipulation flags
+  pk?: string // public key
   pType?: string
   pLevel: number
 }
@@ -111,7 +111,7 @@ export interface ServerUpdatedCategoryBaseData {
   categoryId: string
   childId: string
   title: string
-  blockedTimes: string  // blockedMinutesInWeek
+  blockedTimes: string // blockedMinutesInWeek
   extraTime: number
   extraTimeDay: number
   tempBlocked: boolean
@@ -153,7 +153,7 @@ export interface ServerUpdatedCategoryUsedTimes {
 
 export interface ServerUsedTimeItem {
   day: number // day of epoch
-  time: number  // in milliseconds
+  time: number // in milliseconds
   start: number
   end: number
 }
@@ -195,13 +195,13 @@ export interface ServerUpdatedTimeLimitRules {
 
 export interface ServerTimeLimitRule {
   id: string
-  extraTime: boolean  // applyToExtraTimeUsage
-  dayMask: number     // as binary bitmask
-  maxTime: number     // maximumTimeInMillis
-  start: number       // startMinuteOfDay
-  end: number         // endMinuteOfDay
-  session: number     // maximum session duration
-  pause: number       // session pause duration
+  extraTime: boolean // applyToExtraTimeUsage
+  dayMask: number // as binary bitmask
+  maxTime: number // maximumTimeInMillis
+  start: number // startMinuteOfDay
+  end: number // endMinuteOfDay
+  session: number // maximum session duration
+  pause: number // session pause duration
   perDay: boolean
 }
 
@@ -215,8 +215,8 @@ export interface ServerUpdatedCategoryTask {
   i: string // taskId
   t: string // taskTitle
   d: number // extraTimeDuration
-  p: boolean  // pendingRequest
-  l: number   // lastGrantTimestamp
+  p: boolean // pendingRequest
+  l: number // lastGrantTimestamp
 }
 
 export interface ServerInstalledAppsData {
@@ -252,8 +252,8 @@ export interface ServerKeyResponse {
   srvSeq: number
   sender: string
   rqSeq: number
-  tempKey: string,
-  cryptKey: string,
+  tempKey: string
+  cryptKey: string
   signature: string
 }
 

@@ -18,5 +18,5 @@
 export const MinuteOfDay = {
   MIN: 0,
   MAX: 24 * 60 - 1,
-  LENGTH: 24 * 60
+  LENGTH: 24 * 60,
 }

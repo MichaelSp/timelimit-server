@@ -15,37 +15,42 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AddUserAction } from '../../../../action'
-import { decryptParentPassword } from '../../../dh'
-import { Cache } from '../cache'
+import { AddUserAction } from "../../../../action"
+import { decryptParentPassword } from "../../../dh"
+import { Cache } from "../cache"
 
-export async function dispatchAddUser ({ action, cache }: {
+export async function dispatchAddUser({
+  action,
+  cache,
+}: {
   action: AddUserAction
   cache: Cache
 }) {
-  const password =
-    action.password ?
-    await decryptParentPassword({ cache, password: action.password }) :
-    null
+  const password = action.password
+    ? await decryptParentPassword({ cache, password: action.password })
+    : null
 
-  await cache.database.user.create({
-    familyId: cache.familyId,
-    userId: action.userId,
-    type: action.userType,
-    name: action.name,
-    timeZone: action.timeZone,
-    passwordHash: password ? password.hash : '',
-    secondPasswordHash: password ? password.secondHash : '',
-    secondPasswordSalt: password ? password.secondSalt : '',
-    mail: '',
-    disableTimelimitsUntil: '0',
-    currentDevice: '',
-    categoryForNotAssignedApps: '',
-    relaxPrimaryDeviceRule: false,
-    mailNotificationFlags: 0,
-    blockedTimes: '',
-    flags: '0'
-  }, { transaction: cache.transaction })
+  await cache.database.user.create(
+    {
+      familyId: cache.familyId,
+      userId: action.userId,
+      type: action.userType,
+      name: action.name,
+      timeZone: action.timeZone,
+      passwordHash: password ? password.hash : "",
+      secondPasswordHash: password ? password.secondHash : "",
+      secondPasswordSalt: password ? password.secondSalt : "",
+      mail: "",
+      disableTimelimitsUntil: "0",
+      currentDevice: "",
+      categoryForNotAssignedApps: "",
+      relaxPrimaryDeviceRule: false,
+      mailNotificationFlags: 0,
+      blockedTimes: "",
+      flags: "0",
+    },
+    { transaction: cache.transaction },
+  )
 
   cache.invalidiateUserList = true
   cache.incrementTriggeredSyncLevel(1)

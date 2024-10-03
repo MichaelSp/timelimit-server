@@ -15,9 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const { randomBytes } = require('crypto')
+const { randomBytes } = require("crypto")
 
-function generateToken() { return randomBytes(32).toString('hex') }
-function generateShortToken() { return randomBytes(8).toString('hex') }
+function generateToken() {
+  return randomBytes(32).toString("hex")
+}
+function generateShortToken() {
+  return randomBytes(8).toString("hex")
+}
 
 module.exports = { generateToken, generateShortToken }

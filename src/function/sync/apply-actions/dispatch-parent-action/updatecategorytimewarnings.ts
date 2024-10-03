@@ -15,20 +15,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateCategoryTimeWarningsAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingCategoryException } from '../exception/missing-item'
+import { UpdateCategoryTimeWarningsAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingCategoryException } from "../exception/missing-item"
 
-export async function dispatchUpdateCategoryTimeWarnings ({ action, cache }: {
+export async function dispatchUpdateCategoryTimeWarnings({
+  action,
+  cache,
+}: {
   action: UpdateCategoryTimeWarningsAction
   cache: Cache
 }) {
   const categoryEntry = await cache.database.category.findOne({
     where: {
       familyId: cache.familyId,
-      categoryId: action.categoryId
+      categoryId: action.categoryId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!categoryEntry) {
@@ -45,22 +48,25 @@ export async function dispatchUpdateCategoryTimeWarnings ({ action, cache }: {
 
   if (action.minutes !== undefined) {
     if (action.enable) {
-      await cache.database.categoryTimeWarning.create({
-        familyId: cache.familyId,
-        categoryId: action.categoryId,
-        minutes: action.minutes
-      }, {
-        transaction: cache.transaction,
-        ignoreDuplicates: true
-      })
+      await cache.database.categoryTimeWarning.create(
+        {
+          familyId: cache.familyId,
+          categoryId: action.categoryId,
+          minutes: action.minutes,
+        },
+        {
+          transaction: cache.transaction,
+          ignoreDuplicates: true,
+        },
+      )
     } else {
       await cache.database.categoryTimeWarning.destroy({
         where: {
           familyId: cache.familyId,
           categoryId: action.categoryId,
-          minutes: action.minutes
+          minutes: action.minutes,
         },
-        transaction: cache.transaction
+        transaction: cache.transaction,
       })
     }
   }

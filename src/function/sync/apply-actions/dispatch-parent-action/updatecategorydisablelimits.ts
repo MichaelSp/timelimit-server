@@ -15,13 +15,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateCategoryDisableLimitsAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingCategoryException } from '../exception/missing-item'
-import { PremiumVersionMissingException } from '../exception/premium'
-import { CanNotModifyOtherUsersBySelfLimitationException, SelfLimitationException } from '../exception/self-limit'
+import { UpdateCategoryDisableLimitsAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingCategoryException } from "../exception/missing-item"
+import { PremiumVersionMissingException } from "../exception/premium"
+import {
+  CanNotModifyOtherUsersBySelfLimitationException,
+  SelfLimitationException,
+} from "../exception/self-limit"
 
-export async function dispatchUpdateCategoryDisableLimits ({ action, cache, fromChildSelfLimitAddChildUserId }: {
+export async function dispatchUpdateCategoryDisableLimits({
+  action,
+  cache,
+  fromChildSelfLimitAddChildUserId,
+}: {
   action: UpdateCategoryDisableLimitsAction
   cache: Cache
   fromChildSelfLimitAddChildUserId: string | null
@@ -32,17 +39,20 @@ export async function dispatchUpdateCategoryDisableLimits ({ action, cache, from
     }
 
     if (fromChildSelfLimitAddChildUserId !== null) {
-      throw new SelfLimitationException({ staticMessage: 'the child may only disable the disabling of the limitations' })
+      throw new SelfLimitationException({
+        staticMessage:
+          "the child may only disable the disabling of the limitations",
+      })
     }
   }
 
   const categoryEntryUnsafe = await cache.database.category.findOne({
     where: {
       familyId: cache.familyId,
-      categoryId: action.categoryId
+      categoryId: action.categoryId,
     },
     transaction: cache.transaction,
-    attributes: ['childId']
+    attributes: ["childId"],
   })
 
   if (!categoryEntryUnsafe) {
@@ -50,7 +60,7 @@ export async function dispatchUpdateCategoryDisableLimits ({ action, cache, from
   }
 
   const categoryEntry = {
-    childId: categoryEntryUnsafe.childId
+    childId: categoryEntryUnsafe.childId,
   }
 
   if (fromChildSelfLimitAddChildUserId !== null) {
@@ -59,15 +69,18 @@ export async function dispatchUpdateCategoryDisableLimits ({ action, cache, from
     }
   }
 
-  const [affectedRows] = await cache.database.category.update({
-    disableLimitsUntil: action.endTime.toString(10)
-  }, {
-    where: {
-      familyId: cache.familyId,
-      categoryId: action.categoryId
+  const [affectedRows] = await cache.database.category.update(
+    {
+      disableLimitsUntil: action.endTime.toString(10),
     },
-    transaction: cache.transaction
-  })
+    {
+      where: {
+        familyId: cache.familyId,
+        categoryId: action.categoryId,
+      },
+      transaction: cache.transaction,
+    },
+  )
 
   if (affectedRows !== 0) {
     cache.categoriesWithModifiedBaseData.add(action.categoryId)

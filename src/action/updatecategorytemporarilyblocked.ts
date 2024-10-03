@@ -15,33 +15,41 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
-import { assertIdWithinFamily, assertSafeInteger } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { InvalidActionParameterException } from "./meta/exception"
+import { assertIdWithinFamily, assertSafeInteger } from "./meta/util"
 
-const actionType = 'UpdateCategoryTemporarilyBlockedAction'
+const actionType = "UpdateCategoryTemporarilyBlockedAction"
 
 export class UpdateCategoryTemporarilyBlockedAction extends ParentAction {
   readonly categoryId: string
   readonly blocked: boolean
   readonly endTime?: number
 
-  constructor ({ categoryId, blocked, endTime }: {
+  constructor({
+    categoryId,
+    blocked,
+    endTime,
+  }: {
     categoryId: string
     blocked: boolean
     endTime?: number
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'categoryId', value: categoryId })
+    assertIdWithinFamily({
+      actionType,
+      field: "categoryId",
+      value: categoryId,
+    })
 
     if (endTime !== undefined) {
-      assertSafeInteger({ actionType, field: 'endTime', value: endTime })
+      assertSafeInteger({ actionType, field: "endTime", value: endTime })
 
       if (!blocked) {
         throw new InvalidActionParameterException({
           actionType,
-          staticMessage: 'can not set a end time when disabling blocking'
+          staticMessage: "can not set a end time when disabling blocking",
         })
       }
     }
@@ -51,13 +59,20 @@ export class UpdateCategoryTemporarilyBlockedAction extends ParentAction {
     this.endTime = endTime
   }
 
-  static parse = ({ categoryId, blocked, endTime }: SerializedUpdateCategoryTemporarilyBlockedAction) => (
-    new UpdateCategoryTemporarilyBlockedAction({ categoryId, blocked, endTime })
-  )
+  static parse = ({
+    categoryId,
+    blocked,
+    endTime,
+  }: SerializedUpdateCategoryTemporarilyBlockedAction) =>
+    new UpdateCategoryTemporarilyBlockedAction({
+      categoryId,
+      blocked,
+      endTime,
+    })
 }
 
 export interface SerializedUpdateCategoryTemporarilyBlockedAction {
-  type: 'UPDATE_CATEGORY_TEMPORARILY_BLOCKED'
+  type: "UPDATE_CATEGORY_TEMPORARILY_BLOCKED"
   categoryId: string
   blocked: boolean
   endTime?: number

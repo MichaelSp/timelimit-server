@@ -15,5 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export type ProtectionLevel = 'none' | 'simple device admin' | 'password device admin' | 'device owner'
-export const protetionLevels: Array<ProtectionLevel> = ['none', 'simple device admin', 'password device admin', 'device owner']
+export type ProtectionLevel =
+  | "none"
+  | "simple device admin"
+  | "password device admin"
+  | "device owner"
+export const protetionLevels: Array<ProtectionLevel> = [
+  "none",
+  "simple device admin",
+  "password device admin",
+  "device owner",
+]

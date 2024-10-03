@@ -15,20 +15,28 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { familyIdColumn, idWithinFamilyColumn, timestampColumn, versionColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import {
+  familyIdColumn,
+  idWithinFamilyColumn,
+  timestampColumn,
+  versionColumn,
+} from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export const config = {
   generateNewKeyAfterAge: 1000 * 60 * 60 * 24,
   generationTimeRounding: 1000 * 60 * 60,
   expireDelay: 1000 * 60 * 60 * 2,
-  expireTimeRounding: 1000 * 60 * 15
+  expireTimeRounding: 1000 * 60 * 15,
 }
 
 export function calculateExpireTime(now: bigint): bigint {
   const expireBaseTime = now + BigInt(config.expireDelay)
-  const expireTime = expireBaseTime - expireBaseTime % BigInt(config.expireTimeRounding) + BigInt(config.expireTimeRounding)
+  const expireTime =
+    expireBaseTime -
+    (expireBaseTime % BigInt(config.expireTimeRounding)) +
+    BigInt(config.expireTimeRounding)
 
   return expireTime
 }
@@ -47,54 +55,61 @@ interface DeviceDhKeyAttributesVersion2 {
   createdAtSubsequence: number
 }
 
-export type DeviceDhKeyAttributes = DeviceDhKeyAttributesVersion1 & DeviceDhKeyAttributesVersion2
+export type DeviceDhKeyAttributes = DeviceDhKeyAttributesVersion1 &
+  DeviceDhKeyAttributesVersion2
 
-export type DeviceDhKeyModel = Sequelize.Model<DeviceDhKeyAttributes> & DeviceDhKeyAttributes
+export type DeviceDhKeyModel = Sequelize.Model<DeviceDhKeyAttributes> &
+  DeviceDhKeyAttributes
 export type DeviceDhKeyModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): DeviceDhKeyModel;
+  new (values?: object, options?: Sequelize.BuildOptions): DeviceDhKeyModel
 }
 
-export const attributesVersion1: SequelizeAttributes<DeviceDhKeyAttributesVersion1> = {
-  familyId: {
-    ...familyIdColumn,
-    primaryKey: true
-  },
-  deviceId: {
-    ...idWithinFamilyColumn,
-    primaryKey: true
-  },
-  version: {
-    ...versionColumn,
-    primaryKey: true
-  },
-  createdAt: {
-    ...timestampColumn
-  },
-  expireAt: {
-    ...timestampColumn,
-    allowNull: true
-  },
-  publicKey: {
-    type: Sequelize.BLOB,
-    allowNull: false
-  },
-  privateKey: {
-    type: Sequelize.BLOB,
-    allowNull: false
+export const attributesVersion1: SequelizeAttributes<DeviceDhKeyAttributesVersion1> =
+  {
+    familyId: {
+      ...familyIdColumn,
+      primaryKey: true,
+    },
+    deviceId: {
+      ...idWithinFamilyColumn,
+      primaryKey: true,
+    },
+    version: {
+      ...versionColumn,
+      primaryKey: true,
+    },
+    createdAt: {
+      ...timestampColumn,
+    },
+    expireAt: {
+      ...timestampColumn,
+      allowNull: true,
+    },
+    publicKey: {
+      type: Sequelize.BLOB,
+      allowNull: false,
+    },
+    privateKey: {
+      type: Sequelize.BLOB,
+      allowNull: false,
+    },
   }
-}
 
-export const attributesVersion2: SequelizeAttributes<DeviceDhKeyAttributesVersion2> = {
-  createdAtSubsequence: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: 0
+export const attributesVersion2: SequelizeAttributes<DeviceDhKeyAttributesVersion2> =
+  {
+    createdAtSubsequence: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
   }
-}
 
 export const attributes: SequelizeAttributes<DeviceDhKeyAttributes> = {
   ...attributesVersion1,
-  ...attributesVersion2
+  ...attributesVersion2,
 }
 
-export const createDeviceDhKey = (sequelize: Sequelize.Sequelize): DeviceDhKeyModelStatic => sequelize.define('DeviceDhKey', attributes) as DeviceDhKeyModelStatic
+export const createDeviceDhKey = (
+  sequelize: Sequelize.Sequelize,
+): DeviceDhKeyModelStatic =>
+  sequelize.define("DeviceDhKey", attributes) as DeviceDhKeyModelStatic

@@ -15,27 +15,42 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Transaction } from 'sequelize'
-import { Migration } from '../../main'
-import { attributesVersion2 as limitLoginCategoryAttributes } from '../../userlimitlogincategory'
+import { Transaction } from "sequelize"
+import { Migration } from "../../main"
+import { attributesVersion2 as limitLoginCategoryAttributes } from "../../userlimitlogincategory"
 
-export const up: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    // timelimit rule table
-    await queryInterface.addColumn('UserLimitLoginCategories', 'preBlockDuration', {
-      ...limitLoginCategoryAttributes.preBlockDuration
-    }, { transaction })
-  })
+export const up: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      // timelimit rule table
+      await queryInterface.addColumn(
+        "UserLimitLoginCategories",
+        "preBlockDuration",
+        {
+          ...limitLoginCategoryAttributes.preBlockDuration,
+        },
+        { transaction },
+      )
+    },
+  )
 }
 
-export const down: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.removeColumn('UserLimitLoginCategories', 'preBlockDuration', { transaction })
-  })
+export const down: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.removeColumn(
+        "UserLimitLoginCategories",
+        "preBlockDuration",
+        { transaction },
+      )
+    },
+  )
 }

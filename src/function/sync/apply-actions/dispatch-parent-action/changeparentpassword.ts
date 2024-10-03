@@ -15,12 +15,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ChangeParentPasswordAction, InvalidChangeParentPasswordIntegrityException } from '../../../../action/changeparentpassword'
-import { Cache } from '../cache'
-import { ApplyActionException } from '../exception/index'
-import { MissingUserException } from '../exception/missing-item'
+import {
+  ChangeParentPasswordAction,
+  InvalidChangeParentPasswordIntegrityException,
+} from "../../../../action/changeparentpassword"
+import { Cache } from "../cache"
+import { ApplyActionException } from "../exception/index"
+import { MissingUserException } from "../exception/missing-item"
 
-export async function dispatchChangeParentPassword ({ action, cache }: {
+export async function dispatchChangeParentPassword({
+  action,
+  cache,
+}: {
   action: ChangeParentPasswordAction
   cache: Cache
 }) {
@@ -28,9 +34,9 @@ export async function dispatchChangeParentPassword ({ action, cache }: {
     where: {
       familyId: cache.familyId,
       userId: action.parentUserId,
-      type: 'parent'
+      type: "parent",
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!parentEntry) {
@@ -38,14 +44,20 @@ export async function dispatchChangeParentPassword ({ action, cache }: {
   }
 
   try {
-    action.assertIntegrityValid({ oldPasswordSecondHash: parentEntry.secondPasswordHash })
+    action.assertIntegrityValid({
+      oldPasswordSecondHash: parentEntry.secondPasswordHash,
+    })
   } catch (ex) {
     if (ex instanceof InvalidChangeParentPasswordIntegrityException) {
-      throw new ApplyActionException({ staticMessage: 'invalid new password integrity' })
+      throw new ApplyActionException({
+        staticMessage: "invalid new password integrity",
+      })
     } else throw ex
   }
 
-  const newSecondPasswordHash = action.decryptSecondHash({ oldPasswordSecondHash: parentEntry.secondPasswordHash })
+  const newSecondPasswordHash = action.decryptSecondHash({
+    oldPasswordSecondHash: parentEntry.secondPasswordHash,
+  })
 
   parentEntry.passwordHash = action.newPasswordFirstHash
   parentEntry.secondPasswordSalt = action.newPasswordSecondSalt

@@ -15,51 +15,63 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Transaction } from 'sequelize'
-import { Migration } from '../../main'
+import { Transaction } from "sequelize"
+import { Migration } from "../../main"
 
-export const up: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    const dialect = context.getDialect()
-    const isMysql = dialect === 'mysql' || dialect === 'mariadb'
-    const isPosgresql = dialect === 'postgres'
+export const up: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      const dialect = context.getDialect()
+      const isMysql = dialect === "mysql" || dialect === "mariadb"
+      const isPosgresql = dialect === "postgres"
 
-    if (isMysql) {
-      await context.query(
-        'CREATE TABLE `EncryptedAppLists` ' +
-        '(`familyId` VARCHAR(10) NOT NULL, `deviceId` VARCHAR(6) NOT NULL,' +
-        '`type` INTEGER NOT NULL, `version` VARCHAR(4) NOT NULL,' +
-        '`data` BLOB NOT NULL, ' +
-        'PRIMARY KEY (`familyId`, `deviceId`, `type`),' +
-        'FOREIGN KEY (`familyId`, `deviceId`) REFERENCES `Devices` (`familyId`, `deviceId`) ON UPDATE CASCADE ON DELETE CASCADE' +
-        ')',
-        { transaction }
+      if (isMysql) {
+        await context.query(
+          "CREATE TABLE `EncryptedAppLists` " +
+            "(`familyId` VARCHAR(10) NOT NULL, `deviceId` VARCHAR(6) NOT NULL," +
+            "`type` INTEGER NOT NULL, `version` VARCHAR(4) NOT NULL," +
+            "`data` BLOB NOT NULL, " +
+            "PRIMARY KEY (`familyId`, `deviceId`, `type`)," +
+            "FOREIGN KEY (`familyId`, `deviceId`) REFERENCES `Devices` (`familyId`, `deviceId`) ON UPDATE CASCADE ON DELETE CASCADE" +
+            ")",
+          { transaction },
+        )
+      } else {
+        await context.query(
+          'CREATE TABLE "EncryptedAppLists" ' +
+            '("familyId" VARCHAR(10) NOT NULL, "deviceId" VARCHAR(6) NOT NULL,' +
+            '"type" INTEGER NOT NULL, "version" VARCHAR(4) NOT NULL,' +
+            '"data" ' +
+            (isPosgresql ? "BYTEA" : "BLOB") +
+            " NOT NULL, " +
+            'PRIMARY KEY ("familyId", "deviceId", "type"),' +
+            'FOREIGN KEY ("familyId", "deviceId") REFERENCES "Devices" ("familyId", "deviceId") ON UPDATE CASCADE ON DELETE CASCADE' +
+            ")",
+          { transaction },
+        )
+      }
+
+      await queryInterface.addIndex(
+        "EncryptedAppLists",
+        ["familyId", "deviceId", "type", "version"],
+        { transaction },
       )
-    } else {
-      await context.query(
-        'CREATE TABLE "EncryptedAppLists" ' +
-        '("familyId" VARCHAR(10) NOT NULL, "deviceId" VARCHAR(6) NOT NULL,' +
-        '"type" INTEGER NOT NULL, "version" VARCHAR(4) NOT NULL,' +
-        '"data" ' + (isPosgresql ? 'BYTEA' : 'BLOB') + ' NOT NULL, ' +
-        'PRIMARY KEY ("familyId", "deviceId", "type"),' +
-        'FOREIGN KEY ("familyId", "deviceId") REFERENCES "Devices" ("familyId", "deviceId") ON UPDATE CASCADE ON DELETE CASCADE' +
-        ')',
-        { transaction }
-      )
-    }
-
-    await queryInterface.addIndex('EncryptedAppLists', ['familyId', 'deviceId', 'type', 'version'], { transaction })
-  })
+    },
+  )
 }
 
-export const down: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.dropTable('EncryptedAppLists', { transaction })
-  })
+export const down: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.dropTable("EncryptedAppLists", { transaction })
+    },
+  )
 }

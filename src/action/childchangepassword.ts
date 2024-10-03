@@ -15,18 +15,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { assertParentPasswordValid, EncryptableParentPassword, ParentPasswordValidationException } from '../api/schema'
-import { ChildAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
+import {
+  assertParentPasswordValid,
+  EncryptableParentPassword,
+  ParentPasswordValidationException,
+} from "../api/schema"
+import { ChildAction } from "./basetypes"
+import { InvalidActionParameterException } from "./meta/exception"
 
-const actionType = 'ChildChangePasswordAction'
+const actionType = "ChildChangePasswordAction"
 
 export class ChildChangePasswordAction extends ChildAction {
   readonly password: EncryptableParentPassword
 
-  constructor ({ password }: {
-    password: EncryptableParentPassword
-  }) {
+  constructor({ password }: { password: EncryptableParentPassword }) {
     super()
 
     try {
@@ -35,7 +37,7 @@ export class ChildChangePasswordAction extends ChildAction {
       if (ex instanceof ParentPasswordValidationException) {
         throw new InvalidActionParameterException({
           actionType,
-          staticMessage: 'invalid password'
+          staticMessage: "invalid password",
         })
       } else throw ex
     }
@@ -43,12 +45,11 @@ export class ChildChangePasswordAction extends ChildAction {
     this.password = password
   }
 
-  static parse = ({ password }: SerializedChildChangePasswordAction) => (
+  static parse = ({ password }: SerializedChildChangePasswordAction) =>
     new ChildChangePasswordAction({ password })
-  )
 }
 
 export interface SerializedChildChangePasswordAction {
-  type: 'CHILD_CHANGE_PASSWORD'
+  type: "CHILD_CHANGE_PASSWORD"
   password: EncryptableParentPassword
 }

@@ -23,26 +23,26 @@
  * THE SOFTWARE.
  */
 
-import { createPublicKey, createVerify, KeyObject } from 'crypto'
+import { createPublicKey, createVerify, KeyObject } from "crypto"
 
-const ALGORITHM = 'RSA-SHA1'
+const ALGORITHM = "RSA-SHA1"
 
 export class IABVerifier {
   private readonly publicKey: KeyObject
 
   constructor(publicKeyString: string) {
     this.publicKey = createPublicKey({
-      key: Buffer.from(publicKeyString, 'base64'),
-      format: 'der',
-      type: 'spki'
+      key: Buffer.from(publicKeyString, "base64"),
+      format: "der",
+      type: "spki",
     })
   }
 
   verifyReceipt(signedData: string, signature: string) {
-      const verifier = createVerify(ALGORITHM)
+    const verifier = createVerify(ALGORITHM)
 
-      verifier.update(signedData)
+    verifier.update(signedData)
 
-      return verifier.verify(this.publicKey, signature, 'base64')
+    return verifier.verify(this.publicKey, signature, "base64")
   }
 }

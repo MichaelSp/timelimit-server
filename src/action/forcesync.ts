@@ -15,16 +15,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AppLogicAction } from './basetypes'
+import { AppLogicAction } from "./basetypes"
 
 export class ForceSyncAction extends AppLogicAction {
   static instance = new ForceSyncAction()
 
-  private constructor () {
+  private constructor() {
     super()
   }
 }
 
 export interface SerializedForceSyncAction {
-  type: 'FORCE_SYNC'
+  type: "FORCE_SYNC"
 }

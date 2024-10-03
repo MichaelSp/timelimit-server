@@ -15,14 +15,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { IABVerifier } from './iab_verifierr'
+import { IABVerifier } from "./iab_verifierr"
 
-export const googlePlayPublicKey = process.env.GOOGLE_PLAY_PUBLIC_KEY || ''
+export const googlePlayPublicKey = process.env.GOOGLE_PLAY_PUBLIC_KEY || ""
 
-const verifier = googlePlayPublicKey !== '' ? new IABVerifier(googlePlayPublicKey) : null
+const verifier =
+  googlePlayPublicKey !== "" ? new IABVerifier(googlePlayPublicKey) : null
 
 export const areGooglePlayPaymentsPossible = !!verifier
-export const isGooglePlayPurchaseSignatureValid = ({ receipt, signature }: {
+export const isGooglePlayPurchaseSignatureValid = ({
+  receipt,
+  signature,
+}: {
   receipt: string
   signature: string
 }) => {

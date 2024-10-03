@@ -15,10 +15,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ForceSyncAction } from '../../../../action'
-import { Cache } from '../cache'
+import { ForceSyncAction } from "../../../../action"
+import { Cache } from "../cache"
 
-export async function dispatchForceSyncAction ({ cache }: {
+export async function dispatchForceSyncAction({
+  cache,
+}: {
   deviceId: string
   action: ForceSyncAction
   cache: Cache

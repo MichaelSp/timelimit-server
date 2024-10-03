@@ -12,10 +12,7 @@
     }
   },
   "additionalProperties": false,
-  "required": [
-    "actions",
-    "deviceAuthToken"
-  ],
+  "required": ["actions", "deviceAuthToken"],
   "definitions": {
     "ClientPushChangesRequestAction": {
       "type": "object",
@@ -30,11 +27,7 @@
           "type": "string"
         },
         "type": {
-          "enum": [
-            "appLogic",
-            "child",
-            "parent"
-          ],
+          "enum": ["appLogic", "child", "parent"],
           "type": "string"
         },
         "userId": {

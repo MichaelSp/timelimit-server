@@ -42,10 +42,10 @@ This endpoint returns the current time of the server
 as a Unix timestamp in milliseconds. This does not need
 any authentication.
 
-The response is a object with the property ``ms`` whose
+The response is a object with the property `ms` whose
 value is the timestamp as number.
 
-Example response: ``{"ms":1578311020747}``
+Example response: `{"ms":1578311020747}`
 
 ## Websocket
 

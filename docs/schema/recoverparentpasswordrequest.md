@@ -4,8 +4,6 @@
 https://timelimit.io/RecoverParentPasswordRequest
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                                  |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------------- |
 | Can be instantiated | Yes        | Unknown status | No           | Forbidden         | Forbidden             | none                | [RecoverParentPasswordRequest.schema.json](RecoverParentPasswordRequest.schema.json "open original schema") |
@@ -23,17 +21,15 @@ https://timelimit.io/RecoverParentPasswordRequest
 
 ## mailAuthToken
 
-
-
 `mailAuthToken`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-properties-mailauthtoken.md "https://timelimit.io/RecoverParentPasswordRequest#/properties/mailAuthToken")
+- defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-properties-mailauthtoken.md "https://timelimit.io/RecoverParentPasswordRequest#/properties/mailAuthToken")
 
 ### mailAuthToken Type
 
@@ -41,17 +37,15 @@ https://timelimit.io/RecoverParentPasswordRequest
 
 ## password
 
-
-
 `password`
 
-* is required
+- is required
 
-* Type: `object` ([PlaintextParentPassword](recoverparentpasswordrequest-definitions-plaintextparentpassword.md))
+- Type: `object` ([PlaintextParentPassword](recoverparentpasswordrequest-definitions-plaintextparentpassword.md))
 
-* cannot be null
+- cannot be null
 
-* defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword.md "https://timelimit.io/RecoverParentPasswordRequest#/properties/password")
+- defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword.md "https://timelimit.io/RecoverParentPasswordRequest#/properties/password")
 
 ### password Type
 
@@ -64,7 +58,9 @@ https://timelimit.io/RecoverParentPasswordRequest
 Reference this group by using
 
 ```json
-{"$ref":"https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword"}
+{
+  "$ref": "https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword"
+}
 ```
 
 | Property                  | Type     | Required | Nullable       | Defined by                                                                                                                                                                                                                               |
@@ -75,17 +71,15 @@ Reference this group by using
 
 ### hash
 
-
-
 `hash`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword-properties-hash.md "https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword/properties/hash")
+- defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword-properties-hash.md "https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword/properties/hash")
 
 #### hash Type
 
@@ -93,17 +87,15 @@ Reference this group by using
 
 ### secondHash
 
-
-
 `secondHash`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword-properties-secondhash.md "https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword/properties/secondHash")
+- defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword-properties-secondhash.md "https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword/properties/secondHash")
 
 #### secondHash Type
 
@@ -111,17 +103,15 @@ Reference this group by using
 
 ### secondSalt
 
-
-
 `secondSalt`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword-properties-secondsalt.md "https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword/properties/secondSalt")
+- defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword-properties-secondsalt.md "https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword/properties/secondSalt")
 
 #### secondSalt Type
 

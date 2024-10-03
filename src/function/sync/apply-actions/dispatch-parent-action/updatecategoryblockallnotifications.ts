@@ -15,12 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateCategoryBlockAllNotificationsAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingCategoryException } from '../exception/missing-item'
-import { CanNotModifyOtherUsersBySelfLimitationException, SelfLimitationException } from '../exception/self-limit'
+import { UpdateCategoryBlockAllNotificationsAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingCategoryException } from "../exception/missing-item"
+import {
+  CanNotModifyOtherUsersBySelfLimitationException,
+  SelfLimitationException,
+} from "../exception/self-limit"
 
-export async function dispatchUpdateCategoryBlockAllNotifications ({ action, cache, fromChildSelfLimitAddChildUserId }: {
+export async function dispatchUpdateCategoryBlockAllNotifications({
+  action,
+  cache,
+  fromChildSelfLimitAddChildUserId,
+}: {
   action: UpdateCategoryBlockAllNotificationsAction
   cache: Cache
   fromChildSelfLimitAddChildUserId: string | null
@@ -28,10 +35,10 @@ export async function dispatchUpdateCategoryBlockAllNotifications ({ action, cac
   const categoryEntryUnsafe = await cache.database.category.findOne({
     where: {
       familyId: cache.familyId,
-      categoryId: action.categoryId
+      categoryId: action.categoryId,
     },
     transaction: cache.transaction,
-    attributes: ['childId', 'blockAllNotifications']
+    attributes: ["childId", "blockAllNotifications"],
   })
 
   if (!categoryEntryUnsafe) {
@@ -40,7 +47,7 @@ export async function dispatchUpdateCategoryBlockAllNotifications ({ action, cac
 
   const categoryEntry = {
     childId: categoryEntryUnsafe.childId,
-    blockAllNotifications: categoryEntryUnsafe.blockAllNotifications
+    blockAllNotifications: categoryEntryUnsafe.blockAllNotifications,
   }
 
   if (fromChildSelfLimitAddChildUserId !== null) {
@@ -49,26 +56,38 @@ export async function dispatchUpdateCategoryBlockAllNotifications ({ action, cac
     }
 
     if (!action.blocked) {
-      throw new SelfLimitationException({ staticMessage: 'can not disable notification filter as child' })
+      throw new SelfLimitationException({
+        staticMessage: "can not disable notification filter as child",
+      })
     }
 
-    if (categoryEntry.blockAllNotifications && action.blockDelay !== undefined) {
-      throw new SelfLimitationException({ staticMessage: 'can not update the block delay as child' })
+    if (
+      categoryEntry.blockAllNotifications &&
+      action.blockDelay !== undefined
+    ) {
+      throw new SelfLimitationException({
+        staticMessage: "can not update the block delay as child",
+      })
     }
   }
 
-  const [affectedRows] = await cache.database.category.update(action.blockDelay === undefined ? {
-    blockAllNotifications: action.blocked
-  } : {
-    blockAllNotifications: action.blocked,
-    blockNotificationDelay: action.blockDelay.toString(10)
-  }, {
-    where: {
-      familyId: cache.familyId,
-      categoryId: action.categoryId
+  const [affectedRows] = await cache.database.category.update(
+    action.blockDelay === undefined
+      ? {
+          blockAllNotifications: action.blocked,
+        }
+      : {
+          blockAllNotifications: action.blocked,
+          blockNotificationDelay: action.blockDelay.toString(10),
+        },
+    {
+      where: {
+        familyId: cache.familyId,
+        categoryId: action.categoryId,
+      },
+      transaction: cache.transaction,
     },
-    transaction: cache.transaction
-  })
+  )
 
   if (affectedRows !== 0) {
     cache.categoriesWithModifiedBaseData.add(action.categoryId)

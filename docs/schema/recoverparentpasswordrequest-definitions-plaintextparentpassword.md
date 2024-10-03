@@ -4,8 +4,6 @@
 https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                                    |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [RecoverParentPasswordRequest.schema.json\*](RecoverParentPasswordRequest.schema.json "open original schema") |
@@ -24,17 +22,15 @@ https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPa
 
 ## hash
 
-
-
 `hash`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword-properties-hash.md "https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword/properties/hash")
+- defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword-properties-hash.md "https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword/properties/hash")
 
 ### hash Type
 
@@ -42,17 +38,15 @@ https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPa
 
 ## secondHash
 
-
-
 `secondHash`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword-properties-secondhash.md "https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword/properties/secondHash")
+- defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword-properties-secondhash.md "https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword/properties/secondHash")
 
 ### secondHash Type
 
@@ -60,17 +54,15 @@ https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPa
 
 ## secondSalt
 
-
-
 `secondSalt`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword-properties-secondsalt.md "https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword/properties/secondSalt")
+- defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword-properties-secondsalt.md "https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword/properties/secondSalt")
 
 ### secondSalt Type
 

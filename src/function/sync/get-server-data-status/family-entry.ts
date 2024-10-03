@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { Database } from '../../../database'
-import { GetServerDataStatusIllegalStateException } from './exception'
+import * as Sequelize from "sequelize"
+import { Database } from "../../../database"
+import { GetServerDataStatusIllegalStateException } from "./exception"
 
 export interface FamilyEntry {
   familyId: string
@@ -28,27 +28,33 @@ export interface FamilyEntry {
   u2fKeysVersion: string
 }
 
-export async function getFamilyEntry ({ database, familyId, transaction }: {
+export async function getFamilyEntry({
+  database,
+  familyId,
+  transaction,
+}: {
   database: Database
   familyId: string
   transaction: Sequelize.Transaction
 }): Promise<FamilyEntry> {
   const familyEntryUnsafe = await database.family.findOne({
     where: {
-      familyId
+      familyId,
     },
     attributes: [
-      'deviceListVersion',
-      'userListVersion',
-      'hasFullVersion',
-      'fullVersionUntil',
-      'u2fKeysVersion'
+      "deviceListVersion",
+      "userListVersion",
+      "hasFullVersion",
+      "fullVersionUntil",
+      "u2fKeysVersion",
     ],
-    transaction
+    transaction,
   })
 
   if (!familyEntryUnsafe) {
-    throw new GetServerDataStatusIllegalStateException({ staticMessage: 'could not find family entry' })
+    throw new GetServerDataStatusIllegalStateException({
+      staticMessage: "could not find family entry",
+    })
   }
 
   return {
@@ -57,6 +63,6 @@ export async function getFamilyEntry ({ database, familyId, transaction }: {
     userListVersion: familyEntryUnsafe.userListVersion,
     hasFullVersion: familyEntryUnsafe.hasFullVersion,
     fullVersionUntil: familyEntryUnsafe.fullVersionUntil,
-    u2fKeysVersion: familyEntryUnsafe.u2fKeysVersion
+    u2fKeysVersion: familyEntryUnsafe.u2fKeysVersion,
   }
 }

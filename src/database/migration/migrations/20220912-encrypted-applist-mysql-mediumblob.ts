@@ -15,37 +15,43 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Transaction } from 'sequelize'
-import { Migration } from '../../main'
+import { Transaction } from "sequelize"
+import { Migration } from "../../main"
 
-export const up: Migration = async ({context}) => {
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    const dialect = context.getDialect()
-    const isMysql = dialect === 'mysql' || dialect === 'mariadb'
+export const up: Migration = async ({ context }) => {
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      const dialect = context.getDialect()
+      const isMysql = dialect === "mysql" || dialect === "mariadb"
 
-    if (isMysql) {
-      await context.query(
-        'ALTER TABLE `EncryptedAppLists` MODIFY `data` MEDIUMBLOB',
-        { transaction }
-      )
-    }
-  })
+      if (isMysql) {
+        await context.query(
+          "ALTER TABLE `EncryptedAppLists` MODIFY `data` MEDIUMBLOB",
+          { transaction },
+        )
+      }
+    },
+  )
 }
 
-export const down: Migration = async ({context}) => {
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    const dialect = context.getDialect()
-    const isMysql = dialect === 'mysql' || dialect === 'mariadb'
+export const down: Migration = async ({ context }) => {
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      const dialect = context.getDialect()
+      const isMysql = dialect === "mysql" || dialect === "mariadb"
 
-    if (isMysql) {
-      await context.query(
-        'ALTER TABLE `EncryptedAppLists` MODIFY `data` BLOB',
-        { transaction }
-      )
-    }
-  })
+      if (isMysql) {
+        await context.query(
+          "ALTER TABLE `EncryptedAppLists` MODIFY `data` BLOB",
+          { transaction },
+        )
+      }
+    },
+  )
 }

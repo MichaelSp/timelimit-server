@@ -15,42 +15,69 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Transaction } from 'sequelize'
-import { attributesVersion5 as deviceAttributes } from '../../device'
-import { Migration } from '../../main'
-import { attributesVersion3 as userAttributes } from '../../user'
+import { Transaction } from "sequelize"
+import { attributesVersion5 as deviceAttributes } from "../../device"
+import { Migration } from "../../main"
+import { attributesVersion3 as userAttributes } from "../../user"
 
-export const up: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    // users
-    await queryInterface.addColumn('Users', 'relaxPrimaryDeviceRule', {
-      ...userAttributes.relaxPrimaryDeviceRule
-    }, { transaction })
+export const up: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      // users
+      await queryInterface.addColumn(
+        "Users",
+        "relaxPrimaryDeviceRule",
+        {
+          ...userAttributes.relaxPrimaryDeviceRule,
+        },
+        { transaction },
+      )
 
-    // devices
-    await queryInterface.addColumn('Devices', 'defaultUserId', {
-      ...deviceAttributes.defaultUserId
-    }, { transaction })
+      // devices
+      await queryInterface.addColumn(
+        "Devices",
+        "defaultUserId",
+        {
+          ...deviceAttributes.defaultUserId,
+        },
+        { transaction },
+      )
 
-    await queryInterface.addColumn('Devices', 'defaultUserTimeout', {
-      ...deviceAttributes.defaultUserTimeout
-    }, { transaction })
-  })
+      await queryInterface.addColumn(
+        "Devices",
+        "defaultUserTimeout",
+        {
+          ...deviceAttributes.defaultUserTimeout,
+        },
+        { transaction },
+      )
+    },
+  )
 }
 
-export const down: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    // users
-    await queryInterface.removeColumn('Users', 'relaxPrimaryDeviceRule', { transaction })
+export const down: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      // users
+      await queryInterface.removeColumn("Users", "relaxPrimaryDeviceRule", {
+        transaction,
+      })
 
-    // devices
-    await queryInterface.removeColumn('Devices', 'defaultUserId', { transaction })
-    await queryInterface.removeColumn('Devices', 'defaultUserTimeout', { transaction })
-  })
+      // devices
+      await queryInterface.removeColumn("Devices", "defaultUserId", {
+        transaction,
+      })
+      await queryInterface.removeColumn("Devices", "defaultUserTimeout", {
+        transaction,
+      })
+    },
+  )
 }

@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import { SequelizeAttributes } from "./types"
 
 export interface ConfigAttributes {
   id: string
@@ -25,7 +25,7 @@ export interface ConfigAttributes {
 
 export type ConfigModel = Sequelize.Model<ConfigAttributes> & ConfigAttributes
 export type ConfigModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): ConfigModel;
+  new (values?: object, options?: Sequelize.BuildOptions): ConfigModel
 }
 
 export const attributes: SequelizeAttributes<ConfigAttributes> = {
@@ -33,20 +33,23 @@ export const attributes: SequelizeAttributes<ConfigAttributes> = {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
+      notEmpty: true,
     },
-    primaryKey: true
+    primaryKey: true,
   },
   value: {
     type: Sequelize.STRING,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 }
 
-export const createConfigModel = (sequelize: Sequelize.Sequelize): ConfigModelStatic => sequelize.define('Config', attributes) as ConfigModelStatic
+export const createConfigModel = (
+  sequelize: Sequelize.Sequelize,
+): ConfigModelStatic =>
+  sequelize.define("Config", attributes) as ConfigModelStatic
 
 export const configItemIds = {
-  statusMessage: 'status_message',
-  selfTestData: 'self_test_data',
-  secondSelfTestData: 'self_test_data_two'
+  statusMessage: "status_message",
+  selfTestData: "self_test_data",
+  secondSelfTestData: "self_test_data_two",
 }

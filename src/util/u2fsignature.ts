@@ -15,10 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { createHash, createPublicKey, createVerify } from 'crypto'
+import { createHash, createPublicKey, createVerify } from "crypto"
 
 export function isU2fSignatureValid({
-  u2fRawResponse, applicationId, challenge, publicKey
+  u2fRawResponse,
+  applicationId,
+  challenge,
+  publicKey,
 }: {
   u2fRawResponse: Buffer
   applicationId: Buffer
@@ -30,13 +33,14 @@ export function isU2fSignatureValid({
 
   const publicKeyObject = createPublicKey({
     key: Buffer.concat([
-      Buffer.from('MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgA=', 'base64'), publicKey
+      Buffer.from("MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgA=", "base64"),
+      publicKey,
     ]),
-    format: 'der',
-    type: 'spki'
+    format: "der",
+    type: "spki",
   })
 
-  const verifier = createVerify('SHA256')
+  const verifier = createVerify("SHA256")
 
   verifier.update(applicationId)
   verifier.update(u2fRawResponse.slice(0, 5))
@@ -46,7 +50,5 @@ export function isU2fSignatureValid({
 }
 
 export function calculateApplicationId(url: string): Buffer {
-  return createHash('sha256')
-    .update(Buffer.from(url, 'utf8'))
-    .digest()
+  return createHash("sha256").update(Buffer.from(url, "utf8")).digest()
 }

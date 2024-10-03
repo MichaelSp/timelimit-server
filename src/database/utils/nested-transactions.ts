@@ -15,48 +15,77 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { generateIdWithinFamily } from '../../util/token'
-import { configItemIds } from '../config'
-import { Database } from '../main'
+import { generateIdWithinFamily } from "../../util/token"
+import { configItemIds } from "../config"
+import { Database } from "../main"
 
 class NestedTransactionTestException extends Error {}
 class TestRollbackException extends NestedTransactionTestException {}
-class NestedTransactionsNotWorkingException extends NestedTransactionTestException { constructor () { super('NestedTransactionsNotWorkingException') } }
+class NestedTransactionsNotWorkingException extends NestedTransactionTestException {
+  constructor() {
+    super("NestedTransactionsNotWorkingException")
+  }
+}
 class IllegalStateException extends NestedTransactionTestException {}
 
-export async function assertNestedTransactionsAreWorking (database: Database) {
+export async function assertNestedTransactionsAreWorking(database: Database) {
   const testValue = generateIdWithinFamily()
 
   // clean up just for the case
   await database.config.destroy({ where: { id: configItemIds.selfTestData } })
 
   await database.transaction(async (transaction) => {
-    const readOne = await database.config.findOne({ where: { id: configItemIds.selfTestData }, transaction })
+    const readOne = await database.config.findOne({
+      where: { id: configItemIds.selfTestData },
+      transaction,
+    })
 
     if (readOne) throw new IllegalStateException()
 
-    await database.transaction(async (transaction) => {
-      await database.config.create({ id: configItemIds.selfTestData, value: testValue }, { transaction })
+    await database.transaction(
+      async (transaction) => {
+        await database.config.create(
+          { id: configItemIds.selfTestData, value: testValue },
+          { transaction },
+        )
 
-      const readTwo = await database.config.findOne({ where: { id: configItemIds.selfTestData }, transaction })
+        const readTwo = await database.config.findOne({
+          where: { id: configItemIds.selfTestData },
+          transaction,
+        })
 
-      if (readTwo?.value !== testValue) throw new IllegalStateException()
+        if (readTwo?.value !== testValue) throw new IllegalStateException()
 
-      try {
-        await database.transaction(async (transaction) => {
-          await database.config.destroy({ where: { id: configItemIds.selfTestData }, transaction })
+        try {
+          await database.transaction(
+            async (transaction) => {
+              await database.config.destroy({
+                where: { id: configItemIds.selfTestData },
+                transaction,
+              })
 
-          throw new TestRollbackException()
-        }, { transaction })
-      } catch (ex) {
-        if (!(ex instanceof TestRollbackException)) throw ex
-      }
+              throw new TestRollbackException()
+            },
+            { transaction },
+          )
+        } catch (ex) {
+          if (!(ex instanceof TestRollbackException)) throw ex
+        }
 
-      const readThree = await database.config.findOne({ where: { id: configItemIds.selfTestData }, transaction })
+        const readThree = await database.config.findOne({
+          where: { id: configItemIds.selfTestData },
+          transaction,
+        })
 
-      if (readThree?.value !== testValue) throw new NestedTransactionsNotWorkingException()
+        if (readThree?.value !== testValue)
+          throw new NestedTransactionsNotWorkingException()
 
-      await database.config.destroy({ where: { id: configItemIds.selfTestData }, transaction })
-    }, { transaction })
+        await database.config.destroy({
+          where: { id: configItemIds.selfTestData },
+          transaction,
+        })
+      },
+      { transaction },
+    )
   })
 }
