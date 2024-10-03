@@ -16,7 +16,7 @@
  */
 
 import {
-  AppActivityItem, IncompleteAppActivityItemException, RemovedAppActivityItem, SerializedAppActivityItem, SerializedRemovedAppActivityItem
+    AppActivityItem, IncompleteAppActivityItemException, RemovedAppActivityItem, SerializedAppActivityItem, SerializedRemovedAppActivityItem
 } from '../model/appactivity'
 import { AppLogicAction } from './basetypes'
 import { InvalidActionParameterException } from './meta/exception'

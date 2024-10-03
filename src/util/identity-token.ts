@@ -16,9 +16,9 @@
  */
 
 import { SignJWT, jwtVerify } from 'jose'
-import { config } from '../config'
-import { IdentityTokenPayload, IdentityTokenCreatePayload } from '../api/schema'
+import { IdentityTokenCreatePayload, IdentityTokenPayload } from '../api/schema'
 import { isIdentityTokenPayload } from '../api/validator'
+import { config } from '../config'
 
 export async function createIdentityToken({ purpose, familyId, userId, mail }: IdentityTokenCreatePayload) {
   const jwt = await new SignJWT({ purpose, familyId, userId, mail })

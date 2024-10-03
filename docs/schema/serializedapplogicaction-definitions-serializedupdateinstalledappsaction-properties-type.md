@@ -16,8 +16,8 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateInsta
 
 ## type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                     | Explanation |
-| :------------------------ | :---------- |
-| `"UPDATE_INSTALLED_APPS"` |             |
+```json
+"UPDATE_INSTALLED_APPS"
+```

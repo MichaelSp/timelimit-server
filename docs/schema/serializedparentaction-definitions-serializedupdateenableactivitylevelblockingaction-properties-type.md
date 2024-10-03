@@ -16,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateEnableA
 
 ## type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                                     | Explanation |
-| :---------------------------------------- | :---------- |
-| `"UPDATE_ENABLE_ACTIVITY_LEVEL_BLOCKING"` |             |
+```json
+"UPDATE_ENABLE_ACTIVITY_LEVEL_BLOCKING"
+```

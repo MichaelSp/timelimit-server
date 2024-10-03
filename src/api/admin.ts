@@ -23,8 +23,8 @@ import { Database } from '../database'
 import { addPurchase, canDoNextPurchase } from '../function/purchase'
 import { getStatusMessage, setStatusMessage } from '../function/statusmessage'
 import { EventHandler } from '../monitoring/eventhandler'
+import { TokenValidationException, verifyIdentitifyToken } from '../util/identity-token'
 import { generatePurchaseId } from '../util/token'
-import { verifyIdentitifyToken, TokenValidationException } from '../util/identity-token'
 import { WebsocketApi } from '../websocket'
 
 export const createAdminRouter = ({ database, websocket, eventHandler }: {

@@ -15,17 +15,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { QueryInterface, Sequelize, Transaction } from 'sequelize'
+import { Transaction } from 'sequelize'
+import { Migration } from '../../main'
 
-export async function up (_: QueryInterface, sequelize: Sequelize) {
-  await sequelize.transaction({
+export const up: Migration = async ({context}) => {
+  context.transaction({
     type: Transaction.TYPES.EXCLUSIVE
-  }, async (transaction) => {
-    const dialect = sequelize.getDialect()
+  }, async ( transaction: Transaction) => {
+    const dialect = context.getDialect()
     const isMysql = dialect === 'mysql' || dialect === 'mariadb'
 
     if (isMysql) {
-      await sequelize.query(
+      await context.query(
         'CREATE TABLE `CategoryTimeWarnings` ' +
         '(`familyId` VARCHAR(10) NOT NULL, `categoryId` VARCHAR(6) NOT NULL,' +
         '`minutes` INTEGER NOT NULL, ' +
@@ -34,7 +35,7 @@ export async function up (_: QueryInterface, sequelize: Sequelize) {
         { transaction }
       )
     } else {
-      await sequelize.query(
+      await context.query(
         'CREATE TABLE "CategoryTimeWarnings" ' +
         '("familyId" VARCHAR(10) NOT NULL, "categoryId" VARCHAR(6) NOT NULL,' +
         '"minutes" INTEGER NOT NULL, ' +
@@ -46,10 +47,11 @@ export async function up (_: QueryInterface, sequelize: Sequelize) {
   })
 }
 
-export async function down (queryInterface: QueryInterface, sequelize: Sequelize) {
-  await sequelize.transaction({
+export const down: Migration = async ({context}) => {
+  const queryInterface = context.getQueryInterface() 
+  context.transaction({
     type: Transaction.TYPES.EXCLUSIVE
-  }, async (transaction) => {
+  }, async ( transaction: Transaction) => {
     await queryInterface.dropTable('CategoryTimeWarnings', { transaction })
   })
 }

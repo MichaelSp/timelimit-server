@@ -17,11 +17,12 @@
 
 import { Sequelize } from "sequelize";
 import { SequelizeStorage, Umzug } from "umzug";
+require('ts-node/register')
 
 export const createUmzug = (sequelize: Sequelize) =>
   new Umzug({
     storage: new SequelizeStorage({ sequelize }),
-    context: sequelize.getQueryInterface(),
+    context: sequelize,
     migrations: {
       glob: "src/database/migration/migrations/*.ts",
     },

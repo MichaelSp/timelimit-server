@@ -18,13 +18,14 @@
 import { createHash, createHmac, timingSafeEqual } from 'crypto'
 import { ClientPushChangesRequestAction } from '../../../api/schema'
 import { intToBuffer, longToBuffer } from '../../../util/binary-number'
-import { validateU2fIntegrity, U2fValidationError } from '../../u2f'
+import { U2fValidationError, validateU2fIntegrity } from '../../u2f'
 import { Cache } from './cache'
-import {
-  InvalidChildActionIntegrityValue, InvalidParentActionIntegrityValue,
-  ParentDeviceActionWithoutParentDeviceException, InvalidU2fIntegrityValue
-} from './exception/integrity'
 import { ActionObjectTypeNotHandledException } from './exception/illegal-state'
+import {
+    InvalidChildActionIntegrityValue, InvalidParentActionIntegrityValue,
+    InvalidU2fIntegrityValue,
+    ParentDeviceActionWithoutParentDeviceException
+} from './exception/integrity'
 import { AuthenticationMethod } from './types'
 
 export async function assertActionIntegrity ({ action, cache, deviceId }: {

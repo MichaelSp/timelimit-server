@@ -16,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetCategoryFo
 
 ## type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                                | Explanation |
-| :----------------------------------- | :---------- |
-| `"SET_CATEGORY_FOR_UNASSIGNED_APPS"` |             |
+```json
+"SET_CATEGORY_FOR_UNASSIGNED_APPS"
+```

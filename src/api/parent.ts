@@ -29,16 +29,19 @@ import { getStatusByMailToken } from '../function/parent/get-status-by-mail-addr
 import { linkMailAddress } from '../function/parent/link-mail-address'
 import { recoverParentPassword } from '../function/parent/recover-parent-password'
 import { signInIntoFamily } from '../function/parent/sign-in-into-family'
-import { validateU2fIntegrity, U2fValidationError } from '../function/u2f'
+import { U2fValidationError, validateU2fIntegrity } from '../function/u2f'
+import { EventHandler } from '../monitoring/eventhandler'
 import { createIdentityToken, MissingSignSecretException } from '../util/identity-token'
 import { WebsocketApi } from '../websocket'
-import { EventHandler } from '../monitoring/eventhandler'
 import {
-  isCreateFamilyByMailTokenRequest,
-  isCreateRegisterDeviceTokenRequest, isLinkParentMailAddressRequest,
-  isMailAuthTokenRequestBody, isRecoverParentPasswordRequest,
-  isRemoveDeviceRequest, isSignIntoFamilyRequest, isRequestIdentityTokenRequest,
-  isDeleteAccountPayload
+    isCreateFamilyByMailTokenRequest,
+    isCreateRegisterDeviceTokenRequest,
+    isDeleteAccountPayload,
+    isLinkParentMailAddressRequest,
+    isMailAuthTokenRequestBody, isRecoverParentPasswordRequest,
+    isRemoveDeviceRequest,
+    isRequestIdentityTokenRequest,
+    isSignIntoFamilyRequest
 } from './validator'
 
 export const createParentRouter = ({

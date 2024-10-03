@@ -26,13 +26,13 @@ https://timelimit.io/SignIntoFamilyRequest#/definitions/NewDeviceInfo
 
 `model`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SignIntoFamilyRequest](signintofamilyrequest-definitions-newdeviceinfo-properties-model.md "https://timelimit.io/SignIntoFamilyRequest#/definitions/NewDeviceInfo/properties/model")
+* defined in: [SignIntoFamilyRequest](signintofamilyrequest-definitions-newdeviceinfo-properties-model.md "https://timelimit.io/SignIntoFamilyRequest#/definitions/NewDeviceInfo/properties/model")
 
 ### model Type
 

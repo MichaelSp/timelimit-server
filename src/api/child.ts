@@ -22,9 +22,9 @@ import { Database } from '../database'
 import { addChildDevice } from '../function/child/add-device'
 import { logoutAtPrimaryDevice } from '../function/child/logout-at-primary-device'
 import { setPrimaryDevice } from '../function/child/set-primary-device'
+import { EventHandler } from '../monitoring/eventhandler'
 import { WebsocketApi } from '../websocket'
 import { isRegisterChildDeviceRequest, isRequestWithAuthToken, isUpdatePrimaryDeviceRequest } from './validator'
-import { EventHandler } from '../monitoring/eventhandler'
 
 export const createChildRouter = ({ database, websocket, eventHandler }: {
   database: Database

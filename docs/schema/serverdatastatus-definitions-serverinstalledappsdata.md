@@ -29,13 +29,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData
 
 `deviceId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverinstalledappsdata-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData/properties/deviceId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverinstalledappsdata-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData/properties/deviceId")
 
 ### deviceId Type
 
@@ -47,13 +47,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData
 
 `version`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverinstalledappsdata-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData/properties/version")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverinstalledappsdata-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData/properties/version")
 
 ### version Type
 
@@ -65,13 +65,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData
 
 `apps`
 
-*   is required
+* is required
 
-*   Type: `object[]` ([SerializedInstalledApp](serverdatastatus-definitions-serializedinstalledapp.md))
+* Type: `object[]` ([SerializedInstalledApp](serverdatastatus-definitions-serializedinstalledapp.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverinstalledappsdata-properties-apps.md "https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData/properties/apps")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverinstalledappsdata-properties-apps.md "https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData/properties/apps")
 
 ### apps Type
 
@@ -83,13 +83,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData
 
 `activities`
 
-*   is required
+* is required
 
-*   Type: `object[]` ([SerializedAppActivityItem](serverdatastatus-definitions-serializedappactivityitem.md))
+* Type: `object[]` ([SerializedAppActivityItem](serverdatastatus-definitions-serializedappactivityitem.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverinstalledappsdata-properties-activities.md "https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData/properties/activities")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverinstalledappsdata-properties-activities.md "https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData/properties/activities")
 
 ### activities Type
 

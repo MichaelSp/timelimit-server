@@ -1,10 +1,10 @@
 {
   "name": "timelimit-server",
-  "version": "1.17.0",
+  "version": "1.17.1",
   "private": true,
   "description": "",
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=21.0.0"
   },
   "scripts": {
     "start": "node ./build/index.js",
@@ -42,11 +42,11 @@
     "@types/lodash": "^4.14.197",
     "@types/node": "^20.0.0",
     "@types/nodemailer": "^6.4.9",
-    "@types/umzug": "^2.3.3",
+    "@types/umzug": "^2.3.7",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",
     "eslint": "^8.46.0",
-    "rimraf": "^6.0.0",
+    "rimraf": "^3.0.1",
     "typescript": "^5.0.0",
     "typescript-json-schema": "^0.64.0"
   },
@@ -67,7 +67,7 @@
     "rate-limiter-flexible": "^5.0.0",
     "sequelize": "^6.32.1",
     "socket.io": "^4.7.2",
-    "sqlite3": "^5.1.6",
+    "ts-node": "^10.9.2",
     "umzug": "^3.3.1"
   },
   "optionalDependencies": {

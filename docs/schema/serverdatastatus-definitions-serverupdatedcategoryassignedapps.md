@@ -28,13 +28,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssigned
 
 `categoryId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryassignedapps-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssignedApps/properties/categoryId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryassignedapps-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssignedApps/properties/categoryId")
 
 ### categoryId Type
 
@@ -46,13 +46,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssigned
 
 `apps`
 
-*   is required
+* is required
 
-*   Type: `string[]`
+* Type: `string[]`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryassignedapps-properties-apps.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssignedApps/properties/apps")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryassignedapps-properties-apps.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssignedApps/properties/apps")
 
 ### apps Type
 
@@ -64,13 +64,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssigned
 
 `version`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryassignedapps-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssignedApps/properties/version")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryassignedapps-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssignedApps/properties/version")
 
 ### version Type
 

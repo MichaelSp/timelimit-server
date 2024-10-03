@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
 import { createDecipheriv } from 'crypto'
+import * as Sequelize from 'sequelize'
 import { Database } from '../../database'
 import { isVersionId } from '../../util/token'
 import { getSharedSecret, SharedSecretException } from './shared-secret'

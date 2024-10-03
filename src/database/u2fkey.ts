@@ -15,11 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
 import { createHash } from 'crypto'
+import * as Sequelize from 'sequelize'
+import { intToBuffer } from '../util/binary-number'
 import { familyIdColumn, idWithinFamilyColumn, timestampColumn } from './columns'
 import { SequelizeAttributes } from './types'
-import { intToBuffer } from '../util/binary-number'
 
 export function getU2fKeyId({ keyHandle, publicKey }: {
   keyHandle: Buffer

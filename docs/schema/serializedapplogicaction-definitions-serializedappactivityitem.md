@@ -28,13 +28,13 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAppActivity
 
 `p`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedappactivityitem-properties-p.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAppActivityItem/properties/p")
+* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedappactivityitem-properties-p.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAppActivityItem/properties/p")
 
 ### p Type
 
@@ -46,13 +46,13 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAppActivity
 
 `c`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedappactivityitem-properties-c.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAppActivityItem/properties/c")
+* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedappactivityitem-properties-c.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAppActivityItem/properties/c")
 
 ### c Type
 
@@ -64,13 +64,13 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAppActivity
 
 `t`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedappactivityitem-properties-t.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAppActivityItem/properties/t")
+* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedappactivityitem-properties-t.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAppActivityItem/properties/t")
 
 ### t Type
 

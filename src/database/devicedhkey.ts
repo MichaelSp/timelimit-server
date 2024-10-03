@@ -16,7 +16,7 @@
  */
 
 import * as Sequelize from 'sequelize'
-import { familyIdColumn, idWithinFamilyColumn, versionColumn, timestampColumn } from './columns'
+import { familyIdColumn, idWithinFamilyColumn, timestampColumn, versionColumn } from './columns'
 import { SequelizeAttributes } from './types'
 
 export const config = {

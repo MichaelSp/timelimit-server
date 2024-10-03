@@ -16,9 +16,9 @@
  */
 
 import { ChildChangePasswordAction } from '../../../../action'
+import { decryptParentPassword } from '../../../dh'
 import { Cache } from '../cache'
 import { SourceUserNotFoundException } from '../exception/illegal-state'
-import { decryptParentPassword } from '../../../dh'
 
 export const dispatchChildChangePassword = async ({ action, childUserId, cache }: {
   action: ChildChangePasswordAction

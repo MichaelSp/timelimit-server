@@ -153,3 +153,4 @@ export const sequelize = new Sequelize.Sequelize(DB_URL, {
 
 export const defaultDatabase = createDatabase(sequelize)
 export const defaultUmzug = createUmzug(sequelize)
+export type Migration = typeof defaultUmzug._types.migration;

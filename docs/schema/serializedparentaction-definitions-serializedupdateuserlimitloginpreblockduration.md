@@ -28,13 +28,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLim
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserlimitloginpreblockduration-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLimitLoginPreBlockDuration/properties/type")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserlimitloginpreblockduration-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLimitLoginPreBlockDuration/properties/type")
 
 ### type Type
 
@@ -42,11 +42,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLim
 
 ### type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                                          | Explanation |
-| :--------------------------------------------- | :---------- |
-| `"UPDATE_USER_LIMIT_LOGIN_PRE_BLOCK_DURATION"` |             |
+```json
+"UPDATE_USER_LIMIT_LOGIN_PRE_BLOCK_DURATION"
+```
 
 ## userId
 
@@ -54,13 +54,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLim
 
 `userId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserlimitloginpreblockduration-properties-userid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLimitLoginPreBlockDuration/properties/userId")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserlimitloginpreblockduration-properties-userid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLimitLoginPreBlockDuration/properties/userId")
 
 ### userId Type
 
@@ -72,13 +72,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLim
 
 `preBlockDuration`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserlimitloginpreblockduration-properties-preblockduration.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLimitLoginPreBlockDuration/properties/preBlockDuration")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateuserlimitloginpreblockduration-properties-preblockduration.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLimitLoginPreBlockDuration/properties/preBlockDuration")
 
 ### preBlockDuration Type
 

@@ -28,13 +28,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTasks
 
 `categoryId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytasks-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTasks/properties/categoryId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytasks-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTasks/properties/categoryId")
 
 ### categoryId Type
 
@@ -46,13 +46,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTasks
 
 `version`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytasks-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTasks/properties/version")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytasks-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTasks/properties/version")
 
 ### version Type
 
@@ -64,13 +64,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTasks
 
 `tasks`
 
-*   is required
+* is required
 
-*   Type: `object[]` ([ServerUpdatedCategoryTask](serverdatastatus-definitions-serverupdatedcategorytask.md))
+* Type: `object[]` ([ServerUpdatedCategoryTask](serverdatastatus-definitions-serverupdatedcategorytask.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytasks-properties-tasks.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTasks/properties/tasks")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytasks-properties-tasks.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTasks/properties/tasks")
 
 ### tasks Type
 

@@ -26,13 +26,13 @@ https://timelimit.io/RegisterChildDeviceRequest#/definitions/NewDeviceInfo
 
 `model`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [RegisterChildDeviceRequest](registerchilddevicerequest-definitions-newdeviceinfo-properties-model.md "https://timelimit.io/RegisterChildDeviceRequest#/definitions/NewDeviceInfo/properties/model")
+* defined in: [RegisterChildDeviceRequest](registerchilddevicerequest-definitions-newdeviceinfo-properties-model.md "https://timelimit.io/RegisterChildDeviceRequest#/definitions/NewDeviceInfo/properties/model")
 
 ### model Type
 

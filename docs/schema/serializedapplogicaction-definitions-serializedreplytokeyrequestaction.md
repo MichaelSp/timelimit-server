@@ -30,13 +30,13 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyR
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/type")
+* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/type")
 
 ### type Type
 
@@ -44,11 +44,11 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyR
 
 ### type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                    | Explanation |
-| :----------------------- | :---------- |
-| `"REPLY_TO_KEY_REQUEST"` |             |
+```json
+"REPLY_TO_KEY_REQUEST"
+```
 
 ## rsn
 
@@ -56,13 +56,13 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyR
 
 `rsn`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-rsn.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/rsn")
+* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-rsn.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/rsn")
 
 ### rsn Type
 
@@ -74,13 +74,13 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyR
 
 `tempKey`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-tempkey.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/tempKey")
+* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-tempkey.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/tempKey")
 
 ### tempKey Type
 
@@ -92,13 +92,13 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyR
 
 `encryptedKey`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-encryptedkey.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/encryptedKey")
+* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-encryptedkey.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/encryptedKey")
 
 ### encryptedKey Type
 
@@ -110,13 +110,13 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyR
 
 `signature`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-signature.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/signature")
+* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-signature.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/signature")
 
 ### signature Type
 

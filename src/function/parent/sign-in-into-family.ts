@@ -18,16 +18,16 @@
 import { Conflict } from 'http-errors'
 import { NewDeviceInfo } from '../../api/schema'
 import { Database } from '../../database'
+import { EventHandler } from '../../monitoring/eventhandler'
+import { createEmptyClientDataStatus } from '../../object/clientdatastatus'
+import { ServerDataStatus } from '../../object/serverdatastatus'
 import { sendDeviceLinkedMail } from '../../util/mail'
 import { generateAuthToken, generateIdWithinFamily, generateVersionId } from '../../util/token'
 import { WebsocketApi } from '../../websocket'
 import { requireMailAndLocaleByAuthToken } from '../authentication'
 import { prepareDeviceEntry } from '../device/prepare-device-entry'
-import { notifyClientsAboutChangesDelayed } from '../websocket'
 import { generateServerDataStatus } from '../sync/get-server-data-status'
-import { EventHandler } from '../../monitoring/eventhandler'
-import { ServerDataStatus } from '../../object/serverdatastatus'
-import { createEmptyClientDataStatus } from '../../object/clientdatastatus'
+import { notifyClientsAboutChangesDelayed } from '../websocket'
 
 export const signInIntoFamily = async ({ database, eventHandler, mailAuthToken, newDeviceInfo, deviceName, websocket, clientLevel }: {
   database: Database

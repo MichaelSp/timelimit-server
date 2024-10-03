@@ -26,13 +26,13 @@ https://timelimit.io/SerializedChildAction#/definitions/SerializedChildSignInAct
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedChildAction](serializedchildaction-definitions-serializedchildsigninaction-properties-type.md "https://timelimit.io/SerializedChildAction#/definitions/SerializedChildSignInAction/properties/type")
+* defined in: [SerializedChildAction](serializedchildaction-definitions-serializedchildsigninaction-properties-type.md "https://timelimit.io/SerializedChildAction#/definitions/SerializedChildSignInAction/properties/type")
 
 ### type Type
 
@@ -40,8 +40,8 @@ https://timelimit.io/SerializedChildAction#/definitions/SerializedChildSignInAct
 
 ### type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value             | Explanation |
-| :---------------- | :---------- |
-| `"CHILD_SIGN_IN"` |             |
+```json
+"CHILD_SIGN_IN"
+```

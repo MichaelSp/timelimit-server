@@ -22,8 +22,8 @@ import { Database } from '../database'
 import { sendLoginCode, signInByMailCode } from '../function/authentication/login-by-mail'
 import { isMailAddressCoveredByWhitelist, isMailServerBlacklisted, sanitizeMailAddress } from '../util/mail'
 import {
-  isSendMailLoginCodeRequest,
-  isSignInByMailCodeRequest
+    isSendMailLoginCodeRequest,
+    isSignInByMailCodeRequest
 } from './validator'
 
 export const createAuthRouter = (database: Database) => {

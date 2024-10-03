@@ -29,13 +29,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIncrementCate
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedincrementcategoryextratimeaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIncrementCategoryExtraTimeAction/properties/type")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedincrementcategoryextratimeaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIncrementCategoryExtraTimeAction/properties/type")
 
 ### type Type
 
@@ -43,11 +43,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIncrementCate
 
 ### type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                            | Explanation |
-| :------------------------------- | :---------- |
-| `"INCREMENT_CATEGORY_EXTRATIME"` |             |
+```json
+"INCREMENT_CATEGORY_EXTRATIME"
+```
 
 ## categoryId
 
@@ -55,13 +55,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIncrementCate
 
 `categoryId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedincrementcategoryextratimeaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIncrementCategoryExtraTimeAction/properties/categoryId")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedincrementcategoryextratimeaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIncrementCategoryExtraTimeAction/properties/categoryId")
 
 ### categoryId Type
 
@@ -73,13 +73,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIncrementCate
 
 `addedExtraTime`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedincrementcategoryextratimeaction-properties-addedextratime.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIncrementCategoryExtraTimeAction/properties/addedExtraTime")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedincrementcategoryextratimeaction-properties-addedextratime.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIncrementCategoryExtraTimeAction/properties/addedExtraTime")
 
 ### addedExtraTime Type
 
@@ -91,13 +91,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIncrementCate
 
 `day`
 
-*   is optional
+* is optional
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedincrementcategoryextratimeaction-properties-day.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIncrementCategoryExtraTimeAction/properties/day")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedincrementcategoryextratimeaction-properties-day.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIncrementCategoryExtraTimeAction/properties/day")
 
 ### day Type
 

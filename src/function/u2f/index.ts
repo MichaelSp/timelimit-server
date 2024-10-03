@@ -17,10 +17,10 @@
 
 import { createHash, timingSafeEqual } from 'crypto'
 import * as Sequelize from 'sequelize'
-import { getSharedSecret, SharedSecretException } from '../dh'
 import { Database } from '../../database'
 import { intToBuffer } from '../../util/binary-number'
-import { isU2fSignatureValid, calculateApplicationId } from '../../util/u2fsignature'
+import { calculateApplicationId, isU2fSignatureValid } from '../../util/u2fsignature'
+import { getSharedSecret, SharedSecretException } from '../dh'
 
 export class U2fValidationError extends Error {}
 class IntegrityMalformedException extends U2fValidationError { constructor() { super('integrity malformed') } }

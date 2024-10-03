@@ -28,13 +28,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceUser
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetdeviceuseraction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceUserAction/properties/type")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetdeviceuseraction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceUserAction/properties/type")
 
 ### type Type
 
@@ -42,11 +42,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceUser
 
 ### type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value               | Explanation |
-| :------------------ | :---------- |
-| `"SET_DEVICE_USER"` |             |
+```json
+"SET_DEVICE_USER"
+```
 
 ## deviceId
 
@@ -54,13 +54,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceUser
 
 `deviceId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetdeviceuseraction-properties-deviceid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceUserAction/properties/deviceId")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetdeviceuseraction-properties-deviceid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceUserAction/properties/deviceId")
 
 ### deviceId Type
 
@@ -72,13 +72,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceUser
 
 `userId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetdeviceuseraction-properties-userid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceUserAction/properties/userId")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetdeviceuseraction-properties-userid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceUserAction/properties/userId")
 
 ### userId Type
 

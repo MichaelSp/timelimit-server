@@ -17,7 +17,6 @@
     "receipt",
     "signature"
   ],
-  "definitions": {},
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "FinishPurchaseByGooglePlayRequest",
   "$id": "https://timelimit.io/FinishPurchaseByGooglePlayRequest"

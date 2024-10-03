@@ -17,7 +17,6 @@
     "deviceAuthToken",
     "type"
   ],
-  "definitions": {},
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CanDoPurchaseRequest",
   "$id": "https://timelimit.io/CanDoPurchaseRequest"

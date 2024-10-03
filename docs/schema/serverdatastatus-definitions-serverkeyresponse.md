@@ -31,13 +31,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse
 
 `srvSeq`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-srvseq.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/srvSeq")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-srvseq.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/srvSeq")
 
 ### srvSeq Type
 
@@ -49,13 +49,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse
 
 `sender`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-sender.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/sender")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-sender.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/sender")
 
 ### sender Type
 
@@ -67,13 +67,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse
 
 `rqSeq`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-rqseq.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/rqSeq")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-rqseq.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/rqSeq")
 
 ### rqSeq Type
 
@@ -85,13 +85,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse
 
 `tempKey`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-tempkey.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/tempKey")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-tempkey.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/tempKey")
 
 ### tempKey Type
 
@@ -103,13 +103,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse
 
 `cryptKey`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-cryptkey.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/cryptKey")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-cryptkey.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/cryptKey")
 
 ### cryptKey Type
 
@@ -121,13 +121,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse
 
 `signature`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-signature.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/signature")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-signature.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/signature")
 
 ### signature Type
 

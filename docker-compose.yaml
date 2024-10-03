@@ -1,6 +1,5 @@
 # change the passwords and use https://docs.docker.com/compose/environment-variables/
 # to keep sensitives value in a .env file while using ${VAR_NAME} here instead
-version: '3.8'
 
 services:
   api:

@@ -15,12 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import {
+    assertParentPasswordValid,
+    EncryptableParentPassword,
+    ParentPasswordValidationException,
+    PlaintextParentPassword
+} from '../../api/schema'
 import { Cache } from '../sync/apply-actions/cache'
 import { ApplyActionException } from '../sync/apply-actions/exception'
-import {
-  EncryptableParentPassword, assertParentPasswordValid,
-  PlaintextParentPassword, ParentPasswordValidationException
-} from '../../api/schema'
 import { decrypt, DecryptException } from './decrypt'
 
 export async function decryptParentPassword({ cache, password } : {

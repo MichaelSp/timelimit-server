@@ -16,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveCategor
 
 ## type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                    | Explanation |
-| :----------------------- | :---------- |
-| `"REMOVE_CATEGORY_APPS"` |             |
+```json
+"REMOVE_CATEGORY_APPS"
+```

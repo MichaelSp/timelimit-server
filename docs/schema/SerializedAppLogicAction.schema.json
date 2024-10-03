@@ -16,16 +16,13 @@
       "$ref": "#/definitions/SerializedForceSyncAction"
     },
     {
-      "$ref": "#/definitions/SerializedReplyToKeyRequestAction"
-    },
-    {
       "$ref": "#/definitions/SerializedMarkTaskPendingAction"
     },
     {
-      "$ref": "#/definitions/SerializedUpdateInstalledAppsAction"
+      "$ref": "#/definitions/SerializedRemoveInstalledAppsAction"
     },
     {
-      "$ref": "#/definitions/SerializedRemoveInstalledAppsAction"
+      "$ref": "#/definitions/SerializedReplyToKeyRequestAction"
     },
     {
       "$ref": "#/definitions/SerializedSendKeyRequestAction"
@@ -43,6 +40,9 @@
       "$ref": "#/definitions/SerializedUpdateDeviceStatusAction"
     },
     {
+      "$ref": "#/definitions/SerializedUpdateInstalledAppsAction"
+    },
+    {
       "$ref": "#/definitions/SerializedUploadDevicePublicKeyAction"
     }
   ],
@@ -52,9 +52,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "ADD_INSTALLED_APPS"
-          ]
+          "const": "ADD_INSTALLED_APPS"
         },
         "apps": {
           "type": "array",
@@ -109,9 +107,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "ADD_USED_TIME"
-          ]
+          "const": "ADD_USED_TIME"
         },
         "categoryId": {
           "type": "string"
@@ -141,9 +137,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "ADD_USED_TIME_V2"
-          ]
+          "const": "ADD_USED_TIME_V2"
         },
         "d": {
           "type": "number"
@@ -226,9 +220,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "FINISH_KEY_REQUEST"
-          ]
+          "const": "FINISH_KEY_REQUEST"
         },
         "dsn": {
           "type": "number"
@@ -246,9 +238,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "FORCE_SYNC"
-          ]
+          "const": "FORCE_SYNC"
         }
       },
       "additionalProperties": false,
@@ -257,14 +247,51 @@
       ],
       "title": "SerializedForceSyncAction"
     },
+    "SerializedMarkTaskPendingAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "MARK_TASK_PENDING"
+        },
+        "taskId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "taskId",
+        "type"
+      ],
+      "title": "SerializedMarkTaskPendingAction"
+    },
+    "SerializedRemoveInstalledAppsAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "REMOVE_INSTALLED_APPS"
+        },
+        "packageNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "packageNames",
+        "type"
+      ],
+      "title": "SerializedRemoveInstalledAppsAction"
+    },
     "SerializedReplyToKeyRequestAction": {
       "type": "object",
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "REPLY_TO_KEY_REQUEST"
-          ]
+          "const": "REPLY_TO_KEY_REQUEST"
         },
         "rsn": {
           "type": "number"
@@ -289,83 +316,12 @@
       ],
       "title": "SerializedReplyToKeyRequestAction"
     },
-    "SerializedMarkTaskPendingAction": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "MARK_TASK_PENDING"
-          ]
-        },
-        "taskId": {
-          "type": "string"
-        }
-      },
-      "additionalProperties": false,
-      "required": [
-        "taskId",
-        "type"
-      ],
-      "title": "SerializedMarkTaskPendingAction"
-    },
-    "SerializedUpdateInstalledAppsAction": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "UPDATE_INSTALLED_APPS"
-          ]
-        },
-        "b": {
-          "type": "string"
-        },
-        "d": {
-          "type": "string"
-        },
-        "w": {
-          "type": "boolean"
-        }
-      },
-      "additionalProperties": false,
-      "required": [
-        "type",
-        "w"
-      ],
-      "title": "SerializedUpdateInstalledAppsAction"
-    },
-    "SerializedRemoveInstalledAppsAction": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string",
-          "enum": [
-            "REMOVE_INSTALLED_APPS"
-          ]
-        },
-        "packageNames": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      },
-      "additionalProperties": false,
-      "required": [
-        "packageNames",
-        "type"
-      ],
-      "title": "SerializedRemoveInstalledAppsAction"
-    },
     "SerializedSendKeyRequestAction": {
       "type": "object",
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "SEND_KEY_REQUEST"
-          ]
+          "const": "SEND_KEY_REQUEST"
         },
         "dsn": {
           "type": "number"
@@ -401,9 +357,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "SIGN_OUT_AT_DEVICE"
-          ]
+          "const": "SIGN_OUT_AT_DEVICE"
         }
       },
       "additionalProperties": false,
@@ -417,9 +371,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "TRIED_DISABLING_DEVICE_ADMIN"
-          ]
+          "const": "TRIED_DISABLING_DEVICE_ADMIN"
         }
       },
       "additionalProperties": false,
@@ -433,9 +385,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_APP_ACTIVITIES"
-          ]
+          "const": "UPDATE_APP_ACTIVITIES"
         },
         "removed": {
           "type": "array",
@@ -494,9 +444,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_DEVICE_STATUS"
-          ]
+          "const": "UPDATE_DEVICE_STATUS"
         },
         "protectionLevel": {
           "enum": [
@@ -559,14 +507,36 @@
       ],
       "title": "SerializedUpdateDeviceStatusAction"
     },
+    "SerializedUpdateInstalledAppsAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "UPDATE_INSTALLED_APPS"
+        },
+        "b": {
+          "type": "string"
+        },
+        "d": {
+          "type": "string"
+        },
+        "w": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "w"
+      ],
+      "title": "SerializedUpdateInstalledAppsAction"
+    },
     "SerializedUploadDevicePublicKeyAction": {
       "type": "object",
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPLOAD_DEVICE_PUBLIC_KEY"
-          ]
+          "const": "UPLOAD_DEVICE_PUBLIC_KEY"
         },
         "key": {
           "type": "string"

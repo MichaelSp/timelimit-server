@@ -16,8 +16,8 @@
  */
 
 import { ReplyToKeyRequestAction } from '../../../../action'
-import { Cache } from '../cache'
 import { EventHandler } from '../../../../monitoring/eventhandler'
+import { Cache } from '../cache'
 import { IllegalStateException } from '../exception/illegal-state'
 
 export async function dispatchReplyToKeyRequestAction ({ deviceId, action, cache, eventHandler }: {
