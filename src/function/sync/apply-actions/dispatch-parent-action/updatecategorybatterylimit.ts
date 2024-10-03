@@ -15,20 +15,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateCategoryBatteryLimitAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingCategoryException } from '../exception/missing-item'
+import { UpdateCategoryBatteryLimitAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingCategoryException } from "../exception/missing-item"
 
-export async function dispatchUpdateCategoryBatteryLimit ({ action, cache }: {
+export async function dispatchUpdateCategoryBatteryLimit({
+  action,
+  cache,
+}: {
   action: UpdateCategoryBatteryLimitAction
   cache: Cache
 }) {
   const categoryEntry = await cache.database.category.findOne({
     where: {
       familyId: cache.familyId,
-      categoryId: action.categoryId
+      categoryId: action.categoryId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!categoryEntry) {

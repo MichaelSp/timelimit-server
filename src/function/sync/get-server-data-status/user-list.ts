@@ -15,37 +15,43 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { Database } from '../../../database'
-import { ServerUserList } from '../../../object/serverdatastatus'
-import { FamilyEntry } from './family-entry'
+import * as Sequelize from "sequelize"
+import { Database } from "../../../database"
+import { ServerUserList } from "../../../object/serverdatastatus"
+import { FamilyEntry } from "./family-entry"
 
-export async function getUserList ({ database, transaction, familyEntry }: {
+export async function getUserList({
+  database,
+  transaction,
+  familyEntry,
+}: {
   database: Database
   transaction: Sequelize.Transaction
   familyEntry: FamilyEntry
 }): Promise<ServerUserList> {
-  const users = (await database.user.findAll({
-    where: {
-      familyId: familyEntry.familyId
-    },
-    attributes: [
-      'userId',
-      'name',
-      'passwordHash',
-      'secondPasswordSalt',
-      'type',
-      'timeZone',
-      'disableTimelimitsUntil',
-      'mail',
-      'currentDevice',
-      'categoryForNotAssignedApps',
-      'relaxPrimaryDeviceRule',
-      'mailNotificationFlags',
-      'flags'
-    ],
-    transaction
-  })).map((item) => ({
+  const users = (
+    await database.user.findAll({
+      where: {
+        familyId: familyEntry.familyId,
+      },
+      attributes: [
+        "userId",
+        "name",
+        "passwordHash",
+        "secondPasswordSalt",
+        "type",
+        "timeZone",
+        "disableTimelimitsUntil",
+        "mail",
+        "currentDevice",
+        "categoryForNotAssignedApps",
+        "relaxPrimaryDeviceRule",
+        "mailNotificationFlags",
+        "flags",
+      ],
+      transaction,
+    })
+  ).map((item) => ({
     userId: item.userId,
     name: item.name,
     passwordHash: item.passwordHash,
@@ -58,23 +64,21 @@ export async function getUserList ({ database, transaction, familyEntry }: {
     categoryForNotAssignedApps: item.categoryForNotAssignedApps,
     relaxPrimaryDeviceRule: item.relaxPrimaryDeviceRule,
     mailNotificationFlags: item.mailNotificationFlags,
-    flags: item.flags
+    flags: item.flags,
   }))
 
-  const limitLoginCategories = (await database.userLimitLoginCategory.findAll({
-    where: {
-      familyId: familyEntry.familyId
-    },
-    attributes: [
-      'userId',
-      'categoryId',
-      'preBlockDuration'
-    ],
-    transaction
-  })).map((item) => ({
+  const limitLoginCategories = (
+    await database.userLimitLoginCategory.findAll({
+      where: {
+        familyId: familyEntry.familyId,
+      },
+      attributes: ["userId", "categoryId", "preBlockDuration"],
+      transaction,
+    })
+  ).map((item) => ({
     userId: item.userId,
     categoryId: item.categoryId,
-    preBlockDuration: item.preBlockDuration
+    preBlockDuration: item.preBlockDuration,
   }))
 
   const getLimitLoginCategory = (userId: string) => {
@@ -105,11 +109,11 @@ export async function getUserList ({ database, transaction, familyEntry }: {
         categoryForNotAssignedApps: item.categoryForNotAssignedApps,
         relaxPrimaryDevice: item.relaxPrimaryDeviceRule,
         mailNotificationFlags: item.mailNotificationFlags,
-        blockedTimes: '',
+        blockedTimes: "",
         flags: parseInt(item.flags, 10),
         llc: limitLoginCategory?.categoryId,
-        pbd: limitLoginCategory?.preBlockDuration
+        pbd: limitLoginCategory?.preBlockDuration,
       }
-    })
+    }),
   }
 }

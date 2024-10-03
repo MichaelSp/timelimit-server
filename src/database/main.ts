@@ -15,32 +15,56 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { AddDeviceTokenModelStatic, createAddDeviceTokenModel } from './adddevicetoken'
-import { AuthTokenModelStatic, createAuthtokenModel } from './authtoken'
-import { CategoryModelStatic, createCategoryModel } from './category'
-import { CategoryAppModelStatic, createCategoryAppModel } from './categoryapp'
-import { CategoryNetworkIdModelStatic, createCategoryNetworkIdModel } from './categorynetworkid'
-import { CategoryTimeWarningModelStatic, createCategoryTimeWarningModel } from './categorytimewarning'
-import { ChildTaskModelStatic, createChildTaskModel } from './childtask'
-import { ConfigModelStatic, createConfigModel } from './config'
-import { createDeviceModel, DeviceModelStatic } from './device'
-import { createDeviceDhKey, DeviceDhKeyModelStatic } from './devicedhkey'
-import { createEncryptedAppListModel, EncryptedAppListModelStatic } from './encryptedapplist'
-import { createFamilyModel, FamilyModelStatic } from './family'
-import { createKeyRequestModel, KeyRequestModelStatic } from './keyrequest'
-import { createKeyResponseModel, KeyResponseModelStatic } from './keyresponse'
-import { createMailLoginTokenModel, MailLoginTokenModelStatic } from './maillogintoken'
-import { createUmzug } from './migration/umzug'
-import { createOldDeviceModel, OldDeviceModelStatic } from './olddevice'
-import { createPurchaseModel, PurchaseModelStatic } from './purchase'
-import { createSessionDurationModel, SessionDurationModelStatic } from './sessionduration'
-import { createTimelimitRuleModel, TimelimitRuleModelStatic } from './timelimitrule'
-import { createU2fKeyModel, U2fKeyModelStatic } from './u2fkey'
-import { createUsedTimeModel, UsedTimeModelStatic } from './usedtime'
-import { createUserModel, UserModelStatic } from './user'
-import { createUserLimitLoginCategoryModel, UserLimitLoginCategoryModelStatic } from './userlimitlogincategory'
-import { shouldRetryWithException } from './utils/serialized'
+import * as Sequelize from "sequelize"
+import {
+  AddDeviceTokenModelStatic,
+  createAddDeviceTokenModel,
+} from "./adddevicetoken"
+import { AuthTokenModelStatic, createAuthtokenModel } from "./authtoken"
+import { CategoryModelStatic, createCategoryModel } from "./category"
+import { CategoryAppModelStatic, createCategoryAppModel } from "./categoryapp"
+import {
+  CategoryNetworkIdModelStatic,
+  createCategoryNetworkIdModel,
+} from "./categorynetworkid"
+import {
+  CategoryTimeWarningModelStatic,
+  createCategoryTimeWarningModel,
+} from "./categorytimewarning"
+import { ChildTaskModelStatic, createChildTaskModel } from "./childtask"
+import { ConfigModelStatic, createConfigModel } from "./config"
+import { createDeviceModel, DeviceModelStatic } from "./device"
+import { createDeviceDhKey, DeviceDhKeyModelStatic } from "./devicedhkey"
+import {
+  createEncryptedAppListModel,
+  EncryptedAppListModelStatic,
+} from "./encryptedapplist"
+import { createFamilyModel, FamilyModelStatic } from "./family"
+import { createKeyRequestModel, KeyRequestModelStatic } from "./keyrequest"
+import { createKeyResponseModel, KeyResponseModelStatic } from "./keyresponse"
+import {
+  createMailLoginTokenModel,
+  MailLoginTokenModelStatic,
+} from "./maillogintoken"
+import { createUmzug } from "./migration/umzug"
+import { createOldDeviceModel, OldDeviceModelStatic } from "./olddevice"
+import { createPurchaseModel, PurchaseModelStatic } from "./purchase"
+import {
+  createSessionDurationModel,
+  SessionDurationModelStatic,
+} from "./sessionduration"
+import {
+  createTimelimitRuleModel,
+  TimelimitRuleModelStatic,
+} from "./timelimitrule"
+import { createU2fKeyModel, U2fKeyModelStatic } from "./u2fkey"
+import { createUsedTimeModel, UsedTimeModelStatic } from "./usedtime"
+import { createUserModel, UserModelStatic } from "./user"
+import {
+  createUserLimitLoginCategoryModel,
+  UserLimitLoginCategoryModelStatic,
+} from "./userlimitlogincategory"
+import { shouldRetryWithException } from "./utils/serialized"
 
 export type Transaction = Sequelize.Transaction
 
@@ -68,9 +92,9 @@ export interface Database {
   usedTime: UsedTimeModelStatic
   user: UserModelStatic
   userLimitLoginCategory: UserLimitLoginCategoryModelStatic
-  transaction: <T> (
+  transaction: <T>(
     autoCallback: (t: Transaction) => Promise<T>,
-    options?: TransactionOptions
+    options?: TransactionOptions,
   ) => Promise<T>
   dialect: string
 }
@@ -106,14 +130,19 @@ const createDatabase = (sequelize: Sequelize.Sequelize): Database => ({
   userLimitLoginCategory: createUserLimitLoginCategoryModel(sequelize),
   async transaction<T>(
     autoCallback: (transaction: Transaction) => Promise<T>,
-    options?: TransactionOptions
+    options?: TransactionOptions,
   ): Promise<T> {
-    const runAttempt = () => sequelize.transaction({
-      isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE,
-      transaction: options?.transaction
-    }, autoCallback)
+    const runAttempt = () =>
+      sequelize.transaction(
+        {
+          isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.SERIALIZABLE,
+          transaction: options?.transaction,
+        },
+        autoCallback,
+      )
 
-    const delay = (time: number) => new Promise((resolve) => setTimeout(resolve, time))
+    const delay = (time: number) =>
+      new Promise((resolve) => setTimeout(resolve, time))
 
     try {
       return await runAttempt()
@@ -122,7 +151,8 @@ const createDatabase = (sequelize: Sequelize.Sequelize): Database => ({
         options?.disableRetry ||
         options?.transaction ||
         !shouldRetryWithException(this, ex)
-      ) throw ex
+      )
+        throw ex
     }
 
     await delay(10 * (1 + Math.random()))
@@ -137,20 +167,23 @@ const createDatabase = (sequelize: Sequelize.Sequelize): Database => ({
 
     return await runAttempt()
   },
-  dialect: sequelize.getDialect()
+  dialect: sequelize.getDialect(),
 })
 
-const DB_URL_DB = `${ process.env.DB_DRIVER}://${process.env.DB_USER || 'mariadb' }:${process.env.DB_PASS || 'password'}@${process.env.DB_HOST}:${process.env.DB_PORT || 3306 }/${process.env.DB_NAME ||'timelimit'}`
+const DB_URL_DB = `${process.env.DB_DRIVER}://${process.env.DB_USER || "mariadb"}:${process.env.DB_PASS || "password"}@${process.env.DB_HOST}:${process.env.DB_PORT || 3306}/${process.env.DB_NAME || "timelimit"}`
 
-const DB_URL = (process.env.DB_DRIVER || 'sqlite') === 'sqlite' ? 'sqlite://test.db' : DB_URL_DB
+const DB_URL =
+  (process.env.DB_DRIVER || "sqlite") === "sqlite"
+    ? "sqlite://test.db"
+    : DB_URL_DB
 
 export const sequelize = new Sequelize.Sequelize(DB_URL, {
   define: {
-    timestamps: false
+    timestamps: false,
   },
-  logging: false
+  logging: false,
 })
 
 export const defaultDatabase = createDatabase(sequelize)
 export const defaultUmzug = createUmzug(sequelize)
-export type Migration = typeof defaultUmzug._types.migration;
+export type Migration = typeof defaultUmzug._types.migration

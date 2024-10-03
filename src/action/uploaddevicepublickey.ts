@@ -15,35 +15,34 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AppLogicAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
+import { AppLogicAction } from "./basetypes"
+import { InvalidActionParameterException } from "./meta/exception"
 
-const actionType = 'UploadDevicePublicKeyAction'
+const actionType = "UploadDevicePublicKeyAction"
 
 export class UploadDevicePublicKeyAction extends AppLogicAction {
   readonly key: Buffer
 
-  constructor ({ key }: { key: Buffer }) {
+  constructor({ key }: { key: Buffer }) {
     super()
 
     if (key.length !== 32) {
       throw new InvalidActionParameterException({
         actionType,
-        staticMessage: 'key has wrong length'
+        staticMessage: "key has wrong length",
       })
     }
 
     this.key = key
   }
 
-  static parse = ({ key }: SerializedUploadDevicePublicKeyAction) => (
+  static parse = ({ key }: SerializedUploadDevicePublicKeyAction) =>
     new UploadDevicePublicKeyAction({
-      key: Buffer.from(key, 'base64')
+      key: Buffer.from(key, "base64"),
     })
-  )
 }
 
 export interface SerializedUploadDevicePublicKeyAction {
-  type: 'UPLOAD_DEVICE_PUBLIC_KEY'
+  type: "UPLOAD_DEVICE_PUBLIC_KEY"
   key: string
 }

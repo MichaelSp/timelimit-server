@@ -15,23 +15,37 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Conflict } from 'http-errors'
-import { NewDeviceInfo, PlaintextParentPassword, assertPlaintextParentPasswordValid } from '../../api/schema'
-import { Database } from '../../database'
-import { maxMailNotificationFlags } from '../../database/user'
-import { EventHandler } from '../../monitoring/eventhandler'
-import { createEmptyClientDataStatus } from '../../object/clientdatastatus'
-import { ServerDataStatus } from '../../object/serverdatastatus'
+import { Conflict } from "http-errors"
 import {
-    generateAuthToken, generateFamilyId, generateIdWithinFamily, generateVersionId
-} from '../../util/token'
-import { requireMailAndLocaleByAuthToken } from '../authentication'
-import { prepareDeviceEntry } from '../device/prepare-device-entry'
-import { generateServerDataStatus } from '../sync/get-server-data-status'
+  NewDeviceInfo,
+  PlaintextParentPassword,
+  assertPlaintextParentPasswordValid,
+} from "../../api/schema"
+import { Database } from "../../database"
+import { maxMailNotificationFlags } from "../../database/user"
+import { EventHandler } from "../../monitoring/eventhandler"
+import { createEmptyClientDataStatus } from "../../object/clientdatastatus"
+import { ServerDataStatus } from "../../object/serverdatastatus"
+import {
+  generateAuthToken,
+  generateFamilyId,
+  generateIdWithinFamily,
+  generateVersionId,
+} from "../../util/token"
+import { requireMailAndLocaleByAuthToken } from "../authentication"
+import { prepareDeviceEntry } from "../device/prepare-device-entry"
+import { generateServerDataStatus } from "../sync/get-server-data-status"
 
-export async function createFamily ({
-  database, eventHandler, mailAuthToken, firstParentDevice,
-  password, timeZone, parentName, deviceName, clientLevel
+export async function createFamily({
+  database,
+  eventHandler,
+  mailAuthToken,
+  firstParentDevice,
+  password,
+  timeZone,
+  parentName,
+  deviceName,
+  clientLevel,
 }: {
   database: Database
   eventHandler: EventHandler
@@ -52,14 +66,19 @@ export async function createFamily ({
 
   return database.transaction(async (transaction) => {
     const now = Date.now().toString(10)
-    const mailInfo = await requireMailAndLocaleByAuthToken({ database, mailAuthToken, transaction, invalidate: true })
+    const mailInfo = await requireMailAndLocaleByAuthToken({
+      database,
+      mailAuthToken,
+      transaction,
+      invalidate: true,
+    })
 
     // ensure that no family was created for this mail yet
     const existingUserEntry = await database.user.findOne({
       where: {
-        mail: mailInfo.mail
+        mail: mailInfo.mail,
       },
-      transaction
+      transaction,
     })
 
     if (existingUserEntry) {
@@ -72,49 +91,58 @@ export async function createFamily ({
     const deviceAuthToken = generateAuthToken()
 
     // create family
-    await database.family.create({
-      familyId,
-      name: '',
-      createdAt: now,
-      userListVersion: generateVersionId(),
-      deviceListVersion: generateVersionId(),
-      // 14 days demo version
-      fullVersionUntil: (Date.now() + 1000 * 60 * 60 * 24 * 14).toString(10),
-      hasFullVersion: true,
-      nextServerKeyRequestSeq: '1',
-      u2fKeysVersion: generateVersionId()
-    }, { transaction })
+    await database.family.create(
+      {
+        familyId,
+        name: "",
+        createdAt: now,
+        userListVersion: generateVersionId(),
+        deviceListVersion: generateVersionId(),
+        // 14 days demo version
+        fullVersionUntil: (Date.now() + 1000 * 60 * 60 * 24 * 14).toString(10),
+        hasFullVersion: true,
+        nextServerKeyRequestSeq: "1",
+        u2fKeysVersion: generateVersionId(),
+      },
+      { transaction },
+    )
 
     // create parent user
-    await database.user.create({
-      familyId,
-      userId,
-      name: parentName,
-      passwordHash: password.hash,
-      secondPasswordHash: password.secondHash,
-      secondPasswordSalt: password.secondSalt,
-      type: 'parent',
-      mail: mailInfo.mail,
-      timeZone,
-      disableTimelimitsUntil: '0',
-      currentDevice: '',
-      categoryForNotAssignedApps: '',
-      relaxPrimaryDeviceRule: false,
-      mailNotificationFlags: maxMailNotificationFlags,
-      blockedTimes: '',
-      flags: '0'
-    }, { transaction })
+    await database.user.create(
+      {
+        familyId,
+        userId,
+        name: parentName,
+        passwordHash: password.hash,
+        secondPasswordHash: password.secondHash,
+        secondPasswordSalt: password.secondSalt,
+        type: "parent",
+        mail: mailInfo.mail,
+        timeZone,
+        disableTimelimitsUntil: "0",
+        currentDevice: "",
+        categoryForNotAssignedApps: "",
+        relaxPrimaryDeviceRule: false,
+        mailNotificationFlags: maxMailNotificationFlags,
+        blockedTimes: "",
+        flags: "0",
+      },
+      { transaction },
+    )
 
     // add parent device
-    await database.device.create(prepareDeviceEntry({
-      familyId,
-      deviceId,
-      deviceName,
-      newDeviceInfo: firstParentDevice,
-      userId,
-      deviceAuthToken,
-      isUserKeptSignedIn: true
-    }), { transaction })
+    await database.device.create(
+      prepareDeviceEntry({
+        familyId,
+        deviceId,
+        deviceName,
+        newDeviceInfo: firstParentDevice,
+        userId,
+        deviceAuthToken,
+        isUserKeptSignedIn: true,
+      }),
+      { transaction },
+    )
 
     const data = await generateServerDataStatus({
       database,
@@ -122,13 +150,13 @@ export async function createFamily ({
       familyId,
       deviceId,
       transaction,
-      eventHandler
+      eventHandler,
     })
 
     return {
       deviceAuthToken,
       deviceId,
-      data
+      data,
     }
   })
 }

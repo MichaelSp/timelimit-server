@@ -15,28 +15,31 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'DeleteCategoryAction'
+const actionType = "DeleteCategoryAction"
 
 export class DeleteCategoryAction extends ParentAction {
   readonly categoryId: string
 
-  constructor ({ categoryId }: { categoryId: string }) {
+  constructor({ categoryId }: { categoryId: string }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'categoryId', value: categoryId })
+    assertIdWithinFamily({
+      actionType,
+      field: "categoryId",
+      value: categoryId,
+    })
 
     this.categoryId = categoryId
   }
 
-  static parse = ({ categoryId }: SerializedDeleteCategoryAction) => (
+  static parse = ({ categoryId }: SerializedDeleteCategoryAction) =>
     new DeleteCategoryAction({ categoryId })
-  )
 }
 
 export interface SerializedDeleteCategoryAction {
-  type: 'DELETE_CATEGORY'
+  type: "DELETE_CATEGORY"
   categoryId: string
 }

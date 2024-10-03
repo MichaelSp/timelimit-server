@@ -15,5 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export { StaticMessageException, IllegalStateException } from './static-message-exception'
-export { ValidationException } from './validation'
+export {
+  StaticMessageException,
+  IllegalStateException,
+} from "./static-message-exception"
+export { ValidationException } from "./validation"

@@ -15,24 +15,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { generateKeyPair } from 'crypto'
-import { promisify } from 'util'
+import { generateKeyPair } from "crypto"
+import { promisify } from "util"
 
 const generateKeyPairAsync = promisify(generateKeyPair)
 
 export async function generateDhKeypair() {
-  return await generateKeyPairAsync(
-    'ec',
-    {
-      namedCurve: 'prime256v1',
-      publicKeyEncoding: {
-        type: 'spki',
-        format: 'der'
-      },
-      privateKeyEncoding: {
-        type: 'pkcs8',
-        format: 'der'
-      }
-    }
-  )
+  return await generateKeyPairAsync("ec", {
+    namedCurve: "prime256v1",
+    publicKeyEncoding: {
+      type: "spki",
+      format: "der",
+    },
+    privateKeyEncoding: {
+      type: "pkcs8",
+      format: "der",
+    },
+  })
 }

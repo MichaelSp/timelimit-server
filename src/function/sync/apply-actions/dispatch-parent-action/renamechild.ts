@@ -15,11 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { RenameChildAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingUserException } from '../exception/missing-item'
+import { RenameChildAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingUserException } from "../exception/missing-item"
 
-export async function dispatchRenameChild ({ action, cache }: {
+export async function dispatchRenameChild({
+  action,
+  cache,
+}: {
   action: RenameChildAction
   cache: Cache
 }) {
@@ -27,25 +30,28 @@ export async function dispatchRenameChild ({ action, cache }: {
     where: {
       familyId: cache.familyId,
       userId: action.childId,
-      type: 'child'
+      type: "child",
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!oldItem) {
     throw new MissingUserException()
   }
 
-  await cache.database.user.update({
-    name: action.newName
-  }, {
-    where: {
-      familyId: cache.familyId,
-      userId: action.childId,
-      type: 'child'
+  await cache.database.user.update(
+    {
+      name: action.newName,
     },
-    transaction: cache.transaction
-  })
+    {
+      where: {
+        familyId: cache.familyId,
+        userId: action.childId,
+        type: "child",
+      },
+      transaction: cache.transaction,
+    },
+  )
 
   cache.invalidiateUserList = true
   cache.doesUserExist.cache.set(action.childId, false)

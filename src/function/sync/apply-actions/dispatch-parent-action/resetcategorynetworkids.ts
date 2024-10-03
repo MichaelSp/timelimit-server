@@ -15,21 +15,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ResetCategoryNetworkIdsAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingCategoryException } from '../exception/missing-item'
+import { ResetCategoryNetworkIdsAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingCategoryException } from "../exception/missing-item"
 
-export async function dispatchResetCategoryNetworkIds ({ action, cache }: {
+export async function dispatchResetCategoryNetworkIds({
+  action,
+  cache,
+}: {
   action: ResetCategoryNetworkIdsAction
   cache: Cache
 }) {
   const categoryEntryUnsafe = await cache.database.category.findOne({
     where: {
       familyId: cache.familyId,
-      categoryId: action.categoryId
+      categoryId: action.categoryId,
     },
     transaction: cache.transaction,
-    attributes: ['childId']
+    attributes: ["childId"],
   })
 
   if (!categoryEntryUnsafe) {
@@ -39,9 +42,9 @@ export async function dispatchResetCategoryNetworkIds ({ action, cache }: {
   await cache.database.categoryNetworkId.destroy({
     where: {
       familyId: cache.familyId,
-      categoryId: action.categoryId
+      categoryId: action.categoryId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   cache.categoriesWithModifiedBaseData.add(action.categoryId)

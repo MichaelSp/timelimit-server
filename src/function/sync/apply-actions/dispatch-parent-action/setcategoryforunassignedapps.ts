@@ -15,12 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SetCategoryForUnassignedAppsAction } from '../../../../action'
-import { Cache } from '../cache'
-import { ApplyActionException } from '../exception/index'
-import { MissingUserException } from '../exception/missing-item'
+import { SetCategoryForUnassignedAppsAction } from "../../../../action"
+import { Cache } from "../cache"
+import { ApplyActionException } from "../exception/index"
+import { MissingUserException } from "../exception/missing-item"
 
-export async function dispatchSetCategoryForUnassignedApps ({ action, cache }: {
+export async function dispatchSetCategoryForUnassignedApps({
+  action,
+  cache,
+}: {
   action: SetCategoryForUnassignedAppsAction
   cache: Cache
 }) {
@@ -28,54 +31,59 @@ export async function dispatchSetCategoryForUnassignedApps ({ action, cache }: {
     where: {
       familyId: cache.familyId,
       userId: action.childId,
-      type: 'child'
+      type: "child",
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!oldUserEntry) {
     throw new MissingUserException()
   }
 
-  if (action.categoryId === '') {
+  if (action.categoryId === "") {
     // nothing to check
   } else {
     const categoryEntryUnsafe = await cache.database.category.findOne({
-      attributes: ['childId'],
+      attributes: ["childId"],
       where: {
         familyId: cache.familyId,
-        categoryId: action.categoryId
+        categoryId: action.categoryId,
       },
-      transaction: cache.transaction
+      transaction: cache.transaction,
     })
 
     if (!categoryEntryUnsafe) {
       throw new ApplyActionException({
-        staticMessage: 'can not set a category which does not exist as category for unassigned apps'
+        staticMessage:
+          "can not set a category which does not exist as category for unassigned apps",
       })
     }
 
     const categoryEntry = {
-      childId: categoryEntryUnsafe.childId
+      childId: categoryEntryUnsafe.childId,
     }
 
     if (categoryEntry.childId !== action.childId) {
       throw new ApplyActionException({
-        staticMessage: 'can not set a category of one child as category for unassigned apps for an other child'
+        staticMessage:
+          "can not set a category of one child as category for unassigned apps for an other child",
       })
     }
   }
 
-  await cache.database.user.update({
-    categoryForNotAssignedApps: action.categoryId
-  }, {
-    where: {
-      familyId: cache.familyId,
-      userId: action.childId,
-      type: 'child'
+  await cache.database.user.update(
+    {
+      categoryForNotAssignedApps: action.categoryId,
     },
-    transaction: cache.transaction
-  })
+    {
+      where: {
+        familyId: cache.familyId,
+        userId: action.childId,
+        type: "child",
+      },
+      transaction: cache.transaction,
+    },
+  )
 
   cache.invalidiateUserList = true
   cache.incrementTriggeredSyncLevel(2)

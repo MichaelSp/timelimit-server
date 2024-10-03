@@ -15,30 +15,40 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { assertParentPasswordValid, EncryptableParentPassword, ParentPasswordValidationException } from '../api/schema'
-import { ParentAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
-import { assertIdWithinFamily } from './meta/util'
+import {
+  assertParentPasswordValid,
+  EncryptableParentPassword,
+  ParentPasswordValidationException,
+} from "../api/schema"
+import { ParentAction } from "./basetypes"
+import { InvalidActionParameterException } from "./meta/exception"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'AddUserAction'
+const actionType = "AddUserAction"
 
 export class AddUserAction extends ParentAction {
   readonly userId: string
   readonly name: string
-  readonly userType: 'parent' | 'child'
+  readonly userType: "parent" | "child"
   readonly password?: EncryptableParentPassword
   readonly timeZone: string
 
-  constructor ({ userId, name, userType, password, timeZone }: {
+  constructor({
+    userId,
+    name,
+    userType,
+    password,
+    timeZone,
+  }: {
     userId: string
     name: string
-    userType: 'parent' | 'child'
+    userType: "parent" | "child"
     password?: EncryptableParentPassword
     timeZone: string
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'userId', value: userId })
+    assertIdWithinFamily({ actionType, field: "userId", value: userId })
 
     this.userId = userId
     this.name = name
@@ -46,11 +56,11 @@ export class AddUserAction extends ParentAction {
     this.password = password
     this.timeZone = timeZone
 
-    if (userType === 'parent') {
+    if (userType === "parent") {
       if (!password) {
         throw new InvalidActionParameterException({
           actionType,
-          staticMessage: 'parent users must have got an password'
+          staticMessage: "parent users must have got an password",
         })
       }
     }
@@ -62,28 +72,33 @@ export class AddUserAction extends ParentAction {
         if (ex instanceof ParentPasswordValidationException) {
           throw new InvalidActionParameterException({
             actionType,
-            staticMessage: 'invalid password data'
+            staticMessage: "invalid password data",
           })
         } else throw ex
       }
     }
   }
 
-  static parse = ({ name, userId, userType, password, timeZone }: SerializedAddUserAction) => (
+  static parse = ({
+    name,
+    userId,
+    userType,
+    password,
+    timeZone,
+  }: SerializedAddUserAction) =>
     new AddUserAction({
       name,
       userId,
       userType,
       password,
-      timeZone
+      timeZone,
     })
-  )
 }
 
 export interface SerializedAddUserAction {
-  type: 'ADD_USER'
+  type: "ADD_USER"
   name: string
-  userType: 'parent' | 'child'
+  userType: "parent" | "child"
   userId: string
   password?: EncryptableParentPassword
   timeZone: string

@@ -15,41 +15,44 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'UpdateUserLimitLoginCategory'
+const actionType = "UpdateUserLimitLoginCategory"
 
 export class UpdateUserLimitLoginCategory extends ParentAction {
   readonly userId: string
   readonly categoryId?: string
 
-  constructor ({ userId, categoryId }: {
-    userId: string,
-    categoryId?: string
-  }) {
+  constructor({ userId, categoryId }: { userId: string; categoryId?: string }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'userId', value: userId })
+    assertIdWithinFamily({ actionType, field: "userId", value: userId })
 
     if (categoryId !== undefined) {
-      assertIdWithinFamily({ actionType, field: 'categoryId', value: categoryId })
+      assertIdWithinFamily({
+        actionType,
+        field: "categoryId",
+        value: categoryId,
+      })
     }
 
     this.userId = userId
     this.categoryId = categoryId
   }
 
-  static parse = ({ userId, categoryId }: SerializedUpdateUserLimitLoginCategory) => (
+  static parse = ({
+    userId,
+    categoryId,
+  }: SerializedUpdateUserLimitLoginCategory) =>
     new UpdateUserLimitLoginCategory({
       userId,
-      categoryId
+      categoryId,
     })
-  )
 }
 
 export interface SerializedUpdateUserLimitLoginCategory {
-  type: 'UPDATE_USER_LIMIT_LOGIN_CATEGORY'
+  type: "UPDATE_USER_LIMIT_LOGIN_CATEGORY"
   userId: string
   categoryId?: string
 }

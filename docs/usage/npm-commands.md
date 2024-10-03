@@ -6,8 +6,8 @@ when deploying using Docker.
 
 ## Warning
 
-You have to run ``npm install`` and ``npm run build`` and restart the server again
-after running ``git pull``. otherwise you will keep using the old version.
+You have to run `npm install` and `npm run build` and restart the server again
+after running `git pull`. otherwise you will keep using the old version.
 
 ## npm install
 

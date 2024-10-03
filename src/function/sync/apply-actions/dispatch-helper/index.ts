@@ -15,6 +15,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export { dispatchAppLogicAction } from './app-logic-action'
-export { dispatchChildAction } from './child-action'
-export { dispatchParentAction } from './parent-action'
+export { dispatchAppLogicAction } from "./app-logic-action"
+export { dispatchChildAction } from "./child-action"
+export { dispatchParentAction } from "./parent-action"

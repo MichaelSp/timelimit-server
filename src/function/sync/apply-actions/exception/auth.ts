@@ -15,8 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ApplyActionException } from './index'
+import { ApplyActionException } from "./index"
 
 export class ApplyActionUnacceptableAuthMethodException extends ApplyActionException {
-  constructor() { super({ staticMessage: 'invalid auth method for the action' }) }
+  constructor() {
+    super({ staticMessage: "invalid auth method for the action" })
+  }
 }

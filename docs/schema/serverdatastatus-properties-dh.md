@@ -4,8 +4,6 @@
 https://timelimit.io/ServerDataStatus#/properties/dh
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [ServerDataStatus.schema.json\*](ServerDataStatus.schema.json "open original schema") |
@@ -23,17 +21,15 @@ https://timelimit.io/ServerDataStatus#/properties/dh
 
 ## v
 
-
-
 `v`
 
-*   is required
+- is required
 
-*   Type: `string`
+- Type: `string`
 
-*   cannot be null
+- cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-properties-dh-properties-v.md "https://timelimit.io/ServerDataStatus#/properties/dh/properties/v")
+- defined in: [ServerDataStatus](serverdatastatus-properties-dh-properties-v.md "https://timelimit.io/ServerDataStatus#/properties/dh/properties/v")
 
 ### v Type
 
@@ -41,17 +37,15 @@ https://timelimit.io/ServerDataStatus#/properties/dh
 
 ## k
 
-
-
 `k`
 
-*   is required
+- is required
 
-*   Type: `string`
+- Type: `string`
 
-*   cannot be null
+- cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-properties-dh-properties-k.md "https://timelimit.io/ServerDataStatus#/properties/dh/properties/k")
+- defined in: [ServerDataStatus](serverdatastatus-properties-dh-properties-k.md "https://timelimit.io/ServerDataStatus#/properties/dh/properties/k")
 
 ### k Type
 

@@ -4,9 +4,6 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedResetParentBlockedTimesAction
 ```
 
-
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | ---------- | -------------- | ------------ | :---------------- | --------------------- | ------------------- | ------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -17,22 +14,19 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedResetParentBl
 
 # SerializedResetParentBlockedTimesAction Properties
 
-| Property              | Type     | Required | Nullable       | Defined by                                                                                                                                                                                                                                              |
-| :-------------------- | -------- | -------- | -------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [type](#type)         | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedresetparentblockedtimesaction-properties-type.md "https&#x3A;//timelimit.io/SerializedParentAction#/definitions/SerializedResetParentBlockedTimesAction/properties/type")         |
-| [parentId](#parentId) | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedresetparentblockedtimesaction-properties-parentid.md "https&#x3A;//timelimit.io/SerializedParentAction#/definitions/SerializedResetParentBlockedTimesAction/properties/parentId") |
+| Property              | Type     | Required | Nullable       | Defined by                                                                                                                                                                                                                                         |
+| :-------------------- | -------- | -------- | -------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [type](#type)         | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedresetparentblockedtimesaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedResetParentBlockedTimesAction/properties/type")         |
+| [parentId](#parentId) | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedresetparentblockedtimesaction-properties-parentid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedResetParentBlockedTimesAction/properties/parentId") |
 
 ## type
 
-
-
-
 `type`
 
--   is required
--   Type: `string`
--   cannot be null
--   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedresetparentblockedtimesaction-properties-type.md "https&#x3A;//timelimit.io/SerializedParentAction#/definitions/SerializedResetParentBlockedTimesAction/properties/type")
+- is required
+- Type: `string`
+- cannot be null
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedresetparentblockedtimesaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedResetParentBlockedTimesAction/properties/type")
 
 ### type Type
 
@@ -48,15 +42,12 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedResetParentBl
 
 ## parentId
 
-
-
-
 `parentId`
 
--   is required
--   Type: `string`
--   cannot be null
--   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedresetparentblockedtimesaction-properties-parentid.md "https&#x3A;//timelimit.io/SerializedParentAction#/definitions/SerializedResetParentBlockedTimesAction/properties/parentId")
+- is required
+- Type: `string`
+- cannot be null
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedresetparentblockedtimesaction-properties-parentid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedResetParentBlockedTimesAction/properties/parentId")
 
 ### parentId Type
 

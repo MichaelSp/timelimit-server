@@ -4,8 +4,6 @@
 https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedInstalledApp
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedAppLogicAction.schema.json\*](SerializedAppLogicAction.schema.json "open original schema") |
@@ -25,17 +23,15 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedInstalledAp
 
 ## packageName
 
-
-
 `packageName`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedinstalledapp-properties-packagename.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedInstalledApp/properties/packageName")
+- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedinstalledapp-properties-packagename.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedInstalledApp/properties/packageName")
 
 ### packageName Type
 
@@ -43,17 +39,15 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedInstalledAp
 
 ## title
 
-
-
 `title`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedinstalledapp-properties-title.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedInstalledApp/properties/title")
+- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedinstalledapp-properties-title.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedInstalledApp/properties/title")
 
 ### title Type
 
@@ -61,17 +55,15 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedInstalledAp
 
 ## isLaunchable
 
-
-
 `isLaunchable`
 
-* is required
+- is required
 
-* Type: `boolean`
+- Type: `boolean`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedinstalledapp-properties-islaunchable.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedInstalledApp/properties/isLaunchable")
+- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedinstalledapp-properties-islaunchable.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedInstalledApp/properties/isLaunchable")
 
 ### isLaunchable Type
 
@@ -79,17 +71,15 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedInstalledAp
 
 ## recommendation
 
-
-
 `recommendation`
 
-* is required
+- is required
 
-* Type: `string` ([AppRecommendation](serializedapplogicaction-definitions-serializedinstalledapp-properties-apprecommendation.md))
+- Type: `string` ([AppRecommendation](serializedapplogicaction-definitions-serializedinstalledapp-properties-apprecommendation.md))
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedinstalledapp-properties-apprecommendation.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedInstalledApp/properties/recommendation")
+- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedinstalledapp-properties-apprecommendation.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedInstalledApp/properties/recommendation")
 
 ### recommendation Type
 

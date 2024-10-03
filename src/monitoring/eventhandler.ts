@@ -16,11 +16,11 @@
  */
 
 export interface EventHandler {
-  countEvent (name: string): void
-  reportMax (name: string, value: number): void
-  getValues (): Promise<{
-    counters: {[key: string]: number}
-    maxValues: {[key: string]: number}
+  countEvent(name: string): void
+  reportMax(name: string, value: number): void
+  getValues(): Promise<{
+    counters: { [key: string]: number }
+    maxValues: { [key: string]: number }
   }>
-  reset (): Promise<void>
+  reset(): Promise<void>
 }

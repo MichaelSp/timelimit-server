@@ -15,10 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { StaticMessageException } from '../../../exception'
+import { StaticMessageException } from "../../../exception"
 
 export class GetServerDataStatusIllegalStateException extends StaticMessageException {
-  constructor ({ staticMessage }: { staticMessage: string }) {
-    super({ staticMessage: 'GetServerDataStatusIllegalStateException: ' + staticMessage })
+  constructor({ staticMessage }: { staticMessage: string }) {
+    super({
+      staticMessage:
+        "GetServerDataStatusIllegalStateException: " + staticMessage,
+    })
   }
 }

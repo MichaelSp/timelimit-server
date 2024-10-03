@@ -15,11 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { DeviceHadManipulationFlags } from '../database/device'
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily, assertSafeInteger, throwOutOfRange } from './meta/util'
+import { DeviceHadManipulationFlags } from "../database/device"
+import { ParentAction } from "./basetypes"
+import {
+  assertIdWithinFamily,
+  assertSafeInteger,
+  throwOutOfRange,
+} from "./meta/util"
 
-const actionType = 'IgnoreManipulationAction'
+const actionType = "IgnoreManipulationAction"
 
 export class IgnoreManipulationAction extends ParentAction {
   readonly deviceId: string
@@ -35,11 +39,19 @@ export class IgnoreManipulationAction extends ParentAction {
   readonly ignoreHadManipulationFlags: number
   readonly ignoreManipulationFlags: number
 
-  constructor ({
-    deviceId, ignoreDeviceAdminManipulation, ignoreDeviceAdminManipulationAttempt,
-    ignoreAppDowngrade, ignoreNotificationAccessManipulation, ignoreUsageStatsAccessManipulation,
-    ignoreOverlayPermissionManipulation, ignoreAccessibilityServiceManipulation, ignoreDidReboot,
-    ignoreHadManipulation, ignoreHadManipulationFlags, ignoreManipulationFlags
+  constructor({
+    deviceId,
+    ignoreDeviceAdminManipulation,
+    ignoreDeviceAdminManipulationAttempt,
+    ignoreAppDowngrade,
+    ignoreNotificationAccessManipulation,
+    ignoreUsageStatsAccessManipulation,
+    ignoreOverlayPermissionManipulation,
+    ignoreAccessibilityServiceManipulation,
+    ignoreDidReboot,
+    ignoreHadManipulation,
+    ignoreHadManipulationFlags,
+    ignoreManipulationFlags,
   }: {
     deviceId: string
     ignoreDeviceAdminManipulation: boolean
@@ -56,26 +68,43 @@ export class IgnoreManipulationAction extends ParentAction {
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'deviceId', value: deviceId })
+    assertIdWithinFamily({ actionType, field: "deviceId", value: deviceId })
 
-    assertSafeInteger({ actionType, field: 'ignoreHadManipulationFlags', value: ignoreHadManipulationFlags })
+    assertSafeInteger({
+      actionType,
+      field: "ignoreHadManipulationFlags",
+      value: ignoreHadManipulationFlags,
+    })
 
     if (
-      ignoreHadManipulationFlags < 0 || ignoreHadManipulationFlags > DeviceHadManipulationFlags.ALL
+      ignoreHadManipulationFlags < 0 ||
+      ignoreHadManipulationFlags > DeviceHadManipulationFlags.ALL
     ) {
-      throwOutOfRange({ actionType, field: 'ignoreHadManipulationFlags', value: ignoreHadManipulationFlags })
+      throwOutOfRange({
+        actionType,
+        field: "ignoreHadManipulationFlags",
+        value: ignoreHadManipulationFlags,
+      })
     }
 
-    assertSafeInteger({ actionType, field: 'ignoreManipulationFlags', value: ignoreManipulationFlags })
+    assertSafeInteger({
+      actionType,
+      field: "ignoreManipulationFlags",
+      value: ignoreManipulationFlags,
+    })
 
     this.deviceId = deviceId
     this.ignoreDeviceAdminManipulation = ignoreDeviceAdminManipulation
-    this.ignoreDeviceAdminManipulationAttempt = ignoreDeviceAdminManipulationAttempt
+    this.ignoreDeviceAdminManipulationAttempt =
+      ignoreDeviceAdminManipulationAttempt
     this.ignoreAppDowngrade = ignoreAppDowngrade
-    this.ignoreNotificationAccessManipulation = ignoreNotificationAccessManipulation
+    this.ignoreNotificationAccessManipulation =
+      ignoreNotificationAccessManipulation
     this.ignoreUsageStatsAccessManipulation = ignoreUsageStatsAccessManipulation
-    this.ignoreOverlayPermissionManipulation = ignoreOverlayPermissionManipulation
-    this.ignoreAccessibilityServiceManipulation = ignoreAccessibilityServiceManipulation
+    this.ignoreOverlayPermissionManipulation =
+      ignoreOverlayPermissionManipulation
+    this.ignoreAccessibilityServiceManipulation =
+      ignoreAccessibilityServiceManipulation
     this.ignoreDidReboot = ignoreDidReboot
     this.ignoreHadManipulation = ignoreHadManipulation
     this.ignoreHadManipulationFlags = ignoreHadManipulationFlags
@@ -83,10 +112,19 @@ export class IgnoreManipulationAction extends ParentAction {
   }
 
   static parse = ({
-    deviceId, admin, adminA, downgrade, notification, usageStats, overlay,
-    accessibilityService, reboot, hadManipulation, ignoreHadManipulationFlags,
-    ignoreManipulationFlags
-  }: SerializedIgnoreManipulationAction) => (
+    deviceId,
+    admin,
+    adminA,
+    downgrade,
+    notification,
+    usageStats,
+    overlay,
+    accessibilityService,
+    reboot,
+    hadManipulation,
+    ignoreHadManipulationFlags,
+    ignoreManipulationFlags,
+  }: SerializedIgnoreManipulationAction) =>
     new IgnoreManipulationAction({
       deviceId,
       ignoreDeviceAdminManipulation: admin,
@@ -99,13 +137,12 @@ export class IgnoreManipulationAction extends ParentAction {
       ignoreDidReboot: !!reboot,
       ignoreHadManipulation: hadManipulation,
       ignoreHadManipulationFlags: ignoreHadManipulationFlags || 0,
-      ignoreManipulationFlags: ignoreManipulationFlags || 0
+      ignoreManipulationFlags: ignoreManipulationFlags || 0,
     })
-  )
 }
 
 export interface SerializedIgnoreManipulationAction {
-  type: 'IGNORE_MANIPULATION'
+  type: "IGNORE_MANIPULATION"
   deviceId: string
   admin: boolean
   adminA: boolean

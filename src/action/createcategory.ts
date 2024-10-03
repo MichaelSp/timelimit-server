@@ -15,34 +15,49 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'CreateCategoryAction'
+const actionType = "CreateCategoryAction"
 
 export class CreateCategoryAction extends ParentAction {
   readonly categoryId: string
   readonly childId: string
   readonly title: string
 
-  constructor ({ categoryId, childId, title }: {categoryId: string, childId: string, title: string}) {
+  constructor({
+    categoryId,
+    childId,
+    title,
+  }: {
+    categoryId: string
+    childId: string
+    title: string
+  }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'categoryId', value: categoryId })
-    assertIdWithinFamily({ actionType, field: 'childId', value: childId })
+    assertIdWithinFamily({
+      actionType,
+      field: "categoryId",
+      value: categoryId,
+    })
+    assertIdWithinFamily({ actionType, field: "childId", value: childId })
 
     this.categoryId = categoryId
     this.childId = childId
     this.title = title
   }
 
-  static parse = ({ childId, categoryId, title }: SerializedCreateCategoryAction) => (
+  static parse = ({
+    childId,
+    categoryId,
+    title,
+  }: SerializedCreateCategoryAction) =>
     new CreateCategoryAction({ childId, categoryId, title })
-  )
 }
 
 export interface SerializedCreateCategoryAction {
-  type: 'CREATE_CATEGORY'
+  type: "CREATE_CATEGORY"
   childId: string
   categoryId: string
   title: string

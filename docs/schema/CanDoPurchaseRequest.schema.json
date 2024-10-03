@@ -2,10 +2,7 @@
   "type": "object",
   "properties": {
     "type": {
-      "enum": [
-        "any",
-        "googleplay"
-      ],
+      "enum": ["any", "googleplay"],
       "type": "string"
     },
     "deviceAuthToken": {
@@ -13,10 +10,7 @@
     }
   },
   "additionalProperties": false,
-  "required": [
-    "deviceAuthToken",
-    "type"
-  ],
+  "required": ["deviceAuthToken", "type"],
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CanDoPurchaseRequest",
   "$id": "https://timelimit.io/CanDoPurchaseRequest"

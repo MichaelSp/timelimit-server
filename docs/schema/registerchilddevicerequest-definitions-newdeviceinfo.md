@@ -4,8 +4,6 @@
 https://timelimit.io/RegisterChildDeviceRequest#/definitions/NewDeviceInfo
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                                |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :-------------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [RegisterChildDeviceRequest.schema.json\*](RegisterChildDeviceRequest.schema.json "open original schema") |
@@ -22,17 +20,15 @@ https://timelimit.io/RegisterChildDeviceRequest#/definitions/NewDeviceInfo
 
 ## model
 
-
-
 `model`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [RegisterChildDeviceRequest](registerchilddevicerequest-definitions-newdeviceinfo-properties-model.md "https://timelimit.io/RegisterChildDeviceRequest#/definitions/NewDeviceInfo/properties/model")
+- defined in: [RegisterChildDeviceRequest](registerchilddevicerequest-definitions-newdeviceinfo-properties-model.md "https://timelimit.io/RegisterChildDeviceRequest#/definitions/NewDeviceInfo/properties/model")
 
 ### model Type
 

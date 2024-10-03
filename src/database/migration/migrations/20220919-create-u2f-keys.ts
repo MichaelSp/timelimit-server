@@ -15,59 +15,75 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Transaction } from 'sequelize'
-import { Migration } from '../../main'
+import { Transaction } from "sequelize"
+import { Migration } from "../../main"
 
-export const up: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    const dialect = context.getDialect()
-    const isMysql = dialect === 'mysql' || dialect === 'mariadb'
-    const isPosgresql = dialect === 'postgres'
+export const up: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      const dialect = context.getDialect()
+      const isMysql = dialect === "mysql" || dialect === "mariadb"
+      const isPosgresql = dialect === "postgres"
 
-    if (isMysql) {
-      await context.query(
-        'CREATE TABLE `U2fKeys` ' +
-        '(`familyId` VARCHAR(10) NOT NULL,' +
-        '`keyId` VARCHAR(8) NOT NULL,' +
-        '`userId` VARCHAR(6) NOT NULL,' +
-        '`addedAt` BIGINT NOT NULL, ' +
-        '`keyHandle` BLOB NOT NULL, ' +
-        '`publicKey` BLOB NOT NULL, ' +
-        '`nextCounter` BIGINT NOT NULL, ' +
-        'PRIMARY KEY (`familyId`, `keyId`),' +
-        'FOREIGN KEY (`familyId`, `userId`) REFERENCES `Users` (`familyId`, `userId`) ON UPDATE CASCADE ON DELETE CASCADE' +
-        ')',
-        { transaction }
-      )
-    } else {
-      await context.query(
-        'CREATE TABLE "U2fKeys" ' +
-        '("familyId" VARCHAR(10) NOT NULL,' +
-        '"keyId" VARCHAR(8) NOT NULL,' +
-        '"userId" VARCHAR(6) NOT NULL,' +
-        '"addedAt" ' + (isPosgresql ? 'BIGINT' : 'LONG') + ' NOT NULL, ' +
-        '"keyHandle" ' + (isPosgresql ? 'BYTEA' : 'BLOB') + ' NOT NULL, ' +
-        '"publicKey" ' + (isPosgresql ? 'BYTEA' : 'BLOB') + ' NOT NULL, ' +
-        '"nextCounter" ' + (isPosgresql ? 'BIGINT' : 'LONG') + ' NOT NULL, ' +
-        'PRIMARY KEY ("familyId", "keyId"),' +
-        'FOREIGN KEY ("familyId", "userId") REFERENCES "Users" ("familyId", "userId") ON UPDATE CASCADE ON DELETE CASCADE' +
-        ')',
-        { transaction }
-      )
-    }
+      if (isMysql) {
+        await context.query(
+          "CREATE TABLE `U2fKeys` " +
+            "(`familyId` VARCHAR(10) NOT NULL," +
+            "`keyId` VARCHAR(8) NOT NULL," +
+            "`userId` VARCHAR(6) NOT NULL," +
+            "`addedAt` BIGINT NOT NULL, " +
+            "`keyHandle` BLOB NOT NULL, " +
+            "`publicKey` BLOB NOT NULL, " +
+            "`nextCounter` BIGINT NOT NULL, " +
+            "PRIMARY KEY (`familyId`, `keyId`)," +
+            "FOREIGN KEY (`familyId`, `userId`) REFERENCES `Users` (`familyId`, `userId`) ON UPDATE CASCADE ON DELETE CASCADE" +
+            ")",
+          { transaction },
+        )
+      } else {
+        await context.query(
+          'CREATE TABLE "U2fKeys" ' +
+            '("familyId" VARCHAR(10) NOT NULL,' +
+            '"keyId" VARCHAR(8) NOT NULL,' +
+            '"userId" VARCHAR(6) NOT NULL,' +
+            '"addedAt" ' +
+            (isPosgresql ? "BIGINT" : "LONG") +
+            " NOT NULL, " +
+            '"keyHandle" ' +
+            (isPosgresql ? "BYTEA" : "BLOB") +
+            " NOT NULL, " +
+            '"publicKey" ' +
+            (isPosgresql ? "BYTEA" : "BLOB") +
+            " NOT NULL, " +
+            '"nextCounter" ' +
+            (isPosgresql ? "BIGINT" : "LONG") +
+            " NOT NULL, " +
+            'PRIMARY KEY ("familyId", "keyId"),' +
+            'FOREIGN KEY ("familyId", "userId") REFERENCES "Users" ("familyId", "userId") ON UPDATE CASCADE ON DELETE CASCADE' +
+            ")",
+          { transaction },
+        )
+      }
 
-    await queryInterface.addIndex('U2fKeys', ['familyId', 'userId'], { transaction })
-  })
+      await queryInterface.addIndex("U2fKeys", ["familyId", "userId"], {
+        transaction,
+      })
+    },
+  )
 }
 
-export const down: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.dropTable('U2fKeys', { transaction })
-  })
+export const down: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.dropTable("U2fKeys", { transaction })
+    },
+  )
 }

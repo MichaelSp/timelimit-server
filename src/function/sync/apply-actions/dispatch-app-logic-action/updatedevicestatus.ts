@@ -15,17 +15,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateDeviceStatusAction } from '../../../../action'
-import { DeviceHadManipulationFlags, DeviceManipulationFlags, hasDeviceManipulation } from '../../../../database/device'
-import { newPermissionStatusValues } from '../../../../model/newpermissionstatus'
-import { protetionLevels } from '../../../../model/protectionlevel'
-import { runtimePermissionStatusValues } from '../../../../model/runtimepermissionstatus'
-import { enumMax } from '../../../../util/enum'
-import { sendManipulationWarnings } from '../../../warningmail/manipulation'
-import { Cache } from '../cache'
-import { SourceDeviceNotFoundException } from '../exception/illegal-state'
+import { UpdateDeviceStatusAction } from "../../../../action"
+import {
+  DeviceHadManipulationFlags,
+  DeviceManipulationFlags,
+  hasDeviceManipulation,
+} from "../../../../database/device"
+import { newPermissionStatusValues } from "../../../../model/newpermissionstatus"
+import { protetionLevels } from "../../../../model/protectionlevel"
+import { runtimePermissionStatusValues } from "../../../../model/runtimepermissionstatus"
+import { enumMax } from "../../../../util/enum"
+import { sendManipulationWarnings } from "../../../warningmail/manipulation"
+import { Cache } from "../cache"
+import { SourceDeviceNotFoundException } from "../exception/illegal-state"
 
-export async function dispatchUpdateDeviceStatus ({ deviceId, action, cache }: {
+export async function dispatchUpdateDeviceStatus({
+  deviceId,
+  action,
+  cache,
+}: {
   deviceId: string
   action: UpdateDeviceStatusAction
   cache: Cache
@@ -33,9 +41,9 @@ export async function dispatchUpdateDeviceStatus ({ deviceId, action, cache }: {
   const deviceEntry = await cache.database.device.findOne({
     where: {
       familyId: cache.familyId,
-      deviceId
+      deviceId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!deviceEntry) {
@@ -45,75 +53,103 @@ export async function dispatchUpdateDeviceStatus ({ deviceId, action, cache }: {
   const hadManipulationBefore = hasDeviceManipulation(deviceEntry)
 
   if (action.newProtetionLevel) {
-    const hasChanged = deviceEntry.currentProtectionLevel !== action.newProtetionLevel
+    const hasChanged =
+      deviceEntry.currentProtectionLevel !== action.newProtetionLevel
 
     deviceEntry.currentProtectionLevel = action.newProtetionLevel
 
     deviceEntry.highestProtectionLevel = enumMax(
       deviceEntry.currentProtectionLevel,
       deviceEntry.highestProtectionLevel,
-      protetionLevels
+      protetionLevels,
     )
 
-    if (hasChanged && (deviceEntry.currentProtectionLevel !== deviceEntry.highestProtectionLevel)) {
+    if (
+      hasChanged &&
+      deviceEntry.currentProtectionLevel !== deviceEntry.highestProtectionLevel
+    ) {
       deviceEntry.hadManipulation = true
-      deviceEntry.hadManipulationFlags |= DeviceHadManipulationFlags.ProtectionLevel
+      deviceEntry.hadManipulationFlags |=
+        DeviceHadManipulationFlags.ProtectionLevel
     }
   }
 
   if (action.newUsageStatsPermissionStatus) {
-    const hasChanged = deviceEntry.currentUsageStatsPermission !== action.newUsageStatsPermissionStatus
+    const hasChanged =
+      deviceEntry.currentUsageStatsPermission !==
+      action.newUsageStatsPermissionStatus
 
-    deviceEntry.currentUsageStatsPermission = action.newUsageStatsPermissionStatus
+    deviceEntry.currentUsageStatsPermission =
+      action.newUsageStatsPermissionStatus
 
     deviceEntry.highestUsageStatsPermission = enumMax(
       deviceEntry.currentUsageStatsPermission,
       deviceEntry.highestUsageStatsPermission,
-      runtimePermissionStatusValues
+      runtimePermissionStatusValues,
     )
 
-    if (hasChanged && (deviceEntry.currentUsageStatsPermission !== deviceEntry.highestUsageStatsPermission)) {
+    if (
+      hasChanged &&
+      deviceEntry.currentUsageStatsPermission !==
+        deviceEntry.highestUsageStatsPermission
+    ) {
       deviceEntry.hadManipulation = true
-      deviceEntry.hadManipulationFlags |= DeviceHadManipulationFlags.UsageStatsAccess
+      deviceEntry.hadManipulationFlags |=
+        DeviceHadManipulationFlags.UsageStatsAccess
     }
   }
 
   if (action.newNotificationAccessPermission) {
-    const hasChanged = deviceEntry.currentNotificationAccessPermission !== action.newNotificationAccessPermission
+    const hasChanged =
+      deviceEntry.currentNotificationAccessPermission !==
+      action.newNotificationAccessPermission
 
-    deviceEntry.currentNotificationAccessPermission = action.newNotificationAccessPermission
+    deviceEntry.currentNotificationAccessPermission =
+      action.newNotificationAccessPermission
 
     deviceEntry.highestNotificationAccessPermission = enumMax(
       deviceEntry.currentNotificationAccessPermission,
       deviceEntry.highestNotificationAccessPermission,
-      newPermissionStatusValues
+      newPermissionStatusValues,
     )
 
-    if (hasChanged && (deviceEntry.currentNotificationAccessPermission !== deviceEntry.highestNotificationAccessPermission)) {
+    if (
+      hasChanged &&
+      deviceEntry.currentNotificationAccessPermission !==
+        deviceEntry.highestNotificationAccessPermission
+    ) {
       deviceEntry.hadManipulation = true
-      deviceEntry.hadManipulationFlags |= DeviceHadManipulationFlags.NotificationAccess
+      deviceEntry.hadManipulationFlags |=
+        DeviceHadManipulationFlags.NotificationAccess
     }
   }
 
   if (action.newOverlayPermission) {
-    const hasChanged = deviceEntry.currentOverlayPermission !== action.newOverlayPermission
+    const hasChanged =
+      deviceEntry.currentOverlayPermission !== action.newOverlayPermission
 
     deviceEntry.currentOverlayPermission = action.newOverlayPermission
 
     deviceEntry.highestOverlayPermission = enumMax(
       deviceEntry.currentOverlayPermission,
       deviceEntry.highestOverlayPermission,
-      runtimePermissionStatusValues
+      runtimePermissionStatusValues,
     )
 
-    if (hasChanged && (deviceEntry.currentOverlayPermission !== deviceEntry.highestOverlayPermission)) {
+    if (
+      hasChanged &&
+      deviceEntry.currentOverlayPermission !==
+        deviceEntry.highestOverlayPermission
+    ) {
       deviceEntry.hadManipulation = true
-      deviceEntry.hadManipulationFlags |= DeviceHadManipulationFlags.OverlayPermission
+      deviceEntry.hadManipulationFlags |=
+        DeviceHadManipulationFlags.OverlayPermission
     }
   }
 
   if (action.newAccessibilityServiceEnabled !== undefined) {
-    const hasChanged = deviceEntry.asEnabled !== action.newAccessibilityServiceEnabled
+    const hasChanged =
+      deviceEntry.asEnabled !== action.newAccessibilityServiceEnabled
 
     deviceEntry.asEnabled = action.newAccessibilityServiceEnabled
 
@@ -121,9 +157,10 @@ export async function dispatchUpdateDeviceStatus ({ deviceId, action, cache }: {
       deviceEntry.wasAsEnabled = true
     }
 
-    if (hasChanged && (deviceEntry.asEnabled !== deviceEntry.wasAsEnabled)) {
+    if (hasChanged && deviceEntry.asEnabled !== deviceEntry.wasAsEnabled) {
       deviceEntry.hadManipulation = true
-      deviceEntry.hadManipulationFlags |= DeviceHadManipulationFlags.AccessibiityService
+      deviceEntry.hadManipulationFlags |=
+        DeviceHadManipulationFlags.AccessibiityService
     }
   }
 
@@ -134,10 +171,13 @@ export async function dispatchUpdateDeviceStatus ({ deviceId, action, cache }: {
 
     deviceEntry.highestAppVersion = Math.max(
       deviceEntry.currentAppVersion,
-      deviceEntry.highestAppVersion
+      deviceEntry.highestAppVersion,
     )
 
-    if (hasChanged && (deviceEntry.currentAppVersion !== deviceEntry.highestAppVersion)) {
+    if (
+      hasChanged &&
+      deviceEntry.currentAppVersion !== deviceEntry.highestAppVersion
+    ) {
       deviceEntry.hadManipulation = true
       deviceEntry.hadManipulationFlags |= DeviceHadManipulationFlags.AppVersion
     }
@@ -168,10 +208,12 @@ export async function dispatchUpdateDeviceStatus ({ deviceId, action, cache }: {
   }
 
   {
-    const effectiveManipulationFlags = action.addedManipulationFlags & DeviceManipulationFlags.ALL
+    const effectiveManipulationFlags =
+      action.addedManipulationFlags & DeviceManipulationFlags.ALL
 
     if (effectiveManipulationFlags !== 0) {
-      deviceEntry.manipulationFlags = deviceEntry.manipulationFlags | effectiveManipulationFlags
+      deviceEntry.manipulationFlags =
+        deviceEntry.manipulationFlags | effectiveManipulationFlags
     }
   }
 
@@ -183,7 +225,7 @@ export async function dispatchUpdateDeviceStatus ({ deviceId, action, cache }: {
         database: cache.database,
         transaction: cache.transaction,
         deviceName: deviceEntry.name,
-        familyId: cache.familyId
+        familyId: cache.familyId,
       })
     }
   }

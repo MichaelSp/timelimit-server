@@ -15,31 +15,39 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { RemoveParentU2fKeyAction } from '../../../../action'
-import { getU2fKeyId } from '../../../../database/u2fkey'
-import { Cache } from '../cache'
-import { ApplyActionUnacceptableAuthMethodException } from '../exception/auth'
-import { AuthenticationMethod } from '../types'
+import { RemoveParentU2fKeyAction } from "../../../../action"
+import { getU2fKeyId } from "../../../../database/u2fkey"
+import { Cache } from "../cache"
+import { ApplyActionUnacceptableAuthMethodException } from "../exception/auth"
+import { AuthenticationMethod } from "../types"
 
-export async function dispatchRemoveU2f ({ action, cache, parentUserId, authentication }: {
+export async function dispatchRemoveU2f({
+  action,
+  cache,
+  parentUserId,
+  authentication,
+}: {
   action: RemoveParentU2fKeyAction
   cache: Cache
   parentUserId: string
   authentication: AuthenticationMethod
 }) {
-  if (authentication === 'u2f') {
+  if (authentication === "u2f") {
     throw new ApplyActionUnacceptableAuthMethodException()
   }
 
   await cache.database.u2fKey.destroy({
     where: {
       familyId: cache.familyId,
-      keyId: getU2fKeyId({ keyHandle: action.keyHandle, publicKey: action.publicKey }),
+      keyId: getU2fKeyId({
+        keyHandle: action.keyHandle,
+        publicKey: action.publicKey,
+      }),
       userId: parentUserId,
       keyHandle: action.keyHandle,
-      publicKey: action.publicKey
+      publicKey: action.publicKey,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   cache.invalidateU2fList = true

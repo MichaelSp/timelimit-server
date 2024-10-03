@@ -15,6 +15,5 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export const enumMax = <T> (a: T, b: T, values: Array<T>): T => (
+export const enumMax = <T>(a: T, b: T, values: Array<T>): T =>
   values[Math.max(values.indexOf(a), values.indexOf(b))]
-)

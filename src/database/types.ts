@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
+import * as Sequelize from "sequelize"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SequelizeAttributes<T extends { [key: string]: any }> = {
-  [P in keyof T]: Sequelize.ModelAttributeColumnOptions;
+  [P in keyof T]: Sequelize.ModelAttributeColumnOptions
 }

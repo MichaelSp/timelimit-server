@@ -15,5 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export type RuntimePermissionStatus = 'not granted' | 'not required' | 'granted'
-export const runtimePermissionStatusValues: Array<RuntimePermissionStatus> = ['not granted', 'not required', 'granted']
+export type RuntimePermissionStatus = "not granted" | "not required" | "granted"
+export const runtimePermissionStatusValues: Array<RuntimePermissionStatus> = [
+  "not granted",
+  "not required",
+  "granted",
+]

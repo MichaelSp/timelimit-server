@@ -15,13 +15,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateCategoryTemporarilyBlockedAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingCategoryException } from '../exception/missing-item'
-import { PremiumVersionMissingException } from '../exception/premium'
-import { CanNotModifyOtherUsersBySelfLimitationException, SelfLimitationException } from '../exception/self-limit'
+import { UpdateCategoryTemporarilyBlockedAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingCategoryException } from "../exception/missing-item"
+import { PremiumVersionMissingException } from "../exception/premium"
+import {
+  CanNotModifyOtherUsersBySelfLimitationException,
+  SelfLimitationException,
+} from "../exception/self-limit"
 
-export async function dispatchUpdateCategoryTemporarilyBlocked ({ action, cache, fromChildSelfLimitAddChildUserId }: {
+export async function dispatchUpdateCategoryTemporarilyBlocked({
+  action,
+  cache,
+  fromChildSelfLimitAddChildUserId,
+}: {
   action: UpdateCategoryTemporarilyBlockedAction
   cache: Cache
   fromChildSelfLimitAddChildUserId: string | null
@@ -35,10 +42,10 @@ export async function dispatchUpdateCategoryTemporarilyBlocked ({ action, cache,
   const categoryEntryUnsafe = await cache.database.category.findOne({
     where: {
       familyId: cache.familyId,
-      categoryId: action.categoryId
+      categoryId: action.categoryId,
     },
     transaction: cache.transaction,
-    attributes: ['childId', 'temporarilyBlocked', 'temporarilyBlockedEndTime']
+    attributes: ["childId", "temporarilyBlocked", "temporarilyBlockedEndTime"],
   })
 
   if (!categoryEntryUnsafe) {
@@ -48,7 +55,10 @@ export async function dispatchUpdateCategoryTemporarilyBlocked ({ action, cache,
   const categoryEntry = {
     childId: categoryEntryUnsafe.childId,
     temporarilyBlocked: categoryEntryUnsafe.temporarilyBlocked,
-    temporarilyBlockedEndTime: parseInt(categoryEntryUnsafe.temporarilyBlockedEndTime, 10)
+    temporarilyBlockedEndTime: parseInt(
+      categoryEntryUnsafe.temporarilyBlockedEndTime,
+      10,
+    ),
   }
 
   if (fromChildSelfLimitAddChildUserId !== null) {
@@ -57,26 +67,38 @@ export async function dispatchUpdateCategoryTemporarilyBlocked ({ action, cache,
     }
 
     if (action.endTime === undefined || !action.blocked) {
-      throw new SelfLimitationException({ staticMessage: 'the child may only enable a temporarily blocking' })
+      throw new SelfLimitationException({
+        staticMessage: "the child may only enable a temporarily blocking",
+      })
     }
 
     if (categoryEntry.temporarilyBlocked) {
-      if (action.endTime < categoryEntry.temporarilyBlockedEndTime || categoryEntry.temporarilyBlockedEndTime === 0) {
-        throw new SelfLimitationException({ staticMessage: 'the child may not reduce the temporarily blocking' })
+      if (
+        action.endTime < categoryEntry.temporarilyBlockedEndTime ||
+        categoryEntry.temporarilyBlockedEndTime === 0
+      ) {
+        throw new SelfLimitationException({
+          staticMessage: "the child may not reduce the temporarily blocking",
+        })
       }
     }
   }
 
-  const [affectedRows] = await cache.database.category.update({
-    temporarilyBlocked: action.blocked,
-    temporarilyBlockedEndTime: action.blocked ? (action.endTime ?? 0).toString(10) : '0'
-  }, {
-    where: {
-      familyId: cache.familyId,
-      categoryId: action.categoryId
+  const [affectedRows] = await cache.database.category.update(
+    {
+      temporarilyBlocked: action.blocked,
+      temporarilyBlockedEndTime: action.blocked
+        ? (action.endTime ?? 0).toString(10)
+        : "0",
     },
-    transaction: cache.transaction
-  })
+    {
+      where: {
+        familyId: cache.familyId,
+        categoryId: action.categoryId,
+      },
+      transaction: cache.transaction,
+    },
+  )
 
   if (affectedRows !== 0) {
     cache.categoriesWithModifiedBaseData.add(action.categoryId)

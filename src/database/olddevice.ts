@@ -15,24 +15,28 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { authTokenColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import { authTokenColumn } from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export interface OldDeviceAttributes {
   deviceAuthToken: string
 }
 
-export type OldDeviceModel = Sequelize.Model<OldDeviceAttributes> & OldDeviceAttributes
+export type OldDeviceModel = Sequelize.Model<OldDeviceAttributes> &
+  OldDeviceAttributes
 export type OldDeviceModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): OldDeviceModel;
+  new (values?: object, options?: Sequelize.BuildOptions): OldDeviceModel
 }
 
 export const attributes: SequelizeAttributes<OldDeviceAttributes> = {
   deviceAuthToken: {
     ...authTokenColumn,
-    primaryKey: true
-  }
+    primaryKey: true,
+  },
 }
 
-export const createOldDeviceModel = (sequelize: Sequelize.Sequelize): OldDeviceModelStatic => sequelize.define('OldDevice', attributes) as OldDeviceModelStatic
+export const createOldDeviceModel = (
+  sequelize: Sequelize.Sequelize,
+): OldDeviceModelStatic =>
+  sequelize.define("OldDevice", attributes) as OldDeviceModelStatic

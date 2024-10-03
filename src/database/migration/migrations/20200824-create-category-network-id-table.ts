@@ -15,43 +15,49 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Transaction } from 'sequelize'
-import { Migration } from '../../main'
+import { Transaction } from "sequelize"
+import { Migration } from "../../main"
 
-export const up: Migration = async ({context}) => {
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    const dialect = context.getDialect()
-    const isMysql = dialect === 'mysql' || dialect === 'mariadb'
+export const up: Migration = async ({ context }) => {
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      const dialect = context.getDialect()
+      const isMysql = dialect === "mysql" || dialect === "mariadb"
 
-    if (isMysql) {
-      await context.query(
-        'CREATE TABLE `CategoryNetworkIds` ' +
-        '(`familyId` VARCHAR(10) NOT NULL, `categoryId` VARCHAR(6) NOT NULL,' +
-        '`networkItemId` VARCHAR(6) NOT NULL, `hashedNetworkId` VARCHAR(8) NOT NULL,' +
-        'PRIMARY KEY(`familyId`, `categoryId`, `networkItemId`), FOREIGN KEY(`familyId`, `categoryId`)' +
-        'REFERENCES `Categories`(`familyId`, `categoryId`) ON UPDATE CASCADE ON DELETE CASCADE )',
-        { transaction }
-      )
-    } else {
-      await context.query(
-        'CREATE TABLE "CategoryNetworkIds" ' +
-        '("familyId" VARCHAR(10) NOT NULL, "categoryId" VARCHAR(6) NOT NULL,' +
-        '"networkItemId" VARCHAR(6) NOT NULL, "hashedNetworkId" VARCHAR(8) NOT NULL,' +
-        'PRIMARY KEY("familyId", "categoryId", "networkItemId"), FOREIGN KEY("familyId", "categoryId")' +
-        'REFERENCES "Categories"("familyId", "categoryId") ON UPDATE CASCADE ON DELETE CASCADE )',
-        { transaction }
-      )
-    }
-  })
+      if (isMysql) {
+        await context.query(
+          "CREATE TABLE `CategoryNetworkIds` " +
+            "(`familyId` VARCHAR(10) NOT NULL, `categoryId` VARCHAR(6) NOT NULL," +
+            "`networkItemId` VARCHAR(6) NOT NULL, `hashedNetworkId` VARCHAR(8) NOT NULL," +
+            "PRIMARY KEY(`familyId`, `categoryId`, `networkItemId`), FOREIGN KEY(`familyId`, `categoryId`)" +
+            "REFERENCES `Categories`(`familyId`, `categoryId`) ON UPDATE CASCADE ON DELETE CASCADE )",
+          { transaction },
+        )
+      } else {
+        await context.query(
+          'CREATE TABLE "CategoryNetworkIds" ' +
+            '("familyId" VARCHAR(10) NOT NULL, "categoryId" VARCHAR(6) NOT NULL,' +
+            '"networkItemId" VARCHAR(6) NOT NULL, "hashedNetworkId" VARCHAR(8) NOT NULL,' +
+            'PRIMARY KEY("familyId", "categoryId", "networkItemId"), FOREIGN KEY("familyId", "categoryId")' +
+            'REFERENCES "Categories"("familyId", "categoryId") ON UPDATE CASCADE ON DELETE CASCADE )',
+          { transaction },
+        )
+      }
+    },
+  )
 }
 
-export const down: Migration = async ({context}) => {
+export const down: Migration = async ({ context }) => {
   const queryInterface = context.getQueryInterface()
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.dropTable('CategoryNetworkIds', { transaction })
-  })
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.dropTable("CategoryNetworkIds", { transaction })
+    },
+  )
 }

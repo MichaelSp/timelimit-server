@@ -15,48 +15,53 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { Database, Transaction } from '../../../../database'
-import { ServerUpdatedCategoryBaseData } from '../../../../object/serverdatastatus'
-import { FamilyEntry } from '../family-entry'
+import * as Sequelize from "sequelize"
+import { Database, Transaction } from "../../../../database"
+import { ServerUpdatedCategoryBaseData } from "../../../../object/serverdatastatus"
+import { FamilyEntry } from "../family-entry"
 
-export async function getCategoryBaseDatas ({
-  database, transaction, categoryIdsToSyncBaseData, familyEntry
+export async function getCategoryBaseDatas({
+  database,
+  transaction,
+  categoryIdsToSyncBaseData,
+  familyEntry,
 }: {
   database: Database
   transaction: Transaction
   categoryIdsToSyncBaseData: Array<string>
   familyEntry: FamilyEntry
 }): Promise<Array<ServerUpdatedCategoryBaseData>> {
-  const dataForSyncing = (await database.category.findAll({
-    where: {
-      familyId: familyEntry.familyId,
-      categoryId: {
-        [Sequelize.Op.in]: categoryIdsToSyncBaseData
-      }
-    },
-    attributes: [
-      'categoryId',
-      'childId',
-      'title',
-      'blockedMinutesInWeek',
-      'extraTimeInMillis',
-      'extraTimeDay',
-      'temporarilyBlocked',
-      'baseVersion',
-      'parentCategoryId',
-      'blockAllNotifications',
-      'timeWarningFlags',
-      'minBatteryCharging',
-      'minBatteryMobile',
-      'temporarilyBlockedEndTime',
-      'sort',
-      'disableLimitsUntil',
-      'flags',
-      'blockNotificationDelay'
-    ],
-    transaction
-  })).map((item) => ({
+  const dataForSyncing = (
+    await database.category.findAll({
+      where: {
+        familyId: familyEntry.familyId,
+        categoryId: {
+          [Sequelize.Op.in]: categoryIdsToSyncBaseData,
+        },
+      },
+      attributes: [
+        "categoryId",
+        "childId",
+        "title",
+        "blockedMinutesInWeek",
+        "extraTimeInMillis",
+        "extraTimeDay",
+        "temporarilyBlocked",
+        "baseVersion",
+        "parentCategoryId",
+        "blockAllNotifications",
+        "timeWarningFlags",
+        "minBatteryCharging",
+        "minBatteryMobile",
+        "temporarilyBlockedEndTime",
+        "sort",
+        "disableLimitsUntil",
+        "flags",
+        "blockNotificationDelay",
+      ],
+      transaction,
+    })
+  ).map((item) => ({
     categoryId: item.categoryId,
     childId: item.childId,
     title: item.title,
@@ -74,72 +79,71 @@ export async function getCategoryBaseDatas ({
     sort: item.sort,
     disableLimitsUntil: item.disableLimitsUntil,
     flags: item.flags,
-    blockNotificationDelay: item.blockNotificationDelay
+    blockNotificationDelay: item.blockNotificationDelay,
   }))
 
-  const networkIdsForSyncing = (await database.categoryNetworkId.findAll({
-    where: {
-      familyId: familyEntry.familyId,
-      categoryId: {
-        [Sequelize.Op.in]: categoryIdsToSyncBaseData
-      }
-    },
-    attributes: [
-      'categoryId',
-      'networkItemId',
-      'hashedNetworkId'
-    ],
-    transaction
-  })).map((item) => ({
+  const networkIdsForSyncing = (
+    await database.categoryNetworkId.findAll({
+      where: {
+        familyId: familyEntry.familyId,
+        categoryId: {
+          [Sequelize.Op.in]: categoryIdsToSyncBaseData,
+        },
+      },
+      attributes: ["categoryId", "networkItemId", "hashedNetworkId"],
+      transaction,
+    })
+  ).map((item) => ({
     categoryId: item.categoryId,
     networkItemId: item.networkItemId,
-    hashedNetworkId: item.hashedNetworkId
+    hashedNetworkId: item.hashedNetworkId,
   }))
 
-  const additionalTimeWarningsForSyncing = (await database.categoryTimeWarning.findAll({
-    where: {
-      familyId: familyEntry.familyId,
-      categoryId: {
-        [Sequelize.Op.in]: categoryIdsToSyncBaseData
-      }
-    },
-    attributes: [
-      'categoryId',
-      'minutes'
-    ],
-    transaction
-  })).map((item) => ({
+  const additionalTimeWarningsForSyncing = (
+    await database.categoryTimeWarning.findAll({
+      where: {
+        familyId: familyEntry.familyId,
+        categoryId: {
+          [Sequelize.Op.in]: categoryIdsToSyncBaseData,
+        },
+      },
+      attributes: ["categoryId", "minutes"],
+      transaction,
+    })
+  ).map((item) => ({
     categoryId: item.categoryId,
-    minutes: item.minutes
+    minutes: item.minutes,
   }))
 
-  return dataForSyncing.map((item): ServerUpdatedCategoryBaseData => ({
-    categoryId: item.categoryId,
-    childId: item.childId,
-    title: item.title,
-    blockedTimes: item.blockedMinutesInWeek,
-    extraTime: item.extraTimeInMillis,
-    extraTimeDay: item.extraTimeDay,
-    tempBlocked: item.temporarilyBlocked,
-    version: item.baseVersion,
-    parentCategoryId: item.parentCategoryId,
-    blockAllNotifications: item.blockAllNotifications,
-    timeWarnings: item.timeWarningFlags,
-    mblMobile: item.minBatteryMobile,
-    mblCharging: item.minBatteryCharging,
-    tempBlockTime: parseInt(item.temporarilyBlockedEndTime, 10),
-    sort: item.sort,
-    networks: networkIdsForSyncing
-      .filter((network) => network.categoryId === item.categoryId)
-      .map((network) => ({
-        itemId: network.networkItemId,
-        hashedNetworkId: network.hashedNetworkId
-      })),
-    dlu: parseInt(item.disableLimitsUntil, 10),
-    flags: parseInt(item.flags, 10),
-    blockNotificationDelay: parseInt(item.blockNotificationDelay, 10),
-    atw: additionalTimeWarningsForSyncing
-      .filter((timeWarning) => timeWarning.categoryId === item.categoryId)
-      .map((timeWarning) => timeWarning.minutes)
-  }))
+  return dataForSyncing.map(
+    (item): ServerUpdatedCategoryBaseData => ({
+      categoryId: item.categoryId,
+      childId: item.childId,
+      title: item.title,
+      blockedTimes: item.blockedMinutesInWeek,
+      extraTime: item.extraTimeInMillis,
+      extraTimeDay: item.extraTimeDay,
+      tempBlocked: item.temporarilyBlocked,
+      version: item.baseVersion,
+      parentCategoryId: item.parentCategoryId,
+      blockAllNotifications: item.blockAllNotifications,
+      timeWarnings: item.timeWarningFlags,
+      mblMobile: item.minBatteryMobile,
+      mblCharging: item.minBatteryCharging,
+      tempBlockTime: parseInt(item.temporarilyBlockedEndTime, 10),
+      sort: item.sort,
+      networks: networkIdsForSyncing
+        .filter((network) => network.categoryId === item.categoryId)
+        .map((network) => ({
+          itemId: network.networkItemId,
+          hashedNetworkId: network.hashedNetworkId,
+        })),
+      dlu: parseInt(item.disableLimitsUntil, 10),
+      flags: parseInt(item.flags, 10),
+      blockNotificationDelay: parseInt(item.blockNotificationDelay, 10),
+      atw: additionalTimeWarningsForSyncing
+        .filter((timeWarning) => timeWarning.categoryId === item.categoryId)
+        .map((timeWarning) => timeWarning.minutes),
+    }),
+  )
 }

@@ -15,11 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SetDeviceDefaultUserTimeoutAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingDeviceException } from '../exception/missing-item'
+import { SetDeviceDefaultUserTimeoutAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingDeviceException } from "../exception/missing-item"
 
-export async function dispatchSetDeviceDefaultUserTimeout ({ action, cache }: {
+export async function dispatchSetDeviceDefaultUserTimeout({
+  action,
+  cache,
+}: {
   action: SetDeviceDefaultUserTimeoutAction
   cache: Cache
 }) {
@@ -27,23 +30,26 @@ export async function dispatchSetDeviceDefaultUserTimeout ({ action, cache }: {
     transaction: cache.transaction,
     where: {
       familyId: cache.familyId,
-      deviceId: action.deviceId
-    }
+      deviceId: action.deviceId,
+    },
   })
 
   if (!oldDeviceItem) {
     throw new MissingDeviceException()
   }
 
-  await cache.database.device.update({
-    defaultUserTimeout: action.timeout
-  }, {
-    transaction: cache.transaction,
-    where: {
-      familyId: cache.familyId,
-      deviceId: action.deviceId
-    }
-  })
+  await cache.database.device.update(
+    {
+      defaultUserTimeout: action.timeout,
+    },
+    {
+      transaction: cache.transaction,
+      where: {
+        familyId: cache.familyId,
+        deviceId: action.deviceId,
+      },
+    },
+  )
 
   cache.invalidiateDeviceList = true
 

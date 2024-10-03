@@ -15,28 +15,27 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AppLogicAction } from './basetypes'
-import { assertIdWithinFamily } from './meta/util'
+import { AppLogicAction } from "./basetypes"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'MarkTaskPendingAction'
+const actionType = "MarkTaskPendingAction"
 
 export class MarkTaskPendingAction extends AppLogicAction {
   readonly taskId: string
 
-  constructor ({ taskId }: { taskId: string }) {
+  constructor({ taskId }: { taskId: string }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'taskId', value: taskId })
+    assertIdWithinFamily({ actionType, field: "taskId", value: taskId })
 
     this.taskId = taskId
   }
 
-  static parse = ({ taskId }: SerializedMarkTaskPendingAction) => (
+  static parse = ({ taskId }: SerializedMarkTaskPendingAction) =>
     new MarkTaskPendingAction({ taskId })
-  )
 }
 
 export interface SerializedMarkTaskPendingAction {
-  type: 'MARK_TASK_PENDING'
+  type: "MARK_TASK_PENDING"
   taskId: string
 }

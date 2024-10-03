@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ApplyActionException } from './index'
+import { ApplyActionException } from "./index"
 
 export class PremiumVersionMissingException extends ApplyActionException {
-  constructor () {
-    super({ staticMessage: 'premium version required but missing' })
+  constructor() {
+    super({ staticMessage: "premium version required but missing" })
   }
 }

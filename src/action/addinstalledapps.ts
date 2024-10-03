@@ -15,31 +15,34 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { InstalledApp, SerializedInstalledApp } from '../model/installedapp'
-import { AppLogicAction } from './basetypes'
-import { assertNonEmptyListWithoutDuplicates } from './meta/util'
+import { InstalledApp, SerializedInstalledApp } from "../model/installedapp"
+import { AppLogicAction } from "./basetypes"
+import { assertNonEmptyListWithoutDuplicates } from "./meta/util"
 
-const actionType = 'AddInstalledAppsAction'
+const actionType = "AddInstalledAppsAction"
 
 export class AddInstalledAppsAction extends AppLogicAction {
   readonly apps: Array<InstalledApp>
 
-  constructor ({ apps }: {apps: Array<InstalledApp>}) {
+  constructor({ apps }: { apps: Array<InstalledApp> }) {
     super()
 
-    assertNonEmptyListWithoutDuplicates({ actionType, field: 'apps', list: apps.map((app) => app.packageName) })
+    assertNonEmptyListWithoutDuplicates({
+      actionType,
+      field: "apps",
+      list: apps.map((app) => app.packageName),
+    })
 
     this.apps = apps
   }
 
-  static parse = ({ apps }: SerializedAddInstalledAppsAction) => (
+  static parse = ({ apps }: SerializedAddInstalledAppsAction) =>
     new AddInstalledAppsAction({
-      apps: apps.map((app) => InstalledApp.parse(app))
+      apps: apps.map((app) => InstalledApp.parse(app)),
     })
-  )
 }
 
 export interface SerializedAddInstalledAppsAction {
-  type: 'ADD_INSTALLED_APPS'
+  type: "ADD_INSTALLED_APPS"
   apps: Array<SerializedInstalledApp>
 }

@@ -15,35 +15,36 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const { spawn } = require('child_process')
-const { resolve } = require('path')
+const { spawn } = require("child_process")
+const { resolve } = require("path")
 
 function startMainApp(env) {
-  const initPath = resolve(__dirname, '../../build/index.js')
+  const initPath = resolve(__dirname, "../../build/index.js")
 
   return new Promise((resolve, reject) => {
-    const task = spawn('node', [initPath], {
-      stdio: ['inherit', 'pipe', 'inherit'],
-      env: { ...process.env, PORT: 0 /* random port */, ...env }
+    const task = spawn("node", [initPath], {
+      stdio: ["inherit", "pipe", "inherit"],
+      env: { ...process.env, PORT: 0 /* random port */, ...env },
     })
 
-    task.on('exit', () => reject(new Error('task terminated too early')))
-    task.on('error', (ex) => reject(ex))
+    task.on("exit", () => reject(new Error("task terminated too early")))
+    task.on("error", (ex) => reject(ex))
 
-    task.stdout.on('data', (data) => {
-      if (data.toString('utf8').split('\n').indexOf('ready') !== -1) resolve(task)
+    task.stdout.on("data", (data) => {
+      if (data.toString("utf8").split("\n").indexOf("ready") !== -1)
+        resolve(task)
 
       process.stdout.write(data)
     })
 
     setTimeout(() => {
-      reject(new Error('timeout'))
+      reject(new Error("timeout"))
 
-      task.kill('SIGINT')
+      task.kill("SIGINT")
     }, 1000 * 30)
   }).then((task) => {
     return {
-      shutdown: () => task.kill('SIGINT')
+      shutdown: () => task.kill("SIGINT"),
     }
   })
 }

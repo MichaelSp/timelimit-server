@@ -15,68 +15,79 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { Database } from '../database'
+import * as Sequelize from "sequelize"
+import { Database } from "../database"
 
-export function initDeleteOldTokensWorker ({ database }: {
+export function initDeleteOldTokensWorker({
+  database,
+}: {
   database: Database
 }) {
-  function doWorkSafe () {
-    console.log('deleting old tokens now')
+  function doWorkSafe() {
+    console.log("deleting old tokens now")
 
-    deleteOldTokens({ database }).then(() => {
-      console.log('finished deleting old tokens')
-    }).catch((ex) => {
-      console.warn('error deleting old tokens', ex)
-    })
+    deleteOldTokens({ database })
+      .then(() => {
+        console.log("finished deleting old tokens")
+      })
+      .catch((ex) => {
+        console.warn("error deleting old tokens", ex)
+      })
   }
 
-  setTimeout(() => {
-    doWorkSafe()
-
-    setInterval(() => {
+  setTimeout(
+    () => {
       doWorkSafe()
-    }, 1000 * 60 * 60 /* every hour */)
-  }, 1000 * 60 * 7 /* after 7 minutes */)
+
+      setInterval(
+        () => {
+          doWorkSafe()
+        },
+        1000 * 60 * 60 /* every hour */,
+      )
+    },
+    1000 * 60 * 7 /* after 7 minutes */,
+  )
 }
 
-async function deleteOldTokens ({ database }: {
-  database: Database
-}) {
+async function deleteOldTokens({ database }: { database: Database }) {
   await database.transaction(async (transaction) => {
     await database.authtoken.destroy({
       where: {
         createdAt: {
-          [Sequelize.Op.lt]: (Date.now() - 1000 * 60 * 60 * 3 /* 3 hours */).toString()
-        }
+          [Sequelize.Op.lt]: (Date.now() - 1000 * 60 * 60 * 3) /* 3 hours */
+            .toString(),
+        },
       },
-      transaction
+      transaction,
     })
 
     await database.addDeviceToken.destroy({
       where: {
         createdAt: {
-          [Sequelize.Op.lt]: (Date.now() - 1000 * 60 * 60 * 3 /* 3 hours */).toString()
-        }
+          [Sequelize.Op.lt]: (Date.now() - 1000 * 60 * 60 * 3) /* 3 hours */
+            .toString(),
+        },
       },
-      transaction
+      transaction,
     })
 
     await database.mailLoginToken.destroy({
       where: {
         createdAt: {
-          [Sequelize.Op.lt]: (Date.now() - 1000 * 60 * 60 * 3 /* 3 hours */).toString()
-        }
+          [Sequelize.Op.lt]: (Date.now() - 1000 * 60 * 60 * 3) /* 3 hours */
+            .toString(),
+        },
       },
-      transaction
+      transaction,
     })
   })
 
   await database.deviceDhKey.destroy({
     where: {
       expireAt: {
-        [Sequelize.Op.lt]: Date.now().toString()
-      }
-    }
+        [Sequelize.Op.lt]: Date.now().toString(),
+      },
+    },
   })
 }

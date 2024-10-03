@@ -15,20 +15,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { DeleteTimeLimitRuleAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingRuleException } from '../exception/missing-item'
+import { DeleteTimeLimitRuleAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingRuleException } from "../exception/missing-item"
 
-export async function dispatchDeleteTimeLimitRule ({ action, cache }: {
+export async function dispatchDeleteTimeLimitRule({
+  action,
+  cache,
+}: {
   action: DeleteTimeLimitRuleAction
   cache: Cache
 }) {
   const ruleEntry = await cache.database.timelimitRule.findOne({
     where: {
       familyId: cache.familyId,
-      ruleId: action.ruleId
+      ruleId: action.ruleId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!ruleEntry) {

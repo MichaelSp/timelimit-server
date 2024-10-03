@@ -4,8 +4,6 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedSetUserDisableLimitsUntilAction
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -24,17 +22,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetUserDisabl
 
 ## type
 
-
-
 `type`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetuserdisablelimitsuntilaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetUserDisableLimitsUntilAction/properties/type")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetuserdisablelimitsuntilaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetUserDisableLimitsUntilAction/properties/type")
 
 ### type Type
 
@@ -50,17 +46,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetUserDisabl
 
 ## childId
 
-
-
 `childId`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetuserdisablelimitsuntilaction-properties-childid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetUserDisableLimitsUntilAction/properties/childId")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetuserdisablelimitsuntilaction-properties-childid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetUserDisableLimitsUntilAction/properties/childId")
 
 ### childId Type
 
@@ -68,17 +62,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetUserDisabl
 
 ## time
 
-
-
 `time`
 
-* is required
+- is required
 
-* Type: `number`
+- Type: `number`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetuserdisablelimitsuntilaction-properties-time.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetUserDisableLimitsUntilAction/properties/time")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetuserdisablelimitsuntilaction-properties-time.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetUserDisableLimitsUntilAction/properties/time")
 
 ### time Type
 

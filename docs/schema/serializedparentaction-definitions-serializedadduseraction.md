@@ -4,8 +4,6 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedAddUserAction
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -27,17 +25,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedAddUserAction
 
 ## type
 
-
-
 `type`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedadduseraction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedAddUserAction/properties/type")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedadduseraction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedAddUserAction/properties/type")
 
 ### type Type
 
@@ -53,17 +49,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedAddUserAction
 
 ## name
 
-
-
 `name`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedadduseraction-properties-name.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedAddUserAction/properties/name")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedadduseraction-properties-name.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedAddUserAction/properties/name")
 
 ### name Type
 
@@ -71,17 +65,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedAddUserAction
 
 ## userType
 
-
-
 `userType`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedadduseraction-properties-usertype.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedAddUserAction/properties/userType")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedadduseraction-properties-usertype.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedAddUserAction/properties/userType")
 
 ### userType Type
 
@@ -98,17 +90,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedAddUserAction
 
 ## userId
 
-
-
 `userId`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedadduseraction-properties-userid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedAddUserAction/properties/userId")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedadduseraction-properties-userid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedAddUserAction/properties/userId")
 
 ### userId Type
 
@@ -116,17 +106,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedAddUserAction
 
 ## password
 
-
-
 `password`
 
-* is optional
+- is optional
 
-* Type: `object` ([EncryptableParentPassword](serializedparentaction-definitions-encryptableparentpassword.md))
+- Type: `object` ([EncryptableParentPassword](serializedparentaction-definitions-encryptableparentpassword.md))
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-encryptableparentpassword.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedAddUserAction/properties/password")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-encryptableparentpassword.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedAddUserAction/properties/password")
 
 ### password Type
 
@@ -134,17 +122,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedAddUserAction
 
 ## timeZone
 
-
-
 `timeZone`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedadduseraction-properties-timezone.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedAddUserAction/properties/timeZone")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedadduseraction-properties-timezone.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedAddUserAction/properties/timeZone")
 
 ### timeZone Type
 

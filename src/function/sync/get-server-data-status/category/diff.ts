@@ -15,48 +15,60 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { difference, intersection } from 'lodash'
-import * as Sequelize from 'sequelize'
-import { Database } from '../../../../database'
-import { ClientDataStatusCategories } from '../../../../object/clientdatastatus'
-import { GetServerDataStatusIllegalStateException } from '../exception'
-import { FamilyEntry } from '../family-entry'
+import { difference, intersection } from "lodash"
+import * as Sequelize from "sequelize"
+import { Database } from "../../../../database"
+import { ClientDataStatusCategories } from "../../../../object/clientdatastatus"
+import { GetServerDataStatusIllegalStateException } from "../exception"
+import { FamilyEntry } from "../family-entry"
 
-export async function getCategoryDataToSync ({ database, transaction, familyEntry, categoriesStatus }: {
+export async function getCategoryDataToSync({
+  database,
+  transaction,
+  familyEntry,
+  categoriesStatus,
+}: {
   database: Database
   transaction: Sequelize.Transaction
   familyEntry: FamilyEntry
   categoriesStatus: ClientDataStatusCategories
 }): Promise<GetCategoryDataToSyncResult> {
-  const serverCategoriesVersions: Array<ServerCategoryVersion> = (await database.category.findAll({
-    where: {
-      familyId: familyEntry.familyId
-    },
-    attributes: [
-      'categoryId',
-      'baseVersion',
-      'assignedAppsVersion',
-      'timeLimitRulesVersion',
-      'usedTimesVersion',
-      'taskListVersion'
-    ],
-    transaction
-  })).map((item) => ({
+  const serverCategoriesVersions: Array<ServerCategoryVersion> = (
+    await database.category.findAll({
+      where: {
+        familyId: familyEntry.familyId,
+      },
+      attributes: [
+        "categoryId",
+        "baseVersion",
+        "assignedAppsVersion",
+        "timeLimitRulesVersion",
+        "usedTimesVersion",
+        "taskListVersion",
+      ],
+      transaction,
+    })
+  ).map((item) => ({
     categoryId: item.categoryId,
     baseVersion: item.baseVersion,
     assignedAppsVersion: item.assignedAppsVersion,
     timeLimitRulesVersion: item.timeLimitRulesVersion,
     usedTimesVersion: item.usedTimesVersion,
-    taskListVersion: item.taskListVersion
+    taskListVersion: item.taskListVersion,
   }))
 
-  const serverCategoryIds = serverCategoriesVersions.map((item) => item.categoryId)
+  const serverCategoryIds = serverCategoriesVersions.map(
+    (item) => item.categoryId,
+  )
   const clientCategoryIds = Object.keys(categoriesStatus)
 
   const removedCategoryIds = difference(clientCategoryIds, serverCategoryIds)
 
   const addedCategoryIds = difference(serverCategoryIds, clientCategoryIds)
-  const categoryIdsOfClientAndServer = intersection(serverCategoryIds, clientCategoryIds)
+  const categoryIdsOfClientAndServer = intersection(
+    serverCategoryIds,
+    clientCategoryIds,
+  )
 
   const categoryIdsToSyncBaseData = [...addedCategoryIds]
   const categoryIdsToSyncAssignedApps = [...addedCategoryIds]
@@ -65,11 +77,15 @@ export async function getCategoryDataToSync ({ database, transaction, familyEntr
   const categoryIdsToSyncTasks = [...addedCategoryIds]
 
   categoryIdsOfClientAndServer.forEach((categoryId) => {
-    const serverEntry = serverCategoriesVersions.find((item) => item.categoryId === categoryId)
+    const serverEntry = serverCategoriesVersions.find(
+      (item) => item.categoryId === categoryId,
+    )
     const clientEntry = categoriesStatus[categoryId]
 
-    if ((!serverEntry) || (!clientEntry)) {
-      throw new GetServerDataStatusIllegalStateException({ staticMessage: 'could not find category overview item again' })
+    if (!serverEntry || !clientEntry) {
+      throw new GetServerDataStatusIllegalStateException({
+        staticMessage: "could not find category overview item again",
+      })
     }
 
     if (serverEntry.baseVersion !== clientEntry.base) {
@@ -95,7 +111,9 @@ export async function getCategoryDataToSync ({ database, transaction, familyEntr
 
   const serverCategoriesVersionsMap = new Map<string, ServerCategoryVersion>()
 
-  serverCategoriesVersions.forEach((item) => serverCategoriesVersionsMap.set(item.categoryId, item))
+  serverCategoriesVersions.forEach((item) =>
+    serverCategoriesVersionsMap.set(item.categoryId, item),
+  )
 
   return {
     removedCategoryIds,
@@ -110,12 +128,14 @@ export async function getCategoryDataToSync ({ database, transaction, familyEntr
         const item = serverCategoriesVersionsMap.get(categoryId)
 
         if (!item) {
-          throw new GetServerDataStatusIllegalStateException({ staticMessage: 'could not find category entry' })
+          throw new GetServerDataStatusIllegalStateException({
+            staticMessage: "could not find category entry",
+          })
         }
 
         return item
-      }
-    }
+      },
+    },
   }
 }
 

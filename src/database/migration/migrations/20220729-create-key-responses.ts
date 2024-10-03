@@ -15,72 +15,94 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Transaction } from 'sequelize'
-import { Migration } from '../../main'
+import { Transaction } from "sequelize"
+import { Migration } from "../../main"
 
-export const up: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    const dialect = context.getDialect()
-    const isMysql = dialect === 'mysql' || dialect === 'mariadb'
-    const isPosgresql = dialect === 'postgres'
+export const up: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      const dialect = context.getDialect()
+      const isMysql = dialect === "mysql" || dialect === "mariadb"
+      const isPosgresql = dialect === "postgres"
 
-    if (isMysql) {
-      await context.query(
-        'CREATE TABLE `KeyResponses` (' +
-        '`familyId` VARCHAR(10) NOT NULL, ' +
-        '`receiverDeviceId` VARCHAR(6) NOT NULL, ' +
-        '`requestServerSequenceNumber` BIGINT NOT NULL, ' +
-        '`senderDeviceId` VARCHAR(6) NOT NULL, ' +
-        '`replyServerSequenceNumber` BIGINT NOT NULL, ' +
-        '`requestClientSequenceNumber` BIGINT NOT NULL, ' +
-        '`tempKey` BLOB NOT NULL, ' +
-        '`encryptedKey` BLOB NOT NULL, ' +
-        '`signature` BLOB NOT NULL, ' +
-        'PRIMARY KEY (`familyId`, `receiverDeviceId`, `requestServerSequenceNumber`, `senderDeviceId`), ' +
-        'FOREIGN KEY (`familyId`, `requestServerSequenceNumber`) REFERENCES `KeyRequests` (`familyId`, `serverSequenceNumber`) ON UPDATE CASCADE ON DELETE CASCADE ' +
-        ')',
-        { transaction }
-      )
-    } else {
-      await context.query(
-        'CREATE TABLE "KeyResponses" (' +
-        '"familyId" VARCHAR(10) NOT NULL, ' +
-        '"receiverDeviceId" VARCHAR(6) NOT NULL, ' +
-        '"requestServerSequenceNumber" ' + (isPosgresql ? 'BIGINT' : 'LONG') + ' NOT NULL, ' +
-        '"senderDeviceId" VARCHAR(6) NOT NULL, ' +
-        '"replyServerSequenceNumber" ' + (isPosgresql ? 'BIGINT' : 'LONG') + ' NOT NULL, ' +
-        '"requestClientSequenceNumber" ' + (isPosgresql ? 'BIGINT' : 'LONG') + ' NOT NULL, ' +
-        '"tempKey" ' + (isPosgresql ? 'BYTEA' : 'BLOB') + ' NOT NULL, ' +
-        '"encryptedKey" ' + (isPosgresql ? 'BYTEA' : 'BLOB') + ' NOT NULL, ' +
-        '"signature" ' + (isPosgresql ? 'BYTEA' : 'BLOB') + ' NOT NULL, ' +
-        'PRIMARY KEY ("familyId", "receiverDeviceId", "requestServerSequenceNumber", "senderDeviceId"), ' +
-        'FOREIGN KEY ("familyId", "requestServerSequenceNumber") REFERENCES "KeyRequests" ("familyId", "serverSequenceNumber") ON UPDATE CASCADE ON DELETE CASCADE ' +
-        ')',
-        { transaction }
-      )
-    }
-
-    await queryInterface.addIndex('KeyResponses', ['familyId', 'requestServerSequenceNumber'], { transaction })
-    await queryInterface.addIndex(
-      'KeyResponses',
-      ['familyId', 'receiverDeviceId', 'replyServerSequenceNumber'],
-      {
-        transaction,
-        unique: true,
-        name: 'key_response_index_fid_rdid_rssn'
+      if (isMysql) {
+        await context.query(
+          "CREATE TABLE `KeyResponses` (" +
+            "`familyId` VARCHAR(10) NOT NULL, " +
+            "`receiverDeviceId` VARCHAR(6) NOT NULL, " +
+            "`requestServerSequenceNumber` BIGINT NOT NULL, " +
+            "`senderDeviceId` VARCHAR(6) NOT NULL, " +
+            "`replyServerSequenceNumber` BIGINT NOT NULL, " +
+            "`requestClientSequenceNumber` BIGINT NOT NULL, " +
+            "`tempKey` BLOB NOT NULL, " +
+            "`encryptedKey` BLOB NOT NULL, " +
+            "`signature` BLOB NOT NULL, " +
+            "PRIMARY KEY (`familyId`, `receiverDeviceId`, `requestServerSequenceNumber`, `senderDeviceId`), " +
+            "FOREIGN KEY (`familyId`, `requestServerSequenceNumber`) REFERENCES `KeyRequests` (`familyId`, `serverSequenceNumber`) ON UPDATE CASCADE ON DELETE CASCADE " +
+            ")",
+          { transaction },
+        )
+      } else {
+        await context.query(
+          'CREATE TABLE "KeyResponses" (' +
+            '"familyId" VARCHAR(10) NOT NULL, ' +
+            '"receiverDeviceId" VARCHAR(6) NOT NULL, ' +
+            '"requestServerSequenceNumber" ' +
+            (isPosgresql ? "BIGINT" : "LONG") +
+            " NOT NULL, " +
+            '"senderDeviceId" VARCHAR(6) NOT NULL, ' +
+            '"replyServerSequenceNumber" ' +
+            (isPosgresql ? "BIGINT" : "LONG") +
+            " NOT NULL, " +
+            '"requestClientSequenceNumber" ' +
+            (isPosgresql ? "BIGINT" : "LONG") +
+            " NOT NULL, " +
+            '"tempKey" ' +
+            (isPosgresql ? "BYTEA" : "BLOB") +
+            " NOT NULL, " +
+            '"encryptedKey" ' +
+            (isPosgresql ? "BYTEA" : "BLOB") +
+            " NOT NULL, " +
+            '"signature" ' +
+            (isPosgresql ? "BYTEA" : "BLOB") +
+            " NOT NULL, " +
+            'PRIMARY KEY ("familyId", "receiverDeviceId", "requestServerSequenceNumber", "senderDeviceId"), ' +
+            'FOREIGN KEY ("familyId", "requestServerSequenceNumber") REFERENCES "KeyRequests" ("familyId", "serverSequenceNumber") ON UPDATE CASCADE ON DELETE CASCADE ' +
+            ")",
+          { transaction },
+        )
       }
-    )
-  })
+
+      await queryInterface.addIndex(
+        "KeyResponses",
+        ["familyId", "requestServerSequenceNumber"],
+        { transaction },
+      )
+      await queryInterface.addIndex(
+        "KeyResponses",
+        ["familyId", "receiverDeviceId", "replyServerSequenceNumber"],
+        {
+          transaction,
+          unique: true,
+          name: "key_response_index_fid_rdid_rssn",
+        },
+      )
+    },
+  )
 }
 
-export const down: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.dropTable('KeyResponses', { transaction })
-  })
+export const down: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.dropTable("KeyResponses", { transaction })
+    },
+  )
 }

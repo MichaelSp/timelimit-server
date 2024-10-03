@@ -15,13 +15,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MarkTaskPendingAction } from '../../../../action'
-import { sendTaskDoneMails } from '../../../warningmail/taskdone'
-import { Cache } from '../cache'
-import { IllegalStateException, SourceDeviceNotFoundException, SourceUserNotFoundException } from '../exception/illegal-state'
-import { MissingTaskException } from '../exception/missing-item'
+import { MarkTaskPendingAction } from "../../../../action"
+import { sendTaskDoneMails } from "../../../warningmail/taskdone"
+import { Cache } from "../cache"
+import {
+  IllegalStateException,
+  SourceDeviceNotFoundException,
+  SourceUserNotFoundException,
+} from "../exception/illegal-state"
+import { MissingTaskException } from "../exception/missing-item"
 
-export async function dispatchMarkTaskPendingAction ({ action, cache, deviceId }: {
+export async function dispatchMarkTaskPendingAction({
+  action,
+  cache,
+  deviceId,
+}: {
   deviceId: string
   action: MarkTaskPendingAction
   cache: Cache
@@ -29,10 +37,10 @@ export async function dispatchMarkTaskPendingAction ({ action, cache, deviceId }
   const taskInfoUnsafe = await cache.database.childTask.findOne({
     where: {
       familyId: cache.familyId,
-      taskId: action.taskId
+      taskId: action.taskId,
     },
     transaction: cache.transaction,
-    attributes: ['categoryId', 'pendingRequest', 'taskTitle']
+    attributes: ["categoryId", "pendingRequest", "taskTitle"],
   })
 
   if (taskInfoUnsafe === null) throw new MissingTaskException()
@@ -40,7 +48,7 @@ export async function dispatchMarkTaskPendingAction ({ action, cache, deviceId }
   const taskInfo = {
     categoryId: taskInfoUnsafe.categoryId,
     pendingRequest: taskInfoUnsafe.pendingRequest,
-    taskTitle: taskInfoUnsafe.taskTitle
+    taskTitle: taskInfoUnsafe.taskTitle,
   }
 
   if (taskInfo.pendingRequest !== 0) return // review already requested
@@ -48,14 +56,16 @@ export async function dispatchMarkTaskPendingAction ({ action, cache, deviceId }
   const categoryInfoUnsafe = await cache.database.category.findOne({
     where: {
       familyId: cache.familyId,
-      categoryId: taskInfo.categoryId
+      categoryId: taskInfo.categoryId,
     },
-    attributes: ['childId'],
-    transaction: cache.transaction
+    attributes: ["childId"],
+    transaction: cache.transaction,
   })
 
   if (categoryInfoUnsafe === null) {
-    throw new IllegalStateException({ staticMessage: 'category referenced from task not found' })
+    throw new IllegalStateException({
+      staticMessage: "category referenced from task not found",
+    })
   }
 
   const categoryInfo = { childId: categoryInfoUnsafe.childId }
@@ -63,10 +73,10 @@ export async function dispatchMarkTaskPendingAction ({ action, cache, deviceId }
   const deviceInfoUnsafe = await cache.database.device.findOne({
     where: {
       familyId: cache.familyId,
-      deviceId
+      deviceId,
     },
-    attributes: ['currentUserId'],
-    transaction: cache.transaction
+    attributes: ["currentUserId"],
+    transaction: cache.transaction,
   })
 
   if (deviceInfoUnsafe === null) throw new SourceDeviceNotFoundException()
@@ -74,29 +84,35 @@ export async function dispatchMarkTaskPendingAction ({ action, cache, deviceId }
   const deviceInfo = { currentUserId: deviceInfoUnsafe.currentUserId }
 
   if (categoryInfo.childId !== deviceInfo.currentUserId) {
-    throw new IllegalStateException({ staticMessage: 'Can not mark task pending for other user than the current user' })
+    throw new IllegalStateException({
+      staticMessage:
+        "Can not mark task pending for other user than the current user",
+    })
   }
 
   const childInfoUnsafe = await cache.database.user.findOne({
     where: {
       familyId: cache.familyId,
-      userId: categoryInfo.childId
+      userId: categoryInfo.childId,
     },
-    attributes: ['name'],
-    transaction: cache.transaction
+    attributes: ["name"],
+    transaction: cache.transaction,
   })
 
   if (childInfoUnsafe === null) throw new SourceUserNotFoundException()
 
   const childInfo = { name: childInfoUnsafe.name }
 
-  await cache.database.childTask.update({ pendingRequest: 1 }, {
-    where: {
-      familyId: cache.familyId,
-      taskId: action.taskId
+  await cache.database.childTask.update(
+    { pendingRequest: 1 },
+    {
+      where: {
+        familyId: cache.familyId,
+        taskId: action.taskId,
+      },
+      transaction: cache.transaction,
     },
-    transaction: cache.transaction
-  })
+  )
 
   cache.categoriesWithModifiedTasks.add(taskInfo.categoryId)
   cache.incrementTriggeredSyncLevel(1) // parents are not faster reachable
@@ -106,6 +122,6 @@ export async function dispatchMarkTaskPendingAction ({ action, cache, deviceId }
     transaction: cache.transaction,
     familyId: cache.familyId,
     childName: childInfo.name,
-    taskTitle: taskInfo.taskTitle
+    taskTitle: taskInfo.taskTitle,
   })
 }

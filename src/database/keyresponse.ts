@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { familyIdColumn, idWithinFamilyColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import { familyIdColumn, idWithinFamilyColumn } from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export interface KeyResponseAttributes {
   familyId: string
@@ -31,47 +31,51 @@ export interface KeyResponseAttributes {
   signature: Buffer
 }
 
-export type KeyResponseModel = Sequelize.Model<KeyResponseAttributes> & KeyResponseAttributes
+export type KeyResponseModel = Sequelize.Model<KeyResponseAttributes> &
+  KeyResponseAttributes
 export type KeyResponseModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): KeyResponseModel;
+  new (values?: object, options?: Sequelize.BuildOptions): KeyResponseModel
 }
 
 export const attributes: SequelizeAttributes<KeyResponseAttributes> = {
   familyId: {
     ...familyIdColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   receiverDeviceId: {
-    ...idWithinFamilyColumn
+    ...idWithinFamilyColumn,
   },
   requestServerSequenceNumber: {
     type: Sequelize.BIGINT,
     primaryKey: true,
-    allowNull: false
+    allowNull: false,
   },
   senderDeviceId: {
-    ...idWithinFamilyColumn
+    ...idWithinFamilyColumn,
   },
   replyServerSequenceNumber: {
     type: Sequelize.BIGINT,
-    allowNull: false
+    allowNull: false,
   },
   requestClientSequenceNumber: {
     type: Sequelize.BIGINT,
-    allowNull: false
+    allowNull: false,
   },
   tempKey: {
     type: Sequelize.BLOB,
-    allowNull: false
+    allowNull: false,
   },
   encryptedKey: {
     type: Sequelize.BLOB,
-    allowNull: false
+    allowNull: false,
   },
   signature: {
     type: Sequelize.BLOB,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 }
 
-export const createKeyResponseModel = (sequelize: Sequelize.Sequelize): KeyResponseModelStatic => sequelize.define('KeyResponse', attributes) as KeyResponseModelStatic
+export const createKeyResponseModel = (
+  sequelize: Sequelize.Sequelize,
+): KeyResponseModelStatic =>
+  sequelize.define("KeyResponse", attributes) as KeyResponseModelStatic

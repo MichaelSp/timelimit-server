@@ -15,15 +15,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { serializedBitmaskRegex } from '../util/bitmask'
-import { booleanColumn, familyIdColumn, idWithinFamilyColumn, labelColumn, optionalIdWithinFamilyColumn, timestampColumn, versionColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import { serializedBitmaskRegex } from "../util/bitmask"
+import {
+  booleanColumn,
+  familyIdColumn,
+  idWithinFamilyColumn,
+  labelColumn,
+  optionalIdWithinFamilyColumn,
+  timestampColumn,
+  versionColumn,
+} from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export const allowedTimeWarningFlags = 1 | 2 | 4 | 8 | 16
 
 export const categoryFlags = {
-  hasBlockedNetworkList: 1
+  hasBlockedNetworkList: 1,
 }
 
 export const maxCategoryFlags = categoryFlags.hasBlockedNetworkList
@@ -87,166 +95,186 @@ export interface CategoryAttributesVersion12 {
   blockNotificationDelay: string
 }
 
-export type CategoryAttributes = CategoryAttributesVersion1 & CategoryAttributesVersion2 &
-  CategoryAttributesVersion3 & CategoryAttributesVersion4 & CategoryAttributesVersion5 &
-  CategoryAttributesVersion6 & CategoryAttributesVersion7 & CategoryAttributesVersion8 &
-  CategoryAttributesVersion9 & CategoryAttributesVersion10 & CategoryAttributesVersion11 &
+export type CategoryAttributes = CategoryAttributesVersion1 &
+  CategoryAttributesVersion2 &
+  CategoryAttributesVersion3 &
+  CategoryAttributesVersion4 &
+  CategoryAttributesVersion5 &
+  CategoryAttributesVersion6 &
+  CategoryAttributesVersion7 &
+  CategoryAttributesVersion8 &
+  CategoryAttributesVersion9 &
+  CategoryAttributesVersion10 &
+  CategoryAttributesVersion11 &
   CategoryAttributesVersion12
 
-export type CategoryModel = Sequelize.Model<CategoryAttributes> & CategoryAttributes
+export type CategoryModel = Sequelize.Model<CategoryAttributes> &
+  CategoryAttributes
 export type CategoryModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): CategoryModel;
+  new (values?: object, options?: Sequelize.BuildOptions): CategoryModel
 }
 
-export const attributesVersion1: SequelizeAttributes<CategoryAttributesVersion1> = {
-  familyId: {
-    ...familyIdColumn,
-    primaryKey: true
-  },
-  categoryId: {
-    ...idWithinFamilyColumn,
-    primaryKey: true
-  },
-  childId: { ...idWithinFamilyColumn },
-  title: { ...labelColumn },
-  blockedMinutesInWeek: {
-    type: Sequelize.TEXT,
-    allowNull: false,
-    validate: {
-      is: serializedBitmaskRegex
-    }
-  },
-  extraTimeInMillis: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    validate: {
-      min: 0
-    }
-  },
-  temporarilyBlocked: { ...booleanColumn },
-  baseVersion: { ...versionColumn },
-  assignedAppsVersion: { ...versionColumn },
-  timeLimitRulesVersion: { ...versionColumn },
-  usedTimesVersion: { ...versionColumn }
-}
-
-export const attributesVersion2: SequelizeAttributes<CategoryAttributesVersion2> = {
-  parentCategoryId: {
-    ...optionalIdWithinFamilyColumn,
-    defaultValue: ''
+export const attributesVersion1: SequelizeAttributes<CategoryAttributesVersion1> =
+  {
+    familyId: {
+      ...familyIdColumn,
+      primaryKey: true,
+    },
+    categoryId: {
+      ...idWithinFamilyColumn,
+      primaryKey: true,
+    },
+    childId: { ...idWithinFamilyColumn },
+    title: { ...labelColumn },
+    blockedMinutesInWeek: {
+      type: Sequelize.TEXT,
+      allowNull: false,
+      validate: {
+        is: serializedBitmaskRegex,
+      },
+    },
+    extraTimeInMillis: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 0,
+      },
+    },
+    temporarilyBlocked: { ...booleanColumn },
+    baseVersion: { ...versionColumn },
+    assignedAppsVersion: { ...versionColumn },
+    timeLimitRulesVersion: { ...versionColumn },
+    usedTimesVersion: { ...versionColumn },
   }
-}
 
-export const attributesVersion3: SequelizeAttributes<CategoryAttributesVersion3> = {
-  blockAllNotifications: {
-    ...booleanColumn,
-    defaultValue: false
+export const attributesVersion2: SequelizeAttributes<CategoryAttributesVersion2> =
+  {
+    parentCategoryId: {
+      ...optionalIdWithinFamilyColumn,
+      defaultValue: "",
+    },
   }
-}
 
-export const attributesVersion4: SequelizeAttributes<CategoryAttributesVersion4> = {
-  timeWarningFlags: {
-    type: Sequelize.INTEGER,
-    defaultValue: 0,
-    allowNull: false,
-    validate: {
-      min: 0,
-      max: allowedTimeWarningFlags
-      // 1 => 1 minute
-      // 2 => 3 minutes
-      // 4 => 5 minutes
-      // 8 => 10 minutes
-      // 16 => 15 minutes
-    }
+export const attributesVersion3: SequelizeAttributes<CategoryAttributesVersion3> =
+  {
+    blockAllNotifications: {
+      ...booleanColumn,
+      defaultValue: false,
+    },
   }
-}
 
-export const attributesVersion5: SequelizeAttributes<CategoryAttributesVersion5> = {
-  minBatteryMobile: {
-    type: Sequelize.INTEGER,
-    defaultValue: 0,
-    allowNull: false,
-    validate: {
-      min: 0,
-      max: 100
-    }
-  },
-  minBatteryCharging: {
-    type: Sequelize.INTEGER,
-    defaultValue: 0,
-    allowNull: false,
-    validate: {
-      min: 0,
-      max: 100
-    }
+export const attributesVersion4: SequelizeAttributes<CategoryAttributesVersion4> =
+  {
+    timeWarningFlags: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+      allowNull: false,
+      validate: {
+        min: 0,
+        max: allowedTimeWarningFlags,
+        // 1 => 1 minute
+        // 2 => 3 minutes
+        // 4 => 5 minutes
+        // 8 => 10 minutes
+        // 16 => 15 minutes
+      },
+    },
   }
-}
 
-export const attributesVersion6: SequelizeAttributes<CategoryAttributesVersion6> = {
-  temporarilyBlockedEndTime: {
-    ...timestampColumn,
-    defaultValue: 0
+export const attributesVersion5: SequelizeAttributes<CategoryAttributesVersion5> =
+  {
+    minBatteryMobile: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+      allowNull: false,
+      validate: {
+        min: 0,
+        max: 100,
+      },
+    },
+    minBatteryCharging: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+      allowNull: false,
+      validate: {
+        min: 0,
+        max: 100,
+      },
+    },
   }
-}
 
-export const attributesVersion7: SequelizeAttributes<CategoryAttributesVersion7> = {
-  sort: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: 0,
-    validate: {
-      min: 0
-    }
+export const attributesVersion6: SequelizeAttributes<CategoryAttributesVersion6> =
+  {
+    temporarilyBlockedEndTime: {
+      ...timestampColumn,
+      defaultValue: 0,
+    },
   }
-}
 
-export const attributesVersion8: SequelizeAttributes<CategoryAttributesVersion8> = {
-  extraTimeDay: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: -1,
-    validate: {
-      min: -1
-    }
+export const attributesVersion7: SequelizeAttributes<CategoryAttributesVersion7> =
+  {
+    sort: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+      validate: {
+        min: 0,
+      },
+    },
   }
-}
 
-export const attributesVersion9: SequelizeAttributes<CategoryAttributesVersion9> = {
-  disableLimitsUntil: {
-    ...timestampColumn,
-    defaultValue: 0
+export const attributesVersion8: SequelizeAttributes<CategoryAttributesVersion8> =
+  {
+    extraTimeDay: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      defaultValue: -1,
+      validate: {
+        min: -1,
+      },
+    },
   }
-}
 
-export const attributesVersion10: SequelizeAttributes<CategoryAttributesVersion10> = {
-  taskListVersion: {
-    ...versionColumn,
-    defaultValue: 'abcd'
+export const attributesVersion9: SequelizeAttributes<CategoryAttributesVersion9> =
+  {
+    disableLimitsUntil: {
+      ...timestampColumn,
+      defaultValue: 0,
+    },
   }
-}
 
-export const attributesVersion11: SequelizeAttributes<CategoryAttributesVersion11> = {
-  flags: {
-    type: Sequelize.BIGINT,
-    allowNull: false,
-    defaultValue: 0,
-    validate: {
-      min: 0,
-      max: maxCategoryFlags
-    }
+export const attributesVersion10: SequelizeAttributes<CategoryAttributesVersion10> =
+  {
+    taskListVersion: {
+      ...versionColumn,
+      defaultValue: "abcd",
+    },
   }
-}
 
-export const attributesVersion12: SequelizeAttributes<CategoryAttributesVersion12> = {
-  blockNotificationDelay: {
-    type: Sequelize.BIGINT,
-    allowNull: false,
-    defaultValue: 0,
-    validate: {
-      min: 0
-    }
+export const attributesVersion11: SequelizeAttributes<CategoryAttributesVersion11> =
+  {
+    flags: {
+      type: Sequelize.BIGINT,
+      allowNull: false,
+      defaultValue: 0,
+      validate: {
+        min: 0,
+        max: maxCategoryFlags,
+      },
+    },
   }
-}
+
+export const attributesVersion12: SequelizeAttributes<CategoryAttributesVersion12> =
+  {
+    blockNotificationDelay: {
+      type: Sequelize.BIGINT,
+      allowNull: false,
+      defaultValue: 0,
+      validate: {
+        min: 0,
+      },
+    },
+  }
 
 export const attributes: SequelizeAttributes<CategoryAttributes> = {
   ...attributesVersion1,
@@ -260,7 +288,10 @@ export const attributes: SequelizeAttributes<CategoryAttributes> = {
   ...attributesVersion9,
   ...attributesVersion10,
   ...attributesVersion11,
-  ...attributesVersion12
+  ...attributesVersion12,
 }
 
-export const createCategoryModel = (sequelize: Sequelize.Sequelize): CategoryModelStatic => sequelize.define('Category', attributes) as CategoryModelStatic
+export const createCategoryModel = (
+  sequelize: Sequelize.Sequelize,
+): CategoryModelStatic =>
+  sequelize.define("Category", attributes) as CategoryModelStatic

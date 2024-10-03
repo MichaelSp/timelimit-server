@@ -15,31 +15,47 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Transaction } from 'sequelize'
-import { Migration } from '../../main'
-import { attributesVersion2 } from '../../usedtime'
+import { Transaction } from "sequelize"
+import { Migration } from "../../main"
+import { attributesVersion2 } from "../../usedtime"
 
-export const up: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.addColumn('UsedTimes', 'lastUpdate', {
-      ...attributesVersion2.lastUpdate
-    }, {
-      transaction
-    })
-    await queryInterface.addIndex('UsedTimes', ['lastUpdate'], {transaction})
-  })
-
+export const up: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.addColumn(
+        "UsedTimes",
+        "lastUpdate",
+        {
+          ...attributesVersion2.lastUpdate,
+        },
+        {
+          transaction,
+        },
+      )
+      await queryInterface.addIndex("UsedTimes", ["lastUpdate"], {
+        transaction,
+      })
+    },
+  )
 }
 
-export const down: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.removeIndex('UsedTimes', ['lastUpdate'], { transaction })
-    await queryInterface.removeColumn('UsedTimes', 'lastUpdate', { transaction })
-  })
+export const down: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.removeIndex("UsedTimes", ["lastUpdate"], {
+        transaction,
+      })
+      await queryInterface.removeColumn("UsedTimes", "lastUpdate", {
+        transaction,
+      })
+    },
+  )
 }

@@ -15,12 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SetCategoryExtraTimeAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingCategoryException } from '../exception/missing-item'
-import { PremiumVersionMissingException } from '../exception/premium'
+import { SetCategoryExtraTimeAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingCategoryException } from "../exception/missing-item"
+import { PremiumVersionMissingException } from "../exception/premium"
 
-export async function dispatchSetCategoryExtraTime ({ action, cache }: {
+export async function dispatchSetCategoryExtraTime({
+  action,
+  cache,
+}: {
   action: SetCategoryExtraTimeAction
   cache: Cache
 }) {
@@ -31,25 +34,28 @@ export async function dispatchSetCategoryExtraTime ({ action, cache }: {
   const oldItem = await cache.database.category.findOne({
     where: {
       familyId: cache.familyId,
-      categoryId: action.categoryId
+      categoryId: action.categoryId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!oldItem) {
     throw new MissingCategoryException()
   }
 
-  await cache.database.category.update({
-    extraTimeInMillis: action.newExtraTime,
-    extraTimeDay: action.day
-  }, {
-    where: {
-      familyId: cache.familyId,
-      categoryId: action.categoryId
+  await cache.database.category.update(
+    {
+      extraTimeInMillis: action.newExtraTime,
+      extraTimeDay: action.day,
     },
-    transaction: cache.transaction
-  })
+    {
+      where: {
+        familyId: cache.familyId,
+        categoryId: action.categoryId,
+      },
+      transaction: cache.transaction,
+    },
+  )
 
   cache.categoriesWithModifiedBaseData.add(action.categoryId)
   cache.incrementTriggeredSyncLevel(2)

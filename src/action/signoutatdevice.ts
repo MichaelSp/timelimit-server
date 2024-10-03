@@ -15,16 +15,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AppLogicAction } from './basetypes'
+import { AppLogicAction } from "./basetypes"
 
 export class SignOutAtDeviceAction extends AppLogicAction {
   static instance = new SignOutAtDeviceAction()
 
-  private constructor () {
+  private constructor() {
     super()
   }
 }
 
 export interface SerializedSignOutAtDeviceAction {
-  type: 'SIGN_OUT_AT_DEVICE'
+  type: "SIGN_OUT_AT_DEVICE"
 }

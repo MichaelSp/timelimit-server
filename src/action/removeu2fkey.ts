@@ -15,38 +15,53 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { throwOutOfRange } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { throwOutOfRange } from "./meta/util"
 
-const actionType = 'RemoveParentU2FKey'
+const actionType = "RemoveParentU2FKey"
 
 export class RemoveParentU2fKeyAction extends ParentAction {
   readonly keyHandle: Buffer
   readonly publicKey: Buffer
 
-  constructor ({ keyHandle, publicKey }: {
+  constructor({
+    keyHandle,
+    publicKey,
+  }: {
     keyHandle: Buffer
     publicKey: Buffer
   }) {
     super()
 
-    if (keyHandle.length > 2048) throwOutOfRange({ actionType, field: 'keyHandle', value: keyHandle.length })
-    if (publicKey.length > 2048) throwOutOfRange({ actionType, field: 'publicKey', value: publicKey.length })
+    if (keyHandle.length > 2048)
+      throwOutOfRange({
+        actionType,
+        field: "keyHandle",
+        value: keyHandle.length,
+      })
+    if (publicKey.length > 2048)
+      throwOutOfRange({
+        actionType,
+        field: "publicKey",
+        value: publicKey.length,
+      })
 
     this.keyHandle = keyHandle
     this.publicKey = publicKey
   }
 
-  static parse = ({ keyHandle, publicKey }: SerializedRemoveParentU2fKeyAction) => (
+  static parse = ({
+    keyHandle,
+    publicKey,
+  }: SerializedRemoveParentU2fKeyAction) =>
     new RemoveParentU2fKeyAction({
-      keyHandle: Buffer.from(keyHandle, 'base64'),
-      publicKey: Buffer.from(publicKey, 'base64')
+      keyHandle: Buffer.from(keyHandle, "base64"),
+      publicKey: Buffer.from(publicKey, "base64"),
     })
-  )
 }
 
 export interface SerializedRemoveParentU2fKeyAction {
-  type: 'REMOVE_PARENT_U2F'
+  type: "REMOVE_PARENT_U2F"
   keyHandle: string
   publicKey: string
 }

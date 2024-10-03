@@ -15,14 +15,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Conflict, Unauthorized } from 'http-errors'
-import { Database } from '../../database'
-import { generateVersionId } from '../../util/token'
-import { WebsocketApi } from '../../websocket'
-import { requireMailAndLocaleByAuthToken } from '../authentication'
-import { notifyClientsAboutChangesDelayed } from '../websocket'
+import { Conflict, Unauthorized } from "http-errors"
+import { Database } from "../../database"
+import { generateVersionId } from "../../util/token"
+import { WebsocketApi } from "../../websocket"
+import { requireMailAndLocaleByAuthToken } from "../authentication"
+import { notifyClientsAboutChangesDelayed } from "../websocket"
 
-export const linkMailAddress = async ({ mailAuthToken, deviceAuthToken, parentUserId, parentPasswordSecondHash, database, websocket }: {
+export const linkMailAddress = async ({
+  mailAuthToken,
+  deviceAuthToken,
+  parentUserId,
+  parentPasswordSecondHash,
+  database,
+  websocket,
+}: {
   mailAuthToken: string
   deviceAuthToken: string
   parentUserId: string
@@ -34,9 +41,9 @@ export const linkMailAddress = async ({ mailAuthToken, deviceAuthToken, parentUs
   await database.transaction(async (transaction) => {
     const deviceEntry = await database.device.findOne({
       where: {
-        deviceAuthToken
+        deviceAuthToken,
       },
-      transaction
+      transaction,
     })
 
     if (!deviceEntry) {
@@ -45,13 +52,18 @@ export const linkMailAddress = async ({ mailAuthToken, deviceAuthToken, parentUs
 
     const familyId = deviceEntry.familyId
 
-    const mailInfo = await requireMailAndLocaleByAuthToken({ mailAuthToken, database, transaction, invalidate: true })
+    const mailInfo = await requireMailAndLocaleByAuthToken({
+      mailAuthToken,
+      database,
+      transaction,
+      invalidate: true,
+    })
 
     const exisitingUser = await database.user.findOne({
       where: {
-        mail: mailInfo.mail
+        mail: mailInfo.mail,
       },
-      transaction
+      transaction,
     })
 
     if (exisitingUser) {
@@ -60,18 +72,18 @@ export const linkMailAddress = async ({ mailAuthToken, deviceAuthToken, parentUs
 
     const parentEntry = await database.user.findOne({
       where: {
-        type: 'parent',
+        type: "parent",
         familyId,
-        userId: parentUserId
+        userId: parentUserId,
       },
-      transaction
+      transaction,
     })
 
     if (!parentEntry) {
       throw new Conflict()
     }
 
-    if (parentEntry.mail !== '') {
+    if (parentEntry.mail !== "") {
       throw new Conflict()
     }
 
@@ -88,14 +100,17 @@ export const linkMailAddress = async ({ mailAuthToken, deviceAuthToken, parentUs
     await parentEntry.save({ transaction })
 
     // invalidiate client caches
-    await database.family.update({
-      userListVersion: generateVersionId()
-    }, {
-      where: {
-        familyId
+    await database.family.update(
+      {
+        userListVersion: generateVersionId(),
       },
-      transaction
-    })
+      {
+        where: {
+          familyId,
+        },
+        transaction,
+      },
+    )
 
     // notify
     await notifyClientsAboutChangesDelayed({
@@ -105,7 +120,7 @@ export const linkMailAddress = async ({ mailAuthToken, deviceAuthToken, parentUs
       targetedLevels: new Map(),
       database,
       websocket,
-      transaction
+      transaction,
     })
   })
 }

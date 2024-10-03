@@ -15,13 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { randomInt } from 'crypto'
-import { ValidationException } from '../exception'
+import { randomInt } from "crypto"
+import { ValidationException } from "../exception"
 
-const defaultAlphabet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+const defaultAlphabet =
+  "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 function randomString(chars: string, length: number) {
-  let result = ''
+  let result = ""
 
   for (let i = 0; i < length; i++) {
     result += chars[randomInt(chars.length)]
@@ -34,20 +35,26 @@ function randomString(chars: string, length: number) {
 
 export const generateAuthToken = randomString.bind(null, defaultAlphabet, 32)
 
-export const generateIdWithinFamily = randomString.bind(null, defaultAlphabet, 6)
-export const isIdWithinFamily = (id: string) => id.length === 6 && /^[a-zA-Z0-9]+$/.test(id)
+export const generateIdWithinFamily = randomString.bind(
+  null,
+  defaultAlphabet,
+  6,
+)
+export const isIdWithinFamily = (id: string) =>
+  id.length === 6 && /^[a-zA-Z0-9]+$/.test(id)
 export const assertIdWithinFamily = (id: string) => {
   if (!isIdWithinFamily(id)) {
     throw new ValidationException({
-      staticMessage: 'invalid id within family',
-      dynamicMessage: 'invalid id within family: ' + id
+      staticMessage: "invalid id within family",
+      dynamicMessage: "invalid id within family: " + id,
     })
   }
 }
 
 export const generateVersionId = randomString.bind(null, defaultAlphabet, 4)
 
-export const isVersionId = (id: string) => id.length === 4 && /^[a-zA-Z0-9]+$/.test(id)
+export const isVersionId = (id: string) =>
+  id.length === 4 && /^[a-zA-Z0-9]+$/.test(id)
 
 export const generateFamilyId = randomString.bind(null, defaultAlphabet, 10)
 export const generatePurchaseId = randomString.bind(null, defaultAlphabet, 10)

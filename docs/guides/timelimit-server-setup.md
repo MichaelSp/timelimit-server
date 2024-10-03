@@ -7,8 +7,8 @@ There is a shell script for doing a mostly automated installation at <https://co
 ## Usage
 
 - download it (using wget or a webbrowser)
-- make it executable (``chmod +x timelimit-server-setup.sh``)
-- run it (``sudo ./timelimit-server-setup.sh``)
+- make it executable (`chmod +x timelimit-server-setup.sh`)
+- run it (`sudo ./timelimit-server-setup.sh`)
 - answer the questions
 
 ## Requirements
@@ -24,4 +24,4 @@ There is a shell script for doing a mostly automated installation at <https://co
 - postgresql (connected to timelimit-server using a unix socket)
 - nginx (connected to timelimit-server using a unix socket)
 - certbot (to get valid certificates)
-- a few helper commands with the ``timelimit-`` prefix
+- a few helper commands with the `timelimit-` prefix

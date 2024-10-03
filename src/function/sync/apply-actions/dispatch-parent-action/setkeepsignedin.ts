@@ -15,13 +15,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SetKeepSignedInAction } from '../../../../action'
-import { Cache } from '../cache'
-import { SourceUserNotFoundException } from '../exception/illegal-state'
-import { ApplyActionException } from '../exception/index'
-import { MissingDeviceException } from '../exception/missing-item'
+import { SetKeepSignedInAction } from "../../../../action"
+import { Cache } from "../cache"
+import { SourceUserNotFoundException } from "../exception/illegal-state"
+import { ApplyActionException } from "../exception/index"
+import { MissingDeviceException } from "../exception/missing-item"
 
-export async function dispatchSetKeepSignedIn ({ action, cache, parentUserId }: {
+export async function dispatchSetKeepSignedIn({
+  action,
+  cache,
+  parentUserId,
+}: {
   action: SetKeepSignedInAction
   cache: Cache
   parentUserId: string
@@ -35,9 +39,9 @@ export async function dispatchSetKeepSignedIn ({ action, cache, parentUserId }: 
   const deviceEntry = await cache.database.device.findOne({
     where: {
       familyId: cache.familyId,
-      deviceId: action.deviceId
+      deviceId: action.deviceId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!deviceEntry) {
@@ -46,20 +50,26 @@ export async function dispatchSetKeepSignedIn ({ action, cache, parentUserId }: 
 
   if (deviceEntry.currentUserId !== parentUserId) {
     if (action.keepSignedIn) {
-      throw new ApplyActionException({ staticMessage: 'only the user itself can disable asking for the password' })
+      throw new ApplyActionException({
+        staticMessage:
+          "only the user itself can disable asking for the password",
+      })
     }
   }
 
-  const [affectedRows] = await cache.database.device.update({
-    isUserKeptSignedIn: action.keepSignedIn
-  }, {
-    where: {
-      familyId: cache.familyId,
-      deviceId: action.deviceId,
-      currentUserId: deviceEntry.currentUserId
+  const [affectedRows] = await cache.database.device.update(
+    {
+      isUserKeptSignedIn: action.keepSignedIn,
     },
-    transaction: cache.transaction
-  })
+    {
+      where: {
+        familyId: cache.familyId,
+        deviceId: action.deviceId,
+        currentUserId: deviceEntry.currentUserId,
+      },
+      transaction: cache.transaction,
+    },
+  )
 
   if (affectedRows !== 0) {
     cache.invalidiateDeviceList = true

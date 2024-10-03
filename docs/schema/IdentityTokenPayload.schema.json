@@ -19,13 +19,7 @@
       "type": "number"
     }
   },
-  "required": [
-    "exp",
-    "familyId",
-    "mail",
-    "purpose",
-    "userId"
-  ],
+  "required": ["exp", "familyId", "mail", "purpose", "userId"],
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "IdentityTokenPayload",
   "$id": "https://timelimit.io/IdentityTokenPayload"

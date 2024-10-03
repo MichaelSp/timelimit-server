@@ -15,14 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { createDecipheriv } from 'crypto'
-import * as Sequelize from 'sequelize'
-import { Database } from '../../database'
-import { isVersionId } from '../../util/token'
-import { getSharedSecret, SharedSecretException } from './shared-secret'
+import { createDecipheriv } from "crypto"
+import * as Sequelize from "sequelize"
+import { Database } from "../../database"
+import { isVersionId } from "../../util/token"
+import { getSharedSecret, SharedSecretException } from "./shared-secret"
 
 export async function decrypt({
-  database, transaction, familyId, deviceId, encryptedData, authData
+  database,
+  transaction,
+  familyId,
+  deviceId,
+  encryptedData,
+  authData,
 }: {
   database: Database
   transaction: Sequelize.Transaction
@@ -31,17 +36,20 @@ export async function decrypt({
   encryptedData: string
   authData: Buffer
 }) {
-  const parts = encryptedData.split('.')
+  const parts = encryptedData.split(".")
 
-  if (parts.length !== 3) throw new MalformedDataDecryptException('expected three parts')
+  if (parts.length !== 3)
+    throw new MalformedDataDecryptException("expected three parts")
 
-  const ivAndEncrypted = Buffer.from(parts[0], 'base64')
-  const otherPublicKey = Buffer.from(parts[1], 'base64')
+  const ivAndEncrypted = Buffer.from(parts[0], "base64")
+  const otherPublicKey = Buffer.from(parts[1], "base64")
   const keyId = parts[2]
 
-  if (ivAndEncrypted.length < 12 + 16) throw new MalformedDataDecryptException('too short for iv and auth tag')
+  if (ivAndEncrypted.length < 12 + 16)
+    throw new MalformedDataDecryptException("too short for iv and auth tag")
 
-  if (!isVersionId(keyId)) throw new KeyNotFoundDecryptException('invalid key id')
+  if (!isVersionId(keyId))
+    throw new KeyNotFoundDecryptException("invalid key id")
 
   const sharedSecret = await (async () => {
     try {
@@ -51,25 +59,33 @@ export async function decrypt({
         familyId,
         deviceId,
         keyId,
-        otherPublicKey
+        otherPublicKey,
       })
     } catch (ex) {
-      if (ex instanceof SharedSecretException) throw new SharedSecretDecryptException(ex)
+      if (ex instanceof SharedSecretException)
+        throw new SharedSecretDecryptException(ex)
       throw ex
     }
   })()
 
   try {
-    const decipher = createDecipheriv('aes-128-gcm', sharedSecret.sharedSecret.slice(0, 16), ivAndEncrypted.slice(0, 12), {
-      authTagLength: 16
-    })
+    const decipher = createDecipheriv(
+      "aes-128-gcm",
+      sharedSecret.sharedSecret.slice(0, 16),
+      ivAndEncrypted.slice(0, 12),
+      {
+        authTagLength: 16,
+      },
+    )
 
-    decipher.setAuthTag(ivAndEncrypted.slice(ivAndEncrypted.length - 16, ivAndEncrypted.length))
+    decipher.setAuthTag(
+      ivAndEncrypted.slice(ivAndEncrypted.length - 16, ivAndEncrypted.length),
+    )
     decipher.setAAD(authData)
 
     const decryptedData = Buffer.concat([
       decipher.update(ivAndEncrypted.slice(12, ivAndEncrypted.length - 16)),
-      decipher.final()
+      decipher.final(),
     ])
 
     return decryptedData
@@ -79,7 +95,23 @@ export async function decrypt({
 }
 
 export class DecryptException extends Error {}
-class SharedSecretDecryptException extends DecryptException { constructor(cause: Error) { super(cause.message) } }
-class MalformedDataDecryptException extends DecryptException { constructor(message: string) { super('malformed data: ' + message) } }
-class MalformedAuthenticationException extends DecryptException { constructor() { super('authentication data') } }
-class KeyNotFoundDecryptException extends DecryptException { constructor(message: string) { super('key not found: ' + message) } }
+class SharedSecretDecryptException extends DecryptException {
+  constructor(cause: Error) {
+    super(cause.message)
+  }
+}
+class MalformedDataDecryptException extends DecryptException {
+  constructor(message: string) {
+    super("malformed data: " + message)
+  }
+}
+class MalformedAuthenticationException extends DecryptException {
+  constructor() {
+    super("authentication data")
+  }
+}
+class KeyNotFoundDecryptException extends DecryptException {
+  constructor(message: string) {
+    super("key not found: " + message)
+  }
+}

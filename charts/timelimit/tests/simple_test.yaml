@@ -1,15 +1,16 @@
 suite: email Test Suite
 templates:
-- deployment.yaml
+  - deployment.yaml
 chart:
   version: 0.2.8
+  appVersion: 1.17.1
 tests:
-- it: Matches the snapshot
-  asserts:
-  - matchSnapshot: { }
-- it: Supports DB_DRIVER
-  set:
-    mariadb:
-      enabled: true
-  asserts:
-  - matchSnapshot: { }
+  - it: Matches the snapshot
+    asserts:
+      - matchSnapshot: {}
+  - it: Supports DB_DRIVER
+    set:
+      mariadb:
+        enabled: true
+    asserts:
+      - matchSnapshot: {}

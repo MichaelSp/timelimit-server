@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { familyIdColumn, idWithinFamilyColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import { familyIdColumn, idWithinFamilyColumn } from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export const maxPreBlockDuration = 1000 * 60 * 60 * 24 // 1 day
 
@@ -31,34 +31,50 @@ export interface UserLimitLoginCategoryAttributesVersion2 {
   preBlockDuration: number
 }
 
-export type UserLimitLoginCategoryAttributes = UserLimitLoginCategoryAttributesVersion1 & UserLimitLoginCategoryAttributesVersion2
+export type UserLimitLoginCategoryAttributes =
+  UserLimitLoginCategoryAttributesVersion1 &
+    UserLimitLoginCategoryAttributesVersion2
 
-export type UserLimitLoginCategoryModel = Sequelize.Model<UserLimitLoginCategoryAttributes> & UserLimitLoginCategoryAttributes
+export type UserLimitLoginCategoryModel =
+  Sequelize.Model<UserLimitLoginCategoryAttributes> &
+    UserLimitLoginCategoryAttributes
 export type UserLimitLoginCategoryModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): UserLimitLoginCategoryModel;
+  new (
+    values?: object,
+    options?: Sequelize.BuildOptions,
+  ): UserLimitLoginCategoryModel
 }
 
-export const attributesVersion1: SequelizeAttributes<UserLimitLoginCategoryAttributesVersion1> = {
-  familyId: { ...familyIdColumn, primaryKey: true },
-  userId: { ...idWithinFamilyColumn, primaryKey: true },
-  categoryId: { ...idWithinFamilyColumn }
-}
-
-export const attributesVersion2: SequelizeAttributes<UserLimitLoginCategoryAttributesVersion2> = {
-  preBlockDuration: {
-    type: Sequelize.INTEGER,
-    validate: {
-      min: 0,
-      max: maxPreBlockDuration
-    },
-    allowNull: false,
-    defaultValue: 0
+export const attributesVersion1: SequelizeAttributes<UserLimitLoginCategoryAttributesVersion1> =
+  {
+    familyId: { ...familyIdColumn, primaryKey: true },
+    userId: { ...idWithinFamilyColumn, primaryKey: true },
+    categoryId: { ...idWithinFamilyColumn },
   }
-}
 
-export const attributes: SequelizeAttributes<UserLimitLoginCategoryAttributes> = {
-  ...attributesVersion1,
-  ...attributesVersion2
-}
+export const attributesVersion2: SequelizeAttributes<UserLimitLoginCategoryAttributesVersion2> =
+  {
+    preBlockDuration: {
+      type: Sequelize.INTEGER,
+      validate: {
+        min: 0,
+        max: maxPreBlockDuration,
+      },
+      allowNull: false,
+      defaultValue: 0,
+    },
+  }
 
-export const createUserLimitLoginCategoryModel = (sequelize: Sequelize.Sequelize): UserLimitLoginCategoryModelStatic => sequelize.define('UserLimitLoginCategory', attributes) as UserLimitLoginCategoryModelStatic
+export const attributes: SequelizeAttributes<UserLimitLoginCategoryAttributes> =
+  {
+    ...attributesVersion1,
+    ...attributesVersion2,
+  }
+
+export const createUserLimitLoginCategoryModel = (
+  sequelize: Sequelize.Sequelize,
+): UserLimitLoginCategoryModelStatic =>
+  sequelize.define(
+    "UserLimitLoginCategory",
+    attributes,
+  ) as UserLimitLoginCategoryModelStatic

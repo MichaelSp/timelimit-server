@@ -47,11 +47,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "hash",
-        "secondHash",
-        "secondSalt"
-      ],
+      "required": ["hash", "secondHash", "secondSalt"],
       "title": "PlaintextParentPassword"
     },
     "NewDeviceInfo": {
@@ -62,9 +58,7 @@
         }
       },
       "additionalProperties": false,
-      "required": [
-        "model"
-      ],
+      "required": ["model"],
       "title": "NewDeviceInfo"
     }
   },

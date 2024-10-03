@@ -15,11 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SetRelaxPrimaryDeviceAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingUserException } from '../exception/missing-item'
+import { SetRelaxPrimaryDeviceAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingUserException } from "../exception/missing-item"
 
-export async function dispatchSetRelaxPrimaryDevice ({ action, cache }: {
+export async function dispatchSetRelaxPrimaryDevice({
+  action,
+  cache,
+}: {
   action: SetRelaxPrimaryDeviceAction
   cache: Cache
 }) {
@@ -28,24 +31,27 @@ export async function dispatchSetRelaxPrimaryDevice ({ action, cache }: {
     where: {
       familyId: cache.familyId,
       userId: action.userId,
-      type: 'child'
-    }
+      type: "child",
+    },
   })
 
   if (!oldUser) {
     throw new MissingUserException()
   }
 
-  await cache.database.user.update({
-    relaxPrimaryDeviceRule: action.relax
-  }, {
-    transaction: cache.transaction,
-    where: {
-      familyId: cache.familyId,
-      userId: action.userId,
-      type: 'child'
-    }
-  })
+  await cache.database.user.update(
+    {
+      relaxPrimaryDeviceRule: action.relax,
+    },
+    {
+      transaction: cache.transaction,
+      where: {
+        familyId: cache.familyId,
+        userId: action.userId,
+        type: "child",
+      },
+    },
+  )
 
   cache.invalidiateUserList = true
   cache.incrementTriggeredSyncLevel(2)

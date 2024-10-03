@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { familyIdColumn, idWithinFamilyColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import { familyIdColumn, idWithinFamilyColumn } from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export interface CategoryNetworkIdAttributes {
   familyId: string
@@ -26,9 +26,13 @@ export interface CategoryNetworkIdAttributes {
   hashedNetworkId: string
 }
 
-export type CategoryNetworkIdModel = Sequelize.Model<CategoryNetworkIdAttributes> & CategoryNetworkIdAttributes
+export type CategoryNetworkIdModel =
+  Sequelize.Model<CategoryNetworkIdAttributes> & CategoryNetworkIdAttributes
 export type CategoryNetworkIdModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): CategoryNetworkIdModel;
+  new (
+    values?: object,
+    options?: Sequelize.BuildOptions,
+  ): CategoryNetworkIdModel
 }
 
 export const anonymizedNetworkIdLength = 8
@@ -37,24 +41,30 @@ export const maxNetworkIdsPerCategory = 8
 export const attributes: SequelizeAttributes<CategoryNetworkIdAttributes> = {
   familyId: {
     ...familyIdColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   categoryId: {
     ...idWithinFamilyColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   networkItemId: {
     ...idWithinFamilyColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   hashedNetworkId: {
     type: Sequelize.STRING(anonymizedNetworkIdLength),
     allowNull: false,
     validate: {
       notEmpty: true,
-      is: /^([0-9a-f]{8})?$/
-    }
-  }
+      is: /^([0-9a-f]{8})?$/,
+    },
+  },
 }
 
-export const createCategoryNetworkIdModel = (sequelize: Sequelize.Sequelize): CategoryNetworkIdModelStatic => sequelize.define('CategoryNetworkId', attributes) as CategoryNetworkIdModelStatic
+export const createCategoryNetworkIdModel = (
+  sequelize: Sequelize.Sequelize,
+): CategoryNetworkIdModelStatic =>
+  sequelize.define(
+    "CategoryNetworkId",
+    attributes,
+  ) as CategoryNetworkIdModelStatic

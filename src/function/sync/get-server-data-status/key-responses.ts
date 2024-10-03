@@ -15,12 +15,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { Database } from '../../../database'
-import { ServerKeyResponse } from '../../../object/serverdatastatus'
-import { FamilyEntry } from './family-entry'
+import * as Sequelize from "sequelize"
+import { Database } from "../../../database"
+import { ServerKeyResponse } from "../../../object/serverdatastatus"
+import { FamilyEntry } from "./family-entry"
 
-export async function getKeyResponses ({ database, transaction, familyEntry, lastSeenRequestIndex, deviceId }: {
+export async function getKeyResponses({
+  database,
+  transaction,
+  familyEntry,
+  lastSeenRequestIndex,
+  deviceId,
+}: {
   database: Database
   transaction: Sequelize.Transaction
   familyEntry: FamilyEntry
@@ -33,10 +39,10 @@ export async function getKeyResponses ({ database, transaction, familyEntry, las
         familyId: familyEntry.familyId,
         receiverDeviceId: deviceId,
         replyServerSequenceNumber: {
-          [Sequelize.Op.lte]: lastSeenRequestIndex.toString(10)
-        }
+          [Sequelize.Op.lte]: lastSeenRequestIndex.toString(10),
+        },
       },
-      transaction
+      transaction,
     })
   }
 
@@ -45,9 +51,9 @@ export async function getKeyResponses ({ database, transaction, familyEntry, las
       familyId: familyEntry.familyId,
       receiverDeviceId: deviceId,
     },
-    order: [['replyServerSequenceNumber', 'ASC']],
+    order: [["replyServerSequenceNumber", "ASC"]],
     transaction,
-    limit: 32
+    limit: 32,
   })
 
   if (data.length === 0) return null
@@ -56,8 +62,8 @@ export async function getKeyResponses ({ database, transaction, familyEntry, las
     srvSeq: parseInt(item.replyServerSequenceNumber),
     sender: item.senderDeviceId,
     rqSeq: parseInt(item.requestClientSequenceNumber),
-    tempKey: item.tempKey.toString('base64'),
-    cryptKey: item.encryptedKey.toString('base64'),
-    signature: item.signature.toString('base64')
+    tempKey: item.tempKey.toString("base64"),
+    cryptKey: item.encryptedKey.toString("base64"),
+    signature: item.signature.toString("base64"),
   }))
 }

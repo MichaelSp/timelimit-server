@@ -15,24 +15,31 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { createHash } from 'crypto'
-import * as Sequelize from 'sequelize'
-import { intToBuffer } from '../util/binary-number'
-import { familyIdColumn, idWithinFamilyColumn, timestampColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import { createHash } from "crypto"
+import * as Sequelize from "sequelize"
+import { intToBuffer } from "../util/binary-number"
+import {
+  familyIdColumn,
+  idWithinFamilyColumn,
+  timestampColumn,
+} from "./columns"
+import { SequelizeAttributes } from "./types"
 
-export function getU2fKeyId({ keyHandle, publicKey }: {
+export function getU2fKeyId({
+  keyHandle,
+  publicKey,
+}: {
   keyHandle: Buffer
   publicKey: Buffer
 }) {
-  return createHash('sha256')
+  return createHash("sha256")
     .update(intToBuffer(keyHandle.length))
     .update(keyHandle)
     .update(intToBuffer(publicKey.length))
     .update(publicKey)
     .digest()
     .slice(0, 6)
-    .toString('base64')
+    .toString("base64")
 }
 
 export interface U2fKeyAttributes {
@@ -47,36 +54,39 @@ export interface U2fKeyAttributes {
 
 export type U2fKeyModel = Sequelize.Model<U2fKeyAttributes> & U2fKeyAttributes
 export type U2fKeyModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): U2fKeyModel;
+  new (values?: object, options?: Sequelize.BuildOptions): U2fKeyModel
 }
 
 export const attributes: SequelizeAttributes<U2fKeyAttributes> = {
   familyId: {
     ...familyIdColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   keyId: {
     type: Sequelize.STRING(8),
-    primaryKey: true
+    primaryKey: true,
   },
   userId: {
-    ...idWithinFamilyColumn
+    ...idWithinFamilyColumn,
   },
   addedAt: {
-    ...timestampColumn
+    ...timestampColumn,
   },
   keyHandle: {
     type: Sequelize.BLOB,
-    allowNull: false
+    allowNull: false,
   },
   publicKey: {
     type: Sequelize.BLOB,
-    allowNull: false
+    allowNull: false,
   },
   nextCounter: {
     type: Sequelize.BIGINT,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 }
 
-export const createU2fKeyModel = (sequelize: Sequelize.Sequelize): U2fKeyModelStatic => sequelize.define('U2fKey', attributes) as U2fKeyModelStatic
+export const createU2fKeyModel = (
+  sequelize: Sequelize.Sequelize,
+): U2fKeyModelStatic =>
+  sequelize.define("U2fKey", attributes) as U2fKeyModelStatic

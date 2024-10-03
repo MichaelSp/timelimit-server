@@ -15,23 +15,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AddCategoryNetworkIdAction } from '../../../../action'
-import { maxNetworkIdsPerCategory } from '../../../../database/categorynetworkid'
-import { Cache } from '../cache'
-import { ApplyActionException } from '../exception/index'
-import { MissingCategoryException } from '../exception/missing-item'
+import { AddCategoryNetworkIdAction } from "../../../../action"
+import { maxNetworkIdsPerCategory } from "../../../../database/categorynetworkid"
+import { Cache } from "../cache"
+import { ApplyActionException } from "../exception/index"
+import { MissingCategoryException } from "../exception/missing-item"
 
-export async function dispatchAddCategoryNetworkId ({ action, cache }: {
+export async function dispatchAddCategoryNetworkId({
+  action,
+  cache,
+}: {
   action: AddCategoryNetworkIdAction
   cache: Cache
 }) {
   const categoryEntryUnsafe = await cache.database.category.findOne({
     where: {
       familyId: cache.familyId,
-      categoryId: action.categoryId
+      categoryId: action.categoryId,
     },
     transaction: cache.transaction,
-    attributes: ['childId']
+    attributes: ["childId"],
   })
 
   if (!categoryEntryUnsafe) {
@@ -41,38 +44,44 @@ export async function dispatchAddCategoryNetworkId ({ action, cache }: {
   const count = await cache.database.categoryNetworkId.count({
     where: {
       familyId: cache.familyId,
-      categoryId: action.categoryId
+      categoryId: action.categoryId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (count + 1 > maxNetworkIdsPerCategory) {
     throw new ApplyActionException({
-      staticMessage: 'can not add a category network id because the category network limit reached'
+      staticMessage:
+        "can not add a category network id because the category network limit reached",
     })
   }
 
-  const hasOldItem = (await cache.database.categoryNetworkId.count({
-    where: {
-      familyId: cache.familyId,
-      categoryId: action.categoryId,
-      networkItemId: action.itemId
-    },
-    transaction: cache.transaction
-  })) !== 0
+  const hasOldItem =
+    (await cache.database.categoryNetworkId.count({
+      where: {
+        familyId: cache.familyId,
+        categoryId: action.categoryId,
+        networkItemId: action.itemId,
+      },
+      transaction: cache.transaction,
+    })) !== 0
 
   if (hasOldItem) {
     throw new ApplyActionException({
-      staticMessage: 'can not add a category network id because the id is already used'
+      staticMessage:
+        "can not add a category network id because the id is already used",
     })
   }
 
-  await cache.database.categoryNetworkId.create({
-    familyId: cache.familyId,
-    categoryId: action.categoryId,
-    networkItemId: action.itemId,
-    hashedNetworkId: action.hashedNetworkId
-  }, { transaction: cache.transaction })
+  await cache.database.categoryNetworkId.create(
+    {
+      familyId: cache.familyId,
+      categoryId: action.categoryId,
+      networkItemId: action.itemId,
+      hashedNetworkId: action.hashedNetworkId,
+    },
+    { transaction: cache.transaction },
+  )
 
   cache.categoriesWithModifiedBaseData.add(action.categoryId)
   cache.incrementTriggeredSyncLevel(2)

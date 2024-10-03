@@ -15,11 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const { startPostgres } = require('./postgres.js')
-const { startMariadb } = require('./mariadb.js')
-const { startSqlite } = require('./sqlite.js')
+const { startPostgres } = require("./postgres.js")
+const { startMariadb } = require("./mariadb.js")
+const { startSqlite } = require("./sqlite.js")
 
 module.exports = {
   startPostgres,
-  databaseLaunchers: [ startMariadb, startPostgres, startSqlite ]
+  databaseLaunchers: [startMariadb, startPostgres, startSqlite],
 }

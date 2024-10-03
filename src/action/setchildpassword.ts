@@ -15,24 +15,35 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { assertParentPasswordValid, EncryptableParentPassword, ParentPasswordValidationException } from '../api/schema'
-import { ParentAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
-import { assertIdWithinFamily } from './meta/util'
+import {
+  assertParentPasswordValid,
+  EncryptableParentPassword,
+  ParentPasswordValidationException,
+} from "../api/schema"
+import { ParentAction } from "./basetypes"
+import { InvalidActionParameterException } from "./meta/exception"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'SetChildPasswordAction'
+const actionType = "SetChildPasswordAction"
 
 export class SetChildPasswordAction extends ParentAction {
   readonly childUserId: string
   readonly newPassword: EncryptableParentPassword
 
-  constructor ({ childUserId, newPassword }: {
+  constructor({
+    childUserId,
+    newPassword,
+  }: {
     childUserId: string
     newPassword: EncryptableParentPassword
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'childUserId', value: childUserId })
+    assertIdWithinFamily({
+      actionType,
+      field: "childUserId",
+      value: childUserId,
+    })
 
     try {
       assertParentPasswordValid(newPassword)
@@ -40,7 +51,7 @@ export class SetChildPasswordAction extends ParentAction {
       if (ex instanceof ParentPasswordValidationException) {
         throw new InvalidActionParameterException({
           actionType,
-          staticMessage: 'invalid parent password'
+          staticMessage: "invalid parent password",
         })
       } else throw ex
     }
@@ -49,16 +60,15 @@ export class SetChildPasswordAction extends ParentAction {
     this.newPassword = newPassword
   }
 
-  static parse = ({ childId, newPassword }: SerializedSetChildPasswordAction) => (
+  static parse = ({ childId, newPassword }: SerializedSetChildPasswordAction) =>
     new SetChildPasswordAction({
       childUserId: childId,
-      newPassword
+      newPassword,
     })
-  )
 }
 
 export interface SerializedSetChildPasswordAction {
-  type: 'SET_CHILD_PASSWORD'
+  type: "SET_CHILD_PASSWORD"
   childId: string
   newPassword: EncryptableParentPassword
 }

@@ -15,10 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateCategorySortingAction } from '../../../../action'
-import { Cache } from '../cache'
+import { UpdateCategorySortingAction } from "../../../../action"
+import { Cache } from "../cache"
 
-export async function dispatchUpdateCategorySorting ({ action, cache }: {
+export async function dispatchUpdateCategorySorting({
+  action,
+  cache,
+}: {
   action: UpdateCategorySortingAction
   cache: Cache
 }) {
@@ -30,15 +33,18 @@ export async function dispatchUpdateCategorySorting ({ action, cache }: {
   for (let i = 0; i < action.categoryIds.length; i++) {
     const categoryId = action.categoryIds[i]
 
-    await cache.database.category.update({
-      sort: i
-    }, {
-      transaction: cache.transaction,
-      where: {
-        familyId: cache.familyId,
-        categoryId
-      }
-    })
+    await cache.database.category.update(
+      {
+        sort: i,
+      },
+      {
+        transaction: cache.transaction,
+        where: {
+          familyId: cache.familyId,
+          categoryId,
+        },
+      },
+    )
 
     cache.categoriesWithModifiedBaseData.add(categoryId)
   }

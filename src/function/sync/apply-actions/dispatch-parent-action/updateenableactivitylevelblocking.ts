@@ -15,11 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateEnableActivityLevelBlockingAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingDeviceException } from '../exception/missing-item'
+import { UpdateEnableActivityLevelBlockingAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingDeviceException } from "../exception/missing-item"
 
-export async function dispatchUpdateEnableActivityLevelBlocking ({ action, cache }: {
+export async function dispatchUpdateEnableActivityLevelBlocking({
+  action,
+  cache,
+}: {
   action: UpdateEnableActivityLevelBlockingAction
   cache: Cache
 }) {
@@ -27,23 +30,26 @@ export async function dispatchUpdateEnableActivityLevelBlocking ({ action, cache
     transaction: cache.transaction,
     where: {
       familyId: cache.familyId,
-      deviceId: action.deviceId
-    }
+      deviceId: action.deviceId,
+    },
   })
 
   if (!oldDevice) {
     throw new MissingDeviceException()
   }
 
-  await cache.database.device.update({
-    activityLevelBlocking: action.enable
-  }, {
-    transaction: cache.transaction,
-    where: {
-      familyId: cache.familyId,
-      deviceId: action.deviceId
-    }
-  })
+  await cache.database.device.update(
+    {
+      activityLevelBlocking: action.enable,
+    },
+    {
+      transaction: cache.transaction,
+      where: {
+        familyId: cache.familyId,
+        deviceId: action.deviceId,
+      },
+    },
+  )
 
   cache.invalidiateDeviceList = true
   cache.incrementTriggeredSyncLevel(1)

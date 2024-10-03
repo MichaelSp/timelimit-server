@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { familyIdColumn, idWithinFamilyColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import { familyIdColumn, idWithinFamilyColumn } from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export interface CategoryAppAttributes {
   familyId: string
@@ -25,28 +25,32 @@ export interface CategoryAppAttributes {
   packageName: string
 }
 
-export type CategoryAppModel = Sequelize.Model<CategoryAppAttributes> & CategoryAppAttributes
+export type CategoryAppModel = Sequelize.Model<CategoryAppAttributes> &
+  CategoryAppAttributes
 export type CategoryAppModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): CategoryAppModel;
+  new (values?: object, options?: Sequelize.BuildOptions): CategoryAppModel
 }
 
 export const attributes: SequelizeAttributes<CategoryAppAttributes> = {
   familyId: {
     ...familyIdColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   categoryId: {
     ...idWithinFamilyColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   packageName: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
+      notEmpty: true,
     },
-    primaryKey: true
-  }
+    primaryKey: true,
+  },
 }
 
-export const createCategoryAppModel = (sequelize: Sequelize.Sequelize): CategoryAppModelStatic => sequelize.define('CategoryApp', attributes) as CategoryAppModelStatic
+export const createCategoryAppModel = (
+  sequelize: Sequelize.Sequelize,
+): CategoryAppModelStatic =>
+  sequelize.define("CategoryApp", attributes) as CategoryAppModelStatic

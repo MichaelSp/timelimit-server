@@ -15,28 +15,27 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'DeleteTimeLimitRuleAction'
+const actionType = "DeleteTimeLimitRuleAction"
 
 export class DeleteTimeLimitRuleAction extends ParentAction {
   readonly ruleId: string
 
-  constructor ({ ruleId }: {ruleId: string}) {
+  constructor({ ruleId }: { ruleId: string }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'ruleId', value: ruleId })
+    assertIdWithinFamily({ actionType, field: "ruleId", value: ruleId })
 
     this.ruleId = ruleId
   }
 
-  static parse = ({ ruleId }: SerializedDeleteTimeLimitRuleAction) => (
+  static parse = ({ ruleId }: SerializedDeleteTimeLimitRuleAction) =>
     new DeleteTimeLimitRuleAction({ ruleId })
-  )
 }
 
 export interface SerializedDeleteTimeLimitRuleAction {
-  type: 'DELETE_TIMELIMIT_RULE'
+  type: "DELETE_TIMELIMIT_RULE"
   ruleId: string
 }

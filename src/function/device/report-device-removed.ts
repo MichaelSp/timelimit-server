@@ -15,14 +15,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Unauthorized } from 'http-errors'
-import { Database } from '../../database'
-import { generateAuthToken, generateVersionId } from '../../util/token'
-import { WebsocketApi } from '../../websocket'
-import { sendUninstallWarnings } from '../warningmail/uninstall'
-import { notifyClientsAboutChangesDelayed } from '../websocket'
+import { Unauthorized } from "http-errors"
+import { Database } from "../../database"
+import { generateAuthToken, generateVersionId } from "../../util/token"
+import { WebsocketApi } from "../../websocket"
+import { sendUninstallWarnings } from "../warningmail/uninstall"
+import { notifyClientsAboutChangesDelayed } from "../websocket"
 
-export async function reportDeviceRemoved ({ database, deviceAuthToken, websocket }: {
+export async function reportDeviceRemoved({
+  database,
+  deviceAuthToken,
+  websocket,
+}: {
   database: Database
   deviceAuthToken: string
   websocket: WebsocketApi
@@ -31,9 +35,9 @@ export async function reportDeviceRemoved ({ database, deviceAuthToken, websocke
   await database.transaction(async (transaction) => {
     const deviceEntry = await database.device.findOne({
       where: {
-        deviceAuthToken
+        deviceAuthToken,
       },
-      transaction
+      transaction,
     })
 
     if (deviceEntry) {
@@ -44,21 +48,27 @@ export async function reportDeviceRemoved ({ database, deviceAuthToken, websocke
       await deviceEntry.save({ transaction })
 
       // invalidiate device list
-      await database.family.update({
-        deviceListVersion: generateVersionId()
-      }, {
-        where: {
-          familyId: deviceEntry.familyId
+      await database.family.update(
+        {
+          deviceListVersion: generateVersionId(),
         },
-        transaction
-      })
+        {
+          where: {
+            familyId: deviceEntry.familyId,
+          },
+          transaction,
+        },
+      )
 
       // add to old devices
-      await database.oldDevice.create({
-        deviceAuthToken: currentAuthToken
-      }, {
-        transaction
-      })
+      await database.oldDevice.create(
+        {
+          deviceAuthToken: currentAuthToken,
+        },
+        {
+          transaction,
+        },
+      )
 
       await notifyClientsAboutChangesDelayed({
         database,
@@ -67,25 +77,25 @@ export async function reportDeviceRemoved ({ database, deviceAuthToken, websocke
         sourceDeviceId: null,
         generalLevel: 1,
         targetedLevels: new Map(),
-        transaction
+        transaction,
       })
 
       await sendUninstallWarnings({
         database,
         familyId: deviceEntry.familyId,
         deviceName: deviceEntry.name,
-        transaction
+        transaction,
       })
     } else {
       const oldDeviceEntry = await database.oldDevice.findOne({
         where: {
-          deviceAuthToken
+          deviceAuthToken,
         },
-        transaction
+        transaction,
       })
 
       if (!oldDeviceEntry) {
-        throw new Unauthorized('device not found')
+        throw new Unauthorized("device not found")
       }
     }
   })

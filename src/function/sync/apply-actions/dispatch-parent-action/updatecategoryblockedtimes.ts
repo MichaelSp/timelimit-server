@@ -15,13 +15,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { blockedTimesBitmaskLength, UpdateCategoryBlockedTimesAction } from '../../../../action/updatecategoryblockedtimes'
-import { validateAndParseBitmask } from '../../../../util/bitmask'
-import { Cache } from '../cache'
-import { MissingCategoryException } from '../exception/missing-item'
-import { CanNotModifyOtherUsersBySelfLimitationException, SelfLimitationException } from '../exception/self-limit'
+import {
+  blockedTimesBitmaskLength,
+  UpdateCategoryBlockedTimesAction,
+} from "../../../../action/updatecategoryblockedtimes"
+import { validateAndParseBitmask } from "../../../../util/bitmask"
+import { Cache } from "../cache"
+import { MissingCategoryException } from "../exception/missing-item"
+import {
+  CanNotModifyOtherUsersBySelfLimitationException,
+  SelfLimitationException,
+} from "../exception/self-limit"
 
-export async function dispatchUpdateCategoryBlockedTimes ({ action, cache, fromChildSelfLimitAddChildUserId }: {
+export async function dispatchUpdateCategoryBlockedTimes({
+  action,
+  cache,
+  fromChildSelfLimitAddChildUserId,
+}: {
   action: UpdateCategoryBlockedTimesAction
   cache: Cache
   fromChildSelfLimitAddChildUserId: string | null
@@ -29,10 +39,10 @@ export async function dispatchUpdateCategoryBlockedTimes ({ action, cache, fromC
   const categoryEntryUnsafe = await cache.database.category.findOne({
     where: {
       familyId: cache.familyId,
-      categoryId: action.categoryId
+      categoryId: action.categoryId,
     },
     transaction: cache.transaction,
-    attributes: ['childId', 'blockedMinutesInWeek']
+    attributes: ["childId", "blockedMinutesInWeek"],
   })
 
   if (!categoryEntryUnsafe) {
@@ -41,7 +51,7 @@ export async function dispatchUpdateCategoryBlockedTimes ({ action, cache, fromC
 
   const categoryEntry = {
     childId: categoryEntryUnsafe.childId,
-    blockedMinutesInWeek: categoryEntryUnsafe.blockedMinutesInWeek
+    blockedMinutesInWeek: categoryEntryUnsafe.blockedMinutesInWeek,
   }
 
   if (fromChildSelfLimitAddChildUserId !== null) {
@@ -49,25 +59,36 @@ export async function dispatchUpdateCategoryBlockedTimes ({ action, cache, fromC
       throw new CanNotModifyOtherUsersBySelfLimitationException()
     }
 
-    const oldBlocked = validateAndParseBitmask(categoryEntry.blockedMinutesInWeek, blockedTimesBitmaskLength)
-    const newBlocked = validateAndParseBitmask(action.blockedTimes, blockedTimesBitmaskLength)
+    const oldBlocked = validateAndParseBitmask(
+      categoryEntry.blockedMinutesInWeek,
+      blockedTimesBitmaskLength,
+    )
+    const newBlocked = validateAndParseBitmask(
+      action.blockedTimes,
+      blockedTimesBitmaskLength,
+    )
 
     oldBlocked.forEach((value, index) => {
       if (value && !newBlocked[index]) {
-        throw new SelfLimitationException({ staticMessage: 'new blocked time areas are smaller' })
+        throw new SelfLimitationException({
+          staticMessage: "new blocked time areas are smaller",
+        })
       }
     })
   }
 
-  await cache.database.category.update({
-    blockedMinutesInWeek: action.blockedTimes
-  }, {
-    where: {
-      familyId: cache.familyId,
-      categoryId: action.categoryId
+  await cache.database.category.update(
+    {
+      blockedMinutesInWeek: action.blockedTimes,
     },
-    transaction: cache.transaction
-  })
+    {
+      where: {
+        familyId: cache.familyId,
+        categoryId: action.categoryId,
+      },
+      transaction: cache.transaction,
+    },
+  )
 
   cache.categoriesWithModifiedBaseData.add(action.categoryId)
   cache.incrementTriggeredSyncLevel(2)

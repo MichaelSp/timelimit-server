@@ -16,40 +16,45 @@
  */
 
 import {
-    AddInstalledAppsAction,
-    AddUsedTimeAction,
-    AddUsedTimeActionVersion2,
-    AppLogicAction,
-    FinishKeyRequestAction,
-    ForceSyncAction,
-    MarkTaskPendingAction,
-    RemoveInstalledAppsAction,
-    ReplyToKeyRequestAction,
-    SendKeyRequestAction,
-    SignOutAtDeviceAction,
-    TriedDisablingDeviceAdminAction,
-    UpdateAppActivitiesAction,
-    UpdateDeviceStatusAction,
-    UpdateInstalledAppsAction,
-    UploadDevicePublicKeyAction
-} from '../../../../action'
-import { EventHandler } from '../../../../monitoring/eventhandler'
-import { Cache } from '../cache'
-import { ActionObjectTypeNotHandledException } from '../exception/illegal-state'
-import { dispatchAddUsedTime } from './addusedtime'
-import { dispatchAddUsedTimeVersion2 } from './addusedtime2'
-import { dispatchFinishKeyRequestAction } from './finishkeyrequest'
-import { dispatchForceSyncAction } from './forcesync'
-import { dispatchMarkTaskPendingAction } from './marktaskpendingaction'
-import { dispatchReplyToKeyRequestAction } from './replytokeyrequest'
-import { dispatchSendKeyRequestAction } from './sendkeyrequest'
-import { dispatchSignOutAtDevice } from './signoutatdevice'
-import { dispatchTriedDisablingDeviceAdmin } from './trieddisablingdeviceadmin'
-import { dispatchUpdateDeviceStatus } from './updatedevicestatus'
-import { dispatchUpdateInstalledApps } from './updateinstalledapps'
-import { dispatchUploadDevicePublicKeyAction } from './uploaddevicepublickey'
+  AddInstalledAppsAction,
+  AddUsedTimeAction,
+  AddUsedTimeActionVersion2,
+  AppLogicAction,
+  FinishKeyRequestAction,
+  ForceSyncAction,
+  MarkTaskPendingAction,
+  RemoveInstalledAppsAction,
+  ReplyToKeyRequestAction,
+  SendKeyRequestAction,
+  SignOutAtDeviceAction,
+  TriedDisablingDeviceAdminAction,
+  UpdateAppActivitiesAction,
+  UpdateDeviceStatusAction,
+  UpdateInstalledAppsAction,
+  UploadDevicePublicKeyAction,
+} from "../../../../action"
+import { EventHandler } from "../../../../monitoring/eventhandler"
+import { Cache } from "../cache"
+import { ActionObjectTypeNotHandledException } from "../exception/illegal-state"
+import { dispatchAddUsedTime } from "./addusedtime"
+import { dispatchAddUsedTimeVersion2 } from "./addusedtime2"
+import { dispatchFinishKeyRequestAction } from "./finishkeyrequest"
+import { dispatchForceSyncAction } from "./forcesync"
+import { dispatchMarkTaskPendingAction } from "./marktaskpendingaction"
+import { dispatchReplyToKeyRequestAction } from "./replytokeyrequest"
+import { dispatchSendKeyRequestAction } from "./sendkeyrequest"
+import { dispatchSignOutAtDevice } from "./signoutatdevice"
+import { dispatchTriedDisablingDeviceAdmin } from "./trieddisablingdeviceadmin"
+import { dispatchUpdateDeviceStatus } from "./updatedevicestatus"
+import { dispatchUpdateInstalledApps } from "./updateinstalledapps"
+import { dispatchUploadDevicePublicKeyAction } from "./uploaddevicepublickey"
 
-export const dispatchAppLogicAction = async ({ action, deviceId, cache, eventHandler }: {
+export const dispatchAppLogicAction = async ({
+  action,
+  deviceId,
+  cache,
+  eventHandler,
+}: {
   action: AppLogicAction
   deviceId: string
   cache: Cache
@@ -60,7 +65,12 @@ export const dispatchAppLogicAction = async ({ action, deviceId, cache, eventHan
   } else if (action instanceof AddUsedTimeAction) {
     await dispatchAddUsedTime({ deviceId, action, cache })
   } else if (action instanceof AddUsedTimeActionVersion2) {
-    await dispatchAddUsedTimeVersion2({ deviceId, action, cache, eventHandler })
+    await dispatchAddUsedTimeVersion2({
+      deviceId,
+      action,
+      cache,
+      eventHandler,
+    })
   } else if (action instanceof FinishKeyRequestAction) {
     await dispatchFinishKeyRequestAction({ deviceId, action, cache })
   } else if (action instanceof ForceSyncAction) {
@@ -68,7 +78,12 @@ export const dispatchAppLogicAction = async ({ action, deviceId, cache, eventHan
   } else if (action instanceof MarkTaskPendingAction) {
     await dispatchMarkTaskPendingAction({ deviceId, action, cache })
   } else if (action instanceof ReplyToKeyRequestAction) {
-    await dispatchReplyToKeyRequestAction({ deviceId, action, cache, eventHandler })
+    await dispatchReplyToKeyRequestAction({
+      deviceId,
+      action,
+      cache,
+      eventHandler,
+    })
   } else if (action instanceof RemoveInstalledAppsAction) {
     // do nothing
   } else if (action instanceof SendKeyRequestAction) {
@@ -84,7 +99,12 @@ export const dispatchAppLogicAction = async ({ action, deviceId, cache, eventHan
   } else if (action instanceof UpdateInstalledAppsAction) {
     await dispatchUpdateInstalledApps({ deviceId, action, cache })
   } else if (action instanceof UploadDevicePublicKeyAction) {
-    await dispatchUploadDevicePublicKeyAction({ deviceId, action, cache, eventHandler })
+    await dispatchUploadDevicePublicKeyAction({
+      deviceId,
+      action,
+      cache,
+      eventHandler,
+    })
   } else {
     throw new ActionObjectTypeNotHandledException()
   }

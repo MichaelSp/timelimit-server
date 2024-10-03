@@ -15,59 +15,75 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Transaction } from 'sequelize'
-import { Migration } from '../../main'
+import { Transaction } from "sequelize"
+import { Migration } from "../../main"
 
-export const up: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    const dialect = context.getDialect()
-    const isMysql = dialect === 'mysql' || dialect === 'mariadb'
-    const isPosgresql = dialect === 'postgres'
+export const up: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      const dialect = context.getDialect()
+      const isMysql = dialect === "mysql" || dialect === "mariadb"
+      const isPosgresql = dialect === "postgres"
 
-    if (isMysql) {
-      await context.query(
-        'CREATE TABLE `DeviceDhKeys` ' +
-        '(`familyId` VARCHAR(10) NOT NULL,' +
-        '`deviceId` VARCHAR(6) NOT NULL,' +
-        '`version` VARCHAR(4) NOT NULL,' +
-        '`createdAt` BIGINT NOT NULL, ' +
-        '`expireAt` BIGINT NULL, ' +
-        '`publicKey` BLOB NOT NULL, ' +
-        '`privateKey` BLOB NOT NULL, ' +
-        'PRIMARY KEY (`familyId`, `deviceId`, `version`),' +
-        'FOREIGN KEY (`familyId`, `deviceId`) REFERENCES `Devices` (`familyId`, `deviceId`) ON UPDATE CASCADE ON DELETE CASCADE' +
-        ')',
-        { transaction }
-      )
-    } else {
-      await context.query(
-        'CREATE TABLE "DeviceDhKeys" ' +
-        '("familyId" VARCHAR(10) NOT NULL,' +
-        '"deviceId" VARCHAR(6) NOT NULL,' +
-        '"version" VARCHAR(4) NOT NULL,' +
-        '"createdAt" ' + (isPosgresql ? 'BIGINT' : 'LONG') + ' NOT NULL, ' +
-        '"expireAt" ' + (isPosgresql ? 'BIGINT' : 'LONG') + ' NULL, ' +
-        '"publicKey" ' + (isPosgresql ? 'BYTEA' : 'BLOB') + ' NOT NULL, ' +
-        '"privateKey" ' + (isPosgresql ? 'BYTEA' : 'BLOB') + ' NOT NULL, ' +
-        'PRIMARY KEY ("familyId", "deviceId", "version"),' +
-        'FOREIGN KEY ("familyId", "deviceId") REFERENCES "Devices" ("familyId", "deviceId") ON UPDATE CASCADE ON DELETE CASCADE' +
-        ')',
-        { transaction }
-      )
-    }
+      if (isMysql) {
+        await context.query(
+          "CREATE TABLE `DeviceDhKeys` " +
+            "(`familyId` VARCHAR(10) NOT NULL," +
+            "`deviceId` VARCHAR(6) NOT NULL," +
+            "`version` VARCHAR(4) NOT NULL," +
+            "`createdAt` BIGINT NOT NULL, " +
+            "`expireAt` BIGINT NULL, " +
+            "`publicKey` BLOB NOT NULL, " +
+            "`privateKey` BLOB NOT NULL, " +
+            "PRIMARY KEY (`familyId`, `deviceId`, `version`)," +
+            "FOREIGN KEY (`familyId`, `deviceId`) REFERENCES `Devices` (`familyId`, `deviceId`) ON UPDATE CASCADE ON DELETE CASCADE" +
+            ")",
+          { transaction },
+        )
+      } else {
+        await context.query(
+          'CREATE TABLE "DeviceDhKeys" ' +
+            '("familyId" VARCHAR(10) NOT NULL,' +
+            '"deviceId" VARCHAR(6) NOT NULL,' +
+            '"version" VARCHAR(4) NOT NULL,' +
+            '"createdAt" ' +
+            (isPosgresql ? "BIGINT" : "LONG") +
+            " NOT NULL, " +
+            '"expireAt" ' +
+            (isPosgresql ? "BIGINT" : "LONG") +
+            " NULL, " +
+            '"publicKey" ' +
+            (isPosgresql ? "BYTEA" : "BLOB") +
+            " NOT NULL, " +
+            '"privateKey" ' +
+            (isPosgresql ? "BYTEA" : "BLOB") +
+            " NOT NULL, " +
+            'PRIMARY KEY ("familyId", "deviceId", "version"),' +
+            'FOREIGN KEY ("familyId", "deviceId") REFERENCES "Devices" ("familyId", "deviceId") ON UPDATE CASCADE ON DELETE CASCADE' +
+            ")",
+          { transaction },
+        )
+      }
 
-    await queryInterface.addIndex('DeviceDhKeys', ['expireAt'], { transaction })
-  })
+      await queryInterface.addIndex("DeviceDhKeys", ["expireAt"], {
+        transaction,
+      })
+    },
+  )
 }
 
-export const down: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.dropTable('DeviceDhKeys', { transaction })
-  })
+export const down: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.dropTable("DeviceDhKeys", { transaction })
+    },
+  )
 }

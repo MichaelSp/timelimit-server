@@ -2,7 +2,7 @@ name: PR check
 
 on:
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
 jobs:
   build:
@@ -31,7 +31,7 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
+          python-version: "3.9"
           check-latest: true
       - uses: helm/chart-testing-action@v2.6.1
 
@@ -45,9 +45,9 @@ jobs:
       - name: install helm dependencies
         if: steps.list-changed.outputs.changed == 'true'
         run: |
-           helm dependency update charts/*
-           helm repo add bitnami https://charts.bitnami.com/bitnami
-           helm plugin install https://github.com/helm-unittest/helm-unittest.git
+          helm dependency update charts/*
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm plugin install https://github.com/helm-unittest/helm-unittest.git
 
       - name: Run chart-testing (lint)
         if: steps.list-changed.outputs.changed == 'true'

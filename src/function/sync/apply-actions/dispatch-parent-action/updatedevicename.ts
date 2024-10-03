@@ -15,35 +15,41 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateDeviceNameAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingDeviceException } from '../exception/missing-item'
+import { UpdateDeviceNameAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingDeviceException } from "../exception/missing-item"
 
-export async function dispatchUpdateDeviceName ({ action, cache }: {
+export async function dispatchUpdateDeviceName({
+  action,
+  cache,
+}: {
   action: UpdateDeviceNameAction
   cache: Cache
 }) {
   const oldDevice = await cache.database.device.findOne({
     where: {
       familyId: cache.familyId,
-      deviceId: action.deviceId
+      deviceId: action.deviceId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!oldDevice) {
     throw new MissingDeviceException()
   }
 
-  const [affectedRows] = await cache.database.device.update({
-    name: action.name
-  }, {
-    where: {
-      familyId: cache.familyId,
-      deviceId: action.deviceId
+  const [affectedRows] = await cache.database.device.update(
+    {
+      name: action.name,
     },
-    transaction: cache.transaction
-  })
+    {
+      where: {
+        familyId: cache.familyId,
+        deviceId: action.deviceId,
+      },
+      transaction: cache.transaction,
+    },
+  )
 
   if (affectedRows !== 0) {
     cache.invalidiateDeviceList = true

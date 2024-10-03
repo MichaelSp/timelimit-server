@@ -15,30 +15,37 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SignJWT, jwtVerify } from 'jose'
-import { IdentityTokenCreatePayload, IdentityTokenPayload } from '../api/schema'
-import { isIdentityTokenPayload } from '../api/validator'
-import { config } from '../config'
+import { SignJWT, jwtVerify } from "jose"
+import { IdentityTokenCreatePayload, IdentityTokenPayload } from "../api/schema"
+import { isIdentityTokenPayload } from "../api/validator"
+import { config } from "../config"
 
-export async function createIdentityToken({ purpose, familyId, userId, mail }: IdentityTokenCreatePayload) {
+export async function createIdentityToken({
+  purpose,
+  familyId,
+  userId,
+  mail,
+}: IdentityTokenCreatePayload) {
   const jwt = await new SignJWT({ purpose, familyId, userId, mail })
-    .setExpirationTime('7d')
-    .setProtectedHeader({ alg: 'HS512' })
+    .setExpirationTime("7d")
+    .setProtectedHeader({ alg: "HS512" })
     .sign(getSignSecret())
 
-  return Buffer.from(jwt, 'ascii')
-    .toString('base64')
+  return Buffer.from(jwt, "ascii")
+    .toString("base64")
     .split(/(.{32})/)
     .filter((item) => item.length > 0)
-    .join('\n')
+    .join("\n")
 }
 
-export async function verifyIdentitifyToken(token: string): Promise<IdentityTokenPayload> {
+export async function verifyIdentitifyToken(
+  token: string,
+): Promise<IdentityTokenPayload> {
   try {
     const { payload } = await jwtVerify(
-      Buffer.from(token, 'base64').toString('ascii'),
+      Buffer.from(token, "base64").toString("ascii"),
       getSignSecret(),
-      { algorithms: ['HS512'] }
+      { algorithms: ["HS512"] },
     )
 
     if (!isIdentityTokenPayload(payload)) throw new BadPayloadException()
@@ -52,12 +59,16 @@ export async function verifyIdentitifyToken(token: string): Promise<IdentityToke
 }
 
 function getSignSecret(): Buffer {
-  if (config.signSecret === '') throw new MissingSignSecretException()
+  if (config.signSecret === "") throw new MissingSignSecretException()
 
-  return Buffer.from(config.signSecret, 'utf8')
+  return Buffer.from(config.signSecret, "utf8")
 }
 
 export class MissingSignSecretException extends Error {}
 
 export class TokenValidationException extends Error {}
-class BadPayloadException extends TokenValidationException { constructor() { super('bad payload') } }
+class BadPayloadException extends TokenValidationException {
+  constructor() {
+    super("bad payload")
+  }
+}

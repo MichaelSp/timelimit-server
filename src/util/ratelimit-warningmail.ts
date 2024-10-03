@@ -15,18 +15,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { RateLimiterAbstract, RateLimiterMemory } from 'rate-limiter-flexible'
+import { RateLimiterAbstract, RateLimiterMemory } from "rate-limiter-flexible"
 
 const individualMailLimitMinute: RateLimiterAbstract = new RateLimiterMemory({
-  keyPrefix: 'timelimit:sendmail-warning:individual:minute',
+  keyPrefix: "timelimit:sendmail-warning:individual:minute",
   points: 2,
-  duration: 60  // 1 minute
+  duration: 60, // 1 minute
 })
 
 const individualMailLimitDay: RateLimiterAbstract = new RateLimiterMemory({
-  keyPrefix: 'timelimit:sendmail-warning:individual:day',
+  keyPrefix: "timelimit:sendmail-warning:individual:day",
   points: 20,
-  duration: 60 * 60 * 24  // 1 day
+  duration: 60 * 60 * 24, // 1 day
 })
 
 const checkIndividualMailSendLimit = async (receiver: string) => {

@@ -15,42 +15,38 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { InvalidActionParameterException } from "./meta/exception"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'UpdateDeviceNameAction'
+const actionType = "UpdateDeviceNameAction"
 
 export class UpdateDeviceNameAction extends ParentAction {
   readonly deviceId: string
   readonly name: string
 
-  constructor ({ deviceId, name }: {
-    deviceId: string
-    name: string
-  }) {
+  constructor({ deviceId, name }: { deviceId: string; name: string }) {
     super()
 
     this.deviceId = deviceId
     this.name = name
 
-    assertIdWithinFamily({ actionType, field: 'deviceId', value: deviceId })
+    assertIdWithinFamily({ actionType, field: "deviceId", value: deviceId })
 
     if (name.trim().length === 0) {
       throw new InvalidActionParameterException({
         actionType,
-        staticMessage: 'new device name must not be blank'
+        staticMessage: "new device name must not be blank",
       })
     }
   }
 
-  static parse = ({ deviceId, name }: SerializedUpdateDeviceNameAction) => (
+  static parse = ({ deviceId, name }: SerializedUpdateDeviceNameAction) =>
     new UpdateDeviceNameAction({ deviceId, name })
-  )
 }
 
 export interface SerializedUpdateDeviceNameAction {
-  type: 'UPDATE_DEVICE_NAME'
+  type: "UPDATE_DEVICE_NAME"
   deviceId: string
   name: string
 }

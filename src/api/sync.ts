@@ -15,25 +15,34 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { json } from 'body-parser'
-import { Router } from 'express'
-import { BadRequest, Unauthorized } from 'http-errors'
-import { VisibleConnectedDevicesManager } from '../connected-devices'
-import { Database } from '../database'
-import { reportDeviceRemoved } from '../function/device/report-device-removed'
-import { applyActionsFromDevice } from '../function/sync/apply-actions'
-import { generateServerDataStatus } from '../function/sync/get-server-data-status'
-import { EventHandler } from '../monitoring/eventhandler'
-import { WebsocketApi } from '../websocket'
-import { isClientPullChangesRequest, isClientPushChangesRequest, isRequestWithAuthToken } from './validator'
+import { json } from "body-parser"
+import { Router } from "express"
+import { BadRequest, Unauthorized } from "http-errors"
+import { VisibleConnectedDevicesManager } from "../connected-devices"
+import { Database } from "../database"
+import { reportDeviceRemoved } from "../function/device/report-device-removed"
+import { applyActionsFromDevice } from "../function/sync/apply-actions"
+import { generateServerDataStatus } from "../function/sync/get-server-data-status"
+import { EventHandler } from "../monitoring/eventhandler"
+import { WebsocketApi } from "../websocket"
+import {
+  isClientPullChangesRequest,
+  isClientPushChangesRequest,
+  isRequestWithAuthToken,
+} from "./validator"
 
 const getRoundedTimestampForLastConnectivity = () => {
   const now = Date.now()
 
-  return now - (now % (1000 * 60 * 60 * 12 /* 12 hours */))
+  return now - (now % (1000 * 60 * 60 * 12)) /* 12 hours */
 }
 
-export const createSyncRouter = ({ database, websocket, connectedDevicesManager, eventHandler }: {
+export const createSyncRouter = ({
+  database,
+  websocket,
+  connectedDevicesManager,
+  eventHandler,
+}: {
   database: Database
   websocket: WebsocketApi
   connectedDevicesManager: VisibleConnectedDevicesManager
@@ -41,46 +50,50 @@ export const createSyncRouter = ({ database, websocket, connectedDevicesManager,
 }) => {
   const router = Router()
 
-  router.post('/push-actions', json({
-    limit: '5120kb'
-  }), async (req, res, next) => {
-    try {
-      eventHandler.countEvent('pushChangesRequest')
+  router.post(
+    "/push-actions",
+    json({
+      limit: "5120kb",
+    }),
+    async (req, res, next) => {
+      try {
+        eventHandler.countEvent("pushChangesRequest")
 
-      if (!isClientPushChangesRequest(req.body)) {
-        eventHandler.countEvent('pushChangesRequest invalid')
+        if (!isClientPushChangesRequest(req.body)) {
+          eventHandler.countEvent("pushChangesRequest invalid")
 
-        throw new BadRequest()
+          throw new BadRequest()
+        }
+
+        const { shouldDoFullSync } = await applyActionsFromDevice({
+          request: req.body,
+          database,
+          websocket,
+          connectedDevicesManager,
+          eventHandler,
+        })
+
+        if (shouldDoFullSync) {
+          eventHandler.countEvent("pushChangesRequest shouldDoFullSync")
+        }
+
+        res.json({
+          shouldDoFullSync,
+        })
+      } catch (ex) {
+        next(ex)
       }
+    },
+  )
 
-      const { shouldDoFullSync } = await applyActionsFromDevice({
-        request: req.body,
-        database,
-        websocket,
-        connectedDevicesManager,
-        eventHandler
-      })
-
-      if (shouldDoFullSync) {
-        eventHandler.countEvent('pushChangesRequest shouldDoFullSync')
-      }
-
-      res.json({
-        shouldDoFullSync
-      })
-    } catch (ex) {
-      next(ex)
-    }
-  })
-
-  router.post('/pull-status', json(), async (req, res, next) => {
+  router.post("/pull-status", json(), async (req, res, next) => {
     try {
-      eventHandler.countEvent('pullStatusRequest')
+      eventHandler.countEvent("pullStatusRequest")
 
       const { body } = req
 
       if (!isClientPullChangesRequest(body)) {
-        eventHandler.countEvent('pullStatusRequest invalid')
+        eventHandler.countEvent("pullStatusRequest invalid")
 
         throw new BadRequest()
       }
@@ -88,10 +101,10 @@ export const createSyncRouter = ({ database, websocket, connectedDevicesManager,
       const serverStatus = await database.transaction(async (transaction) => {
         const deviceEntryUnsafe = await database.device.findOne({
           where: {
-            deviceAuthToken: body.deviceAuthToken
+            deviceAuthToken: body.deviceAuthToken,
           },
-          attributes: ['familyId', 'deviceId', 'lastConnectivity'],
-          transaction
+          attributes: ["familyId", "deviceId", "lastConnectivity"],
+          transaction,
         })
 
         if (!deviceEntryUnsafe) {
@@ -102,14 +115,17 @@ export const createSyncRouter = ({ database, websocket, connectedDevicesManager,
         const now = getRoundedTimestampForLastConnectivity()
 
         if (parseInt(lastConnectivity, 10) !== now) {
-          await database.device.update({
-            lastConnectivity: now.toString(10)
-          }, {
-            where: {
-              deviceAuthToken: body.deviceAuthToken
+          await database.device.update(
+            {
+              lastConnectivity: now.toString(10),
             },
-            transaction
-          })
+            {
+              where: {
+                deviceAuthToken: body.deviceAuthToken,
+              },
+              transaction,
+            },
+          )
         }
 
         return generateServerDataStatus({
@@ -118,21 +134,43 @@ export const createSyncRouter = ({ database, websocket, connectedDevicesManager,
           deviceId,
           clientStatus: body.status,
           transaction,
-          eventHandler
+          eventHandler,
         })
       })
 
-      if (serverStatus.devices) { eventHandler.countEvent('pullStatusRequest devices') }
-      if (serverStatus.apps) { eventHandler.countEvent('pullStatusRequest apps') }
-      if (serverStatus.categoryBase) { eventHandler.countEvent('pullStatusRequest categoryBase') }
-      if (serverStatus.categoryApp) { eventHandler.countEvent('pullStatusRequest categoryApp') }
-      if (serverStatus.usedTimes) { eventHandler.countEvent('pullStatusRequest usedTimes') }
-      if (serverStatus.rules) { eventHandler.countEvent('pullStatusRequest rules') }
-      if (serverStatus.users) { eventHandler.countEvent('pullStatusRequest users') }
-      if (serverStatus.krq) { eventHandler.countEvent('pullStatusRequest pendingKeyRequests') }
-      if (serverStatus.kr) { eventHandler.countEvent('pullStatusRequest keyResponses') }
-      if (serverStatus.dh) { eventHandler.countEvent('pullStatusRequest dh') }
-      if (serverStatus.u2f) { eventHandler.countEvent('pullStatusRequest u2f') }
+      if (serverStatus.devices) {
+        eventHandler.countEvent("pullStatusRequest devices")
+      }
+      if (serverStatus.apps) {
+        eventHandler.countEvent("pullStatusRequest apps")
+      }
+      if (serverStatus.categoryBase) {
+        eventHandler.countEvent("pullStatusRequest categoryBase")
+      }
+      if (serverStatus.categoryApp) {
+        eventHandler.countEvent("pullStatusRequest categoryApp")
+      }
+      if (serverStatus.usedTimes) {
+        eventHandler.countEvent("pullStatusRequest usedTimes")
+      }
+      if (serverStatus.rules) {
+        eventHandler.countEvent("pullStatusRequest rules")
+      }
+      if (serverStatus.users) {
+        eventHandler.countEvent("pullStatusRequest users")
+      }
+      if (serverStatus.krq) {
+        eventHandler.countEvent("pullStatusRequest pendingKeyRequests")
+      }
+      if (serverStatus.kr) {
+        eventHandler.countEvent("pullStatusRequest keyResponses")
+      }
+      if (serverStatus.dh) {
+        eventHandler.countEvent("pullStatusRequest dh")
+      }
+      if (serverStatus.u2f) {
+        eventHandler.countEvent("pullStatusRequest u2f")
+      }
 
       res.json(serverStatus)
     } catch (ex) {
@@ -140,7 +178,7 @@ export const createSyncRouter = ({ database, websocket, connectedDevicesManager,
     }
   })
 
-  router.post('/report-removed', json(), async (req, res, next) => {
+  router.post("/report-removed", json(), async (req, res, next) => {
     try {
       if (!isRequestWithAuthToken(req.body)) {
         throw new BadRequest()
@@ -149,7 +187,7 @@ export const createSyncRouter = ({ database, websocket, connectedDevicesManager,
       await reportDeviceRemoved({
         database,
         deviceAuthToken: req.body.deviceAuthToken,
-        websocket
+        websocket,
       })
 
       res.json({ ok: true })
@@ -158,25 +196,27 @@ export const createSyncRouter = ({ database, websocket, connectedDevicesManager,
     }
   })
 
-  router.post('/is-device-removed', json(), async (req, res, next) => {
+  router.post("/is-device-removed", json(), async (req, res, next) => {
     try {
       if (!isRequestWithAuthToken(req.body)) {
         throw new BadRequest()
       }
 
-      const isDeviceRemoved: boolean = await database.transaction(async (transaction) => {
-        const removedEntry = await database.oldDevice.findOne({
-          where: {
-            deviceAuthToken: req.body.deviceAuthToken
-          },
-          transaction
-        })
+      const isDeviceRemoved: boolean = await database.transaction(
+        async (transaction) => {
+          const removedEntry = await database.oldDevice.findOne({
+            where: {
+              deviceAuthToken: req.body.deviceAuthToken,
+            },
+            transaction,
+          })
 
-        return !!removedEntry
-      })
+          return !!removedEntry
+        },
+      )
 
       res.json({
-        isDeviceRemoved
+        isDeviceRemoved,
       })
     } catch (ex) {
       next(ex)

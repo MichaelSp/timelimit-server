@@ -15,14 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { maxPlatformLevel, maxPlatformTypeLength, minPlatformLevel, minPlatformTypeLength } from '../database/device'
-import { NewPermissionStatus } from '../model/newpermissionstatus'
-import { ProtectionLevel } from '../model/protectionlevel'
-import { RuntimePermissionStatus } from '../model/runtimepermissionstatus'
-import { AppLogicAction } from './basetypes'
-import { assertSafeInteger, throwOutOfRange } from './meta/util'
+import {
+  maxPlatformLevel,
+  maxPlatformTypeLength,
+  minPlatformLevel,
+  minPlatformTypeLength,
+} from "../database/device"
+import { NewPermissionStatus } from "../model/newpermissionstatus"
+import { ProtectionLevel } from "../model/protectionlevel"
+import { RuntimePermissionStatus } from "../model/runtimepermissionstatus"
+import { AppLogicAction } from "./basetypes"
+import { assertSafeInteger, throwOutOfRange } from "./meta/util"
 
-const actionType = 'UpdateDeviceStatusAction'
+const actionType = "UpdateDeviceStatusAction"
 
 export class UpdateDeviceStatusAction extends AppLogicAction {
   readonly newProtetionLevel?: ProtectionLevel
@@ -37,7 +42,7 @@ export class UpdateDeviceStatusAction extends AppLogicAction {
   readonly platformType?: string
   readonly platformLevel?: number
 
-  constructor ({
+  constructor({
     newProtetionLevel,
     newUsageStatsPermissionStatus,
     newNotificationAccessPermission,
@@ -48,7 +53,7 @@ export class UpdateDeviceStatusAction extends AppLogicAction {
     isQOrLaterNow,
     addedManipulationFlags,
     platformType,
-    platformLevel
+    platformLevel,
   }: {
     newProtetionLevel?: ProtectionLevel
     newUsageStatsPermissionStatus?: RuntimePermissionStatus
@@ -65,26 +70,56 @@ export class UpdateDeviceStatusAction extends AppLogicAction {
     super()
 
     if (newAppVersion !== undefined) {
-      assertSafeInteger({ actionType, field: 'newAppVersion', value: newAppVersion })
+      assertSafeInteger({
+        actionType,
+        field: "newAppVersion",
+        value: newAppVersion,
+      })
 
       if (newAppVersion < 0) {
-        throwOutOfRange({ actionType, field: 'newAppVersion', value: newAppVersion })
+        throwOutOfRange({
+          actionType,
+          field: "newAppVersion",
+          value: newAppVersion,
+        })
       }
     }
 
-    assertSafeInteger({ actionType, field: 'addedManipulationFlags', value: addedManipulationFlags })
+    assertSafeInteger({
+      actionType,
+      field: "addedManipulationFlags",
+      value: addedManipulationFlags,
+    })
 
     if (platformType !== undefined) {
-      if (platformType.length < minPlatformTypeLength || platformType.length > maxPlatformTypeLength) {
-        throwOutOfRange({ actionType, field: 'platformType.length', value: platformType.length })
+      if (
+        platformType.length < minPlatformTypeLength ||
+        platformType.length > maxPlatformTypeLength
+      ) {
+        throwOutOfRange({
+          actionType,
+          field: "platformType.length",
+          value: platformType.length,
+        })
       }
     }
 
     if (platformLevel !== undefined) {
-      assertSafeInteger({ actionType, field: 'platformLevel', value: platformLevel })
+      assertSafeInteger({
+        actionType,
+        field: "platformLevel",
+        value: platformLevel,
+      })
 
-      if (platformLevel < minPlatformLevel || platformLevel > maxPlatformLevel) {
-        throwOutOfRange({ actionType, field: 'platformLevel', value: platformLevel })
+      if (
+        platformLevel < minPlatformLevel ||
+        platformLevel > maxPlatformLevel
+      ) {
+        throwOutOfRange({
+          actionType,
+          field: "platformLevel",
+          value: platformLevel,
+        })
       }
     }
 
@@ -112,8 +147,8 @@ export class UpdateDeviceStatusAction extends AppLogicAction {
     isQOrLaterNow,
     addedManipulationFlags,
     platformType,
-    platformLevel
-  }: SerializedUpdateDeviceStatusAction) => (
+    platformLevel,
+  }: SerializedUpdateDeviceStatusAction) =>
     new UpdateDeviceStatusAction({
       newProtetionLevel: protectionLevel,
       newUsageStatsPermissionStatus: usageStats,
@@ -125,13 +160,12 @@ export class UpdateDeviceStatusAction extends AppLogicAction {
       isQOrLaterNow: !!isQOrLaterNow,
       addedManipulationFlags: addedManipulationFlags || 0,
       platformType: platformType,
-      platformLevel: platformLevel
+      platformLevel: platformLevel,
     })
-  )
 }
 
 export interface SerializedUpdateDeviceStatusAction {
-  type: 'UPDATE_DEVICE_STATUS'
+  type: "UPDATE_DEVICE_STATUS"
   protectionLevel?: ProtectionLevel
   usageStats?: RuntimePermissionStatus
   notificationAccess?: NewPermissionStatus

@@ -15,26 +15,34 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { BitmapValidationException, validateBitmask } from '../util/bitmask'
-import { ParentAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
-import { assertIdWithinFamily } from './meta/util'
+import { BitmapValidationException, validateBitmask } from "../util/bitmask"
+import { ParentAction } from "./basetypes"
+import { InvalidActionParameterException } from "./meta/exception"
+import { assertIdWithinFamily } from "./meta/util"
 
-export const blockedTimesBitmaskLength = 60 * 24 * 7 /* number of minutes per week */
+export const blockedTimesBitmaskLength =
+  60 * 24 * 7 /* number of minutes per week */
 
-const actionType = 'UpdateCategoryBlockedTimesAction'
+const actionType = "UpdateCategoryBlockedTimesAction"
 
 export class UpdateCategoryBlockedTimesAction extends ParentAction {
   readonly categoryId: string
   readonly blockedTimes: string
 
-  constructor ({ categoryId, blockedTimes }: {
+  constructor({
+    categoryId,
+    blockedTimes,
+  }: {
     categoryId: string
     blockedTimes: string
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'categoryId', value: categoryId })
+    assertIdWithinFamily({
+      actionType,
+      field: "categoryId",
+      value: categoryId,
+    })
 
     try {
       validateBitmask(blockedTimes, blockedTimesBitmaskLength)
@@ -42,7 +50,7 @@ export class UpdateCategoryBlockedTimesAction extends ParentAction {
       if (ex instanceof BitmapValidationException) {
         throw new InvalidActionParameterException({
           actionType,
-          staticMessage: 'invalid bitmask'
+          staticMessage: "invalid bitmask",
         })
       } else throw ex
     }
@@ -51,16 +59,18 @@ export class UpdateCategoryBlockedTimesAction extends ParentAction {
     this.blockedTimes = blockedTimes
   }
 
-  static parse = ({ categoryId, times }: SerializedUpdateCategoryBlockedTimesAction) => (
+  static parse = ({
+    categoryId,
+    times,
+  }: SerializedUpdateCategoryBlockedTimesAction) =>
     new UpdateCategoryBlockedTimesAction({
       categoryId,
-      blockedTimes: times
+      blockedTimes: times,
     })
-  )
 }
 
 export interface SerializedUpdateCategoryBlockedTimesAction {
-  type: 'UPDATE_CATEGORY_BLOCKED_TIMES'
+  type: "UPDATE_CATEGORY_BLOCKED_TIMES"
   categoryId: string
   times: string
 }

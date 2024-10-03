@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Unauthorized } from 'http-errors'
-import { Database, Transaction } from '../../../database'
-import { SourceFamilyNotFoundException } from './exception/illegal-state'
+import { Unauthorized } from "http-errors"
+import { Database, Transaction } from "../../../database"
+import { SourceFamilyNotFoundException } from "./exception/illegal-state"
 
 export interface ApplyActionBaseInfo {
   familyId: string
@@ -26,15 +26,19 @@ export interface ApplyActionBaseInfo {
   hasFullVersion: boolean
 }
 
-export async function getApplyActionBaseInfo ({ database, transaction, deviceAuthToken }: {
+export async function getApplyActionBaseInfo({
+  database,
+  transaction,
+  deviceAuthToken,
+}: {
   database: Database
   transaction: Transaction
   deviceAuthToken: string
 }): Promise<ApplyActionBaseInfo> {
   const deviceEntryUnsafe = await database.device.findOne({
     where: { deviceAuthToken },
-    attributes: ['familyId', 'deviceId', 'nextSequenceNumber'],
-    transaction
+    attributes: ["familyId", "deviceId", "nextSequenceNumber"],
+    transaction,
   })
 
   if (!deviceEntryUnsafe) {
@@ -44,15 +48,15 @@ export async function getApplyActionBaseInfo ({ database, transaction, deviceAut
   const deviceEntry = {
     familyId: deviceEntryUnsafe.familyId,
     deviceId: deviceEntryUnsafe.deviceId,
-    nextSequenceNumber: deviceEntryUnsafe.nextSequenceNumber
+    nextSequenceNumber: deviceEntryUnsafe.nextSequenceNumber,
   }
 
   const familyEntryUnsafe = await database.family.findOne({
     where: {
-      familyId: deviceEntry.familyId
+      familyId: deviceEntry.familyId,
     },
     transaction,
-    attributes: ['hasFullVersion']
+    attributes: ["hasFullVersion"],
   })
 
   if (!familyEntryUnsafe) {
@@ -60,13 +64,13 @@ export async function getApplyActionBaseInfo ({ database, transaction, deviceAut
   }
 
   const familyEntry = {
-    hasFullVersion: familyEntryUnsafe.hasFullVersion
+    hasFullVersion: familyEntryUnsafe.hasFullVersion,
   }
 
   return {
     familyId: deviceEntry.familyId,
     deviceId: deviceEntry.deviceId,
     nextSequenceNumber: deviceEntry.nextSequenceNumber,
-    hasFullVersion: familyEntry.hasFullVersion
+    hasFullVersion: familyEntry.hasFullVersion,
   }
 }

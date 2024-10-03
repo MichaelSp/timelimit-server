@@ -4,8 +4,6 @@
 https://timelimit.io/CanRecoverPasswordRequest
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------- |
 | Can be instantiated | Yes        | Unknown status | No           | Forbidden         | Forbidden             | none                | [CanRecoverPasswordRequest.schema.json](CanRecoverPasswordRequest.schema.json "open original schema") |
@@ -23,17 +21,15 @@ https://timelimit.io/CanRecoverPasswordRequest
 
 ## mailAuthToken
 
-
-
 `mailAuthToken`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [CanRecoverPasswordRequest](canrecoverpasswordrequest-properties-mailauthtoken.md "https://timelimit.io/CanRecoverPasswordRequest#/properties/mailAuthToken")
+- defined in: [CanRecoverPasswordRequest](canrecoverpasswordrequest-properties-mailauthtoken.md "https://timelimit.io/CanRecoverPasswordRequest#/properties/mailAuthToken")
 
 ### mailAuthToken Type
 
@@ -41,17 +37,15 @@ https://timelimit.io/CanRecoverPasswordRequest
 
 ## parentUserId
 
-
-
 `parentUserId`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [CanRecoverPasswordRequest](canrecoverpasswordrequest-properties-parentuserid.md "https://timelimit.io/CanRecoverPasswordRequest#/properties/parentUserId")
+- defined in: [CanRecoverPasswordRequest](canrecoverpasswordrequest-properties-parentuserid.md "https://timelimit.io/CanRecoverPasswordRequest#/properties/parentUserId")
 
 ### parentUserId Type
 

@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const { resolve } = require('path')
+const { resolve } = require("path")
 
-const tempDir = resolve(__dirname, '../../../tempdb')
+const tempDir = resolve(__dirname, "../../../tempdb")
 
 module.exports = { tempDir }

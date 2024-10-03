@@ -15,14 +15,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SetParentCategoryAction } from '../../../../action'
-import { getCategoryWithParentCategories, GetParentCategoriesException } from '../../../../util/category'
-import { Cache } from '../cache'
-import { ApplyActionException } from '../exception/index'
-import { MissingCategoryException } from '../exception/missing-item'
-import { CanNotModifyOtherUsersBySelfLimitationException, SelfLimitationException } from '../exception/self-limit'
+import { SetParentCategoryAction } from "../../../../action"
+import {
+  getCategoryWithParentCategories,
+  GetParentCategoriesException,
+} from "../../../../util/category"
+import { Cache } from "../cache"
+import { ApplyActionException } from "../exception/index"
+import { MissingCategoryException } from "../exception/missing-item"
+import {
+  CanNotModifyOtherUsersBySelfLimitationException,
+  SelfLimitationException,
+} from "../exception/self-limit"
 
-export async function dispatchSetParentCategory ({ action, cache, fromChildSelfLimitAddChildUserId }: {
+export async function dispatchSetParentCategory({
+  action,
+  cache,
+  fromChildSelfLimitAddChildUserId,
+}: {
   action: SetParentCategoryAction
   cache: Cache
   fromChildSelfLimitAddChildUserId: string | null
@@ -30,9 +40,9 @@ export async function dispatchSetParentCategory ({ action, cache, fromChildSelfL
   const categoryEntry = await cache.database.category.findOne({
     where: {
       familyId: cache.familyId,
-      categoryId: action.categoryId
+      categoryId: action.categoryId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!categoryEntry) {
@@ -45,20 +55,26 @@ export async function dispatchSetParentCategory ({ action, cache, fromChildSelfL
     }
   }
 
-  if (action.parentCategory !== '') {
-    const categoriesByUserId = (await cache.database.category.findAll({
-      where: {
-        familyId: cache.familyId,
-        childId: categoryEntry.childId
-      },
-      attributes: ['categoryId', 'parentCategoryId'],
-      transaction: cache.transaction
-    })).map((item) => ({
+  if (action.parentCategory !== "") {
+    const categoriesByUserId = (
+      await cache.database.category.findAll({
+        where: {
+          familyId: cache.familyId,
+          childId: categoryEntry.childId,
+        },
+        attributes: ["categoryId", "parentCategoryId"],
+        transaction: cache.transaction,
+      })
+    ).map((item) => ({
       categoryId: item.categoryId,
-      parentCategoryId: item.parentCategoryId
+      parentCategoryId: item.parentCategoryId,
     }))
 
-    if (categoriesByUserId.find((item) => item.categoryId === action.parentCategory) === undefined) {
+    if (
+      categoriesByUserId.find(
+        (item) => item.categoryId === action.parentCategory,
+      ) === undefined
+    ) {
       throw new MissingCategoryException()
     }
 
@@ -71,7 +87,9 @@ export async function dispatchSetParentCategory ({ action, cache, fromChildSelfL
         if (processedCategoryIds.has(currentCategoryId)) return
         processedCategoryIds.add(currentCategoryId)
 
-        const childCategories = categoriesByUserId.filter((item) => item.parentCategoryId === currentCategoryId)
+        const childCategories = categoriesByUserId.filter(
+          (item) => item.parentCategoryId === currentCategoryId,
+        )
 
         childCategories.forEach((childCategory) => {
           childCategoryIds.add(childCategory.categoryId)
@@ -82,21 +100,32 @@ export async function dispatchSetParentCategory ({ action, cache, fromChildSelfL
       handle(action.categoryId)
     }
 
-    if (childCategoryIds.has(action.parentCategory) || action.parentCategory === action.categoryId) {
+    if (
+      childCategoryIds.has(action.parentCategory) ||
+      action.parentCategory === action.categoryId
+    ) {
       throw new ApplyActionException({
-        staticMessage: 'can not set a category as parent which is a child of the category'
+        staticMessage:
+          "can not set a category as parent which is a child of the category",
       })
     }
 
     if (fromChildSelfLimitAddChildUserId !== null) {
       try {
-        const ownParentCategory = categoriesByUserId.find((item) => item.categoryId === categoryEntry.parentCategoryId)
-        const enableDueToLimitAddingWhenChild = ownParentCategory === undefined ||
-          getCategoryWithParentCategories(categoriesByUserId, action.parentCategory).indexOf(ownParentCategory.categoryId) !== -1
+        const ownParentCategory = categoriesByUserId.find(
+          (item) => item.categoryId === categoryEntry.parentCategoryId,
+        )
+        const enableDueToLimitAddingWhenChild =
+          ownParentCategory === undefined ||
+          getCategoryWithParentCategories(
+            categoriesByUserId,
+            action.parentCategory,
+          ).indexOf(ownParentCategory.categoryId) !== -1
 
         if (!enableDueToLimitAddingWhenChild) {
           throw new SelfLimitationException({
-            staticMessage: 'can not change parent categories in a way which reduces limits'
+            staticMessage:
+              "can not change parent categories in a way which reduces limits",
           })
         }
       } catch (ex) {
@@ -107,15 +136,18 @@ export async function dispatchSetParentCategory ({ action, cache, fromChildSelfL
     }
   }
 
-  await cache.database.category.update({
-    parentCategoryId: action.parentCategory
-  }, {
-    where: {
-      familyId: cache.familyId,
-      categoryId: action.categoryId
+  await cache.database.category.update(
+    {
+      parentCategoryId: action.parentCategory,
     },
-    transaction: cache.transaction
-  })
+    {
+      where: {
+        familyId: cache.familyId,
+        categoryId: action.categoryId,
+      },
+      transaction: cache.transaction,
+    },
+  )
 
   cache.categoriesWithModifiedBaseData.add(action.categoryId)
   cache.incrementTriggeredSyncLevel(2)

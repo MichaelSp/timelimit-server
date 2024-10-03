@@ -16,43 +16,55 @@
  */
 
 import {
-    assertParentPasswordValid,
-    EncryptableParentPassword,
-    ParentPasswordValidationException,
-    PlaintextParentPassword
-} from '../../api/schema'
-import { Cache } from '../sync/apply-actions/cache'
-import { ApplyActionException } from '../sync/apply-actions/exception'
-import { decrypt, DecryptException } from './decrypt'
+  assertParentPasswordValid,
+  EncryptableParentPassword,
+  ParentPasswordValidationException,
+  PlaintextParentPassword,
+} from "../../api/schema"
+import { Cache } from "../sync/apply-actions/cache"
+import { ApplyActionException } from "../sync/apply-actions/exception"
+import { decrypt, DecryptException } from "./decrypt"
 
-export async function decryptParentPassword({ cache, password } : {
+export async function decryptParentPassword({
+  cache,
+  password,
+}: {
   cache: Cache
   password: EncryptableParentPassword
 }): Promise<PlaintextParentPassword> {
   if (!password.encrypted) return password
 
   try {
-    const secondHash = (await decrypt({
-      database: cache.database,
-      transaction: cache.transaction,
-      familyId: cache.familyId,
-      deviceId: cache.deviceId,
-      encryptedData: password.secondHash,
-      authData: Buffer.from(`ParentPassword:${password.hash}:${password.secondSalt}`, 'ascii')
-    })).toString('ascii')
+    const secondHash = (
+      await decrypt({
+        database: cache.database,
+        transaction: cache.transaction,
+        familyId: cache.familyId,
+        deviceId: cache.deviceId,
+        encryptedData: password.secondHash,
+        authData: Buffer.from(
+          `ParentPassword:${password.hash}:${password.secondSalt}`,
+          "ascii",
+        ),
+      })
+    ).toString("ascii")
 
     const result: PlaintextParentPassword = {
       hash: password.hash,
       secondSalt: password.secondSalt,
-      secondHash
+      secondHash,
     }
 
     assertParentPasswordValid(result)
 
     return result
   } catch (ex) {
-    if (ex instanceof DecryptException) throw new ApplyActionException({ staticMessage: ex.message })
-    else if (ex instanceof ParentPasswordValidationException) throw new ApplyActionException({ staticMessage: 'invalid encrypted parent password' })
+    if (ex instanceof DecryptException)
+      throw new ApplyActionException({ staticMessage: ex.message })
+    else if (ex instanceof ParentPasswordValidationException)
+      throw new ApplyActionException({
+        staticMessage: "invalid encrypted parent password",
+      })
     else throw ex
   }
 }

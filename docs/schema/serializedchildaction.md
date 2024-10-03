@@ -4,8 +4,6 @@
 https://timelimit.io/SerializedChildAction
 ```
 
-
-
 | Abstract               | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                    |
 | :--------------------- | :--------- | :------------- | :---------------------- | :---------------- | :-------------------- | :------------------ | :-------------------------------------------------------------------------------------------- |
 | Cannot be instantiated | Yes        | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [SerializedChildAction.schema.json](SerializedChildAction.schema.json "open original schema") |
@@ -16,9 +14,9 @@ merged type ([SerializedChildAction](serializedchildaction.md))
 
 any of
 
-* [SerializedChildChangePasswordAction](serializedchildaction-definitions-serializedchildchangepasswordaction.md "check type definition")
+- [SerializedChildChangePasswordAction](serializedchildaction-definitions-serializedchildchangepasswordaction.md "check type definition")
 
-* [SerializedChildSignInAction](serializedchildaction-definitions-serializedchildsigninaction.md "check type definition")
+- [SerializedChildSignInAction](serializedchildaction-definitions-serializedchildsigninaction.md "check type definition")
 
 # SerializedChildAction Definitions
 
@@ -27,7 +25,9 @@ any of
 Reference this group by using
 
 ```json
-{"$ref":"https://timelimit.io/SerializedChildAction#/definitions/SerializedChildChangePasswordAction"}
+{
+  "$ref": "https://timelimit.io/SerializedChildAction#/definitions/SerializedChildChangePasswordAction"
+}
 ```
 
 | Property              | Type     | Required | Nullable       | Defined by                                                                                                                                                                                                                      |
@@ -37,17 +37,15 @@ Reference this group by using
 
 ### type
 
-
-
 `type`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedChildAction](serializedchildaction-definitions-serializedchildchangepasswordaction-properties-type.md "https://timelimit.io/SerializedChildAction#/definitions/SerializedChildChangePasswordAction/properties/type")
+- defined in: [SerializedChildAction](serializedchildaction-definitions-serializedchildchangepasswordaction-properties-type.md "https://timelimit.io/SerializedChildAction#/definitions/SerializedChildChangePasswordAction/properties/type")
 
 #### type Type
 
@@ -63,17 +61,15 @@ Reference this group by using
 
 ### password
 
-
-
 `password`
 
-* is required
+- is required
 
-* Type: `object` ([EncryptableParentPassword](serializedchildaction-definitions-encryptableparentpassword.md))
+- Type: `object` ([EncryptableParentPassword](serializedchildaction-definitions-encryptableparentpassword.md))
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedChildAction](serializedchildaction-definitions-encryptableparentpassword.md "https://timelimit.io/SerializedChildAction#/definitions/SerializedChildChangePasswordAction/properties/password")
+- defined in: [SerializedChildAction](serializedchildaction-definitions-encryptableparentpassword.md "https://timelimit.io/SerializedChildAction#/definitions/SerializedChildChangePasswordAction/properties/password")
 
 #### password Type
 
@@ -84,7 +80,9 @@ Reference this group by using
 Reference this group by using
 
 ```json
-{"$ref":"https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPassword"}
+{
+  "$ref": "https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPassword"
+}
 ```
 
 | Property                  | Type      | Required | Nullable       | Defined by                                                                                                                                                                                                              |
@@ -96,17 +94,15 @@ Reference this group by using
 
 ### hash
 
-
-
 `hash`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedChildAction](serializedchildaction-definitions-encryptableparentpassword-properties-hash.md "https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPassword/properties/hash")
+- defined in: [SerializedChildAction](serializedchildaction-definitions-encryptableparentpassword-properties-hash.md "https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPassword/properties/hash")
 
 #### hash Type
 
@@ -114,17 +110,15 @@ Reference this group by using
 
 ### secondHash
 
-
-
 `secondHash`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedChildAction](serializedchildaction-definitions-encryptableparentpassword-properties-secondhash.md "https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPassword/properties/secondHash")
+- defined in: [SerializedChildAction](serializedchildaction-definitions-encryptableparentpassword-properties-secondhash.md "https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPassword/properties/secondHash")
 
 #### secondHash Type
 
@@ -132,17 +126,15 @@ Reference this group by using
 
 ### secondSalt
 
-
-
 `secondSalt`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedChildAction](serializedchildaction-definitions-encryptableparentpassword-properties-secondsalt.md "https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPassword/properties/secondSalt")
+- defined in: [SerializedChildAction](serializedchildaction-definitions-encryptableparentpassword-properties-secondsalt.md "https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPassword/properties/secondSalt")
 
 #### secondSalt Type
 
@@ -150,17 +142,15 @@ Reference this group by using
 
 ### encrypted
 
-
-
 `encrypted`
 
-* is optional
+- is optional
 
-* Type: `boolean`
+- Type: `boolean`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedChildAction](serializedchildaction-definitions-encryptableparentpassword-properties-encrypted.md "https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPassword/properties/encrypted")
+- defined in: [SerializedChildAction](serializedchildaction-definitions-encryptableparentpassword-properties-encrypted.md "https://timelimit.io/SerializedChildAction#/definitions/EncryptableParentPassword/properties/encrypted")
 
 #### encrypted Type
 
@@ -171,7 +161,9 @@ Reference this group by using
 Reference this group by using
 
 ```json
-{"$ref":"https://timelimit.io/SerializedChildAction#/definitions/SerializedChildSignInAction"}
+{
+  "$ref": "https://timelimit.io/SerializedChildAction#/definitions/SerializedChildSignInAction"
+}
 ```
 
 | Property        | Type     | Required | Nullable       | Defined by                                                                                                                                                                                                      |
@@ -180,17 +172,15 @@ Reference this group by using
 
 ### type
 
-
-
 `type`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedChildAction](serializedchildaction-definitions-serializedchildsigninaction-properties-type.md "https://timelimit.io/SerializedChildAction#/definitions/SerializedChildSignInAction/properties/type")
+- defined in: [SerializedChildAction](serializedchildaction-definitions-serializedchildsigninaction-properties-type.md "https://timelimit.io/SerializedChildAction#/definitions/SerializedChildSignInAction/properties/type")
 
 #### type Type
 

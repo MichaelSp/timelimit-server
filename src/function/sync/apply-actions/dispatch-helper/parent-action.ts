@@ -15,20 +15,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { parseParentAction } from '../../../../action/serialization'
-import { ClientPushChangesRequestAction } from '../../../../api/schema'
-import { isSerializedParentAction } from '../../../../api/validator'
-import { UserFlags } from '../../../../model/userflags'
-import { EventHandler } from '../../../../monitoring/eventhandler'
-import { Cache } from '../cache'
-import { dispatchParentAction as dispatchParentActionInternal } from '../dispatch-parent-action'
-import { SourceDeviceNotFoundException } from '../exception/illegal-state'
-import { SelfLimitNotPossibleException } from '../exception/self-limit'
-import { AuthenticationMethod } from '../types'
-import { dispatch } from './helper'
+import { parseParentAction } from "../../../../action/serialization"
+import { ClientPushChangesRequestAction } from "../../../../api/schema"
+import { isSerializedParentAction } from "../../../../api/validator"
+import { UserFlags } from "../../../../model/userflags"
+import { EventHandler } from "../../../../monitoring/eventhandler"
+import { Cache } from "../cache"
+import { dispatchParentAction as dispatchParentActionInternal } from "../dispatch-parent-action"
+import { SourceDeviceNotFoundException } from "../exception/illegal-state"
+import { SelfLimitNotPossibleException } from "../exception/self-limit"
+import { AuthenticationMethod } from "../types"
+import { dispatch } from "./helper"
 
-export async function dispatchParentAction ({
-  action, eventHandler, cache, isChildLimitAdding, deviceId, authentication
+export async function dispatchParentAction({
+  action,
+  eventHandler,
+  cache,
+  isChildLimitAdding,
+  deviceId,
+  authentication,
 }: {
   action: ClientPushChangesRequestAction
   cache: Cache
@@ -40,19 +45,19 @@ export async function dispatchParentAction ({
   return dispatch({
     action,
     eventHandler,
-    type: 'parent',
+    type: "parent",
     validator: isSerializedParentAction,
     parser: parseParentAction,
     applier: async (parsedAction) => {
       if (isChildLimitAdding) {
         const deviceEntryUnsafe = await cache.database.device.findOne({
-          attributes: ['currentUserId'],
+          attributes: ["currentUserId"],
           where: {
             familyId: cache.familyId,
             deviceId,
-            currentUserId: action.userId
+            currentUserId: action.userId,
           },
-          transaction: cache.transaction
+          transaction: cache.transaction,
         })
 
         if (!deviceEntryUnsafe) {
@@ -63,29 +68,34 @@ export async function dispatchParentAction ({
 
         if (!deviceUserId) {
           throw new SelfLimitNotPossibleException({
-            staticMessage: 'no device user id set but child add self limit action requested'
+            staticMessage:
+              "no device user id set but child add self limit action requested",
           })
         }
 
         const deviceUserEntryUnsafe = await cache.database.user.findOne({
-          attributes: ['flags'],
+          attributes: ["flags"],
           where: {
             familyId: cache.familyId,
             userId: deviceUserId,
-            type: 'child'
+            type: "child",
           },
-          transaction: cache.transaction
+          transaction: cache.transaction,
         })
 
         if (!deviceUserEntryUnsafe) {
           throw new SelfLimitNotPossibleException({
-            staticMessage: 'no child user found for child limit adding action'
+            staticMessage: "no child user found for child limit adding action",
           })
         }
 
-        if ((parseInt(deviceUserEntryUnsafe.flags, 10) & UserFlags.ALLOW_SELF_LIMIT_ADD) !== UserFlags.ALLOW_SELF_LIMIT_ADD) {
+        if (
+          (parseInt(deviceUserEntryUnsafe.flags, 10) &
+            UserFlags.ALLOW_SELF_LIMIT_ADD) !==
+          UserFlags.ALLOW_SELF_LIMIT_ADD
+        ) {
           throw new SelfLimitNotPossibleException({
-            staticMessage: 'child add limit action found but not allowed'
+            staticMessage: "child add limit action found but not allowed",
           })
         }
 
@@ -95,7 +105,7 @@ export async function dispatchParentAction ({
           parentUserId: action.userId,
           sourceDeviceId: deviceId,
           fromChildSelfLimitAddChildUserId: deviceUserId,
-          authentication
+          authentication,
         })
       } else {
         await dispatchParentActionInternal({
@@ -104,9 +114,9 @@ export async function dispatchParentAction ({
           parentUserId: action.userId,
           sourceDeviceId: deviceId,
           fromChildSelfLimitAddChildUserId: null,
-          authentication
+          authentication,
         })
       }
-    }
+    },
   })
 }

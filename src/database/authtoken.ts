@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { authTokenColumn, timestampColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import { authTokenColumn, timestampColumn } from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export interface AuthTokenAttributesVersion1 {
   token: string
@@ -29,39 +29,46 @@ export interface AuthTokenAttributesVersion2 {
   locale: string
 }
 
-export type AuthTokenAttributes = AuthTokenAttributesVersion1 & AuthTokenAttributesVersion2
+export type AuthTokenAttributes = AuthTokenAttributesVersion1 &
+  AuthTokenAttributesVersion2
 
-export type AuthTokenModel = Sequelize.Model<AuthTokenAttributes> & AuthTokenAttributes
+export type AuthTokenModel = Sequelize.Model<AuthTokenAttributes> &
+  AuthTokenAttributes
 export type AuthTokenModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): AuthTokenModel;
+  new (values?: object, options?: Sequelize.BuildOptions): AuthTokenModel
 }
 
-export const attributesVersion1: SequelizeAttributes<AuthTokenAttributesVersion1> = {
-  token: {
-    ...authTokenColumn,
-    primaryKey: true
-  },
-  mail: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true
-    }
-  },
-  createdAt: { ...timestampColumn }
-}
-
-export const attributesVersion2: SequelizeAttributes<AuthTokenAttributesVersion2> = {
-  locale: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    defaultValue: 'en'
+export const attributesVersion1: SequelizeAttributes<AuthTokenAttributesVersion1> =
+  {
+    token: {
+      ...authTokenColumn,
+      primaryKey: true,
+    },
+    mail: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    createdAt: { ...timestampColumn },
   }
-}
+
+export const attributesVersion2: SequelizeAttributes<AuthTokenAttributesVersion2> =
+  {
+    locale: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      defaultValue: "en",
+    },
+  }
 
 export const attributes: SequelizeAttributes<AuthTokenAttributes> = {
   ...attributesVersion1,
-  ...attributesVersion2
+  ...attributesVersion2,
 }
 
-export const createAuthtokenModel = (sequelize: Sequelize.Sequelize): AuthTokenModelStatic => sequelize.define('AuthToken', attributes) as AuthTokenModelStatic
+export const createAuthtokenModel = (
+  sequelize: Sequelize.Sequelize,
+): AuthTokenModelStatic =>
+  sequelize.define("AuthToken", attributes) as AuthTokenModelStatic

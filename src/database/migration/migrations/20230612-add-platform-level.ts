@@ -15,35 +15,55 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Transaction } from 'sequelize'
-import { attributesVersion15 as deviceAttributes } from '../../device'
-import { Migration } from '../../main'
+import { Transaction } from "sequelize"
+import { attributesVersion15 as deviceAttributes } from "../../device"
+import { Migration } from "../../main"
 
-export const up: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.addColumn('Devices', 'platformType', {
-      ...deviceAttributes.platformType
-    }, {
-      transaction
-    })
+export const up: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.addColumn(
+        "Devices",
+        "platformType",
+        {
+          ...deviceAttributes.platformType,
+        },
+        {
+          transaction,
+        },
+      )
 
-    await queryInterface.addColumn('Devices', 'platformLevel', {
-      ...deviceAttributes.platformLevel
-    }, {
-      transaction
-    })
-  })
+      await queryInterface.addColumn(
+        "Devices",
+        "platformLevel",
+        {
+          ...deviceAttributes.platformLevel,
+        },
+        {
+          transaction,
+        },
+      )
+    },
+  )
 }
 
-export const down: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.removeColumn('Devices', 'platformLevel', { transaction })
-    await queryInterface.removeColumn('Devices', 'platformType', { transaction })
-  })
+export const down: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.removeColumn("Devices", "platformLevel", {
+        transaction,
+      })
+      await queryInterface.removeColumn("Devices", "platformType", {
+        transaction,
+      })
+    },
+  )
 }

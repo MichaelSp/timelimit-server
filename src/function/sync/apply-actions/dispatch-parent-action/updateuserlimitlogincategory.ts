@@ -15,12 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateUserLimitLoginCategory } from '../../../../action'
-import { Cache } from '../cache'
-import { ApplyActionException } from '../exception/index'
-import { MissingCategoryException, MissingUserException } from '../exception/missing-item'
+import { UpdateUserLimitLoginCategory } from "../../../../action"
+import { Cache } from "../cache"
+import { ApplyActionException } from "../exception/index"
+import {
+  MissingCategoryException,
+  MissingUserException,
+} from "../exception/missing-item"
 
-export async function dispatchUpdateUserLimitLoginCategoryAction ({ action, cache, parentUserId }: {
+export async function dispatchUpdateUserLimitLoginCategoryAction({
+  action,
+  cache,
+  parentUserId,
+}: {
   action: UpdateUserLimitLoginCategory
   cache: Cache
   parentUserId: string
@@ -29,9 +36,9 @@ export async function dispatchUpdateUserLimitLoginCategoryAction ({ action, cach
     where: {
       familyId: cache.familyId,
       userId: action.userId,
-      type: 'parent'
+      type: "parent",
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!userEntry) {
@@ -40,39 +47,43 @@ export async function dispatchUpdateUserLimitLoginCategoryAction ({ action, cach
 
   if (action.categoryId !== undefined && parentUserId !== action.userId) {
     throw new ApplyActionException({
-      staticMessage: 'only the parent user itself can add a limit login category'
+      staticMessage:
+        "only the parent user itself can add a limit login category",
     })
   }
 
   await cache.database.userLimitLoginCategory.destroy({
     where: {
       familyId: cache.familyId,
-      userId: action.userId
+      userId: action.userId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (action.categoryId !== undefined) {
     const categoryEntry = await cache.database.category.findOne({
       where: {
         familyId: cache.familyId,
-        categoryId: action.categoryId
+        categoryId: action.categoryId,
       },
-      transaction: cache.transaction
+      transaction: cache.transaction,
     })
 
     if (!categoryEntry) {
       throw new MissingCategoryException()
     }
 
-    await cache.database.userLimitLoginCategory.create({
-      familyId: cache.familyId,
-      userId: action.userId,
-      categoryId: action.categoryId,
-      preBlockDuration: 0
-    }, {
-      transaction: cache.transaction
-    })
+    await cache.database.userLimitLoginCategory.create(
+      {
+        familyId: cache.familyId,
+        userId: action.userId,
+        categoryId: action.categoryId,
+        preBlockDuration: 0,
+      },
+      {
+        transaction: cache.transaction,
+      },
+    )
   }
 
   cache.invalidiateUserList = true

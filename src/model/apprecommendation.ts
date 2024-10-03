@@ -15,5 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export type AppRecommendation = 'whitelist' | 'blacklist' | 'none'
-export const appRecommendationValues: Array<AppRecommendation> = ['whitelist', 'blacklist', 'none']
+export type AppRecommendation = "whitelist" | "blacklist" | "none"
+export const appRecommendationValues: Array<AppRecommendation> = [
+  "whitelist",
+  "blacklist",
+  "none",
+]

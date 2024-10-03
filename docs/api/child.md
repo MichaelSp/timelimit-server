@@ -16,7 +16,7 @@ On a invalid request body: HTTP status code 400 Bad request
 
 On a invalid add device token: HTTP status code 401 Unauthorized
 
-On success: object with ``deviceAuthToken`` (string), ``ownDeviceId`` (string) and ``data`` (like a ``/sync/pull-status`` response)
+On success: object with `deviceAuthToken` (string), `ownDeviceId` (string) and `data` (like a `/sync/pull-status` response)
 
 ## POST /child/update-primary-device
 
@@ -32,21 +32,21 @@ On a invalid request body: HTTP status code 400 Bad request
 
 On a invalid auth token: HTTP status code 401 Unauthorized
 
-If the transmitted ``currentUserId`` is empty or does not match the current user of the device:
+If the transmitted `currentUserId` is empty or does not match the current user of the device:
 HTTP status code 409 Conflict
 
-If the transmitted ``currentUserId`` does not match a valid user: HTTP status code 409 Conflict
+If the transmitted `currentUserId` does not match a valid user: HTTP status code 409 Conflict
 
 If trying to unset the device as primary device and the device is not the current device of the user:
 HTTP status code 409 Conflict
 
-Otherwise: a JSON object with the property ``status`` (string)
+Otherwise: a JSON object with the property `status` (string)
 
-``status`` can have the following values:
+`status` can have the following values:
 
-- ``assigned to other device`` (if the user is assigned to an other device)
-- ``requires full version``
-- ``success``
+- `assigned to other device` (if the user is assigned to an other device)
+- `requires full version`
+- `success`
 
 ### see
 
@@ -71,7 +71,7 @@ On a invalid auth token: HTTP status code 401 Unauthorized
 If there is no user assigned to the calling device or
 if there is no existing current primary device: HTTP status code 409 Conflict
 
-On success: ``{"ok": true}``
+On success: `{"ok": true}`
 
 ### see
 

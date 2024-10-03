@@ -15,17 +15,22 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { Database } from '../../../database'
-import { calculateExpireTime, config } from '../../../database/devicedhkey'
-import { generateDhKeypair } from '../../../function/dh'
-import { EventHandler } from '../../../monitoring/eventhandler'
-import { ServerDhKey } from '../../../object/serverdatastatus'
-import { generateVersionId } from '../../../util/token'
-import { FamilyEntry } from './family-entry'
+import * as Sequelize from "sequelize"
+import { Database } from "../../../database"
+import { calculateExpireTime, config } from "../../../database/devicedhkey"
+import { generateDhKeypair } from "../../../function/dh"
+import { EventHandler } from "../../../monitoring/eventhandler"
+import { ServerDhKey } from "../../../object/serverdatastatus"
+import { generateVersionId } from "../../../util/token"
+import { FamilyEntry } from "./family-entry"
 
-export async function getDeviceDhKeys ({
-  database, transaction, familyEntry, deviceId, lastVersionId, eventHandler
+export async function getDeviceDhKeys({
+  database,
+  transaction,
+  familyEntry,
+  deviceId,
+  lastVersionId,
+  eventHandler,
 }: {
   database: Database
   transaction: Sequelize.Transaction
@@ -37,94 +42,107 @@ export async function getDeviceDhKeys ({
   const savedData = await database.deviceDhKey.findAll({
     where: {
       familyId: familyEntry.familyId,
-      deviceId
+      deviceId,
     },
-    transaction
+    transaction,
   })
 
   const now = BigInt(Date.now())
   const oldCurrentKey = savedData.find((item) => item.expireAt === null)
   const needsNewKey =
     oldCurrentKey === undefined ||
-    BigInt(oldCurrentKey.createdAt) + BigInt(config.generateNewKeyAfterAge) <= now ||
+    BigInt(oldCurrentKey.createdAt) + BigInt(config.generateNewKeyAfterAge) <=
+      now ||
     BigInt(oldCurrentKey.createdAt) > now
 
   if (needsNewKey) {
-    eventHandler.countEvent('getDeviceDhKeys:needsNewKey')
+    eventHandler.countEvent("getDeviceDhKeys:needsNewKey")
 
     const newVersion = generateVersionId()
     const newKeypair = await generateDhKeypair()
 
     if (savedData.length >= 8) {
-      eventHandler.countEvent('getDeviceDhKeys:gc')
+      eventHandler.countEvent("getDeviceDhKeys:gc")
 
-      const elementToRemove = savedData.reduce((a, currentItem, currentIndex) => {
-        const b = { item: currentItem, index: currentIndex }
+      const elementToRemove = savedData.reduce(
+        (a, currentItem, currentIndex) => {
+          const b = { item: currentItem, index: currentIndex }
 
-        const createdA = BigInt(a.item.createdAt)
-        const createdB = BigInt(b.item.createdAt)
+          const createdA = BigInt(a.item.createdAt)
+          const createdB = BigInt(b.item.createdAt)
 
-        if (createdA > createdB) return b
-        else if (createdA < createdB) return a
-        else {
-          if (a.item.createdAtSubsequence > b.item.createdAtSubsequence) return b
-          else return a
-        }
-      }, { index: 0, item: savedData[0] })
+          if (createdA > createdB) return b
+          else if (createdA < createdB) return a
+          else {
+            if (a.item.createdAtSubsequence > b.item.createdAtSubsequence)
+              return b
+            else return a
+          }
+        },
+        { index: 0, item: savedData[0] },
+      )
 
       await database.deviceDhKey.destroy({
         where: {
           familyId: familyEntry.familyId,
           deviceId,
-          version: elementToRemove.item.version
+          version: elementToRemove.item.version,
         },
-        transaction
+        transaction,
       })
 
       savedData.splice(elementToRemove.index, 1)
     }
 
-    await database.deviceDhKey.update({
-      expireAt: calculateExpireTime(now).toString(10)
-    }, {
-      where: {
+    await database.deviceDhKey.update(
+      {
+        expireAt: calculateExpireTime(now).toString(10),
+      },
+      {
+        where: {
+          familyId: familyEntry.familyId,
+          deviceId,
+          expireAt: null,
+        },
+        transaction,
+      },
+    )
+
+    const newItemCreatedAt = now - (now % BigInt(config.generationTimeRounding))
+
+    const newItemExistingSubsequenceValues = savedData
+      .filter((item) => BigInt(item.createdAt) === newItemCreatedAt)
+      .map((item) => item.createdAtSubsequence)
+
+    const newItemCreatedAtSubsequence = newItemExistingSubsequenceValues.reduce(
+      (max, item) => Math.max(max, item + 1),
+      0,
+    )
+
+    await database.deviceDhKey.create(
+      {
         familyId: familyEntry.familyId,
         deviceId,
-        expireAt: null
+        version: newVersion,
+        createdAt: newItemCreatedAt.toString(10),
+        createdAtSubsequence: Math.min(newItemCreatedAtSubsequence, 1 << 30),
+        expireAt: null,
+        publicKey: newKeypair.publicKey,
+        privateKey: newKeypair.privateKey,
       },
-      transaction
-    })
-
-    const newItemCreatedAt = (now - now % BigInt(config.generationTimeRounding))
-
-    const newItemExistingSubsequenceValues =
-      savedData
-        .filter((item) => BigInt(item.createdAt) === newItemCreatedAt)
-        .map((item) => item.createdAtSubsequence)
-
-    const newItemCreatedAtSubsequence =
-      newItemExistingSubsequenceValues.reduce((max, item) => Math.max(max, item + 1), 0)
-
-    await database.deviceDhKey.create({
-      familyId: familyEntry.familyId,
-      deviceId,
-      version: newVersion,
-      createdAt: newItemCreatedAt.toString(10),
-      createdAtSubsequence: Math.min(newItemCreatedAtSubsequence, 1 << 30),
-      expireAt: null,
-      publicKey: newKeypair.publicKey,
-      privateKey: newKeypair.privateKey
-    }, { transaction })
+      { transaction },
+    )
 
     return {
-      k: newKeypair.publicKey.toString('base64'),
-      v: newVersion
+      k: newKeypair.publicKey.toString("base64"),
+      v: newVersion,
     }
   } else {
     if (lastVersionId === oldCurrentKey.version) return null
-    else return {
-      k: oldCurrentKey.publicKey.toString('base64'),
-      v: oldCurrentKey.version
-    }
+    else
+      return {
+        k: oldCurrentKey.publicKey.toString("base64"),
+        v: oldCurrentKey.version,
+      }
   }
 }

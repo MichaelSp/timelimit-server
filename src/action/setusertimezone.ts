@@ -15,34 +15,30 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'SetUserTimezoneAction'
+const actionType = "SetUserTimezoneAction"
 
 export class SetUserTimezoneAction extends ParentAction {
   readonly userId: string
   readonly timezone: string
 
-  constructor ({ userId, timezone }: {
-    userId: string
-    timezone: string
-  }) {
+  constructor({ userId, timezone }: { userId: string; timezone: string }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'userId', value: userId })
+    assertIdWithinFamily({ actionType, field: "userId", value: userId })
 
     this.userId = userId
     this.timezone = timezone
   }
 
-  static parse = ({ userId, timezone }: SerializedSetUserTimezoneAction) => (
+  static parse = ({ userId, timezone }: SerializedSetUserTimezoneAction) =>
     new SetUserTimezoneAction({ userId, timezone })
-  )
 }
 
 export interface SerializedSetUserTimezoneAction {
-  type: 'SET_USER_TIMEZONE'
+  type: "SET_USER_TIMEZONE"
   userId: string
   timezone: string
 }

@@ -15,13 +15,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { IncrementCategoryExtraTimeAction } from '../../../../action'
-import { CategoryModel } from '../../../../database/category'
-import { Cache } from '../cache'
-import { MissingCategoryException } from '../exception/missing-item'
-import { PremiumVersionMissingException } from '../exception/premium'
+import { IncrementCategoryExtraTimeAction } from "../../../../action"
+import { CategoryModel } from "../../../../database/category"
+import { Cache } from "../cache"
+import { MissingCategoryException } from "../exception/missing-item"
+import { PremiumVersionMissingException } from "../exception/premium"
 
-export async function dispatchIncrementCategoryExtraTime ({ action, cache }: {
+export async function dispatchIncrementCategoryExtraTime({
+  action,
+  cache,
+}: {
   action: IncrementCategoryExtraTimeAction
   cache: Cache
 }) {
@@ -29,7 +32,7 @@ export async function dispatchIncrementCategoryExtraTime ({ action, cache }: {
     throw new PremiumVersionMissingException()
   }
 
-  async function handleCategory (category: CategoryModel) {
+  async function handleCategory(category: CategoryModel) {
     if (action.day === category.extraTimeDay || category.extraTimeDay === -1) {
       category.extraTimeInMillis += action.addedExtraTime
     } else {
@@ -47,9 +50,9 @@ export async function dispatchIncrementCategoryExtraTime ({ action, cache }: {
   const categoryEntry = await cache.database.category.findOne({
     where: {
       familyId: cache.familyId,
-      categoryId: action.categoryId
+      categoryId: action.categoryId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!categoryEntry) {
@@ -58,13 +61,13 @@ export async function dispatchIncrementCategoryExtraTime ({ action, cache }: {
 
   await handleCategory(categoryEntry)
 
-  if (categoryEntry.parentCategoryId !== '') {
+  if (categoryEntry.parentCategoryId !== "") {
     const parentCategoryEntry = await cache.database.category.findOne({
       where: {
         familyId: cache.familyId,
-        categoryId: categoryEntry.parentCategoryId
+        categoryId: categoryEntry.parentCategoryId,
       },
-      transaction: cache.transaction
+      transaction: cache.transaction,
     })
 
     if (parentCategoryEntry) {

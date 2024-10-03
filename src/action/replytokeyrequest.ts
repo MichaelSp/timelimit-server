@@ -15,11 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AppLogicAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
-import { assertSafeInteger } from './meta/util'
+import { AppLogicAction } from "./basetypes"
+import { InvalidActionParameterException } from "./meta/exception"
+import { assertSafeInteger } from "./meta/util"
 
-const actionType = 'ReplyToKeyRequestAction'
+const actionType = "ReplyToKeyRequestAction"
 
 export class ReplyToKeyRequestAction extends AppLogicAction {
   readonly requestServerSequenceNumber: number
@@ -27,11 +27,11 @@ export class ReplyToKeyRequestAction extends AppLogicAction {
   readonly encryptedKey: Buffer
   readonly signature: Buffer
 
-  constructor ({
+  constructor({
     requestServerSequenceNumber,
     tempKey,
     encryptedKey,
-    signature
+    signature,
   }: {
     requestServerSequenceNumber: number
     tempKey: Buffer
@@ -40,12 +40,20 @@ export class ReplyToKeyRequestAction extends AppLogicAction {
   }) {
     super()
 
-    assertSafeInteger({ value: requestServerSequenceNumber, field: 'requestServerSequenceNumber', actionType })
+    assertSafeInteger({
+      value: requestServerSequenceNumber,
+      field: "requestServerSequenceNumber",
+      actionType,
+    })
 
-    if (tempKey.length !== 32 || encryptedKey.length !== 16 || signature.length !== 64) {
+    if (
+      tempKey.length !== 32 ||
+      encryptedKey.length !== 16 ||
+      signature.length !== 64
+    ) {
       throw new InvalidActionParameterException({
         actionType,
-        staticMessage: 'key/signature has wrong length'
+        staticMessage: "key/signature has wrong length",
       })
     }
 
@@ -55,18 +63,22 @@ export class ReplyToKeyRequestAction extends AppLogicAction {
     this.signature = signature
   }
 
-  static parse = ({ rsn, tempKey, encryptedKey, signature }: SerializedReplyToKeyRequestAction) => (
+  static parse = ({
+    rsn,
+    tempKey,
+    encryptedKey,
+    signature,
+  }: SerializedReplyToKeyRequestAction) =>
     new ReplyToKeyRequestAction({
       requestServerSequenceNumber: rsn,
-      tempKey: Buffer.from(tempKey, 'base64'),
-      encryptedKey: Buffer.from(encryptedKey, 'base64'),
-      signature: Buffer.from(signature, 'base64')
+      tempKey: Buffer.from(tempKey, "base64"),
+      encryptedKey: Buffer.from(encryptedKey, "base64"),
+      signature: Buffer.from(signature, "base64"),
     })
-  )
 }
 
 export interface SerializedReplyToKeyRequestAction {
-  type: 'REPLY_TO_KEY_REQUEST'
+  type: "REPLY_TO_KEY_REQUEST"
   rsn: number
   tempKey: string
   encryptedKey: string

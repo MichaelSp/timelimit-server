@@ -21,15 +21,15 @@ On a invalid request body: HTTP status code 400 Bad request
 
 On a invalid auth token: HTTP status code 401 Unauthorized
 
-On success: a JSON object with the property ``canDoPurchase`` (string) and ``googlePlayPublicKey`` (string, base64)
+On success: a JSON object with the property `canDoPurchase` (string) and `googlePlayPublicKey` (string, base64)
 
-possible values of ``canDoPurchase``:
+possible values of `canDoPurchase`:
 
-- ``yes``
-- ``no due to old purchase``
-- ``no because not supported by the server``
+- `yes`
+- `no due to old purchase`
+- `no because not supported by the server`
 
-The ``googlePlayPublicKey`` is the key by which purchases using google play should be signed.
+The `googlePlayPublicKey` is the key by which purchases using google play should be signed.
 
 ## POST /purchase/finish-purchase-by-google-play
 
@@ -48,7 +48,7 @@ On a invalid auth token: HTTP status code 401 Unauthorized
 
 On a invalid purchase: HTTP status code 409 Conflict
 
-On success: ``{"ok": true}``
+On success: `{"ok": true}`
 
 ### error handling
 

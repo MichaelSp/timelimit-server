@@ -15,13 +15,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ChildSignInAction, SetDeviceUserAction } from '../../../../action'
-import { Cache } from '../cache'
-import { dispatchSetDeviceUser } from '../dispatch-parent-action/setdeviceuser'
-import { SourceUserNotFoundException } from '../exception/illegal-state'
-import { PremiumVersionMissingException } from '../exception/premium'
+import { ChildSignInAction, SetDeviceUserAction } from "../../../../action"
+import { Cache } from "../cache"
+import { dispatchSetDeviceUser } from "../dispatch-parent-action/setdeviceuser"
+import { SourceUserNotFoundException } from "../exception/illegal-state"
+import { PremiumVersionMissingException } from "../exception/premium"
 
-export const dispatchChildSignIn = async ({ deviceId, childUserId, cache }: {
+export const dispatchChildSignIn = async ({
+  deviceId,
+  childUserId,
+  cache,
+}: {
   action: ChildSignInAction
   deviceId: string
   childUserId: string
@@ -34,21 +38,19 @@ export const dispatchChildSignIn = async ({ deviceId, childUserId, cache }: {
   await dispatchSetDeviceUser({
     action: new SetDeviceUserAction({
       deviceId,
-      userId: childUserId
+      userId: childUserId,
     }),
-    cache
+    cache,
   })
 
   const userEntryUnsafe = await cache.database.user.findOne({
     where: {
       familyId: cache.familyId,
-      type: 'child',
-      userId: childUserId
+      type: "child",
+      userId: childUserId,
     },
     transaction: cache.transaction,
-    attributes: [
-      'currentDevice'
-    ]
+    attributes: ["currentDevice"],
   })
 
   if (!userEntryUnsafe) {
@@ -58,16 +60,19 @@ export const dispatchChildSignIn = async ({ deviceId, childUserId, cache }: {
   if (userEntryUnsafe.currentDevice === deviceId) {
     // unassign to prevent way aroundprimary device rule
 
-    await cache.database.user.update({
-      currentDevice: ''
-    }, {
-      where: {
-        familyId: cache.familyId,
-        type: 'child',
-        userId: childUserId
+    await cache.database.user.update(
+      {
+        currentDevice: "",
       },
-      transaction: cache.transaction
-    })
+      {
+        where: {
+          familyId: cache.familyId,
+          type: "child",
+          userId: childUserId,
+        },
+        transaction: cache.transaction,
+      },
+    )
 
     cache.invalidiateUserList = true
   }

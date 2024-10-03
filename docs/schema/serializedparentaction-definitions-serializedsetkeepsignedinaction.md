@@ -4,8 +4,6 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedSetKeepSignedInAction
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -24,17 +22,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetKeepSigned
 
 ## type
 
-
-
 `type`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetkeepsignedinaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetKeepSignedInAction/properties/type")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetkeepsignedinaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetKeepSignedInAction/properties/type")
 
 ### type Type
 
@@ -50,17 +46,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetKeepSigned
 
 ## deviceId
 
-
-
 `deviceId`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetkeepsignedinaction-properties-deviceid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetKeepSignedInAction/properties/deviceId")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetkeepsignedinaction-properties-deviceid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetKeepSignedInAction/properties/deviceId")
 
 ### deviceId Type
 
@@ -68,17 +62,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetKeepSigned
 
 ## keepSignedIn
 
-
-
 `keepSignedIn`
 
-* is required
+- is required
 
-* Type: `boolean`
+- Type: `boolean`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetkeepsignedinaction-properties-keepsignedin.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetKeepSignedInAction/properties/keepSignedIn")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetkeepsignedinaction-properties-keepsignedin.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetKeepSignedInAction/properties/keepSignedIn")
 
 ### keepSignedIn Type
 

@@ -15,35 +15,54 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Database, Transaction } from '../../database'
-import { StaticMessageException } from '../../exception'
-import { requireMailAndLocaleByAuthToken } from '../authentication'
+import { Database, Transaction } from "../../database"
+import { StaticMessageException } from "../../exception"
+import { requireMailAndLocaleByAuthToken } from "../authentication"
 
 const getStatusByMailAddress = async ({
-  mail, database, transaction
-}: { mail: string, database: Database, transaction: Transaction }) => {
+  mail,
+  database,
+  transaction,
+}: {
+  mail: string
+  database: Database
+  transaction: Transaction
+}) => {
   if (!mail) {
-    throw new StaticMessageException({ staticMessage: 'getStatusByMailAddress: no mail address provided' })
+    throw new StaticMessageException({
+      staticMessage: "getStatusByMailAddress: no mail address provided",
+    })
   }
 
   const entry = await database.user.findOne({
     where: {
-      mail
+      mail,
     },
-    transaction
+    transaction,
   })
 
   if (entry) {
-    return 'with family'
+    return "with family"
   } else {
-    return 'without family'
+    return "without family"
   }
 }
 
 export const getStatusByMailToken = async ({
-  mailAuthToken, database, transaction
-}: { mailAuthToken: string, database: Database, transaction: Transaction }) => {
-  const mailInfo = await requireMailAndLocaleByAuthToken({ mailAuthToken, database, transaction, invalidate: false })
+  mailAuthToken,
+  database,
+  transaction,
+}: {
+  mailAuthToken: string
+  database: Database
+  transaction: Transaction
+}) => {
+  const mailInfo = await requireMailAndLocaleByAuthToken({
+    mailAuthToken,
+    database,
+    transaction,
+    invalidate: false,
+  })
   const mail = mailInfo.mail
 
   const status = await getStatusByMailAddress({ mail, database, transaction })

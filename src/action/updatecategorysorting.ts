@@ -15,36 +15,42 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily, assertNonEmptyListWithoutDuplicates } from './meta/util'
+import { ParentAction } from "./basetypes"
+import {
+  assertIdWithinFamily,
+  assertNonEmptyListWithoutDuplicates,
+} from "./meta/util"
 
-const actionType = 'UpdateCategorySortingAction'
+const actionType = "UpdateCategorySortingAction"
 
 export class UpdateCategorySortingAction extends ParentAction {
   readonly categoryIds: Array<string>
 
-  constructor ({ categoryIds }: {
-    categoryIds: Array<string>
-  }) {
+  constructor({ categoryIds }: { categoryIds: Array<string> }) {
     super()
 
-    assertNonEmptyListWithoutDuplicates({ actionType, field: 'categoryIds', list: categoryIds })
-
-    categoryIds.forEach((categoryId) => assertIdWithinFamily({
+    assertNonEmptyListWithoutDuplicates({
       actionType,
-      field: 'categoryIds',
-      value: categoryId
-    }))
+      field: "categoryIds",
+      list: categoryIds,
+    })
+
+    categoryIds.forEach((categoryId) =>
+      assertIdWithinFamily({
+        actionType,
+        field: "categoryIds",
+        value: categoryId,
+      }),
+    )
 
     this.categoryIds = categoryIds
   }
 
-  static parse = ({ categoryIds }: SerializedUpdateCategorySortingAction) => (
+  static parse = ({ categoryIds }: SerializedUpdateCategorySortingAction) =>
     new UpdateCategorySortingAction({ categoryIds })
-  )
 }
 
 export interface SerializedUpdateCategorySortingAction {
-  type: 'UPDATE_CATEGORY_SORTING'
+  type: "UPDATE_CATEGORY_SORTING"
   categoryIds: Array<string>
 }

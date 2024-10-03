@@ -15,12 +15,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { types } from '../database/keyrequest'
-import { AppLogicAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
-import { assertIdWithinFamily, assertSafeInteger } from './meta/util'
+import { types } from "../database/keyrequest"
+import { AppLogicAction } from "./basetypes"
+import { InvalidActionParameterException } from "./meta/exception"
+import { assertIdWithinFamily, assertSafeInteger } from "./meta/util"
 
-const actionType = 'SendKeyRequestAction'
+const actionType = "SendKeyRequestAction"
 
 export class SendKeyRequestAction extends AppLogicAction {
   readonly deviceSequenceNumber: number
@@ -30,13 +30,13 @@ export class SendKeyRequestAction extends AppLogicAction {
   readonly tempKey: Buffer
   readonly signature: Buffer
 
-  constructor ({
+  constructor({
     deviceSequenceNumber,
     deviceId,
     categoryId,
     type,
     tempKey,
-    signature
+    signature,
   }: {
     deviceSequenceNumber: number
     deviceId?: string
@@ -47,35 +47,47 @@ export class SendKeyRequestAction extends AppLogicAction {
   }) {
     super()
 
-    assertSafeInteger({ value: deviceSequenceNumber, field: 'deviceSequenceNumber', actionType })
-    assertSafeInteger({ value: type, field: 'deviceSequenceNumber', actionType })
+    assertSafeInteger({
+      value: deviceSequenceNumber,
+      field: "deviceSequenceNumber",
+      actionType,
+    })
+    assertSafeInteger({
+      value: type,
+      field: "deviceSequenceNumber",
+      actionType,
+    })
 
     if (tempKey.length != 32 || signature.length != 64) {
       throw new InvalidActionParameterException({
         actionType,
-        staticMessage: 'key/signature has wrong length'
+        staticMessage: "key/signature has wrong length",
       })
     }
 
     if (deviceId !== undefined) {
-      assertIdWithinFamily({ value: deviceId, actionType, field: 'deviceId' })
+      assertIdWithinFamily({ value: deviceId, actionType, field: "deviceId" })
     }
 
     if (categoryId !== undefined) {
-      assertIdWithinFamily({ value: categoryId, actionType, field: 'categoryId' })
+      assertIdWithinFamily({
+        value: categoryId,
+        actionType,
+        field: "categoryId",
+      })
     }
 
     if (deviceId !== undefined && categoryId !== undefined) {
       throw new InvalidActionParameterException({
         actionType,
-        staticMessage: 'can not specify device and category at the same time'
+        staticMessage: "can not specify device and category at the same time",
       })
     }
 
     if (types.all.indexOf(type) === -1) {
       throw new InvalidActionParameterException({
         actionType,
-        staticMessage: 'invalid type'
+        staticMessage: "invalid type",
       })
     }
 
@@ -87,20 +99,26 @@ export class SendKeyRequestAction extends AppLogicAction {
     this.signature = signature
   }
 
-  static parse = ({ dsn, deviceId, categoryId, dataType, tempKey, signature }: SerializedSendKeyRequestAction) => (
+  static parse = ({
+    dsn,
+    deviceId,
+    categoryId,
+    dataType,
+    tempKey,
+    signature,
+  }: SerializedSendKeyRequestAction) =>
     new SendKeyRequestAction({
       deviceSequenceNumber: dsn,
       deviceId,
       categoryId,
       type: dataType,
-      tempKey: Buffer.from(tempKey, 'base64'),
-      signature: Buffer.from(signature, 'base64')
+      tempKey: Buffer.from(tempKey, "base64"),
+      signature: Buffer.from(signature, "base64"),
     })
-  )
 }
 
 export interface SerializedSendKeyRequestAction {
-  type: 'SEND_KEY_REQUEST'
+  type: "SEND_KEY_REQUEST"
   dsn: number
   deviceId?: string
   categoryId?: string

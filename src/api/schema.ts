@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ClientDataStatus } from '../object/clientdatastatus'
-import { optionalPasswordRegex, optionalSaltRegex } from '../util/password'
+import { ClientDataStatus } from "../object/clientdatastatus"
+import { optionalPasswordRegex, optionalSaltRegex } from "../util/password"
 
 export interface ClientPushChangesRequest {
   deviceAuthToken: string
@@ -27,7 +27,7 @@ export interface ClientPushChangesRequestAction {
   encodedAction: string
   sequenceNumber: number
   integrity: string
-  type: 'appLogic' | 'parent' | 'child'
+  type: "appLogic" | "parent" | "child"
   userId: string
 }
 
@@ -57,21 +57,36 @@ export interface EncryptableParentPassword {
   encrypted?: boolean
 }
 
-export const assertPlaintextParentPasswordValid = (password: PlaintextParentPassword) => {
+export const assertPlaintextParentPasswordValid = (
+  password: PlaintextParentPassword,
+) => {
   assertParentPasswordValid({ ...password, encrypted: false })
 }
 
-export const assertParentPasswordValid = (password: EncryptableParentPassword) => {
-  if (password.hash === '' || password.secondHash === '' || password.secondSalt === '') {
-    throw new ParentPasswordValidationException('missing fields at parent password')
+export const assertParentPasswordValid = (
+  password: EncryptableParentPassword,
+) => {
+  if (
+    password.hash === "" ||
+    password.secondHash === "" ||
+    password.secondSalt === ""
+  ) {
+    throw new ParentPasswordValidationException(
+      "missing fields at parent password",
+    )
   }
 
-  if (!(optionalPasswordRegex.test(password.hash) && optionalSaltRegex.test(password.secondSalt))) {
-    throw new ParentPasswordValidationException('invalid parent password')
+  if (
+    !(
+      optionalPasswordRegex.test(password.hash) &&
+      optionalSaltRegex.test(password.secondSalt)
+    )
+  ) {
+    throw new ParentPasswordValidationException("invalid parent password")
   }
 
   if (!password.encrypted && !optionalPasswordRegex.test(password.secondHash)) {
-    throw new ParentPasswordValidationException('invalid parent password')
+    throw new ParentPasswordValidationException("invalid parent password")
   }
 }
 
@@ -113,7 +128,7 @@ export interface CreateRegisterDeviceTokenRequest {
 }
 
 export interface CanDoPurchaseRequest {
-  type: 'googleplay' | 'any'
+  type: "googleplay" | "any"
   deviceAuthToken: string
 }
 
@@ -131,7 +146,7 @@ export interface LinkParentMailAddressRequest {
 }
 
 export interface UpdatePrimaryDeviceRequest {
-  action: 'set this device' | 'unset this device'
+  action: "set this device" | "unset this device"
   currentUserId: string
   authToken: string
 }
@@ -147,7 +162,7 @@ export interface RequestIdentityTokenRequest {
   deviceAuthToken: string
   parentUserId: string
   parentPasswordSecondHash: string
-  purpose: 'purchase'
+  purpose: "purchase"
 }
 
 export interface RequestWithAuthToken {
@@ -166,7 +181,7 @@ export interface SignInByMailCodeRequest {
 }
 
 export interface IdentityTokenCreatePayload {
-  purpose: 'purchase'
+  purpose: "purchase"
   familyId: string
   userId: string
   mail: string
@@ -181,6 +196,9 @@ export interface DeleteAccountPayload {
   mailAuthTokens: Array<string>
 }
 
-export { SerializedAppLogicAction, SerializedChildAction, SerializedParentAction } from '../action/serialization'
-export { ServerDataStatus } from '../object/serverdatastatus'
-
+export {
+  SerializedAppLogicAction,
+  SerializedChildAction,
+  SerializedParentAction,
+} from "../action/serialization"
+export { ServerDataStatus } from "../object/serverdatastatus"

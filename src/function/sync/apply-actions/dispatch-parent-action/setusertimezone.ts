@@ -15,35 +15,41 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SetUserTimezoneAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingUserException } from '../exception/missing-item'
+import { SetUserTimezoneAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingUserException } from "../exception/missing-item"
 
-export async function dispatchSetUserTimezone ({ action, cache }: {
+export async function dispatchSetUserTimezone({
+  action,
+  cache,
+}: {
   action: SetUserTimezoneAction
   cache: Cache
 }) {
   const oldUser = await cache.database.user.findOne({
     where: {
       familyId: cache.familyId,
-      userId: action.userId
+      userId: action.userId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!oldUser) {
     throw new MissingUserException()
   }
 
-  await cache.database.user.update({
-    timeZone: action.timezone
-  }, {
-    transaction: cache.transaction,
-    where: {
-      familyId: cache.familyId,
-      userId: action.userId
-    }
-  })
+  await cache.database.user.update(
+    {
+      timeZone: action.timezone,
+    },
+    {
+      transaction: cache.transaction,
+      where: {
+        familyId: cache.familyId,
+        userId: action.userId,
+      },
+    },
+  )
 
   cache.invalidiateUserList = true
   cache.incrementTriggeredSyncLevel(2)

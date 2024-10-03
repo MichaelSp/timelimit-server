@@ -15,14 +15,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Database } from '../database'
-import { WebsocketApi } from '../websocket'
-import { initDeleteDeprecatedPurchasesWorker } from './delete-deprecated-purchases'
-import { initDeleteOldFamiliesWorker } from './delete-old-families'
-import { initDeleteOldTokensWorker } from './delete-old-tokens'
-import { initDeleteOldUsedTimesWorker } from './delete-old-used-times'
+import { Database } from "../database"
+import { WebsocketApi } from "../websocket"
+import { initDeleteDeprecatedPurchasesWorker } from "./delete-deprecated-purchases"
+import { initDeleteOldFamiliesWorker } from "./delete-old-families"
+import { initDeleteOldTokensWorker } from "./delete-old-tokens"
+import { initDeleteOldUsedTimesWorker } from "./delete-old-used-times"
 
-export function initWorkers ({ database, websocket }: {
+export function initWorkers({
+  database,
+  websocket,
+}: {
   database: Database
   websocket: WebsocketApi
 }) {

@@ -15,14 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AppLogicAction } from './basetypes'
+import { AppLogicAction } from "./basetypes"
 
 export class TriedDisablingDeviceAdminAction extends AppLogicAction {
-  constructor () {
+  constructor() {
     super()
   }
 }
 
 export interface SerialiezdTriedDisablingDeviceAdminAction {
-  type: 'TRIED_DISABLING_DEVICE_ADMIN'
+  type: "TRIED_DISABLING_DEVICE_ADMIN"
 }

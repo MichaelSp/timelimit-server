@@ -15,19 +15,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Unauthorized } from 'http-errors'
-import { RegisterChildDeviceRequest } from '../../api/schema'
-import { Database } from '../../database'
-import { EventHandler } from '../../monitoring/eventhandler'
-import { createEmptyClientDataStatus } from '../../object/clientdatastatus'
-import { ServerDataStatus } from '../../object/serverdatastatus'
-import { generateAuthToken, generateVersionId } from '../../util/token'
-import { WebsocketApi } from '../../websocket'
-import { prepareDeviceEntry } from '../device/prepare-device-entry'
-import { generateServerDataStatus } from '../sync/get-server-data-status'
-import { notifyClientsAboutChangesDelayed } from '../websocket'
+import { Unauthorized } from "http-errors"
+import { RegisterChildDeviceRequest } from "../../api/schema"
+import { Database } from "../../database"
+import { EventHandler } from "../../monitoring/eventhandler"
+import { createEmptyClientDataStatus } from "../../object/clientdatastatus"
+import { ServerDataStatus } from "../../object/serverdatastatus"
+import { generateAuthToken, generateVersionId } from "../../util/token"
+import { WebsocketApi } from "../../websocket"
+import { prepareDeviceEntry } from "../device/prepare-device-entry"
+import { generateServerDataStatus } from "../sync/get-server-data-status"
+import { notifyClientsAboutChangesDelayed } from "../websocket"
 
-export const addChildDevice = async ({ database, eventHandler, websocket, request }: {
+export const addChildDevice = async ({
+  database,
+  eventHandler,
+  websocket,
+  request,
+}: {
   database: Database
   eventHandler: EventHandler
   websocket: WebsocketApi
@@ -41,9 +46,9 @@ export const addChildDevice = async ({ database, eventHandler, websocket, reques
   return database.transaction(async (transaction) => {
     const entry = await database.addDeviceToken.findOne({
       where: {
-        token: request.registerToken.toLowerCase()
+        token: request.registerToken.toLowerCase(),
       },
-      transaction
+      transaction,
     })
 
     if (!entry) {
@@ -55,24 +60,30 @@ export const addChildDevice = async ({ database, eventHandler, websocket, reques
     const { deviceId, familyId } = entry
     const deviceAuthToken = generateAuthToken()
 
-    await database.device.create(prepareDeviceEntry({
-      familyId,
-      deviceId,
-      deviceAuthToken,
-      deviceName: request.deviceName,
-      newDeviceInfo: request.childDevice,
-      userId: '',
-      isUserKeptSignedIn: false
-    }), { transaction })
+    await database.device.create(
+      prepareDeviceEntry({
+        familyId,
+        deviceId,
+        deviceAuthToken,
+        deviceName: request.deviceName,
+        newDeviceInfo: request.childDevice,
+        userId: "",
+        isUserKeptSignedIn: false,
+      }),
+      { transaction },
+    )
 
-    await database.family.update({
-      deviceListVersion: generateVersionId()
-    }, {
-      where: {
-        familyId
+    await database.family.update(
+      {
+        deviceListVersion: generateVersionId(),
       },
-      transaction
-    })
+      {
+        where: {
+          familyId,
+        },
+        transaction,
+      },
+    )
 
     await notifyClientsAboutChangesDelayed({
       familyId,
@@ -81,22 +92,24 @@ export const addChildDevice = async ({ database, eventHandler, websocket, reques
       generalLevel: 1,
       targetedLevels: new Map(),
       sourceDeviceId: deviceId,
-      transaction
+      transaction,
     })
 
     const data = await generateServerDataStatus({
       database,
-      clientStatus: createEmptyClientDataStatus({ clientLevel: request.clientLevel || null }),
+      clientStatus: createEmptyClientDataStatus({
+        clientLevel: request.clientLevel || null,
+      }),
       familyId: entry.familyId,
       deviceId,
       transaction,
-      eventHandler
+      eventHandler,
     })
 
     return {
       deviceId,
       deviceAuthToken,
-      data
+      data,
     }
   })
 }

@@ -15,47 +15,76 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Transaction } from 'sequelize'
-import { attributesVersion2 } from '../../device'
-import { Migration } from '../../main'
-import { attributes as oldDeviceAttributes } from '../../olddevice'
+import { Transaction } from "sequelize"
+import { attributesVersion2 } from "../../device"
+import { Migration } from "../../main"
+import { attributes as oldDeviceAttributes } from "../../olddevice"
 
-export const up: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.addColumn('Devices', 'lastConnectivity', {
-      ...attributesVersion2.lastConnectivity
-    }, {
-      transaction
-    })
+export const up: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.addColumn(
+        "Devices",
+        "lastConnectivity",
+        {
+          ...attributesVersion2.lastConnectivity,
+        },
+        {
+          transaction,
+        },
+      )
 
-    await queryInterface.addColumn('Devices', 'notSeenForLongTime', {
-      ...attributesVersion2.notSeenForLongTime
-    }, {
-      transaction
-    })
+      await queryInterface.addColumn(
+        "Devices",
+        "notSeenForLongTime",
+        {
+          ...attributesVersion2.notSeenForLongTime,
+        },
+        {
+          transaction,
+        },
+      )
 
-    await queryInterface.addColumn('Devices', 'didDeviceReportUninstall', {
-      ...attributesVersion2.didDeviceReportUninstall
-    }, {
-      transaction
-    })
+      await queryInterface.addColumn(
+        "Devices",
+        "didDeviceReportUninstall",
+        {
+          ...attributesVersion2.didDeviceReportUninstall,
+        },
+        {
+          transaction,
+        },
+      )
 
-    await queryInterface.createTable('OldDevices', oldDeviceAttributes, { transaction })
-  })
+      await queryInterface.createTable("OldDevices", oldDeviceAttributes, {
+        transaction,
+      })
+    },
+  )
 }
 
-export const down: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.removeColumn('Devices', 'lastConnectivity', { transaction })
-    await queryInterface.removeColumn('Devices', 'notSeenForLongTime', { transaction })
-    await queryInterface.removeColumn('Devices', 'didDeviceReportUninstall', { transaction })
+export const down: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.removeColumn("Devices", "lastConnectivity", {
+        transaction,
+      })
+      await queryInterface.removeColumn("Devices", "notSeenForLongTime", {
+        transaction,
+      })
+      await queryInterface.removeColumn("Devices", "didDeviceReportUninstall", {
+        transaction,
+      })
 
-    await queryInterface.dropTable('OldDevices', { transaction })
-  })
+      await queryInterface.dropTable("OldDevices", { transaction })
+    },
+  )
 }

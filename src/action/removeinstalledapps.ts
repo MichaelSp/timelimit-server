@@ -15,28 +15,31 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AppLogicAction } from './basetypes'
-import { assertNonEmptyListWithoutDuplicates } from './meta/util'
+import { AppLogicAction } from "./basetypes"
+import { assertNonEmptyListWithoutDuplicates } from "./meta/util"
 
-const actionType = 'RemoveInstalledAppsAction'
+const actionType = "RemoveInstalledAppsAction"
 
 export class RemoveInstalledAppsAction extends AppLogicAction {
   readonly packageNames: Array<string>
 
-  constructor ({ packageNames }: {packageNames: Array<string>}) {
+  constructor({ packageNames }: { packageNames: Array<string> }) {
     super()
 
-    assertNonEmptyListWithoutDuplicates({ actionType, field: 'packageNames', list: packageNames })
+    assertNonEmptyListWithoutDuplicates({
+      actionType,
+      field: "packageNames",
+      list: packageNames,
+    })
 
     this.packageNames = packageNames
   }
 
-  static parse = ({ packageNames }: SerializedRemoveInstalledAppsAction) => (
+  static parse = ({ packageNames }: SerializedRemoveInstalledAppsAction) =>
     new RemoveInstalledAppsAction({ packageNames })
-  )
 }
 
 export interface SerializedRemoveInstalledAppsAction {
-  type: 'REMOVE_INSTALLED_APPS'
+  type: "REMOVE_INSTALLED_APPS"
   packageNames: Array<string>
 }

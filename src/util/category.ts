@@ -15,22 +15,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export function getCategoryWithParentCategories (categories: Array<{ categoryId: string, parentCategoryId: string }>, startCategoryId: string): Array<string> {
-  const categoryById = new Map<string, { categoryId: string, parentCategoryId: string }>()
+export function getCategoryWithParentCategories(
+  categories: Array<{ categoryId: string; parentCategoryId: string }>,
+  startCategoryId: string,
+): Array<string> {
+  const categoryById = new Map<
+    string,
+    { categoryId: string; parentCategoryId: string }
+  >()
 
-  categories.forEach((category) => categoryById.set(category.categoryId, category))
+  categories.forEach((category) =>
+    categoryById.set(category.categoryId, category),
+  )
 
   const startCategory = categoryById.get(startCategoryId)
 
   if (!startCategory) {
-    throw new GetParentCategoriesException('start category not found')
+    throw new GetParentCategoriesException("start category not found")
   }
 
-  const categoryIds = [ startCategoryId ]
+  const categoryIds = [startCategoryId]
 
   let currentCategory = categoryById.get(startCategory.parentCategoryId)
 
-  while (currentCategory !== undefined && categoryIds.indexOf(currentCategory.categoryId) === -1) {
+  while (
+    currentCategory !== undefined &&
+    categoryIds.indexOf(currentCategory.categoryId) === -1
+  ) {
     categoryIds.push(currentCategory.categoryId)
 
     currentCategory = categoryById.get(currentCategory.parentCategoryId)

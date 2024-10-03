@@ -20,13 +20,13 @@ On a invalid request body: HTTP status code 400 Bad Request
 
 If the mail auth token is invalid/ expired: HTTP status code 401 Unauthorized
 
-On success: a object with the properties ``status`` (string), ``mail`` (string),
-``canCreateFamily`` (boolean) and ``alwaysPro`` (boolean)
+On success: a object with the properties `status` (string), `mail` (string),
+`canCreateFamily` (boolean) and `alwaysPro` (boolean)
 
-- ``status`` is ``with family`` or ``without family``
-- ``mail`` is the mail address for which the auth token was created
-- ``canCreateFamily`` is false if the sign up of new families was disabled and otherwise true
-- ``alwaysPro`` is true if the premium version is always unlocked
+- `status` is `with family` or `without family`
+- `mail` is the mail address for which the auth token was created
+- `canCreateFamily` is false if the sign up of new families was disabled and otherwise true
+- `alwaysPro` is true if the premium version is always unlocked
 
 ## POST /parent/create-family
 
@@ -44,7 +44,7 @@ If the mail auth token is invalid/ expired: HTTP status code 401 Unauthorized
 
 If there is already a user with the mail address of the mail auth token: HTTP status code 409 Conflict
 
-On success: object with ``deviceAuthToken`` (string), ``ownDeviceId`` (string) and ``data`` (like a ``/sync/pull-status`` response)
+On success: object with `deviceAuthToken` (string), `ownDeviceId` (string) and `data` (like a `/sync/pull-status` response)
 
 ## POST /parent/sign-in-into-family
 
@@ -60,12 +60,12 @@ On a invalid request body: HTTP status code 400 Bad Request
 
 If there is no user with the mail address of the mail auth token: HTTP status code 409 Conflict
 
-On success: object with ``deviceAuthToken`` (string), ``ownDeviceId`` (string) and ``data`` (like a ``/sync/pull-status`` response)
+On success: object with `deviceAuthToken` (string), `ownDeviceId` (string) and `data` (like a `/sync/pull-status` response)
 
 ## POST /parent/can-recover-password
 
 **Depreacted:** The caller should know by itself if the mail address belongs to the user.
-``/recover-parent-password`` will report a failure if it does not.
+`/recover-parent-password` will report a failure if it does not.
 
 Use this to check if the parent password can be recovered. This checks that the
 mail auth token matches the mail address of the parent user.
@@ -80,7 +80,7 @@ On a invalid request body: HTTP status code 400 Bad Request
 
 If the mail auth token is invalid/ expired: HTTP status code 401 Unauthorized
 
-On success: object with the property ``canRecover`` (boolean)
+On success: object with the property `canRecover` (boolean)
 
 ## POST /parent/recover-parent-password
 
@@ -96,17 +96,17 @@ On a invalid request body: HTTP status code 400 Bad Request
 
 If the mail auth token is invalid/ expired: HTTP status code 401 Unauthorized
 
-On success: ``{"ok": true}``
+On success: `{"ok": true}`
 
 ## POST /parent/create-add-device-token
 
-Use this to create a token which can be used by ``/child/add-device``.
+Use this to create a token which can be used by `/child/add-device`.
 
 ### request
 
 see [this JSON schema](../schema/createregisterdevicetokenrequest.md)
 
-in case of a device used by a parent with disabled password checks, use ``device`` as ``secondPasswordHash``
+in case of a device used by a parent with disabled password checks, use `device` as `secondPasswordHash`
 
 ### response
 
@@ -114,13 +114,13 @@ On a invalid request body: HTTP status code 400 Bad Request
 
 If the device auth token is invalid: HTTP status code 401 Unauthorized
 
-If the ``secondPasswordHash`` is invalid: HTTP status code 401 Unauthorized
+If the `secondPasswordHash` is invalid: HTTP status code 401 Unauthorized
 
-On success: object with ``token`` and ``deviceId``
+On success: object with `token` and `deviceId`
 
-``token`` is the add device token
+`token` is the add device token
 
-``deviceId`` is the device id which the new device will get if it uses the token
+`deviceId` is the device id which the new device will get if it uses the token
 
 ## POST /parent/link-mail-address
 
@@ -140,13 +140,13 @@ If the mail auth token is invalid/ expired: HTTP status code 401 Unauthorized
 
 If there is already a user with the mail address of the mail auth token: HTTP status code 409 Conflict
 
-If there is no user with the specified ``parentId`` (user id): HTTP status code 409 Conflict
+If there is no user with the specified `parentId` (user id): HTTP status code 409 Conflict
 
 If there is already a mail address for the user: HTTP status code 409 Conflict
 
-If the ``parentPasswordSecondHash`` is invalid: HTTP status code 409 Conflict
+If the `parentPasswordSecondHash` is invalid: HTTP status code 409 Conflict
 
-On success: ``{"ok": true}``
+On success: `{"ok": true}`
 
 ## POST /parent/remove-device
 
@@ -156,7 +156,7 @@ Use this to remove a device from a family.
 
 see [this JSON schema](../schema/removedevicerequest.md)
 
-in case of a device used by a parent with disabled password checks, use ``device`` as ``secondPasswordHash``
+in case of a device used by a parent with disabled password checks, use `device` as `secondPasswordHash`
 
 ### response
 
@@ -164,11 +164,11 @@ On a invalid request body: HTTP status code 400 Bad Request
 
 If the device auth token is invalid: HTTP status code 401 Unauthorized
 
-If there is no device with the specified ``deviceId``: HTTP status code 409 Conflict
+If there is no device with the specified `deviceId`: HTTP status code 409 Conflict
 
-If the ``secondPasswordHash`` is invalid: HTTP status code 401 Unauthorized
+If the `secondPasswordHash` is invalid: HTTP status code 401 Unauthorized
 
-On success: ``{"ok": true}``
+On success: `{"ok": true}`
 
 ## POST /parent/create-identity-token
 
@@ -179,7 +179,7 @@ This can be used to inform the server operator about ones user account.
 
 see [this JSON schema](../schema/requestidentitytokenrequest.md)
 
-in case of a device used by a parent with disabled password checks, use ``device`` as ``secondPasswordHash``
+in case of a device used by a parent with disabled password checks, use `device` as `secondPasswordHash`
 
 ## response
 
@@ -187,13 +187,13 @@ On a invalid request body: HTTP status code 400 Bad Request
 
 If the device auth token is invalid: HTTP status code 401 Unauthorized
 
-If there is no device with the specified ``deviceId``: HTTP status code 409 Conflict
+If there is no device with the specified `deviceId`: HTTP status code 409 Conflict
 
-If the ``secondPasswordHash`` is invalid: HTTP status code 401 Unauthorized
+If the `secondPasswordHash` is invalid: HTTP status code 401 Unauthorized
 
 If the server does not support this request: HTTP status code 404
 
-On success: ``{"token": "some string"}``; you should not make any assumptions about the token string
+On success: `{"token": "some string"}`; you should not make any assumptions about the token string
 
 ## POST /parent/delete-account
 

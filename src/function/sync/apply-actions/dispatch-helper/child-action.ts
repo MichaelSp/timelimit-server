@@ -15,15 +15,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { parseChildAction } from '../../../../action/serialization'
-import { ClientPushChangesRequestAction } from '../../../../api/schema'
-import { isSerializedChildAction } from '../../../../api/validator'
-import { EventHandler } from '../../../../monitoring/eventhandler'
-import { Cache } from '../cache'
-import { dispatchChildAction as dispatchChildActionInternal } from '../dispatch-child-action'
-import { dispatch } from './helper'
+import { parseChildAction } from "../../../../action/serialization"
+import { ClientPushChangesRequestAction } from "../../../../api/schema"
+import { isSerializedChildAction } from "../../../../api/validator"
+import { EventHandler } from "../../../../monitoring/eventhandler"
+import { Cache } from "../cache"
+import { dispatchChildAction as dispatchChildActionInternal } from "../dispatch-child-action"
+import { dispatch } from "./helper"
 
-export async function dispatchChildAction ({ action, eventHandler, deviceId, cache, childUserId }: {
+export async function dispatchChildAction({
+  action,
+  eventHandler,
+  deviceId,
+  cache,
+  childUserId,
+}: {
   action: ClientPushChangesRequestAction
   deviceId: string
   cache: Cache
@@ -33,11 +39,16 @@ export async function dispatchChildAction ({ action, eventHandler, deviceId, cac
   return dispatch({
     action,
     eventHandler,
-    type: 'child',
+    type: "child",
     validator: isSerializedChildAction,
     parser: parseChildAction,
     applier: async (action) => {
-      await dispatchChildActionInternal({ action, cache, deviceId, childUserId })
-    }
+      await dispatchChildActionInternal({
+        action,
+        cache,
+        deviceId,
+        childUserId,
+      })
+    },
   })
 }

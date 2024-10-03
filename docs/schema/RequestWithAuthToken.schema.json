@@ -6,9 +6,7 @@
     }
   },
   "additionalProperties": false,
-  "required": [
-    "deviceAuthToken"
-  ],
+  "required": ["deviceAuthToken"],
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "RequestWithAuthToken",
   "$id": "https://timelimit.io/RequestWithAuthToken"

@@ -15,18 +15,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ChildChangePasswordAction, SerializedChildChangePasswordAction } from '../childchangepassword'
-import { ChildSignInAction, SerializedChildSignInAction } from '../childsignin'
-import { UnknownActionTypeException } from '../meta/exception'
+import {
+  ChildChangePasswordAction,
+  SerializedChildChangePasswordAction,
+} from "../childchangepassword"
+import { ChildSignInAction, SerializedChildSignInAction } from "../childsignin"
+import { UnknownActionTypeException } from "../meta/exception"
 
-export type SerializedChildAction = SerializedChildChangePasswordAction | SerializedChildSignInAction
+export type SerializedChildAction =
+  | SerializedChildChangePasswordAction
+  | SerializedChildSignInAction
 
 export const parseChildAction = (serialized: SerializedChildAction) => {
-  if (serialized.type === 'CHILD_CHANGE_PASSWORD') {
+  if (serialized.type === "CHILD_CHANGE_PASSWORD") {
     return ChildChangePasswordAction.parse(serialized)
-  } else if (serialized.type === 'CHILD_SIGN_IN') {
+  } else if (serialized.type === "CHILD_SIGN_IN") {
     return ChildSignInAction.instance
   } else {
-    throw new UnknownActionTypeException({ group: 'child' })
+    throw new UnknownActionTypeException({ group: "child" })
   }
 }

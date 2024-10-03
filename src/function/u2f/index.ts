@@ -15,20 +15,47 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { createHash, timingSafeEqual } from 'crypto'
-import * as Sequelize from 'sequelize'
-import { Database } from '../../database'
-import { intToBuffer } from '../../util/binary-number'
-import { calculateApplicationId, isU2fSignatureValid } from '../../util/u2fsignature'
-import { getSharedSecret, SharedSecretException } from '../dh'
+import { createHash, timingSafeEqual } from "crypto"
+import * as Sequelize from "sequelize"
+import { Database } from "../../database"
+import { intToBuffer } from "../../util/binary-number"
+import {
+  calculateApplicationId,
+  isU2fSignatureValid,
+} from "../../util/u2fsignature"
+import { getSharedSecret, SharedSecretException } from "../dh"
 
 export class U2fValidationError extends Error {}
-class IntegrityMalformedException extends U2fValidationError { constructor() { super('integrity malformed') } }
-class MissingPremiumException extends U2fValidationError { constructor() { super('missing premium') } }
-class U2fSharedSecretException extends U2fValidationError { constructor(message: string) { super('shared secret: ' + message) } }
-class HmacMismatchException extends U2fValidationError { constructor() { super('hmac mismatch') } }
-class UnknownU2fKeyIdException extends U2fValidationError { constructor() { super('unknown u2f key id') } }
-class InvalidU2fSignatureException extends U2fValidationError { constructor() { super('u2f signature invalid') } }
+class IntegrityMalformedException extends U2fValidationError {
+  constructor() {
+    super("integrity malformed")
+  }
+}
+class MissingPremiumException extends U2fValidationError {
+  constructor() {
+    super("missing premium")
+  }
+}
+class U2fSharedSecretException extends U2fValidationError {
+  constructor(message: string) {
+    super("shared secret: " + message)
+  }
+}
+class HmacMismatchException extends U2fValidationError {
+  constructor() {
+    super("hmac mismatch")
+  }
+}
+class UnknownU2fKeyIdException extends U2fValidationError {
+  constructor() {
+    super("unknown u2f key id")
+  }
+}
+class InvalidU2fSignatureException extends U2fValidationError {
+  constructor() {
+    super("u2f signature invalid")
+  }
+}
 
 export async function validateU2fIntegrity({
   integrity,
@@ -37,7 +64,7 @@ export async function validateU2fIntegrity({
   deviceId,
   database,
   transaction,
-  calculateHmac
+  calculateHmac,
 }: {
   integrity: string
   hasFullVersion: boolean
@@ -47,9 +74,9 @@ export async function validateU2fIntegrity({
   transaction: Sequelize.Transaction
   calculateHmac: (secret: Buffer) => Buffer
 }) {
-  if (!integrity.startsWith('u2f:')) throw new IntegrityMalformedException()
+  if (!integrity.startsWith("u2f:")) throw new IntegrityMalformedException()
 
-  const parts = integrity.substring(4).split('.')
+  const parts = integrity.substring(4).split(".")
 
   if (parts.length !== 5) {
     throw new IntegrityMalformedException()
@@ -59,12 +86,18 @@ export async function validateU2fIntegrity({
     throw new MissingPremiumException()
   }
 
-  const [dhKeyId, dhPublicKeyBase64, u2fKeyId, u2fResponseBase64, providedHmacResultBase64] = parts
+  const [
+    dhKeyId,
+    dhPublicKeyBase64,
+    u2fKeyId,
+    u2fResponseBase64,
+    providedHmacResultBase64,
+  ] = parts
 
-  const binaryDhKeyId = Buffer.from(dhKeyId, 'utf8')
-  const dhPublicKey = Buffer.from(dhPublicKeyBase64, 'base64')
-  const u2fResponse = Buffer.from(u2fResponseBase64, 'base64')
-  const providedHmacResult = Buffer.from(providedHmacResultBase64, 'base64')
+  const binaryDhKeyId = Buffer.from(dhKeyId, "utf8")
+  const dhPublicKey = Buffer.from(dhPublicKeyBase64, "base64")
+  const u2fResponse = Buffer.from(u2fResponseBase64, "base64")
+  const providedHmacResult = Buffer.from(providedHmacResultBase64, "base64")
 
   const sharedSecret = await (async () => {
     try {
@@ -74,10 +107,11 @@ export async function validateU2fIntegrity({
         familyId,
         deviceId,
         keyId: dhKeyId,
-        otherPublicKey: dhPublicKey
+        otherPublicKey: dhPublicKey,
       })
     } catch (ex) {
-      if (ex instanceof SharedSecretException) throw new U2fSharedSecretException(ex.message)
+      if (ex instanceof SharedSecretException)
+        throw new U2fSharedSecretException(ex.message)
       else throw ex
     }
   })()
@@ -91,20 +125,20 @@ export async function validateU2fIntegrity({
   const keyDescriptorUnsafe = await database.u2fKey.findOne({
     where: {
       familyId,
-      keyId: u2fKeyId
+      keyId: u2fKeyId,
     },
     transaction,
-    attributes: ['publicKey', 'userId']
+    attributes: ["publicKey", "userId"],
   })
 
   if (keyDescriptorUnsafe === null) throw new UnknownU2fKeyIdException()
 
   const keyDescriptor = {
     publicKey: keyDescriptorUnsafe.publicKey,
-    userId: keyDescriptorUnsafe.userId
+    userId: keyDescriptorUnsafe.userId,
   }
 
-  const dhPublicKeysHash = createHash('sha256')
+  const dhPublicKeysHash = createHash("sha256")
     .update(intToBuffer(binaryDhKeyId.length))
     .update(binaryDhKeyId)
     .update(intToBuffer(sharedSecret.ownPublicKey.length))
@@ -116,9 +150,9 @@ export async function validateU2fIntegrity({
   if (
     !isU2fSignatureValid({
       u2fRawResponse: u2fResponse,
-      applicationId: calculateApplicationId('https://timelimit.io'),
+      applicationId: calculateApplicationId("https://timelimit.io"),
       challenge: dhPublicKeysHash,
-      publicKey: keyDescriptor.publicKey
+      publicKey: keyDescriptor.publicKey,
     })
   ) {
     throw new InvalidU2fSignatureException()
@@ -132,17 +166,20 @@ export async function validateU2fIntegrity({
   // values; if this becomes necassary in the future, then it does not
   // require any client modification to add it
 
-  await database.u2fKey.update({
-    nextCounter: (u2fCounter + 1).toString(10)
-  }, {
-    where: {
-      familyId,
-      keyId: u2fKeyId
+  await database.u2fKey.update(
+    {
+      nextCounter: (u2fCounter + 1).toString(10),
     },
-    transaction
-  })
+    {
+      where: {
+        familyId,
+        keyId: u2fKeyId,
+      },
+      transaction,
+    },
+  )
 
   return {
-    userId: keyDescriptor.userId
+    userId: keyDescriptor.userId,
   }
 }

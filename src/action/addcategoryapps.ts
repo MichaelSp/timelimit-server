@@ -15,32 +15,51 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily, assertNonEmptyListWithoutDuplicates } from './meta/util'
+import { ParentAction } from "./basetypes"
+import {
+  assertIdWithinFamily,
+  assertNonEmptyListWithoutDuplicates,
+} from "./meta/util"
 
-const actionType = 'AddCategoryApps'
+const actionType = "AddCategoryApps"
 
 export class AddCategoryAppsAction extends ParentAction {
   readonly categoryId: string
   readonly packageNames: Array<string>
 
-  constructor ({ categoryId, packageNames }: {categoryId: string, packageNames: Array<string>}) {
+  constructor({
+    categoryId,
+    packageNames,
+  }: {
+    categoryId: string
+    packageNames: Array<string>
+  }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'categoryId', value: categoryId })
-    assertNonEmptyListWithoutDuplicates({ actionType, field: 'packageNames', list: packageNames })
+    assertIdWithinFamily({
+      actionType,
+      field: "categoryId",
+      value: categoryId,
+    })
+    assertNonEmptyListWithoutDuplicates({
+      actionType,
+      field: "packageNames",
+      list: packageNames,
+    })
 
     this.categoryId = categoryId
     this.packageNames = packageNames
   }
 
-  static parse = ({ categoryId, packageNames }: SerializedAddCategoryAppsAction) => (
+  static parse = ({
+    categoryId,
+    packageNames,
+  }: SerializedAddCategoryAppsAction) =>
     new AddCategoryAppsAction({ categoryId, packageNames })
-  )
 }
 
 export interface SerializedAddCategoryAppsAction {
-  type: 'ADD_CATEGORY_APPS'
+  type: "ADD_CATEGORY_APPS"
   categoryId: string
   packageNames: Array<string>
 }

@@ -4,8 +4,6 @@
 https://timelimit.io/ClientPullChangesRequest#/definitions/DeviceDataStatus
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [ClientPullChangesRequest.schema.json\*](ClientPullChangesRequest.schema.json "open original schema") |
@@ -23,17 +21,15 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/DeviceDataStatus
 
 ## appsB
 
-
-
 `appsB`
 
-* is optional
+- is optional
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-devicedatastatus-properties-appsb.md "https://timelimit.io/ClientPullChangesRequest#/definitions/DeviceDataStatus/properties/appsB")
+- defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-devicedatastatus-properties-appsb.md "https://timelimit.io/ClientPullChangesRequest#/definitions/DeviceDataStatus/properties/appsB")
 
 ### appsB Type
 
@@ -41,17 +37,15 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/DeviceDataStatus
 
 ## appsD
 
-
-
 `appsD`
 
-* is optional
+- is optional
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-devicedatastatus-properties-appsd.md "https://timelimit.io/ClientPullChangesRequest#/definitions/DeviceDataStatus/properties/appsD")
+- defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-devicedatastatus-properties-appsd.md "https://timelimit.io/ClientPullChangesRequest#/definitions/DeviceDataStatus/properties/appsD")
 
 ### appsD Type
 

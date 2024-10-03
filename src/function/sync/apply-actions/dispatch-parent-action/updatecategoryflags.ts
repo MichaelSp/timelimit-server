@@ -15,21 +15,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateCategoryFlagsAction } from '../../../../action'
-import { Cache } from '../cache'
-import { IllegalStateException } from '../exception/illegal-state'
-import { MissingCategoryException } from '../exception/missing-item'
+import { UpdateCategoryFlagsAction } from "../../../../action"
+import { Cache } from "../cache"
+import { IllegalStateException } from "../exception/illegal-state"
+import { MissingCategoryException } from "../exception/missing-item"
 
-export async function dispatchUpdateCategoryFlagsAction ({ action, cache }: {
+export async function dispatchUpdateCategoryFlagsAction({
+  action,
+  cache,
+}: {
   action: UpdateCategoryFlagsAction
   cache: Cache
 }) {
   const categoryEntry = await cache.database.category.findOne({
     where: {
       familyId: cache.familyId,
-      categoryId: action.categoryId
+      categoryId: action.categoryId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!categoryEntry) {
@@ -39,7 +42,9 @@ export async function dispatchUpdateCategoryFlagsAction ({ action, cache }: {
   const oldFlags = parseInt(categoryEntry.flags, 10)
 
   if (!Number.isSafeInteger(oldFlags)) {
-    throw new IllegalStateException({ staticMessage: 'oldFlags is not a safe integer' })
+    throw new IllegalStateException({
+      staticMessage: "oldFlags is not a safe integer",
+    })
   }
 
   const newFlags = (oldFlags & ~action.modifiedBits) | action.newValues

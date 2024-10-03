@@ -15,22 +15,32 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { BadRequest } from 'http-errors'
-import { ClientPushChangesRequest } from '../../../api/schema'
-import { VisibleConnectedDevicesManager } from '../../../connected-devices'
-import { Database, shouldRetryWithException } from '../../../database'
-import { EventHandler } from '../../../monitoring/eventhandler'
-import { WebsocketApi } from '../../../websocket'
-import { notifyClientsAboutChangesDelayed } from '../../websocket'
-import { getApplyActionBaseInfo } from './baseinfo'
-import { Cache } from './cache'
-import { dispatchAppLogicAction, dispatchChildAction, dispatchParentAction } from './dispatch-helper'
-import { ApplyActionException } from './exception'
-import { IllegalStateException } from './exception/illegal-state'
-import { SequenceNumberRepeatedException } from './exception/sequence'
-import { assertActionIntegrity } from './integrity'
+import { BadRequest } from "http-errors"
+import { ClientPushChangesRequest } from "../../../api/schema"
+import { VisibleConnectedDevicesManager } from "../../../connected-devices"
+import { Database, shouldRetryWithException } from "../../../database"
+import { EventHandler } from "../../../monitoring/eventhandler"
+import { WebsocketApi } from "../../../websocket"
+import { notifyClientsAboutChangesDelayed } from "../../websocket"
+import { getApplyActionBaseInfo } from "./baseinfo"
+import { Cache } from "./cache"
+import {
+  dispatchAppLogicAction,
+  dispatchChildAction,
+  dispatchParentAction,
+} from "./dispatch-helper"
+import { ApplyActionException } from "./exception"
+import { IllegalStateException } from "./exception/illegal-state"
+import { SequenceNumberRepeatedException } from "./exception/sequence"
+import { assertActionIntegrity } from "./integrity"
 
-export const applyActionsFromDevice = async ({ database, request, websocket, connectedDevicesManager, eventHandler }: {
+export const applyActionsFromDevice = async ({
+  database,
+  request,
+  websocket,
+  connectedDevicesManager,
+  eventHandler,
+}: {
   database: Database
   websocket: WebsocketApi
   request: ClientPushChangesRequest
@@ -38,16 +48,20 @@ export const applyActionsFromDevice = async ({ database, request, websocket, con
   eventHandler: EventHandler
   // no transaction here because this is directly called from an API endpoint
 }): Promise<{ shouldDoFullSync: boolean }> => {
-  eventHandler.countEvent('applyActionsFromDevice')
+  eventHandler.countEvent("applyActionsFromDevice")
 
   if (request.actions.length > 50) {
-    eventHandler.countEvent('applyActionsFromDevice tooMuchActionsPerRequest')
+    eventHandler.countEvent("applyActionsFromDevice tooMuchActionsPerRequest")
 
     throw new BadRequest()
   }
 
   return database.transaction(async (transaction) => {
-    const baseInfo = await getApplyActionBaseInfo({ database, transaction, deviceAuthToken: request.deviceAuthToken })
+    const baseInfo = await getApplyActionBaseInfo({
+      database,
+      transaction,
+      deviceAuthToken: request.deviceAuthToken,
+    })
 
     const cache = new Cache({
       database,
@@ -55,7 +69,7 @@ export const applyActionsFromDevice = async ({ database, request, websocket, con
       transaction,
       familyId: baseInfo.familyId,
       deviceId: baseInfo.deviceId,
-      connectedDevicesManager
+      connectedDevicesManager,
     })
 
     let { nextSequenceNumber } = baseInfo
@@ -71,19 +85,20 @@ export const applyActionsFromDevice = async ({ database, request, websocket, con
           // update the next sequence number
           nextSequenceNumber = action.sequenceNumber + 1
 
-          if (action.type === 'appLogic') {
+          if (action.type === "appLogic") {
             await dispatchAppLogicAction({
               action,
               cache,
               deviceId: baseInfo.deviceId,
-              eventHandler
+              eventHandler,
             })
-          } else if (action.type === 'parent') {
-            const { isChildLimitAdding, authentication } = await assertActionIntegrity({
-              deviceId: baseInfo.deviceId,
-              cache,
-              action
-            })
+          } else if (action.type === "parent") {
+            const { isChildLimitAdding, authentication } =
+              await assertActionIntegrity({
+                deviceId: baseInfo.deviceId,
+                cache,
+                action,
+              })
 
             await dispatchParentAction({
               action,
@@ -91,13 +106,13 @@ export const applyActionsFromDevice = async ({ database, request, websocket, con
               deviceId: baseInfo.deviceId,
               eventHandler,
               isChildLimitAdding,
-              authentication
+              authentication,
             })
-          } else if (action.type === 'child') {
+          } else if (action.type === "child") {
             await assertActionIntegrity({
               deviceId: baseInfo.deviceId,
               cache,
-              action
+              action,
             })
 
             await dispatchChildAction({
@@ -105,23 +120,34 @@ export const applyActionsFromDevice = async ({ database, request, websocket, con
               cache,
               childUserId: action.userId,
               deviceId: baseInfo.deviceId,
-              eventHandler
+              eventHandler,
             })
           } else {
-            throw new IllegalStateException({ staticMessage: 'not possible action.type value' })
+            throw new IllegalStateException({
+              staticMessage: "not possible action.type value",
+            })
           }
         })
       } catch (ex) {
         if (shouldRetryWithException(database, ex)) {
-          eventHandler.countEvent('applyActionsFromDevice got exception which should cause retry')
+          eventHandler.countEvent(
+            "applyActionsFromDevice got exception which should cause retry",
+          )
 
           throw ex
         } else if (ex instanceof ApplyActionException) {
-          eventHandler.countEvent('applyActionsFromDevice errorDispatchingAction:' + ex.staticMessage)
+          eventHandler.countEvent(
+            "applyActionsFromDevice errorDispatchingAction:" + ex.staticMessage,
+          )
         } else {
-          const stack = ex instanceof Error && ex.stack ? ex.stack.substring(0, 4096) : 'no stack'
+          const stack =
+            ex instanceof Error && ex.stack
+              ? ex.stack.substring(0, 4096)
+              : "no stack"
 
-          eventHandler.countEvent('applyActionsFromDevice errorDispatchingAction:other:' + stack)
+          eventHandler.countEvent(
+            "applyActionsFromDevice errorDispatchingAction:other:" + stack,
+          )
         }
 
         cache.requireSenderFullSync()
@@ -130,17 +156,20 @@ export const applyActionsFromDevice = async ({ database, request, websocket, con
 
     // save new next sequence number
     if (nextSequenceNumber !== baseInfo.nextSequenceNumber) {
-      eventHandler.countEvent('applyActionsFromDevice updateSequenceNumber')
+      eventHandler.countEvent("applyActionsFromDevice updateSequenceNumber")
 
-      await database.device.update({
-        nextSequenceNumber
-      }, {
-        where: {
-          familyId: baseInfo.familyId,
-          deviceId: baseInfo.deviceId
+      await database.device.update(
+        {
+          nextSequenceNumber,
         },
-        transaction
-      })
+        {
+          where: {
+            familyId: baseInfo.familyId,
+            deviceId: baseInfo.deviceId,
+          },
+          transaction,
+        },
+      )
     }
 
     await cache.saveModifiedVersionNumbers()
@@ -152,21 +181,27 @@ export const applyActionsFromDevice = async ({ database, request, websocket, con
       database,
       transaction,
       generalLevel: cache.triggeredSyncLevel,
-      targetedLevels: cache.targetedTriggeredSyncLevels
+      targetedLevels: cache.targetedTriggeredSyncLevels,
     })
 
     if (cache.triggeredSyncLevel === 2) {
       transaction.afterCommit(() => {
-        eventHandler.countEvent('applyActionsFromDevice areChangesImportant')
+        eventHandler.countEvent("applyActionsFromDevice areChangesImportant")
       })
-    } else if ([...cache.targetedTriggeredSyncLevels.entries()].some((entry) => entry[1] === 2)) {
+    } else if (
+      [...cache.targetedTriggeredSyncLevels.entries()].some(
+        (entry) => entry[1] === 2,
+      )
+    ) {
       transaction.afterCommit(() => {
-        eventHandler.countEvent('applyActionsFromDevice areChangesImportantTargeted')
+        eventHandler.countEvent(
+          "applyActionsFromDevice areChangesImportantTargeted",
+        )
       })
     }
 
     return {
-      shouldDoFullSync: cache.isSenderDoFullSyncTrue()
+      shouldDoFullSync: cache.isSenderDoFullSyncTrue(),
     }
   })
 }

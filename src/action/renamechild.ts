@@ -15,28 +15,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { InvalidActionParameterException } from "./meta/exception"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'RenameChildAction'
+const actionType = "RenameChildAction"
 
 export class RenameChildAction extends ParentAction {
   readonly childId: string
   readonly newName: string
 
-  constructor ({ childId, newName }: {
-    childId: string
-    newName: string
-  }) {
+  constructor({ childId, newName }: { childId: string; newName: string }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'childId', value: childId })
+    assertIdWithinFamily({ actionType, field: "childId", value: childId })
 
-    if (newName === '') {
+    if (newName === "") {
       throw new InvalidActionParameterException({
         actionType,
-        staticMessage: 'new name must not be empty'
+        staticMessage: "new name must not be empty",
       })
     }
 
@@ -44,13 +41,12 @@ export class RenameChildAction extends ParentAction {
     this.newName = newName
   }
 
-  static parse = ({ childId, newName }: SerializedRenameChildAction) => (
+  static parse = ({ childId, newName }: SerializedRenameChildAction) =>
     new RenameChildAction({ childId, newName })
-  )
 }
 
 export interface SerializedRenameChildAction {
-  type: 'RENAME_CHILD'
+  type: "RENAME_CHILD"
   childId: string
   newName: string
 }

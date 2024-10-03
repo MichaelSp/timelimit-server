@@ -19,7 +19,13 @@ export class StaticMessageException extends Error {
   readonly staticMessage: string
   readonly dynamicMessage?: string
 
-  constructor ({ staticMessage, dynamicMessage }: { staticMessage: string, dynamicMessage?: string }) {
+  constructor({
+    staticMessage,
+    dynamicMessage,
+  }: {
+    staticMessage: string
+    dynamicMessage?: string
+  }) {
     super(dynamicMessage || staticMessage)
 
     this.staticMessage = staticMessage

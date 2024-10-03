@@ -15,38 +15,66 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily, assertSafeInteger, throwOutOfRange } from './meta/util'
+import { ParentAction } from "./basetypes"
+import {
+  assertIdWithinFamily,
+  assertSafeInteger,
+  throwOutOfRange,
+} from "./meta/util"
 
-const actionType = 'UpdateCategoryBatteryLimitAction'
+const actionType = "UpdateCategoryBatteryLimitAction"
 
 export class UpdateCategoryBatteryLimitAction extends ParentAction {
   readonly categoryId: string
   readonly chargeLimit?: number
   readonly mobileLimit?: number
 
-  constructor ({ categoryId, chargeLimit, mobileLimit }: {
+  constructor({
+    categoryId,
+    chargeLimit,
+    mobileLimit,
+  }: {
     categoryId: string
     chargeLimit?: number
     mobileLimit?: number
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'categoryId', value: categoryId })
+    assertIdWithinFamily({
+      actionType,
+      field: "categoryId",
+      value: categoryId,
+    })
 
     if (chargeLimit !== undefined) {
-      assertSafeInteger({ actionType, field: 'chargeLimit', value: chargeLimit })
+      assertSafeInteger({
+        actionType,
+        field: "chargeLimit",
+        value: chargeLimit,
+      })
 
       if (chargeLimit < 0 || chargeLimit > 100) {
-        throwOutOfRange({ actionType, field: 'chargeLimit', value: chargeLimit })
+        throwOutOfRange({
+          actionType,
+          field: "chargeLimit",
+          value: chargeLimit,
+        })
       }
     }
 
     if (mobileLimit !== undefined) {
-      assertSafeInteger({ actionType, field: 'mobileLimit', value: mobileLimit })
+      assertSafeInteger({
+        actionType,
+        field: "mobileLimit",
+        value: mobileLimit,
+      })
 
       if (mobileLimit < 0 || mobileLimit > 100) {
-        throwOutOfRange({ actionType, field: 'mobileLimit', value: mobileLimit })
+        throwOutOfRange({
+          actionType,
+          field: "mobileLimit",
+          value: mobileLimit,
+        })
       }
     }
 
@@ -55,13 +83,20 @@ export class UpdateCategoryBatteryLimitAction extends ParentAction {
     this.mobileLimit = mobileLimit
   }
 
-  static parse = ({ categoryId, chargeLimit, mobileLimit }: SerializedUpdateCategoryBatteryLimitAction) => (
-    new UpdateCategoryBatteryLimitAction({ categoryId, chargeLimit, mobileLimit })
-  )
+  static parse = ({
+    categoryId,
+    chargeLimit,
+    mobileLimit,
+  }: SerializedUpdateCategoryBatteryLimitAction) =>
+    new UpdateCategoryBatteryLimitAction({
+      categoryId,
+      chargeLimit,
+      mobileLimit,
+    })
 }
 
 export interface SerializedUpdateCategoryBatteryLimitAction {
-  type: 'UPDATE_CATEGORY_BATTERY_LIMIT'
+  type: "UPDATE_CATEGORY_BATTERY_LIMIT"
   categoryId: string
   chargeLimit?: number
   mobileLimit?: number

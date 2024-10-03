@@ -15,34 +15,30 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'SetRelaxPrimaryDeviceAction'
+const actionType = "SetRelaxPrimaryDeviceAction"
 
 export class SetRelaxPrimaryDeviceAction extends ParentAction {
   readonly userId: string
   readonly relax: boolean
 
-  constructor ({ userId, relax }: {
-    userId: string
-    relax: boolean
-  }) {
+  constructor({ userId, relax }: { userId: string; relax: boolean }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'userId', value: userId })
+    assertIdWithinFamily({ actionType, field: "userId", value: userId })
 
     this.userId = userId
     this.relax = relax
   }
 
-  static parse = ({ userId, relax }: SerializedSetRelaxPrimaryDeviceAction) => (
+  static parse = ({ userId, relax }: SerializedSetRelaxPrimaryDeviceAction) =>
     new SetRelaxPrimaryDeviceAction({ userId, relax })
-  )
 }
 
 export interface SerializedSetRelaxPrimaryDeviceAction {
-  type: 'SET_RELAX_PRIMARY_DEVICE'
+  type: "SET_RELAX_PRIMARY_DEVICE"
   userId: string
   relax: boolean
 }

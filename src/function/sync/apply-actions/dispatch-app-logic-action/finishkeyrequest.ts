@@ -15,10 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { FinishKeyRequestAction } from '../../../../action'
-import { Cache } from '../cache'
+import { FinishKeyRequestAction } from "../../../../action"
+import { Cache } from "../cache"
 
-export async function dispatchFinishKeyRequestAction ({ action, cache, deviceId }: {
+export async function dispatchFinishKeyRequestAction({
+  action,
+  cache,
+  deviceId,
+}: {
   deviceId: string
   action: FinishKeyRequestAction
   cache: Cache
@@ -27,9 +31,9 @@ export async function dispatchFinishKeyRequestAction ({ action, cache, deviceId 
     where: {
       familyId: cache.familyId,
       senderDeviceId: deviceId,
-      senderSequenceNumber: action.deviceSequenceNumber.toString(10)
+      senderSequenceNumber: action.deviceSequenceNumber.toString(10),
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   // no sync triggered

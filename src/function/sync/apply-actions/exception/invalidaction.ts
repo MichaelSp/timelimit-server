@@ -15,22 +15,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { InvalidActionParameterException } from '../../../../action/meta/exception'
-import { ApplyActionException } from './index'
+import { InvalidActionParameterException } from "../../../../action/meta/exception"
+import { ApplyActionException } from "./index"
 
 export class InvalidActionException extends ApplyActionException {}
 
 export class InvalidActionParamterException extends InvalidActionException {
-  constructor (cause: InvalidActionParameterException) {
+  constructor(cause: InvalidActionParameterException) {
     super({
       staticMessage: cause.staticMessage,
-      dynamicMessage: cause.dynamicMessage
+      dynamicMessage: cause.dynamicMessage,
     })
   }
 }
 
 export class BadEncodedActionJsonException extends InvalidActionException {
-  constructor () { super({ staticMessage: 'bad encoded action JSON' }) }
+  constructor() {
+    super({ staticMessage: "bad encoded action JSON" })
+  }
 }
 
 export class BadEncodedActionContentException extends InvalidActionException {}
@@ -38,10 +40,17 @@ export class BadEncodedActionContentException extends InvalidActionException {}
 export class EncodedActionSchemaMismatchException extends BadEncodedActionContentException {
   readonly action: object
 
-  constructor ({ type, action }: { type: 'parent' | 'child' | 'app logic', action: object }) {
+  constructor({
+    type,
+    action,
+  }: {
+    type: "parent" | "child" | "app logic"
+    action: object
+  }) {
     super({
-      staticMessage: 'encoded ' + type + ' action does not match schema',
-      dynamicMessage: 'encoded action does not match schema: ' + JSON.stringify(action)
+      staticMessage: "encoded " + type + " action does not match schema",
+      dynamicMessage:
+        "encoded action does not match schema: " + JSON.stringify(action),
     })
 
     this.action = action

@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ApplyActionException } from './index'
+import { ApplyActionException } from "./index"
 
 export class LimitReachedException extends ApplyActionException {
-  constructor({type}: { type: string }) {
-    super({ staticMessage: 'limit reached: ' + type })
+  constructor({ type }: { type: string }) {
+    super({ staticMessage: "limit reached: " + type })
   }
 }

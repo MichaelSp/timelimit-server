@@ -15,34 +15,53 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { maxCategoryFlags } from '../database/category'
-import { ParentAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
-import { assertIdWithinFamily, assertSafeInteger } from './meta/util'
+import { maxCategoryFlags } from "../database/category"
+import { ParentAction } from "./basetypes"
+import { InvalidActionParameterException } from "./meta/exception"
+import { assertIdWithinFamily, assertSafeInteger } from "./meta/util"
 
-const actionType = 'UpdateCategoryFlagsAction'
+const actionType = "UpdateCategoryFlagsAction"
 
 export class UpdateCategoryFlagsAction extends ParentAction {
   readonly categoryId: string
   readonly modifiedBits: number
   readonly newValues: number
 
-  constructor ({ categoryId, modifiedBits, newValues }: {
+  constructor({
+    categoryId,
+    modifiedBits,
+    newValues,
+  }: {
     categoryId: string
     modifiedBits: number
     newValues: number
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'categoryId', value: categoryId })
-    assertSafeInteger({ actionType, field: 'modifiedBits', value: modifiedBits })
-    assertSafeInteger({ actionType, field: 'newValues', value: newValues })
+    assertIdWithinFamily({
+      actionType,
+      field: "categoryId",
+      value: categoryId,
+    })
+    assertSafeInteger({
+      actionType,
+      field: "modifiedBits",
+      value: modifiedBits,
+    })
+    assertSafeInteger({ actionType, field: "newValues", value: newValues })
 
-    if ((modifiedBits | maxCategoryFlags) !== maxCategoryFlags || (modifiedBits | newValues) !== modifiedBits) {
+    if (
+      (modifiedBits | maxCategoryFlags) !== maxCategoryFlags ||
+      (modifiedBits | newValues) !== modifiedBits
+    ) {
       throw new InvalidActionParameterException({
         actionType,
-        staticMessage: 'flags are out of the valid range',
-        dynamicMessage: 'flags are out of the valid range: ' + modifiedBits + ', ' + newValues
+        staticMessage: "flags are out of the valid range",
+        dynamicMessage:
+          "flags are out of the valid range: " +
+          modifiedBits +
+          ", " +
+          newValues,
       })
     }
 
@@ -51,17 +70,20 @@ export class UpdateCategoryFlagsAction extends ParentAction {
     this.newValues = newValues
   }
 
-  static parse = ({ categoryId, modified, values }: SerializedUpdateCategoryFlagsAction) => (
+  static parse = ({
+    categoryId,
+    modified,
+    values,
+  }: SerializedUpdateCategoryFlagsAction) =>
     new UpdateCategoryFlagsAction({
       categoryId,
       modifiedBits: modified,
-      newValues: values
+      newValues: values,
     })
-  )
 }
 
 export interface SerializedUpdateCategoryFlagsAction {
-  type: 'UPDATE_CATEGORY_FLAGS'
+  type: "UPDATE_CATEGORY_FLAGS"
   categoryId: string
   modified: number
   values: number

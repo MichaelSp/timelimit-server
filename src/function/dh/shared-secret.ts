@@ -15,14 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { createPrivateKey, createPublicKey, diffieHellman } from 'crypto'
-import * as Sequelize from 'sequelize'
-import { Database } from '../../database'
-import { calculateExpireTime } from '../../database/devicedhkey'
-import { isVersionId } from '../../util/token'
+import { createPrivateKey, createPublicKey, diffieHellman } from "crypto"
+import * as Sequelize from "sequelize"
+import { Database } from "../../database"
+import { calculateExpireTime } from "../../database/devicedhkey"
+import { isVersionId } from "../../util/token"
 
 export async function getSharedSecret({
-  database, transaction, familyId, deviceId, keyId, otherPublicKey
+  database,
+  transaction,
+  familyId,
+  deviceId,
+  keyId,
+  otherPublicKey,
 }: {
   database: Database
   transaction: Sequelize.Transaction
@@ -31,32 +36,35 @@ export async function getSharedSecret({
   keyId: string
   otherPublicKey: Buffer
 }) {
-  if (!isVersionId(keyId)) throw new KeyNotFoundException('invalid key id')
+  if (!isVersionId(keyId)) throw new KeyNotFoundException("invalid key id")
 
   const databaseKeyEntry = await database.deviceDhKey.findOne({
     where: {
       familyId,
       deviceId,
-      version: keyId
+      version: keyId,
     },
-    transaction
+    transaction,
   })
 
-  if (!databaseKeyEntry) throw new KeyNotFoundException('private key not found')
+  if (!databaseKeyEntry) throw new KeyNotFoundException("private key not found")
 
   if (databaseKeyEntry.expireAt === null) {
-    databaseKeyEntry.expireAt = calculateExpireTime(BigInt(Date.now())).toString(10)
+    databaseKeyEntry.expireAt = calculateExpireTime(
+      BigInt(Date.now()),
+    ).toString(10)
     await databaseKeyEntry.save({ transaction })
   } else {
-    if (BigInt(databaseKeyEntry.expireAt) < BigInt(Date.now())) throw new KeyExpiredException()
+    if (BigInt(databaseKeyEntry.expireAt) < BigInt(Date.now()))
+      throw new KeyExpiredException()
   }
 
   const privateKey = (() => {
     try {
       return createPrivateKey({
         key: databaseKeyEntry.privateKey,
-        format: 'der',
-        type: 'pkcs8'
+        format: "der",
+        type: "pkcs8",
       })
     } catch (ex) {
       throw new MalformedPrivateKeyException()
@@ -67,8 +75,8 @@ export async function getSharedSecret({
     try {
       return createPublicKey({
         key: otherPublicKey,
-        format: 'der',
-        type: 'spki'
+        format: "der",
+        type: "spki",
       })
     } catch (ex) {
       throw new MalformedPublicKeyException()
@@ -79,7 +87,7 @@ export async function getSharedSecret({
     try {
       return diffieHellman({
         privateKey,
-        publicKey: decodedOtherPublicKey
+        publicKey: decodedOtherPublicKey,
       })
     } catch (ex) {
       throw new MalformedNoMatchingKeysException()
@@ -88,13 +96,33 @@ export async function getSharedSecret({
 
   return {
     sharedSecret,
-    ownPublicKey: databaseKeyEntry.publicKey
+    ownPublicKey: databaseKeyEntry.publicKey,
   }
 }
 
 export class SharedSecretException extends Error {}
-class MalformedPrivateKeyException extends SharedSecretException { constructor() { super('private key') } }
-class MalformedPublicKeyException extends SharedSecretException { constructor() { super('public key') } }
-class MalformedNoMatchingKeysException extends SharedSecretException { constructor() { super('no matching keys') } }
-class KeyExpiredException extends SharedSecretException { constructor() { super('key expired') } }
-class KeyNotFoundException extends SharedSecretException { constructor(message: string) { super('key not found: ' + message) } }
+class MalformedPrivateKeyException extends SharedSecretException {
+  constructor() {
+    super("private key")
+  }
+}
+class MalformedPublicKeyException extends SharedSecretException {
+  constructor() {
+    super("public key")
+  }
+}
+class MalformedNoMatchingKeysException extends SharedSecretException {
+  constructor() {
+    super("no matching keys")
+  }
+}
+class KeyExpiredException extends SharedSecretException {
+  constructor() {
+    super("key expired")
+  }
+}
+class KeyNotFoundException extends SharedSecretException {
+  constructor(message: string) {
+    super("key not found: " + message)
+  }
+}

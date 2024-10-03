@@ -7,7 +7,7 @@ Matches the snapshot:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: timelimit
-        app.kubernetes.io/version: 1.17.0
+        app.kubernetes.io/version: 1.17.1
         helm.sh/chart: timelimit-0.2.8
       name: RELEASE-NAME-timelimit
     spec:
@@ -75,7 +75,7 @@ Supports DB_DRIVER:
         app.kubernetes.io/instance: RELEASE-NAME
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: timelimit
-        app.kubernetes.io/version: 1.17.0
+        app.kubernetes.io/version: 1.17.1
         helm.sh/chart: timelimit-0.2.8
       name: RELEASE-NAME-timelimit
     spec:

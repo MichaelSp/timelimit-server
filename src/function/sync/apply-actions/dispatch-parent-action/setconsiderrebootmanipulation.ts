@@ -15,11 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SetConsiderRebootManipulationAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingDeviceException } from '../exception/missing-item'
+import { SetConsiderRebootManipulationAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingDeviceException } from "../exception/missing-item"
 
-export async function dispatchSetConsiderRebootManipulation ({ action, cache }: {
+export async function dispatchSetConsiderRebootManipulation({
+  action,
+  cache,
+}: {
   action: SetConsiderRebootManipulationAction
   cache: Cache
 }) {
@@ -27,23 +30,26 @@ export async function dispatchSetConsiderRebootManipulation ({ action, cache }: 
     transaction: cache.transaction,
     where: {
       familyId: cache.familyId,
-      deviceId: action.deviceId
-    }
+      deviceId: action.deviceId,
+    },
   })
 
   if (!oldDevice) {
     throw new MissingDeviceException()
   }
 
-  await cache.database.device.update({
-    considerRebootManipulation: action.enable
-  }, {
-    transaction: cache.transaction,
-    where: {
-      familyId: cache.familyId,
-      deviceId: action.deviceId
-    }
-  })
+  await cache.database.device.update(
+    {
+      considerRebootManipulation: action.enable,
+    },
+    {
+      transaction: cache.transaction,
+      where: {
+        familyId: cache.familyId,
+        deviceId: action.deviceId,
+      },
+    },
+  )
 
   cache.invalidiateDeviceList = true
 

@@ -15,12 +15,28 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { NewPermissionStatus, newPermissionStatusValues } from '../model/newpermissionstatus'
-import { ProtectionLevel, protetionLevels } from '../model/protectionlevel'
-import { RuntimePermissionStatus, runtimePermissionStatusValues } from '../model/runtimepermissionstatus'
-import { authTokenColumn, booleanColumn, createEnumColumn, familyIdColumn, idWithinFamilyColumn, labelColumn, optionalIdWithinFamilyColumn, timestampColumn, versionColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import {
+  NewPermissionStatus,
+  newPermissionStatusValues,
+} from "../model/newpermissionstatus"
+import { ProtectionLevel, protetionLevels } from "../model/protectionlevel"
+import {
+  RuntimePermissionStatus,
+  runtimePermissionStatusValues,
+} from "../model/runtimepermissionstatus"
+import {
+  authTokenColumn,
+  booleanColumn,
+  createEnumColumn,
+  familyIdColumn,
+  idWithinFamilyColumn,
+  labelColumn,
+  optionalIdWithinFamilyColumn,
+  timestampColumn,
+  versionColumn,
+} from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export const DeviceHadManipulationFlags = {
   ProtectionLevel: 1,
@@ -29,12 +45,12 @@ export const DeviceHadManipulationFlags = {
   AppVersion: 8,
   OverlayPermission: 16,
   AccessibiityService: 32,
-  ALL: 1 | 2 | 4 | 8 | 16 | 32
+  ALL: 1 | 2 | 4 | 8 | 16 | 32,
 }
 
 export const DeviceManipulationFlags = {
   USED_FGS_KILLER: 1,
-  ALL: 1
+  ALL: 1,
 }
 
 export const minPlatformTypeLength = 1
@@ -52,7 +68,7 @@ export interface DeviceAttributesVersion1 {
   currentUserId: string
   installedAppsVersion: string
   deviceAuthToken: string
-  networkTime: 'disabled' | 'if possible' | 'enabled'
+  networkTime: "disabled" | "if possible" | "enabled"
   nextSequenceNumber: number
   currentProtectionLevel: ProtectionLevel
   highestProtectionLevel: ProtectionLevel
@@ -130,212 +146,244 @@ export interface DeviceAttributesVersion15 {
   platformLevel: number
 }
 
-export type DeviceAttributes = DeviceAttributesVersion1 & DeviceAttributesVersion2 &
-  DeviceAttributesVersion3 & DeviceAttributesVersion4 & DeviceAttributesVersion5 &
-  DeviceAttributesVersion6 & DeviceAttributesVersion7 & DeviceAttributesVersion8 &
-  DeviceAttributesVersion9 & DeviceAttributesVersion10 & DeviceAttributesVersion11 &
-  DeviceAttributesVersion12 & DeviceAttributesVersion13 & DeviceAttributesVersion14 &
+export type DeviceAttributes = DeviceAttributesVersion1 &
+  DeviceAttributesVersion2 &
+  DeviceAttributesVersion3 &
+  DeviceAttributesVersion4 &
+  DeviceAttributesVersion5 &
+  DeviceAttributesVersion6 &
+  DeviceAttributesVersion7 &
+  DeviceAttributesVersion8 &
+  DeviceAttributesVersion9 &
+  DeviceAttributesVersion10 &
+  DeviceAttributesVersion11 &
+  DeviceAttributesVersion12 &
+  DeviceAttributesVersion13 &
+  DeviceAttributesVersion14 &
   DeviceAttributesVersion15
 
 export type DeviceModel = Sequelize.Model<DeviceAttributes> & DeviceAttributes
 export type DeviceModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): DeviceModel;
+  new (values?: object, options?: Sequelize.BuildOptions): DeviceModel
 }
 
-export const attributesVersion1: SequelizeAttributes<DeviceAttributesVersion1> = {
-  familyId: {
-    ...familyIdColumn,
-    primaryKey: true
-  },
-  deviceId: {
-    ...idWithinFamilyColumn,
-    primaryKey: true
-  },
-  name: { ...labelColumn },
-  model: { ...labelColumn },
-  addedAt: { ...timestampColumn },
-  currentUserId: { ...optionalIdWithinFamilyColumn },
-  installedAppsVersion: { ...versionColumn },
-  deviceAuthToken: { ...authTokenColumn },
-  networkTime: createEnumColumn(['disabled', 'if possible', 'enabled']),
-  nextSequenceNumber: {
-    type: Sequelize.INTEGER,
-    allowNull: false
-  },
-  currentProtectionLevel: createEnumColumn(protetionLevels),
-  highestProtectionLevel: createEnumColumn(protetionLevels),
-  currentUsageStatsPermission: createEnumColumn(runtimePermissionStatusValues),
-  highestUsageStatsPermission: createEnumColumn(runtimePermissionStatusValues),
-  currentNotificationAccessPermission: createEnumColumn(newPermissionStatusValues),
-  highestNotificationAccessPermission: createEnumColumn(newPermissionStatusValues),
-  currentAppVersion: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    validate: {
-      min: 0
-    }
-  },
-  highestAppVersion: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    validate: {
-      min: 0
-    }
-  },
-  triedDisablingDeviceAdmin: { ...booleanColumn },
-  hadManipulation: { ...booleanColumn }
-}
-
-export const attributesVersion2: SequelizeAttributes<DeviceAttributesVersion2> = {
-  lastConnectivity: {
-    ...timestampColumn,
-    defaultValue: 0
-  },
-  notSeenForLongTime: {
-    ...booleanColumn,
-    defaultValue: false
-  },
-  didDeviceReportUninstall: {
-    ...booleanColumn,
-    defaultValue: false
+export const attributesVersion1: SequelizeAttributes<DeviceAttributesVersion1> =
+  {
+    familyId: {
+      ...familyIdColumn,
+      primaryKey: true,
+    },
+    deviceId: {
+      ...idWithinFamilyColumn,
+      primaryKey: true,
+    },
+    name: { ...labelColumn },
+    model: { ...labelColumn },
+    addedAt: { ...timestampColumn },
+    currentUserId: { ...optionalIdWithinFamilyColumn },
+    installedAppsVersion: { ...versionColumn },
+    deviceAuthToken: { ...authTokenColumn },
+    networkTime: createEnumColumn(["disabled", "if possible", "enabled"]),
+    nextSequenceNumber: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    currentProtectionLevel: createEnumColumn(protetionLevels),
+    highestProtectionLevel: createEnumColumn(protetionLevels),
+    currentUsageStatsPermission: createEnumColumn(
+      runtimePermissionStatusValues,
+    ),
+    highestUsageStatsPermission: createEnumColumn(
+      runtimePermissionStatusValues,
+    ),
+    currentNotificationAccessPermission: createEnumColumn(
+      newPermissionStatusValues,
+    ),
+    highestNotificationAccessPermission: createEnumColumn(
+      newPermissionStatusValues,
+    ),
+    currentAppVersion: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 0,
+      },
+    },
+    highestAppVersion: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 0,
+      },
+    },
+    triedDisablingDeviceAdmin: { ...booleanColumn },
+    hadManipulation: { ...booleanColumn },
   }
-}
 
-export const attributesVersion3: SequelizeAttributes<DeviceAttributesVersion3> = {
-  isUserKeptSignedIn: {
-    ...booleanColumn,
-    defaultValue: false
+export const attributesVersion2: SequelizeAttributes<DeviceAttributesVersion2> =
+  {
+    lastConnectivity: {
+      ...timestampColumn,
+      defaultValue: 0,
+    },
+    notSeenForLongTime: {
+      ...booleanColumn,
+      defaultValue: false,
+    },
+    didDeviceReportUninstall: {
+      ...booleanColumn,
+      defaultValue: false,
+    },
   }
-}
 
-export const attributesVersion4: SequelizeAttributes<DeviceAttributesVersion4> = {
-  showDeviceConnected: {
-    ...booleanColumn,
-    defaultValue: false
+export const attributesVersion3: SequelizeAttributes<DeviceAttributesVersion3> =
+  {
+    isUserKeptSignedIn: {
+      ...booleanColumn,
+      defaultValue: false,
+    },
   }
-}
 
-export const attributesVersion5: SequelizeAttributes<DeviceAttributesVersion5> = {
-  defaultUserId: {
-    ...optionalIdWithinFamilyColumn,
-    defaultValue: ''
-  },
-  defaultUserTimeout: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: 0,
-    validate: {
-      min: 0
-    }
+export const attributesVersion4: SequelizeAttributes<DeviceAttributesVersion4> =
+  {
+    showDeviceConnected: {
+      ...booleanColumn,
+      defaultValue: false,
+    },
   }
-}
 
-export const attributesVersion6: SequelizeAttributes<DeviceAttributesVersion6> = {
-  didReboot: {
-    ...booleanColumn,
-    defaultValue: false
-  },
-  considerRebootManipulation: {
-    ...booleanColumn,
-    defaultValue: false
+export const attributesVersion5: SequelizeAttributes<DeviceAttributesVersion5> =
+  {
+    defaultUserId: {
+      ...optionalIdWithinFamilyColumn,
+      defaultValue: "",
+    },
+    defaultUserTimeout: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+      validate: {
+        min: 0,
+      },
+    },
   }
-}
 
-export const attributesVersion7: SequelizeAttributes<DeviceAttributesVersion7> = {
-  currentOverlayPermission: {
-    ...createEnumColumn(runtimePermissionStatusValues),
-    defaultValue: 'not granted'
-  },
-  highestOverlayPermission: {
-    ...createEnumColumn(runtimePermissionStatusValues),
-    defaultValue: 'not granted'
+export const attributesVersion6: SequelizeAttributes<DeviceAttributesVersion6> =
+  {
+    didReboot: {
+      ...booleanColumn,
+      defaultValue: false,
+    },
+    considerRebootManipulation: {
+      ...booleanColumn,
+      defaultValue: false,
+    },
   }
-}
 
-export const attributesVersion8: SequelizeAttributes<DeviceAttributesVersion8> = {
-  asEnabled: {
-    ...booleanColumn,
-    defaultValue: false
-  },
-  wasAsEnabled: {
-    ...booleanColumn,
-    defaultValue: false
+export const attributesVersion7: SequelizeAttributes<DeviceAttributesVersion7> =
+  {
+    currentOverlayPermission: {
+      ...createEnumColumn(runtimePermissionStatusValues),
+      defaultValue: "not granted",
+    },
+    highestOverlayPermission: {
+      ...createEnumColumn(runtimePermissionStatusValues),
+      defaultValue: "not granted",
+    },
   }
-}
 
-export const attributesVersion9: SequelizeAttributes<DeviceAttributesVersion9> = {
-  activityLevelBlocking: {
-    ...booleanColumn,
-    defaultValue: false
+export const attributesVersion8: SequelizeAttributes<DeviceAttributesVersion8> =
+  {
+    asEnabled: {
+      ...booleanColumn,
+      defaultValue: false,
+    },
+    wasAsEnabled: {
+      ...booleanColumn,
+      defaultValue: false,
+    },
   }
-}
 
-export const attributesVersion10: SequelizeAttributes<DeviceAttributesVersion10> = {
-  isQorLater: {
-    ...booleanColumn,
-    defaultValue: false
+export const attributesVersion9: SequelizeAttributes<DeviceAttributesVersion9> =
+  {
+    activityLevelBlocking: {
+      ...booleanColumn,
+      defaultValue: false,
+    },
   }
-}
 
-export const attributesVersion11: SequelizeAttributes<DeviceAttributesVersion11> = {
-  hadManipulationFlags: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: 0,
-    validate: {
-      min: 0,
-      max: DeviceHadManipulationFlags.ALL
-    }
+export const attributesVersion10: SequelizeAttributes<DeviceAttributesVersion10> =
+  {
+    isQorLater: {
+      ...booleanColumn,
+      defaultValue: false,
+    },
   }
-}
 
-export const attributesVersion12: SequelizeAttributes<DeviceAttributesVersion12> = {
-  manipulationFlags: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: 0,
-    validate: {
-      min: 0,
-      max: DeviceManipulationFlags.ALL
-    }
+export const attributesVersion11: SequelizeAttributes<DeviceAttributesVersion11> =
+  {
+    hadManipulationFlags: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+      validate: {
+        min: 0,
+        max: DeviceHadManipulationFlags.ALL,
+      },
+    },
   }
-}
 
-export const attributesVersion13: SequelizeAttributes<DeviceAttributesVersion13> = {
-  publicKey: {
-    type: Sequelize.BLOB,
-    allowNull: true,
-    defaultValue: null
+export const attributesVersion12: SequelizeAttributes<DeviceAttributesVersion12> =
+  {
+    manipulationFlags: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+      validate: {
+        min: 0,
+        max: DeviceManipulationFlags.ALL,
+      },
+    },
   }
-}
 
-export const attributesVersion14: SequelizeAttributes<DeviceAttributesVersion14> = {
-  nextKeyReplySequenceNumber: {
-    type: Sequelize.BIGINT,
-    allowNull: false,
-    defaultValue: 1
+export const attributesVersion13: SequelizeAttributes<DeviceAttributesVersion13> =
+  {
+    publicKey: {
+      type: Sequelize.BLOB,
+      allowNull: true,
+      defaultValue: null,
+    },
   }
-}
 
-export const attributesVersion15: SequelizeAttributes<DeviceAttributesVersion15> = {
-  platformType: {
-    type: Sequelize.STRING(maxPlatformTypeLength),
-    allowNull: true,
-    defaultValue: null,
-    validate: {
-      len: [minPlatformTypeLength, maxPlatformTypeLength]
-    }
-  },
-  platformLevel: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: minPlatformLevel,
-    validate: {
-      min: minPlatformLevel,
-      max: maxPlatformLevel
-    }
+export const attributesVersion14: SequelizeAttributes<DeviceAttributesVersion14> =
+  {
+    nextKeyReplySequenceNumber: {
+      type: Sequelize.BIGINT,
+      allowNull: false,
+      defaultValue: 1,
+    },
   }
-}
+
+export const attributesVersion15: SequelizeAttributes<DeviceAttributesVersion15> =
+  {
+    platformType: {
+      type: Sequelize.STRING(maxPlatformTypeLength),
+      allowNull: true,
+      defaultValue: null,
+      validate: {
+        len: [minPlatformTypeLength, maxPlatformTypeLength],
+      },
+    },
+    platformLevel: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      defaultValue: minPlatformLevel,
+      validate: {
+        min: minPlatformLevel,
+        max: maxPlatformLevel,
+      },
+    },
+  }
 
 export const attributes: SequelizeAttributes<DeviceAttributes> = {
   ...attributesVersion1,
@@ -352,19 +400,29 @@ export const attributes: SequelizeAttributes<DeviceAttributes> = {
   ...attributesVersion12,
   ...attributesVersion13,
   ...attributesVersion14,
-  ...attributesVersion15
+  ...attributesVersion15,
 }
 
-export const createDeviceModel = (sequelize: Sequelize.Sequelize): DeviceModelStatic => sequelize.define('Device', attributes) as DeviceModelStatic
+export const createDeviceModel = (
+  sequelize: Sequelize.Sequelize,
+): DeviceModelStatic =>
+  sequelize.define("Device", attributes) as DeviceModelStatic
 export const hasDeviceManipulation = (device: DeviceAttributes) => {
-  const manipulationOfProtectionLevel = device.currentProtectionLevel !== device.highestProtectionLevel
-  const manipulationOfUsageStats = device.currentUsageStatsPermission !== device.highestUsageStatsPermission
-  const manipulationOfNotificationAccess = device.currentNotificationAccessPermission !== device.highestNotificationAccessPermission
-  const manipulationOfAppVersion = device.currentAppVersion !== device.highestAppVersion
-  const manipulationOfOverlayPermission = device.currentOverlayPermission !== device.highestOverlayPermission
+  const manipulationOfProtectionLevel =
+    device.currentProtectionLevel !== device.highestProtectionLevel
+  const manipulationOfUsageStats =
+    device.currentUsageStatsPermission !== device.highestUsageStatsPermission
+  const manipulationOfNotificationAccess =
+    device.currentNotificationAccessPermission !==
+    device.highestNotificationAccessPermission
+  const manipulationOfAppVersion =
+    device.currentAppVersion !== device.highestAppVersion
+  const manipulationOfOverlayPermission =
+    device.currentOverlayPermission !== device.highestOverlayPermission
   const manipulationOfAsPermission = device.asEnabled !== device.wasAsEnabled
 
-  const hasActiveManipulationWarning = manipulationOfProtectionLevel ||
+  const hasActiveManipulationWarning =
+    manipulationOfProtectionLevel ||
     manipulationOfUsageStats ||
     manipulationOfNotificationAccess ||
     manipulationOfAppVersion ||
@@ -373,7 +431,9 @@ export const hasDeviceManipulation = (device: DeviceAttributes) => {
     manipulationOfOverlayPermission ||
     manipulationOfAsPermission
 
-  const hasAnyManipulation = hasActiveManipulationWarning || device.hadManipulation ||
+  const hasAnyManipulation =
+    hasActiveManipulationWarning ||
+    device.hadManipulation ||
     device.manipulationFlags !== 0
 
   return hasAnyManipulation

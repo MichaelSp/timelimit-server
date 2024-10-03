@@ -15,11 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateParentNotificationFlagsAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingUserException } from '../exception/missing-item'
+import { UpdateParentNotificationFlagsAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingUserException } from "../exception/missing-item"
 
-export async function dispatchUpdateParentNotificationFlags ({ action, cache }: {
+export async function dispatchUpdateParentNotificationFlags({
+  action,
+  cache,
+}: {
   action: UpdateParentNotificationFlagsAction
   cache: Cache
 }) {
@@ -27,9 +30,9 @@ export async function dispatchUpdateParentNotificationFlags ({ action, cache }: 
     where: {
       familyId: cache.familyId,
       userId: action.parentId,
-      type: 'parent'
+      type: "parent",
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!parentEntry) {

@@ -15,13 +15,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { Database } from '../../../database'
-import { U2fData } from '../../../object/serverdatastatus'
-import { FamilyEntry } from './family-entry'
+import * as Sequelize from "sequelize"
+import { Database } from "../../../database"
+import { U2fData } from "../../../object/serverdatastatus"
+import { FamilyEntry } from "./family-entry"
 
-export async function getU2f ({
-  database, transaction, familyEntry, lastVersionId
+export async function getU2f({
+  database,
+  transaction,
+  familyEntry,
+  lastVersionId,
 }: {
   database: Database
   transaction: Sequelize.Transaction
@@ -32,9 +35,9 @@ export async function getU2f ({
 
   const savedData = await database.u2fKey.findAll({
     where: {
-      familyId: familyEntry.familyId
+      familyId: familyEntry.familyId,
     },
-    transaction
+    transaction,
   })
 
   return {
@@ -42,8 +45,8 @@ export async function getU2f ({
     d: savedData.map((item) => ({
       u: item.userId,
       a: parseInt(item.addedAt, 10),
-      h: item.keyHandle.toString('base64'),
-      p: item.publicKey.toString('base64')
-    }))
+      h: item.keyHandle.toString("base64"),
+      p: item.publicKey.toString("base64"),
+    })),
   }
 }

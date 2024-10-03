@@ -15,12 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { RemoveCategoryAppsAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingItemException } from '../exception/missing-item'
+import * as Sequelize from "sequelize"
+import { RemoveCategoryAppsAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingItemException } from "../exception/missing-item"
 
-export async function dispatchRemoveCategoryApps ({ action, cache }: {
+export async function dispatchRemoveCategoryApps({
+  action,
+  cache,
+}: {
   action: RemoveCategoryAppsAction
   cache: Cache
 }) {
@@ -29,15 +32,15 @@ export async function dispatchRemoveCategoryApps ({ action, cache }: {
       familyId: cache.familyId,
       categoryId: action.categoryId,
       packageName: {
-        [Sequelize.Op.in]: action.packageNames
-      }
+        [Sequelize.Op.in]: action.packageNames,
+      },
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (affectedRows !== action.packageNames.length) {
     throw new MissingItemException({
-      staticMessage: 'could not remove all requested category app items'
+      staticMessage: "could not remove all requested category app items",
     })
   }
 

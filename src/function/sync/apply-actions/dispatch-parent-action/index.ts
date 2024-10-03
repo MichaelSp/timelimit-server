@@ -16,116 +16,120 @@
  */
 
 import {
-    AddCategoryAppsAction,
-    AddCategoryNetworkIdAction,
-    AddParentU2fKeyAction,
-    AddUserAction,
-    ChangeParentPasswordAction,
-    CreateCategoryAction,
-    CreateTimeLimitRuleAction,
-    DeleteCategoryAction,
-    DeleteChildTaskAction,
-    DeleteTimeLimitRuleAction,
-    IgnoreManipulationAction,
-    IncrementCategoryExtraTimeAction,
-    ParentAction,
-    RemoveCategoryAppsAction,
-    RemoveParentU2fKeyAction,
-    RemoveUserAction,
-    RenameChildAction,
-    ReportU2fLoginAction,
-    ResetCategoryNetworkIdsAction,
-    ReviewChildTaskAction,
-    SetCategoryExtraTimeAction,
-    SetCategoryForUnassignedAppsAction,
-    SetChildPasswordAction,
-    SetConsiderRebootManipulationAction,
-    SetDeviceDefaultUserAction,
-    SetDeviceDefaultUserTimeoutAction,
-    SetDeviceUserAction,
-    SetKeepSignedInAction,
-    SetParentCategoryAction,
-    SetRelaxPrimaryDeviceAction,
-    SetSendDeviceConnected,
-    SetUserDisableLimitsUntilAction,
-    SetUserTimezoneAction,
-    UpdateCategoryBatteryLimitAction,
-    UpdateCategoryBlockAllNotificationsAction,
-    UpdateCategoryBlockedTimesAction,
-    UpdateCategoryDisableLimitsAction,
-    UpdateCategoryFlagsAction,
-    UpdateCategorySortingAction,
-    UpdateCategoryTemporarilyBlockedAction,
-    UpdateCategoryTimeWarningsAction,
-    UpdateCategoryTitleAction,
-    UpdateChildTaskAction,
-    UpdateDeviceNameAction,
-    UpdateEnableActivityLevelBlockingAction,
-    UpdateNetworkTimeVerificationAction,
-    UpdateParentNotificationFlagsAction,
-    UpdateTimelimitRuleAction,
-    UpdateUserFlagsAction,
-    UpdateUserLimitLoginCategory,
-    UpdateUserLimitLoginPreBlockDuration
-} from '../../../../action'
-import { Cache } from '../cache'
-import { ActionObjectTypeNotHandledException } from '../exception/illegal-state'
-import { ActionNotSupportedBySelfLimitationException } from '../exception/self-limit'
-import { AuthenticationMethod } from '../types'
-import { dispatchAddCategoryApps } from './addcategoryapps'
-import { dispatchAddCategoryNetworkId } from './addcategorynetworkid'
-import { dispatchAddU2f } from './addu2fkey'
-import { dispatchAddUser } from './adduser'
-import { dispatchChangeParentPassword } from './changeparentpassword'
-import { dispatchCreateCategory } from './createcategory'
-import { dispatchCreateTimeLimitRule } from './createtimelimitrule'
-import { dispatchDeleteCategory } from './deletecategory'
-import { dispatchDeleteChildTaskAction } from './deletechildtaskaction'
-import { dispatchDeleteTimeLimitRule } from './deletetimelimitrule'
-import { dispatchIgnoreManipulation } from './ignoremanipulation'
-import { dispatchIncrementCategoryExtraTime } from './incrementcategoryextratime'
-import { dispatchRemoveCategoryApps } from './removecategoryapps'
-import { dispatchRemoveU2f } from './removeu2fkey'
-import { dispatchRemoveUser } from './removeuser'
-import { dispatchRenameChild } from './renamechild'
-import { dispatchReportU2fLogin } from './reportu2flogin'
-import { dispatchResetCategoryNetworkIds } from './resetcategorynetworkids'
-import { dispatchReviewChildTaskAction } from './reviewchildtaskaction'
-import { dispatchSetCategoryExtraTime } from './setcategoryextratime'
-import { dispatchSetCategoryForUnassignedApps } from './setcategoryforunassignedapps'
-import { dispatchSetChildPassword } from './setchildpassword'
-import { dispatchSetConsiderRebootManipulation } from './setconsiderrebootmanipulation'
-import { dispatchSetDeviceDefaultUser } from './setdevicedefaultuser'
-import { dispatchSetDeviceDefaultUserTimeout } from './setdevicedefaultusertimeout'
-import { dispatchSetDeviceUser } from './setdeviceuser'
-import { dispatchSetKeepSignedIn } from './setkeepsignedin'
-import { dispatchSetParentCategory } from './setparentcategory'
-import { dispatchSetRelaxPrimaryDevice } from './setrelaxprimarydevice'
-import { dispatchSetSendDeviceConnected } from './setsenddeviceconnected'
-import { dispatchUserSetDisableLimitsUntil } from './setuserdisablelmitsuntil'
-import { dispatchSetUserTimezone } from './setusertimezone'
-import { dispatchUpdateCategoryBatteryLimit } from './updatecategorybatterylimit'
-import { dispatchUpdateCategoryBlockAllNotifications } from './updatecategoryblockallnotifications'
-import { dispatchUpdateCategoryBlockedTimes } from './updatecategoryblockedtimes'
-import { dispatchUpdateCategoryDisableLimits } from './updatecategorydisablelimits'
-import { dispatchUpdateCategoryFlagsAction } from './updatecategoryflags'
-import { dispatchUpdateCategorySorting } from './updatecategorysorting'
-import { dispatchUpdateCategoryTemporarilyBlocked } from './updatecategorytemporarilyblocked'
-import { dispatchUpdateCategoryTimeWarnings } from './updatecategorytimewarnings'
-import { dispatchUpdateCategoryTitle } from './updatecategorytitle'
-import { dispatchUpdateChildTaskAction } from './updatechildtaskaction'
-import { dispatchUpdateDeviceName } from './updatedevicename'
-import { dispatchUpdateEnableActivityLevelBlocking } from './updateenableactivitylevelblocking'
-import { dispatchUpdateNetworkTimeVerification } from './updatenetworktimeverification'
-import { dispatchUpdateParentNotificationFlags } from './updateparentnotificationflags'
-import { dispatchUpdateTimelimitRule } from './updatetimelimitrule'
-import { dispatchUpdateUserFlagsAction } from './updateuserflags'
-import { dispatchUpdateUserLimitLoginCategoryAction } from './updateuserlimitlogincategory'
-import { dispatchUpdateUserLimitPreBlockDuration } from './updateuserlimitloginpreblockduration'
+  AddCategoryAppsAction,
+  AddCategoryNetworkIdAction,
+  AddParentU2fKeyAction,
+  AddUserAction,
+  ChangeParentPasswordAction,
+  CreateCategoryAction,
+  CreateTimeLimitRuleAction,
+  DeleteCategoryAction,
+  DeleteChildTaskAction,
+  DeleteTimeLimitRuleAction,
+  IgnoreManipulationAction,
+  IncrementCategoryExtraTimeAction,
+  ParentAction,
+  RemoveCategoryAppsAction,
+  RemoveParentU2fKeyAction,
+  RemoveUserAction,
+  RenameChildAction,
+  ReportU2fLoginAction,
+  ResetCategoryNetworkIdsAction,
+  ReviewChildTaskAction,
+  SetCategoryExtraTimeAction,
+  SetCategoryForUnassignedAppsAction,
+  SetChildPasswordAction,
+  SetConsiderRebootManipulationAction,
+  SetDeviceDefaultUserAction,
+  SetDeviceDefaultUserTimeoutAction,
+  SetDeviceUserAction,
+  SetKeepSignedInAction,
+  SetParentCategoryAction,
+  SetRelaxPrimaryDeviceAction,
+  SetSendDeviceConnected,
+  SetUserDisableLimitsUntilAction,
+  SetUserTimezoneAction,
+  UpdateCategoryBatteryLimitAction,
+  UpdateCategoryBlockAllNotificationsAction,
+  UpdateCategoryBlockedTimesAction,
+  UpdateCategoryDisableLimitsAction,
+  UpdateCategoryFlagsAction,
+  UpdateCategorySortingAction,
+  UpdateCategoryTemporarilyBlockedAction,
+  UpdateCategoryTimeWarningsAction,
+  UpdateCategoryTitleAction,
+  UpdateChildTaskAction,
+  UpdateDeviceNameAction,
+  UpdateEnableActivityLevelBlockingAction,
+  UpdateNetworkTimeVerificationAction,
+  UpdateParentNotificationFlagsAction,
+  UpdateTimelimitRuleAction,
+  UpdateUserFlagsAction,
+  UpdateUserLimitLoginCategory,
+  UpdateUserLimitLoginPreBlockDuration,
+} from "../../../../action"
+import { Cache } from "../cache"
+import { ActionObjectTypeNotHandledException } from "../exception/illegal-state"
+import { ActionNotSupportedBySelfLimitationException } from "../exception/self-limit"
+import { AuthenticationMethod } from "../types"
+import { dispatchAddCategoryApps } from "./addcategoryapps"
+import { dispatchAddCategoryNetworkId } from "./addcategorynetworkid"
+import { dispatchAddU2f } from "./addu2fkey"
+import { dispatchAddUser } from "./adduser"
+import { dispatchChangeParentPassword } from "./changeparentpassword"
+import { dispatchCreateCategory } from "./createcategory"
+import { dispatchCreateTimeLimitRule } from "./createtimelimitrule"
+import { dispatchDeleteCategory } from "./deletecategory"
+import { dispatchDeleteChildTaskAction } from "./deletechildtaskaction"
+import { dispatchDeleteTimeLimitRule } from "./deletetimelimitrule"
+import { dispatchIgnoreManipulation } from "./ignoremanipulation"
+import { dispatchIncrementCategoryExtraTime } from "./incrementcategoryextratime"
+import { dispatchRemoveCategoryApps } from "./removecategoryapps"
+import { dispatchRemoveU2f } from "./removeu2fkey"
+import { dispatchRemoveUser } from "./removeuser"
+import { dispatchRenameChild } from "./renamechild"
+import { dispatchReportU2fLogin } from "./reportu2flogin"
+import { dispatchResetCategoryNetworkIds } from "./resetcategorynetworkids"
+import { dispatchReviewChildTaskAction } from "./reviewchildtaskaction"
+import { dispatchSetCategoryExtraTime } from "./setcategoryextratime"
+import { dispatchSetCategoryForUnassignedApps } from "./setcategoryforunassignedapps"
+import { dispatchSetChildPassword } from "./setchildpassword"
+import { dispatchSetConsiderRebootManipulation } from "./setconsiderrebootmanipulation"
+import { dispatchSetDeviceDefaultUser } from "./setdevicedefaultuser"
+import { dispatchSetDeviceDefaultUserTimeout } from "./setdevicedefaultusertimeout"
+import { dispatchSetDeviceUser } from "./setdeviceuser"
+import { dispatchSetKeepSignedIn } from "./setkeepsignedin"
+import { dispatchSetParentCategory } from "./setparentcategory"
+import { dispatchSetRelaxPrimaryDevice } from "./setrelaxprimarydevice"
+import { dispatchSetSendDeviceConnected } from "./setsenddeviceconnected"
+import { dispatchUserSetDisableLimitsUntil } from "./setuserdisablelmitsuntil"
+import { dispatchSetUserTimezone } from "./setusertimezone"
+import { dispatchUpdateCategoryBatteryLimit } from "./updatecategorybatterylimit"
+import { dispatchUpdateCategoryBlockAllNotifications } from "./updatecategoryblockallnotifications"
+import { dispatchUpdateCategoryBlockedTimes } from "./updatecategoryblockedtimes"
+import { dispatchUpdateCategoryDisableLimits } from "./updatecategorydisablelimits"
+import { dispatchUpdateCategoryFlagsAction } from "./updatecategoryflags"
+import { dispatchUpdateCategorySorting } from "./updatecategorysorting"
+import { dispatchUpdateCategoryTemporarilyBlocked } from "./updatecategorytemporarilyblocked"
+import { dispatchUpdateCategoryTimeWarnings } from "./updatecategorytimewarnings"
+import { dispatchUpdateCategoryTitle } from "./updatecategorytitle"
+import { dispatchUpdateChildTaskAction } from "./updatechildtaskaction"
+import { dispatchUpdateDeviceName } from "./updatedevicename"
+import { dispatchUpdateEnableActivityLevelBlocking } from "./updateenableactivitylevelblocking"
+import { dispatchUpdateNetworkTimeVerification } from "./updatenetworktimeverification"
+import { dispatchUpdateParentNotificationFlags } from "./updateparentnotificationflags"
+import { dispatchUpdateTimelimitRule } from "./updatetimelimitrule"
+import { dispatchUpdateUserFlagsAction } from "./updateuserflags"
+import { dispatchUpdateUserLimitLoginCategoryAction } from "./updateuserlimitlogincategory"
+import { dispatchUpdateUserLimitPreBlockDuration } from "./updateuserlimitloginpreblockduration"
 
 export const dispatchParentAction = async ({
-  action, cache, parentUserId, sourceDeviceId,
-  fromChildSelfLimitAddChildUserId, authentication
+  action,
+  cache,
+  parentUserId,
+  sourceDeviceId,
+  fromChildSelfLimitAddChildUserId,
+  authentication,
 }: {
   action: ParentAction
   cache: Cache
@@ -135,23 +139,59 @@ export const dispatchParentAction = async ({
   authentication: AuthenticationMethod
 }) => {
   if (action instanceof AddCategoryAppsAction) {
-    return dispatchAddCategoryApps({ action, cache, fromChildSelfLimitAddChildUserId })
+    return dispatchAddCategoryApps({
+      action,
+      cache,
+      fromChildSelfLimitAddChildUserId,
+    })
   } else if (action instanceof CreateCategoryAction) {
-    return dispatchCreateCategory({ action, cache, fromChildSelfLimitAddChildUserId })
+    return dispatchCreateCategory({
+      action,
+      cache,
+      fromChildSelfLimitAddChildUserId,
+    })
   } else if (action instanceof CreateTimeLimitRuleAction) {
-    return dispatchCreateTimeLimitRule({ action, cache, fromChildSelfLimitAddChildUserId })
+    return dispatchCreateTimeLimitRule({
+      action,
+      cache,
+      fromChildSelfLimitAddChildUserId,
+    })
   } else if (action instanceof UpdateCategoryBlockAllNotificationsAction) {
-    return dispatchUpdateCategoryBlockAllNotifications({ action, cache, fromChildSelfLimitAddChildUserId })
+    return dispatchUpdateCategoryBlockAllNotifications({
+      action,
+      cache,
+      fromChildSelfLimitAddChildUserId,
+    })
   } else if (action instanceof SetParentCategoryAction) {
-    return dispatchSetParentCategory({ action, cache, fromChildSelfLimitAddChildUserId })
+    return dispatchSetParentCategory({
+      action,
+      cache,
+      fromChildSelfLimitAddChildUserId,
+    })
   } else if (action instanceof UpdateCategoryTemporarilyBlockedAction) {
-    return dispatchUpdateCategoryTemporarilyBlocked({ action, cache, fromChildSelfLimitAddChildUserId })
+    return dispatchUpdateCategoryTemporarilyBlocked({
+      action,
+      cache,
+      fromChildSelfLimitAddChildUserId,
+    })
   } else if (action instanceof UpdateCategoryBlockedTimesAction) {
-    return dispatchUpdateCategoryBlockedTimes({ action, cache, fromChildSelfLimitAddChildUserId })
+    return dispatchUpdateCategoryBlockedTimes({
+      action,
+      cache,
+      fromChildSelfLimitAddChildUserId,
+    })
   } else if (action instanceof UpdateCategoryDisableLimitsAction) {
-    return dispatchUpdateCategoryDisableLimits({ action, cache, fromChildSelfLimitAddChildUserId })
+    return dispatchUpdateCategoryDisableLimits({
+      action,
+      cache,
+      fromChildSelfLimitAddChildUserId,
+    })
   } else if (action instanceof UpdateTimelimitRuleAction) {
-    return dispatchUpdateTimelimitRule({ action, cache, fromChildSelfLimitAddChildUserId })
+    return dispatchUpdateTimelimitRule({
+      action,
+      cache,
+      fromChildSelfLimitAddChildUserId,
+    })
   }
 
   if (fromChildSelfLimitAddChildUserId !== null) {
@@ -230,7 +270,11 @@ export const dispatchParentAction = async ({
     } else if (action instanceof UpdateUserFlagsAction) {
       return dispatchUpdateUserFlagsAction({ action, cache })
     } else if (action instanceof UpdateUserLimitLoginCategory) {
-      return dispatchUpdateUserLimitLoginCategoryAction({ action, cache, parentUserId })
+      return dispatchUpdateUserLimitLoginCategoryAction({
+        action,
+        cache,
+        parentUserId,
+      })
     } else if (action instanceof DeleteChildTaskAction) {
       await dispatchDeleteChildTaskAction({ action, cache })
     } else if (action instanceof ReviewChildTaskAction) {
@@ -238,7 +282,11 @@ export const dispatchParentAction = async ({
     } else if (action instanceof UpdateChildTaskAction) {
       await dispatchUpdateChildTaskAction({ action, cache })
     } else if (action instanceof UpdateUserLimitLoginPreBlockDuration) {
-      await dispatchUpdateUserLimitPreBlockDuration({ action, cache, parentUserId })
+      await dispatchUpdateUserLimitPreBlockDuration({
+        action,
+        cache,
+        parentUserId,
+      })
     } else {
       throw new ActionObjectTypeNotHandledException()
     }

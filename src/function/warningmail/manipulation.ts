@@ -15,12 +15,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Database, Transaction } from '../../database'
-import { mailNotificationFlags } from '../../database/user'
-import { sendManipulationWarningMail } from '../../util/mail'
-import { canSendWarningMail } from '../../util/ratelimit-warningmail'
+import { Database, Transaction } from "../../database"
+import { mailNotificationFlags } from "../../database/user"
+import { sendManipulationWarningMail } from "../../util/mail"
+import { canSendWarningMail } from "../../util/ratelimit-warningmail"
 
-export const sendManipulationWarnings = async ({ database, familyId, deviceName, transaction }: {
+export const sendManipulationWarnings = async ({
+  database,
+  familyId,
+  deviceName,
+  transaction,
+}: {
   database: Database
   familyId: string
   deviceName: string
@@ -29,14 +34,18 @@ export const sendManipulationWarnings = async ({ database, familyId, deviceName,
   const parentEntries = await database.user.findAll({
     where: {
       familyId,
-      type: 'parent'
+      type: "parent",
     },
-    transaction
+    transaction,
   })
 
   const targetMailAddresses = parentEntries
-    .filter((item) => item.mail !== '')
-    .filter((item) => (item.mailNotificationFlags & mailNotificationFlags.warnings) === mailNotificationFlags.warnings)
+    .filter((item) => item.mail !== "")
+    .filter(
+      (item) =>
+        (item.mailNotificationFlags & mailNotificationFlags.warnings) ===
+        mailNotificationFlags.warnings,
+    )
     .map((item) => item.mail)
 
   transaction.afterCommit(async () => {
@@ -45,7 +54,7 @@ export const sendManipulationWarnings = async ({ database, familyId, deviceName,
         if (await canSendWarningMail(receiver)) {
           await sendManipulationWarningMail({ receiver, deviceName })
         }
-      })
+      }),
     )
   })
 }

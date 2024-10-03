@@ -15,13 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { familyIdColumn, idWithinFamilyColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import { familyIdColumn, idWithinFamilyColumn } from "./columns"
+import { SequelizeAttributes } from "./types"
 
 export const categoryTimeWarningConstants = {
   minMinutes: 1,
-  maxMinutes: 60 * 24 * 7 - 2
+  maxMinutes: 60 * 24 * 7 - 2,
 }
 
 export interface CategoryTimeWarningAttributes {
@@ -30,29 +30,39 @@ export interface CategoryTimeWarningAttributes {
   minutes: number
 }
 
-export type CategoryTimeWarningModel = Sequelize.Model<CategoryTimeWarningAttributes> & CategoryTimeWarningAttributes
+export type CategoryTimeWarningModel =
+  Sequelize.Model<CategoryTimeWarningAttributes> & CategoryTimeWarningAttributes
 export type CategoryTimeWarningModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): CategoryTimeWarningModel;
+  new (
+    values?: object,
+    options?: Sequelize.BuildOptions,
+  ): CategoryTimeWarningModel
 }
 
 export const attributes: SequelizeAttributes<CategoryTimeWarningAttributes> = {
   familyId: {
     ...familyIdColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   categoryId: {
     ...idWithinFamilyColumn,
-    primaryKey: true
+    primaryKey: true,
   },
   minutes: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
       min: categoryTimeWarningConstants.minMinutes,
-      max: categoryTimeWarningConstants.maxMinutes
+      max: categoryTimeWarningConstants.maxMinutes,
     },
-    primaryKey: true
-  }
+    primaryKey: true,
+  },
 }
 
-export const createCategoryTimeWarningModel = (sequelize: Sequelize.Sequelize): CategoryTimeWarningModelStatic => sequelize.define('CategoryTimeWarning', attributes) as CategoryTimeWarningModelStatic
+export const createCategoryTimeWarningModel = (
+  sequelize: Sequelize.Sequelize,
+): CategoryTimeWarningModelStatic =>
+  sequelize.define(
+    "CategoryTimeWarning",
+    attributes,
+  ) as CategoryTimeWarningModelStatic

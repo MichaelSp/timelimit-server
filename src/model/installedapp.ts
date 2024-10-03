@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AppRecommendation } from './apprecommendation'
+import { AppRecommendation } from "./apprecommendation"
 
 export class InstalledApp {
   readonly packageName: string
@@ -23,7 +23,17 @@ export class InstalledApp {
   readonly isLaunchable: boolean
   readonly recommendation: AppRecommendation
 
-  constructor ({ packageName, title, isLaunchable, recommendation }: {packageName: string, title: string, isLaunchable: boolean, recommendation: AppRecommendation}) {
+  constructor({
+    packageName,
+    title,
+    isLaunchable,
+    recommendation,
+  }: {
+    packageName: string
+    title: string
+    isLaunchable: boolean
+    recommendation: AppRecommendation
+  }) {
     this.packageName = packageName
     this.title = title
     this.isLaunchable = isLaunchable
@@ -34,12 +44,16 @@ export class InstalledApp {
     packageName: this.packageName,
     title: this.title,
     isLaunchable: this.isLaunchable,
-    recommendation: this.recommendation
+    recommendation: this.recommendation,
   })
 
-  static parse = ({ packageName, title, isLaunchable, recommendation }: SerializedInstalledApp) => (
+  static parse = ({
+    packageName,
+    title,
+    isLaunchable,
+    recommendation,
+  }: SerializedInstalledApp) =>
     new InstalledApp({ packageName, title, isLaunchable, recommendation })
-  )
 }
 
 export interface SerializedInstalledApp {

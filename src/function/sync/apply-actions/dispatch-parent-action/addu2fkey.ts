@@ -15,34 +15,44 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AddParentU2fKeyAction } from '../../../../action'
-import { getU2fKeyId } from '../../../../database/u2fkey'
-import { Cache } from '../cache'
-import { LimitReachedException } from '../exception/limit'
+import { AddParentU2fKeyAction } from "../../../../action"
+import { getU2fKeyId } from "../../../../database/u2fkey"
+import { Cache } from "../cache"
+import { LimitReachedException } from "../exception/limit"
 
-export async function dispatchAddU2f ({ action, cache, parentUserId }: {
+export async function dispatchAddU2f({
+  action,
+  cache,
+  parentUserId,
+}: {
   action: AddParentU2fKeyAction
   cache: Cache
   parentUserId: string
 }) {
   const counter = await cache.database.u2fKey.count({
     where: {
-      familyId: cache.familyId
+      familyId: cache.familyId,
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
-  if (counter >= 16) throw new LimitReachedException({ type: 'u2f keys' })
+  if (counter >= 16) throw new LimitReachedException({ type: "u2f keys" })
 
-  await cache.database.u2fKey.create({
-    familyId: cache.familyId,
-    keyId: getU2fKeyId({ keyHandle: action.keyHandle, publicKey: action.publicKey }),
-    userId: parentUserId,
-    addedAt: Date.now().toString(10),
-    keyHandle: action.keyHandle,
-    publicKey: action.publicKey,
-    nextCounter: '0'
-  }, { transaction: cache.transaction })
+  await cache.database.u2fKey.create(
+    {
+      familyId: cache.familyId,
+      keyId: getU2fKeyId({
+        keyHandle: action.keyHandle,
+        publicKey: action.publicKey,
+      }),
+      userId: parentUserId,
+      addedAt: Date.now().toString(10),
+      keyHandle: action.keyHandle,
+      publicKey: action.publicKey,
+      nextCounter: "0",
+    },
+    { transaction: cache.transaction },
+  )
 
   cache.invalidateU2fList = true
   cache.incrementTriggeredSyncLevel(1)

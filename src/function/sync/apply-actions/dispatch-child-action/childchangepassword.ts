@@ -15,12 +15,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ChildChangePasswordAction } from '../../../../action'
-import { decryptParentPassword } from '../../../dh'
-import { Cache } from '../cache'
-import { SourceUserNotFoundException } from '../exception/illegal-state'
+import { ChildChangePasswordAction } from "../../../../action"
+import { decryptParentPassword } from "../../../dh"
+import { Cache } from "../cache"
+import { SourceUserNotFoundException } from "../exception/illegal-state"
 
-export const dispatchChildChangePassword = async ({ action, childUserId, cache }: {
+export const dispatchChildChangePassword = async ({
+  action,
+  childUserId,
+  cache,
+}: {
   action: ChildChangePasswordAction
   childUserId: string
   cache: Cache
@@ -29,16 +33,19 @@ export const dispatchChildChangePassword = async ({ action, childUserId, cache }
     where: {
       familyId: cache.familyId,
       userId: childUserId,
-      type: 'child'
+      type: "child",
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!childEntry) {
     throw new SourceUserNotFoundException()
   }
 
-  const newPassword = await decryptParentPassword({ cache, password: action.password })
+  const newPassword = await decryptParentPassword({
+    cache,
+    password: action.password,
+  })
 
   childEntry.passwordHash = newPassword.hash
   childEntry.secondPasswordSalt = newPassword.secondSalt

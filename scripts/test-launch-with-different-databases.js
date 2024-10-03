@@ -15,38 +15,38 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const { databaseLaunchers } = require('./util/database')
-const { startMainApp } = require('./util/mainapp.js')
+const { databaseLaunchers } = require("./util/database")
+const { startMainApp } = require("./util/mainapp.js")
 
 // use export PATH="$PATH:/usr/lib/postgresql/11/bin"
 // if the postgres binaries are not in the path
 
 async function main() {
-  let log = ''
+  let log = ""
 
   for (const launcher of databaseLaunchers) {
     const database = await launcher()
 
-    console.log('Test with ' + database.type)
+    console.log("Test with " + database.type)
 
     try {
       const task = await startMainApp({
-        DATABASE_URL: database.connectionUrl
+        DATABASE_URL: database.connectionUrl,
       })
 
-      console.log('test successfull')
-      log += 'Worked with ' + database.type + '\n'
+      console.log("test successfull")
+      log += "Worked with " + database.type + "\n"
 
       task.shutdown()
     } catch (ex) {
-      log += 'Failure with ' + database.type + '\n'
-      console.warn('test failed', ex)
+      log += "Failure with " + database.type + "\n"
+      console.warn("test failed", ex)
     }
 
     database.shutdown()
   }
 
-  console.log('\nRESULTS\n\n' + log)
+  console.log("\nRESULTS\n\n" + log)
   process.exit(0)
 }
 

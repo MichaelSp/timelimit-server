@@ -15,32 +15,51 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily, assertNonEmptyListWithoutDuplicates } from './meta/util'
+import { ParentAction } from "./basetypes"
+import {
+  assertIdWithinFamily,
+  assertNonEmptyListWithoutDuplicates,
+} from "./meta/util"
 
-const actionType = 'RemoveCategoryAppsAction'
+const actionType = "RemoveCategoryAppsAction"
 
 export class RemoveCategoryAppsAction extends ParentAction {
   readonly categoryId: string
   readonly packageNames: Array<string>
 
-  constructor ({ categoryId, packageNames }: {categoryId: string, packageNames: Array<string>}) {
+  constructor({
+    categoryId,
+    packageNames,
+  }: {
+    categoryId: string
+    packageNames: Array<string>
+  }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'categoryId', value: categoryId })
-    assertNonEmptyListWithoutDuplicates({ actionType, field: 'packageNames', list: packageNames })
+    assertIdWithinFamily({
+      actionType,
+      field: "categoryId",
+      value: categoryId,
+    })
+    assertNonEmptyListWithoutDuplicates({
+      actionType,
+      field: "packageNames",
+      list: packageNames,
+    })
 
     this.categoryId = categoryId
     this.packageNames = packageNames
   }
 
-  static parse = ({ categoryId, packageNames }: SerializedRemoveCategoryAppsAction) => (
+  static parse = ({
+    categoryId,
+    packageNames,
+  }: SerializedRemoveCategoryAppsAction) =>
     new RemoveCategoryAppsAction({ categoryId, packageNames })
-  )
 }
 
 export interface SerializedRemoveCategoryAppsAction {
-  type: 'REMOVE_CATEGORY_APPS'
+  type: "REMOVE_CATEGORY_APPS"
   categoryId: string
   packageNames: Array<string>
 }

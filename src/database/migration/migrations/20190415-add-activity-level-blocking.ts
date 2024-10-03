@@ -15,31 +15,46 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Transaction } from 'sequelize'
-import { attributes as appActivityAttributes } from '../../appactivity'
-import { attributesVersion9 as deviceAttributes } from '../../device'
-import { Migration } from '../../main'
+import { Transaction } from "sequelize"
+import { attributes as appActivityAttributes } from "../../appactivity"
+import { attributesVersion9 as deviceAttributes } from "../../device"
+import { Migration } from "../../main"
 
-export const up: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.createTable('AppActivities', appActivityAttributes, { transaction })
-    await queryInterface.addColumn('Devices', 'activityLevelBlocking', {
-      ...deviceAttributes.activityLevelBlocking
-    }, {
-      transaction
-    })
-  })
+export const up: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.createTable("AppActivities", appActivityAttributes, {
+        transaction,
+      })
+      await queryInterface.addColumn(
+        "Devices",
+        "activityLevelBlocking",
+        {
+          ...deviceAttributes.activityLevelBlocking,
+        },
+        {
+          transaction,
+        },
+      )
+    },
+  )
 }
 
-export const down: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.dropTable('AppActivities', { transaction })
-    await queryInterface.removeColumn('Devices', 'activityLevelBlocking', { transaction })
-  })
+export const down: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.dropTable("AppActivities", { transaction })
+      await queryInterface.removeColumn("Devices", "activityLevelBlocking", {
+        transaction,
+      })
+    },
+  )
 }

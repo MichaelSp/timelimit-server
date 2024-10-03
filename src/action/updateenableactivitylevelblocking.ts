@@ -15,31 +15,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from './basetypes'
-import { assertIdWithinFamily } from './meta/util'
+import { ParentAction } from "./basetypes"
+import { assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'UpdateEnableActivityLevelBlockingAction'
+const actionType = "UpdateEnableActivityLevelBlockingAction"
 
 export class UpdateEnableActivityLevelBlockingAction extends ParentAction {
   readonly deviceId: string
   readonly enable: boolean
 
-  constructor ({ deviceId, enable }: {deviceId: string, enable: boolean}) {
+  constructor({ deviceId, enable }: { deviceId: string; enable: boolean }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'deviceId', value: deviceId })
+    assertIdWithinFamily({ actionType, field: "deviceId", value: deviceId })
 
     this.deviceId = deviceId
     this.enable = enable
   }
 
-  static parse = ({ deviceId, enable }: SerializedUpdateEnableActivityLevelBlockingAction) => (
+  static parse = ({
+    deviceId,
+    enable,
+  }: SerializedUpdateEnableActivityLevelBlockingAction) =>
     new UpdateEnableActivityLevelBlockingAction({ deviceId, enable })
-  )
 }
 
 export interface SerializedUpdateEnableActivityLevelBlockingAction {
-  type: 'UPDATE_ENABLE_ACTIVITY_LEVEL_BLOCKING'
+  type: "UPDATE_ENABLE_ACTIVITY_LEVEL_BLOCKING"
   deviceId: string
   enable: boolean
 }

@@ -4,8 +4,6 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateCategoryAction
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -25,17 +23,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateCategor
 
 ## type
 
-
-
 `type`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedcreatecategoryaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateCategoryAction/properties/type")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedcreatecategoryaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateCategoryAction/properties/type")
 
 ### type Type
 
@@ -51,17 +47,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateCategor
 
 ## childId
 
-
-
 `childId`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedcreatecategoryaction-properties-childid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateCategoryAction/properties/childId")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedcreatecategoryaction-properties-childid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateCategoryAction/properties/childId")
 
 ### childId Type
 
@@ -69,17 +63,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateCategor
 
 ## categoryId
 
-
-
 `categoryId`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedcreatecategoryaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateCategoryAction/properties/categoryId")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedcreatecategoryaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateCategoryAction/properties/categoryId")
 
 ### categoryId Type
 
@@ -87,17 +79,15 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateCategor
 
 ## title
 
-
-
 `title`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedcreatecategoryaction-properties-title.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateCategoryAction/properties/title")
+- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedcreatecategoryaction-properties-title.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateCategoryAction/properties/title")
 
 ### title Type
 

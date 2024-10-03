@@ -15,12 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SetChildPasswordAction } from '../../../../action'
-import { decryptParentPassword } from '../../../dh'
-import { Cache } from '../cache'
-import { MissingUserException } from '../exception/missing-item'
+import { SetChildPasswordAction } from "../../../../action"
+import { decryptParentPassword } from "../../../dh"
+import { Cache } from "../cache"
+import { MissingUserException } from "../exception/missing-item"
 
-export async function dispatchSetChildPassword ({ action, cache }: {
+export async function dispatchSetChildPassword({
+  action,
+  cache,
+}: {
   action: SetChildPasswordAction
   cache: Cache
 }) {
@@ -28,16 +31,19 @@ export async function dispatchSetChildPassword ({ action, cache }: {
     where: {
       familyId: cache.familyId,
       userId: action.childUserId,
-      type: 'child'
+      type: "child",
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!childEntry) {
     throw new MissingUserException()
   }
 
-  const newPassword = await decryptParentPassword({ cache, password: action.newPassword })
+  const newPassword = await decryptParentPassword({
+    cache,
+    password: action.newPassword,
+  })
 
   childEntry.passwordHash = newPassword.hash
   childEntry.secondPasswordSalt = newPassword.secondSalt

@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AppLogicAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
+import { AppLogicAction } from "./basetypes"
+import { InvalidActionParameterException } from "./meta/exception"
 
-const actionType = 'UpdateInstalledAppsAction'
+const actionType = "UpdateInstalledAppsAction"
 const SIZE_LIMIT = 1024 * 512
 
 export class UpdateInstalledAppsAction extends AppLogicAction {
@@ -26,9 +26,13 @@ export class UpdateInstalledAppsAction extends AppLogicAction {
   readonly diff?: Buffer
   readonly wipe: boolean
 
-  constructor ({ base, diff, wipe }: {
-    base?: Buffer,
-    diff?: Buffer,
+  constructor({
+    base,
+    diff,
+    wipe,
+  }: {
+    base?: Buffer
+    diff?: Buffer
     wipe: boolean
   }) {
     super()
@@ -36,14 +40,14 @@ export class UpdateInstalledAppsAction extends AppLogicAction {
     if (base && base.length > SIZE_LIMIT) {
       throw new InvalidActionParameterException({
         actionType,
-        staticMessage: 'base data too big'
+        staticMessage: "base data too big",
       })
     }
 
     if (diff && diff.length > SIZE_LIMIT) {
       throw new InvalidActionParameterException({
         actionType,
-        staticMessage: 'diff data too big'
+        staticMessage: "diff data too big",
       })
     }
 
@@ -52,17 +56,16 @@ export class UpdateInstalledAppsAction extends AppLogicAction {
     this.wipe = wipe
   }
 
-  static parse = ({ b, d, w }: SerializedUpdateInstalledAppsAction) => (
+  static parse = ({ b, d, w }: SerializedUpdateInstalledAppsAction) =>
     new UpdateInstalledAppsAction({
-      base: b !== undefined ? Buffer.from(b, 'base64') : undefined,
-      diff: d !== undefined ? Buffer.from(d, 'base64') : undefined,
-      wipe: w
+      base: b !== undefined ? Buffer.from(b, "base64") : undefined,
+      diff: d !== undefined ? Buffer.from(d, "base64") : undefined,
+      wipe: w,
     })
-  )
 }
 
 export interface SerializedUpdateInstalledAppsAction {
-  type: 'UPDATE_INSTALLED_APPS'
+  type: "UPDATE_INSTALLED_APPS"
   b?: string
   d?: string
   w: boolean

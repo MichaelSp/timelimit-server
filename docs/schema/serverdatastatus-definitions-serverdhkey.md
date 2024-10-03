@@ -4,8 +4,6 @@
 https://timelimit.io/ServerDataStatus#/definitions/ServerDhKey
 ```
 
-
-
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [ServerDataStatus.schema.json\*](ServerDataStatus.schema.json "open original schema") |
@@ -23,17 +21,15 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDhKey
 
 ## v
 
-
-
 `v`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdhkey-properties-v.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDhKey/properties/v")
+- defined in: [ServerDataStatus](serverdatastatus-definitions-serverdhkey-properties-v.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDhKey/properties/v")
 
 ### v Type
 
@@ -41,17 +37,15 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDhKey
 
 ## k
 
-
-
 `k`
 
-* is required
+- is required
 
-* Type: `string`
+- Type: `string`
 
-* cannot be null
+- cannot be null
 
-* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdhkey-properties-k.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDhKey/properties/k")
+- defined in: [ServerDataStatus](serverdatastatus-definitions-serverdhkey-properties-k.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDhKey/properties/k")
 
 ### k Type
 

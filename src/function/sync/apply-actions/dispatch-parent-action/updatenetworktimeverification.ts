@@ -15,11 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateNetworkTimeVerificationAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingDeviceException } from '../exception/missing-item'
+import { UpdateNetworkTimeVerificationAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingDeviceException } from "../exception/missing-item"
 
-export async function dispatchUpdateNetworkTimeVerification ({ action, cache }: {
+export async function dispatchUpdateNetworkTimeVerification({
+  action,
+  cache,
+}: {
   action: UpdateNetworkTimeVerificationAction
   cache: Cache
 }) {
@@ -27,23 +30,26 @@ export async function dispatchUpdateNetworkTimeVerification ({ action, cache }: 
     transaction: cache.transaction,
     where: {
       familyId: cache.familyId,
-      deviceId: action.deviceId
-    }
+      deviceId: action.deviceId,
+    },
   })
 
   if (!oldDevice) {
     throw new MissingDeviceException()
   }
 
-  await cache.database.device.update({
-    networkTime: action.mode
-  }, {
-    where: {
-      familyId: cache.familyId,
-      deviceId: action.deviceId
+  await cache.database.device.update(
+    {
+      networkTime: action.mode,
     },
-    transaction: cache.transaction
-  })
+    {
+      where: {
+        familyId: cache.familyId,
+        deviceId: action.deviceId,
+      },
+      transaction: cache.transaction,
+    },
+  )
 
   cache.invalidiateDeviceList = true
 

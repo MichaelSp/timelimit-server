@@ -15,14 +15,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { Database, Transaction } from '../../../../database'
-import { ServerUpdatedCategoryAssignedApps } from '../../../../object/serverdatastatus'
-import { FamilyEntry } from '../family-entry'
-import { ServerCategoryVersions } from './diff'
+import * as Sequelize from "sequelize"
+import { Database, Transaction } from "../../../../database"
+import { ServerUpdatedCategoryAssignedApps } from "../../../../object/serverdatastatus"
+import { FamilyEntry } from "../family-entry"
+import { ServerCategoryVersions } from "./diff"
 
-export async function getCategoryAssignedApps ({
-  database, transaction, categoryIdsToSyncAssignedApps, familyEntry, serverCategoriesVersions
+export async function getCategoryAssignedApps({
+  database,
+  transaction,
+  categoryIdsToSyncAssignedApps,
+  familyEntry,
+  serverCategoriesVersions,
 }: {
   database: Database
   transaction: Transaction
@@ -30,27 +34,32 @@ export async function getCategoryAssignedApps ({
   familyEntry: FamilyEntry
   serverCategoriesVersions: ServerCategoryVersions
 }): Promise<Array<ServerUpdatedCategoryAssignedApps>> {
-  const dataForSyncing = (await database.categoryApp.findAll({
-    where: {
-      familyId: familyEntry.familyId,
-      categoryId: {
-        [Sequelize.Op.in]: categoryIdsToSyncAssignedApps
-      }
-    },
-    attributes: ['categoryId', 'packageName'],
-    transaction
-  })).map((item) => ({
+  const dataForSyncing = (
+    await database.categoryApp.findAll({
+      where: {
+        familyId: familyEntry.familyId,
+        categoryId: {
+          [Sequelize.Op.in]: categoryIdsToSyncAssignedApps,
+        },
+      },
+      attributes: ["categoryId", "packageName"],
+      transaction,
+    })
+  ).map((item) => ({
     categoryId: item.categoryId,
-    packageName: item.packageName
+    packageName: item.packageName,
   }))
 
-  const getCategoryAssingedAppsVersion = (categoryId: string) => (
+  const getCategoryAssingedAppsVersion = (categoryId: string) =>
     serverCategoriesVersions.requireByCategoryId(categoryId).assignedAppsVersion
-  )
 
-  return categoryIdsToSyncAssignedApps.map((categoryId): ServerUpdatedCategoryAssignedApps => ({
-    categoryId,
-    apps: dataForSyncing.filter((item) => item.categoryId === categoryId).map((item) => item.packageName),
-    version: getCategoryAssingedAppsVersion(categoryId)
-  }))
+  return categoryIdsToSyncAssignedApps.map(
+    (categoryId): ServerUpdatedCategoryAssignedApps => ({
+      categoryId,
+      apps: dataForSyncing
+        .filter((item) => item.categoryId === categoryId)
+        .map((item) => item.packageName),
+      version: getCategoryAssingedAppsVersion(categoryId),
+    }),
+  )
 }

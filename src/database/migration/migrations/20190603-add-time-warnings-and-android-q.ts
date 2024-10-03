@@ -15,36 +15,56 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Transaction } from 'sequelize'
-import { attributes as categoryAttributes } from '../../category'
-import { attributesVersion10 as deviceAttributes } from '../../device'
-import { Migration } from '../../main'
+import { Transaction } from "sequelize"
+import { attributes as categoryAttributes } from "../../category"
+import { attributesVersion10 as deviceAttributes } from "../../device"
+import { Migration } from "../../main"
 
-export const up: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.addColumn('Devices', 'isQorLater', {
-      ...deviceAttributes.isQorLater
-    }, {
-      transaction
-    })
+export const up: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.addColumn(
+        "Devices",
+        "isQorLater",
+        {
+          ...deviceAttributes.isQorLater,
+        },
+        {
+          transaction,
+        },
+      )
 
-    await queryInterface.addColumn('Categories', 'timeWarningFlags', {
-      ...categoryAttributes.timeWarningFlags
-    }, {
-      transaction
-    })
-  })
+      await queryInterface.addColumn(
+        "Categories",
+        "timeWarningFlags",
+        {
+          ...categoryAttributes.timeWarningFlags,
+        },
+        {
+          transaction,
+        },
+      )
+    },
+  )
 }
 
-export const down: Migration = async ({context}) => {
-  const queryInterface = context.getQueryInterface() 
-  context.transaction({
-    type: Transaction.TYPES.EXCLUSIVE
-  }, async ( transaction: Transaction) => {
-    await queryInterface.removeColumn('Devices', 'isQorLater', { transaction })
-    await queryInterface.removeColumn('Categories', 'timeWarningFlags', { transaction })
-  })
+export const down: Migration = async ({ context }) => {
+  const queryInterface = context.getQueryInterface()
+  context.transaction(
+    {
+      type: Transaction.TYPES.EXCLUSIVE,
+    },
+    async (transaction: Transaction) => {
+      await queryInterface.removeColumn("Devices", "isQorLater", {
+        transaction,
+      })
+      await queryInterface.removeColumn("Categories", "timeWarningFlags", {
+        transaction,
+      })
+    },
+  )
 }

@@ -15,22 +15,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AddUsedTimeAction } from '../../../../action'
-import { MinuteOfDay } from '../../../../util/minuteofday'
-import { Cache } from '../cache'
-import { IllegalStateException } from '../exception/illegal-state'
-import { MissingCategoryException } from '../exception/missing-item'
+import { AddUsedTimeAction } from "../../../../action"
+import { MinuteOfDay } from "../../../../util/minuteofday"
+import { Cache } from "../cache"
+import { IllegalStateException } from "../exception/illegal-state"
+import { MissingCategoryException } from "../exception/missing-item"
 
 export const getRoundedTimestamp = () => {
   const now = Date.now()
 
-  return now - (now % (1000 * 60 * 60 * 24 * 2 /* 2 days */))
+  return now - (now % (1000 * 60 * 60 * 24 * 2)) /* 2 days */
 }
 
 const dayLengthInMinutes = MinuteOfDay.LENGTH
 const dayLengthInMs = dayLengthInMinutes * 1000 * 60
 
-export async function dispatchAddUsedTime ({ action, cache }: {
+export async function dispatchAddUsedTime({
+  action,
+  cache,
+}: {
   deviceId: string
   action: AddUsedTimeAction
   cache: Cache
@@ -40,14 +43,10 @@ export async function dispatchAddUsedTime ({ action, cache }: {
   const categoryEntryUnsafe = await cache.database.category.findOne({
     where: {
       familyId: cache.familyId,
-      categoryId: action.categoryId
+      categoryId: action.categoryId,
     },
     transaction: cache.transaction,
-    attributes: [
-      'childId',
-      'parentCategoryId',
-      'extraTimeInMillis'
-    ]
+    attributes: ["childId", "parentCategoryId", "extraTimeInMillis"],
   })
   // verify that the category exists
   if (!categoryEntryUnsafe) {
@@ -57,11 +56,14 @@ export async function dispatchAddUsedTime ({ action, cache }: {
   const categoryEntry = {
     childId: categoryEntryUnsafe.childId,
     parentCategoryId: categoryEntryUnsafe.parentCategoryId,
-    extraTimeInMillis: categoryEntryUnsafe.extraTimeInMillis
+    extraTimeInMillis: categoryEntryUnsafe.extraTimeInMillis,
   }
 
-  const handleAddUsedTime = async ({ categoryId, currentExtraTime }: {
-    categoryId: string,
+  const handleAddUsedTime = async ({
+    categoryId,
+    currentExtraTime,
+  }: {
+    categoryId: string
     currentExtraTime: number
   }) => {
     if (action.timeToAdd !== 0) {
@@ -71,62 +73,79 @@ export async function dispatchAddUsedTime ({ action, cache }: {
           categoryId: action.categoryId,
           dayOfEpoch: action.dayOfEpoch,
           startMinuteOfDay: MinuteOfDay.MIN,
-          endMinuteOfDay: MinuteOfDay.MAX
+          endMinuteOfDay: MinuteOfDay.MAX,
         },
-        transaction: cache.transaction
+        transaction: cache.transaction,
       })
 
       if (oldItem) {
         const oldUsedTime = oldItem.usedTime
-        const newUsedTime = Math.max(0, Math.min(oldUsedTime + action.timeToAdd, dayLengthInMs))
+        const newUsedTime = Math.max(
+          0,
+          Math.min(oldUsedTime + action.timeToAdd, dayLengthInMs),
+        )
 
         const oldLastUpdate = parseInt(oldItem.lastUpdate, 10)
         const newLastUpdate = parseInt(roundedTimestamp, 10)
 
         if (oldUsedTime !== newUsedTime || oldLastUpdate !== newLastUpdate) {
-          const [updatedRows] = await cache.database.usedTime.update({
-            usedTime: newUsedTime,
-            lastUpdate: newLastUpdate.toString(10)
-          }, {
-            where: {
-              familyId: cache.familyId,
-              categoryId: action.categoryId,
-              dayOfEpoch: action.dayOfEpoch,
-              startMinuteOfDay: MinuteOfDay.MIN,
-              endMinuteOfDay: MinuteOfDay.MAX
+          const [updatedRows] = await cache.database.usedTime.update(
+            {
+              usedTime: newUsedTime,
+              lastUpdate: newLastUpdate.toString(10),
             },
-            transaction: cache.transaction
-          })
+            {
+              where: {
+                familyId: cache.familyId,
+                categoryId: action.categoryId,
+                dayOfEpoch: action.dayOfEpoch,
+                startMinuteOfDay: MinuteOfDay.MIN,
+                endMinuteOfDay: MinuteOfDay.MAX,
+              },
+              transaction: cache.transaction,
+            },
+          )
 
           if (updatedRows === 0) {
-            throw new IllegalStateException({ staticMessage: 'could not update fetched row' })
+            throw new IllegalStateException({
+              staticMessage: "could not update fetched row",
+            })
           }
         }
       } else {
-        await cache.database.usedTime.create({
-          familyId: cache.familyId,
-          categoryId: action.categoryId,
-          dayOfEpoch: action.dayOfEpoch,
-          usedTime: Math.max(0, Math.min(action.timeToAdd, dayLengthInMs)),
-          lastUpdate: roundedTimestamp,
-          startMinuteOfDay: MinuteOfDay.MIN,
-          endMinuteOfDay: MinuteOfDay.MAX
-        }, {
-          transaction: cache.transaction
-        })
+        await cache.database.usedTime.create(
+          {
+            familyId: cache.familyId,
+            categoryId: action.categoryId,
+            dayOfEpoch: action.dayOfEpoch,
+            usedTime: Math.max(0, Math.min(action.timeToAdd, dayLengthInMs)),
+            lastUpdate: roundedTimestamp,
+            startMinuteOfDay: MinuteOfDay.MIN,
+            endMinuteOfDay: MinuteOfDay.MAX,
+          },
+          {
+            transaction: cache.transaction,
+          },
+        )
       }
     }
 
     if (action.extraTimeToSubtract !== 0) {
-      await cache.database.category.update({
-        extraTimeInMillis: Math.max(0, currentExtraTime - action.extraTimeToSubtract)
-      }, {
-        where: {
-          familyId: cache.familyId,
-          categoryId: categoryId
+      await cache.database.category.update(
+        {
+          extraTimeInMillis: Math.max(
+            0,
+            currentExtraTime - action.extraTimeToSubtract,
+          ),
         },
-        transaction: cache.transaction
-      })
+        {
+          where: {
+            familyId: cache.familyId,
+            categoryId: categoryId,
+          },
+          transaction: cache.transaction,
+        },
+      )
 
       cache.categoriesWithModifiedBaseData.add(categoryId)
     }
@@ -136,23 +155,23 @@ export async function dispatchAddUsedTime ({ action, cache }: {
 
   await handleAddUsedTime({
     categoryId: action.categoryId,
-    currentExtraTime: categoryEntry.extraTimeInMillis
+    currentExtraTime: categoryEntry.extraTimeInMillis,
   })
 
-  if (categoryEntry.parentCategoryId !== '') {
+  if (categoryEntry.parentCategoryId !== "") {
     const parentCategoryEntry = await cache.database.category.findOne({
       where: {
         familyId: cache.familyId,
         categoryId: categoryEntry.parentCategoryId,
-        childId: categoryEntry.childId
+        childId: categoryEntry.childId,
       },
-      transaction: cache.transaction
+      transaction: cache.transaction,
     })
 
     if (parentCategoryEntry) {
       await handleAddUsedTime({
         categoryId: categoryEntry.parentCategoryId,
-        currentExtraTime: parentCategoryEntry.extraTimeInMillis
+        currentExtraTime: parentCategoryEntry.extraTimeInMillis,
       })
     }
   }

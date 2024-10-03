@@ -15,33 +15,45 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { anonymizedNetworkIdLength } from '../database/categorynetworkid'
-import { ParentAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
-import { assertHexString, assertIdWithinFamily } from './meta/util'
+import { anonymizedNetworkIdLength } from "../database/categorynetworkid"
+import { ParentAction } from "./basetypes"
+import { InvalidActionParameterException } from "./meta/exception"
+import { assertHexString, assertIdWithinFamily } from "./meta/util"
 
-const actionType = 'AddCategoryNetworkIdAction'
+const actionType = "AddCategoryNetworkIdAction"
 
 export class AddCategoryNetworkIdAction extends ParentAction {
   readonly categoryId: string
   readonly itemId: string
   readonly hashedNetworkId: string
 
-  constructor ({ categoryId, itemId, hashedNetworkId }: {
+  constructor({
+    categoryId,
+    itemId,
+    hashedNetworkId,
+  }: {
     categoryId: string
     itemId: string
     hashedNetworkId: string
   }) {
     super()
 
-    assertIdWithinFamily({ actionType, field: 'categoryId', value: categoryId })
-    assertIdWithinFamily({ actionType, field: 'itemId', value: itemId })
-    assertHexString({ actionType, field: 'hashedNetworkId', value: hashedNetworkId })
+    assertIdWithinFamily({
+      actionType,
+      field: "categoryId",
+      value: categoryId,
+    })
+    assertIdWithinFamily({ actionType, field: "itemId", value: itemId })
+    assertHexString({
+      actionType,
+      field: "hashedNetworkId",
+      value: hashedNetworkId,
+    })
 
     if (hashedNetworkId.length !== anonymizedNetworkIdLength) {
       throw new InvalidActionParameterException({
         actionType,
-        staticMessage: 'wrong network id length'
+        staticMessage: "wrong network id length",
       })
     }
 
@@ -50,17 +62,20 @@ export class AddCategoryNetworkIdAction extends ParentAction {
     this.hashedNetworkId = hashedNetworkId
   }
 
-  static parse = ({ categoryId, itemId, hashedNetworkId }: SerializedAddCategoryNetworkIdAction) => (
+  static parse = ({
+    categoryId,
+    itemId,
+    hashedNetworkId,
+  }: SerializedAddCategoryNetworkIdAction) =>
     new AddCategoryNetworkIdAction({
       categoryId,
       itemId,
-      hashedNetworkId
+      hashedNetworkId,
     })
-  )
 }
 
 export interface SerializedAddCategoryNetworkIdAction {
-  type: 'ADD_CATEGORY_NETWORK_ID'
+  type: "ADD_CATEGORY_NETWORK_ID"
   categoryId: string
   itemId: string
   hashedNetworkId: string

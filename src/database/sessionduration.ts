@@ -15,11 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { ValidationException } from '../exception'
-import { MinuteOfDay } from '../util/minuteofday'
-import { familyIdColumn, idWithinFamilyColumn, timestampColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import * as Sequelize from "sequelize"
+import { ValidationException } from "../exception"
+import { MinuteOfDay } from "../util/minuteofday"
+import {
+  familyIdColumn,
+  idWithinFamilyColumn,
+  timestampColumn,
+} from "./columns"
+import { SequelizeAttributes } from "./types"
 
 interface SessionDurationAttributesVersion1 {
   familyId: string
@@ -36,78 +40,92 @@ interface SessionDurationAttributesVersion1 {
 
 export type SessionDurationAttributes = SessionDurationAttributesVersion1
 
-export type SessionDurationModel = Sequelize.Model<SessionDurationAttributes> & SessionDurationAttributes
+export type SessionDurationModel = Sequelize.Model<SessionDurationAttributes> &
+  SessionDurationAttributes
 export type SessionDurationModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): SessionDurationModel;
+  new (values?: object, options?: Sequelize.BuildOptions): SessionDurationModel
 }
 
-export const attributesVersion1: SequelizeAttributes<SessionDurationAttributesVersion1> = {
-  familyId: {
-    ...familyIdColumn,
-    primaryKey: true
-  },
-  categoryId: {
-    ...idWithinFamilyColumn,
-    primaryKey: true
-  },
-  maxSessionDuration: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    allowNull: false,
-    validate: {
-      min: 1
-    }
-  },
-  sessionPauseDuration: {
-    type: Sequelize.INTEGER,
-    primaryKey: true,
-    allowNull: false,
-    validate: {
-      min: 1
-    }
-  },
-  startMinuteOfDay: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    validate: {
-      min: MinuteOfDay.MIN,
-      max: MinuteOfDay.MAX
-    }
-  },
-  endMinuteOfDay: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    validate: {
-      min: MinuteOfDay.MIN,
-      max: MinuteOfDay.MAX,
-      customValidator (endMinuteOfDay: unknown) {
-        const startMinuteOfDay = this.startMinuteOfDay
+export const attributesVersion1: SequelizeAttributes<SessionDurationAttributesVersion1> =
+  {
+    familyId: {
+      ...familyIdColumn,
+      primaryKey: true,
+    },
+    categoryId: {
+      ...idWithinFamilyColumn,
+      primaryKey: true,
+    },
+    maxSessionDuration: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      validate: {
+        min: 1,
+      },
+    },
+    sessionPauseDuration: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      validate: {
+        min: 1,
+      },
+    },
+    startMinuteOfDay: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      validate: {
+        min: MinuteOfDay.MIN,
+        max: MinuteOfDay.MAX,
+      },
+    },
+    endMinuteOfDay: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      validate: {
+        min: MinuteOfDay.MIN,
+        max: MinuteOfDay.MAX,
+        customValidator(endMinuteOfDay: unknown) {
+          const startMinuteOfDay = this.startMinuteOfDay
 
-        if (typeof endMinuteOfDay !== 'number' || typeof startMinuteOfDay !== 'number') {
-          throw new ValidationException({ staticMessage: 'wrong data types for start and end minute at the session duration' })
-        }
+          if (
+            typeof endMinuteOfDay !== "number" ||
+            typeof startMinuteOfDay !== "number"
+          ) {
+            throw new ValidationException({
+              staticMessage:
+                "wrong data types for start and end minute at the session duration",
+            })
+          }
 
-        if (startMinuteOfDay > endMinuteOfDay) {
-          throw new ValidationException({ staticMessage: 'startMinuteOfDay must not be bigger than endMinuteOfDay for a session duration' })
-        }
-      }
-    }
-  },
-  lastUsage: { ...timestampColumn },
-  lastSessionDuration: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    validate: {
-      min: 0
-    }
-  },
-  roundedLastUpdate: { ...timestampColumn }
-}
+          if (startMinuteOfDay > endMinuteOfDay) {
+            throw new ValidationException({
+              staticMessage:
+                "startMinuteOfDay must not be bigger than endMinuteOfDay for a session duration",
+            })
+          }
+        },
+      },
+    },
+    lastUsage: { ...timestampColumn },
+    lastSessionDuration: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 0,
+      },
+    },
+    roundedLastUpdate: { ...timestampColumn },
+  }
 
 export const attributes: SequelizeAttributes<SessionDurationAttributes> = {
-  ...attributesVersion1
+  ...attributesVersion1,
 }
 
-export const createSessionDurationModel = (sequelize: Sequelize.Sequelize): SessionDurationModelStatic => sequelize.define('SessionDuration', attributes) as SessionDurationModelStatic
+export const createSessionDurationModel = (
+  sequelize: Sequelize.Sequelize,
+): SessionDurationModelStatic =>
+  sequelize.define("SessionDuration", attributes) as SessionDurationModelStatic

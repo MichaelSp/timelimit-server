@@ -15,12 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SetUserDisableLimitsUntilAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingUserException } from '../exception/missing-item'
-import { PremiumVersionMissingException } from '../exception/premium'
+import { SetUserDisableLimitsUntilAction } from "../../../../action"
+import { Cache } from "../cache"
+import { MissingUserException } from "../exception/missing-item"
+import { PremiumVersionMissingException } from "../exception/premium"
 
-export async function dispatchUserSetDisableLimitsUntil ({ action, cache }: {
+export async function dispatchUserSetDisableLimitsUntil({
+  action,
+  cache,
+}: {
   action: SetUserDisableLimitsUntilAction
   cache: Cache
 }) {
@@ -34,25 +37,28 @@ export async function dispatchUserSetDisableLimitsUntil ({ action, cache }: {
     where: {
       familyId: cache.familyId,
       userId: action.childId,
-      type: 'child'
+      type: "child",
     },
-    transaction: cache.transaction
+    transaction: cache.transaction,
   })
 
   if (!oldUser) {
     throw new MissingUserException()
   }
 
-  await cache.database.user.update({
-    disableTimelimitsUntil: action.timestamp.toString(10)
-  }, {
-    where: {
-      familyId: cache.familyId,
-      userId: action.childId,
-      type: 'child'
+  await cache.database.user.update(
+    {
+      disableTimelimitsUntil: action.timestamp.toString(10),
     },
-    transaction: cache.transaction
-  })
+    {
+      where: {
+        familyId: cache.familyId,
+        userId: action.childId,
+        type: "child",
+      },
+      transaction: cache.transaction,
+    },
+  )
 
   cache.invalidiateUserList = true
   cache.incrementTriggeredSyncLevel(2)

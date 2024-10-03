@@ -15,160 +15,187 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Conflict, InternalServerError, Unauthorized } from 'http-errors'
-import { config } from '../../config'
-import { Database } from '../../database'
-import { generateVersionId } from '../../util/token'
-import { WebsocketApi } from '../../websocket'
-import { notifyClientsAboutChangesDelayed } from '../websocket'
+import { Conflict, InternalServerError, Unauthorized } from "http-errors"
+import { config } from "../../config"
+import { Database } from "../../database"
+import { generateVersionId } from "../../util/token"
+import { WebsocketApi } from "../../websocket"
+import { notifyClientsAboutChangesDelayed } from "../websocket"
 
-export const setPrimaryDevice = async ({ database, websocket, deviceAuthToken, currentUserId, action }: {
+export const setPrimaryDevice = async ({
+  database,
+  websocket,
+  deviceAuthToken,
+  currentUserId,
+  action,
+}: {
   database: Database
   websocket: WebsocketApi
   deviceAuthToken: string
   currentUserId: string
-  action: 'set this device' | 'unset this device'
+  action: "set this device" | "unset this device"
   // no transaction here because this is directly called from an API endpoint
-}): Promise<'assigned to other device' | 'requires full version' | 'success'> => {
-  return database.transaction(async (transaction): Promise<'assigned to other device' | 'requires full version' | 'success'> => {
-    const deviceEntryUnsafe = await database.device.findOne({
-      where: {
-        deviceAuthToken
-      },
+}): Promise<
+  "assigned to other device" | "requires full version" | "success"
+> => {
+  return database.transaction(
+    async (
       transaction,
-      attributes: ['familyId', 'currentUserId', 'deviceId']
-    })
-
-    if (!deviceEntryUnsafe) {
-      throw new Unauthorized()
-    }
-
-    const deviceEntry = {
-      familyId: deviceEntryUnsafe.familyId,
-      currentUserId: deviceEntryUnsafe.currentUserId,
-      deviceId: deviceEntryUnsafe.deviceId
-    }
-
-    if ((deviceEntry.currentUserId !== currentUserId) || (currentUserId === '')) {
-      throw new Conflict()
-    }
-
-    const userEntryUnsafe = await database.user.findOne({
-      where: {
-        familyId: deviceEntry.familyId,
-        userId: deviceEntry.currentUserId
-      },
-      transaction,
-      attributes: ['currentDevice']
-    })
-
-    if (!userEntryUnsafe) {
-      throw new Conflict()
-    }
-
-    const userEntry = {
-      currentDevice: userEntryUnsafe.currentDevice
-    }
-
-    const userDeviceEntriesUnsafe = await database.device.findAll({
-      where: {
-        familyId: deviceEntry.familyId,
-        currentUserId
-      },
-      transaction,
-      attributes: ['deviceId']
-    })
-
-    const userDeviceEntries = userDeviceEntriesUnsafe.map((item) => ({
-      deviceId: item.deviceId
-    }))
-
-    if (userDeviceEntries.length >= 2) {
-      const familyEntryUnsafe = await database.family.findOne({
+    ): Promise<
+      "assigned to other device" | "requires full version" | "success"
+    > => {
+      const deviceEntryUnsafe = await database.device.findOne({
         where: {
-          familyId: deviceEntry.familyId
+          deviceAuthToken,
         },
         transaction,
-        attributes: ['hasFullVersion']
+        attributes: ["familyId", "currentUserId", "deviceId"],
       })
 
-      if (!familyEntryUnsafe) {
+      if (!deviceEntryUnsafe) {
+        throw new Unauthorized()
+      }
+
+      const deviceEntry = {
+        familyId: deviceEntryUnsafe.familyId,
+        currentUserId: deviceEntryUnsafe.currentUserId,
+        deviceId: deviceEntryUnsafe.deviceId,
+      }
+
+      if (deviceEntry.currentUserId !== currentUserId || currentUserId === "") {
         throw new Conflict()
       }
 
-      const familyEntry = {
-        hasFullVersion: familyEntryUnsafe.hasFullVersion
-      }
-
-      if (!(familyEntry.hasFullVersion || config.alwaysPro)) {
-        return 'requires full version'
-      }
-    }
-
-    if (action === 'set this device') {
-      // check that no other device is selected
-      if (userDeviceEntries.find((item) => item.deviceId === userEntry.currentDevice)) {
-        return 'assigned to other device'
-      }
-
-      // update
-      const [affectedRows] = await database.user.update({
-        currentDevice: deviceEntry.deviceId
-      }, {
+      const userEntryUnsafe = await database.user.findOne({
         where: {
           familyId: deviceEntry.familyId,
-          userId: currentUserId
+          userId: deviceEntry.currentUserId,
         },
-        transaction
+        transaction,
+        attributes: ["currentDevice"],
       })
 
-      if (affectedRows !== 1) {
-        throw new Conflict()
-      }
-    } else if (action === 'unset this device') {
-      if (userEntry.currentDevice !== deviceEntry.deviceId) {
+      if (!userEntryUnsafe) {
         throw new Conflict()
       }
 
-      // update
-      const [affectedRows] = await database.user.update({
-        currentDevice: ''
-      }, {
+      const userEntry = {
+        currentDevice: userEntryUnsafe.currentDevice,
+      }
+
+      const userDeviceEntriesUnsafe = await database.device.findAll({
         where: {
           familyId: deviceEntry.familyId,
-          userId: currentUserId
+          currentUserId,
         },
-        transaction
+        transaction,
+        attributes: ["deviceId"],
       })
 
-      if (affectedRows !== 1) {
-        throw new Conflict()
+      const userDeviceEntries = userDeviceEntriesUnsafe.map((item) => ({
+        deviceId: item.deviceId,
+      }))
+
+      if (userDeviceEntries.length >= 2) {
+        const familyEntryUnsafe = await database.family.findOne({
+          where: {
+            familyId: deviceEntry.familyId,
+          },
+          transaction,
+          attributes: ["hasFullVersion"],
+        })
+
+        if (!familyEntryUnsafe) {
+          throw new Conflict()
+        }
+
+        const familyEntry = {
+          hasFullVersion: familyEntryUnsafe.hasFullVersion,
+        }
+
+        if (!(familyEntry.hasFullVersion || config.alwaysPro)) {
+          return "requires full version"
+        }
       }
-    } else {
-      throw new InternalServerError('illegal state')
-    }
 
-    // invalidiate user list
-    await database.family.update({
-      userListVersion: generateVersionId()
-    }, {
-      transaction,
-      where: {
-        familyId: deviceEntry.familyId
+      if (action === "set this device") {
+        // check that no other device is selected
+        if (
+          userDeviceEntries.find(
+            (item) => item.deviceId === userEntry.currentDevice,
+          )
+        ) {
+          return "assigned to other device"
+        }
+
+        // update
+        const [affectedRows] = await database.user.update(
+          {
+            currentDevice: deviceEntry.deviceId,
+          },
+          {
+            where: {
+              familyId: deviceEntry.familyId,
+              userId: currentUserId,
+            },
+            transaction,
+          },
+        )
+
+        if (affectedRows !== 1) {
+          throw new Conflict()
+        }
+      } else if (action === "unset this device") {
+        if (userEntry.currentDevice !== deviceEntry.deviceId) {
+          throw new Conflict()
+        }
+
+        // update
+        const [affectedRows] = await database.user.update(
+          {
+            currentDevice: "",
+          },
+          {
+            where: {
+              familyId: deviceEntry.familyId,
+              userId: currentUserId,
+            },
+            transaction,
+          },
+        )
+
+        if (affectedRows !== 1) {
+          throw new Conflict()
+        }
+      } else {
+        throw new InternalServerError("illegal state")
       }
-    })
 
-    // trigger sync
-    await notifyClientsAboutChangesDelayed({
-      familyId: deviceEntry.familyId,
-      sourceDeviceId: deviceEntry.deviceId,
-      websocket,
-      database,
-      generalLevel: 1,  // the source device knows it already
-      targetedLevels: new Map(),
-      transaction
-    })
+      // invalidiate user list
+      await database.family.update(
+        {
+          userListVersion: generateVersionId(),
+        },
+        {
+          transaction,
+          where: {
+            familyId: deviceEntry.familyId,
+          },
+        },
+      )
 
-    return 'success'
-  })
+      // trigger sync
+      await notifyClientsAboutChangesDelayed({
+        familyId: deviceEntry.familyId,
+        sourceDeviceId: deviceEntry.deviceId,
+        websocket,
+        database,
+        generalLevel: 1, // the source device knows it already
+        targetedLevels: new Map(),
+        transaction,
+      })
+
+      return "success"
+    },
+  )
 }
