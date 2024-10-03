@@ -3,6 +3,23 @@ entries:
   timelimit:
   - apiVersion: v2
     appVersion: 1.17.1
+    created: "2024-10-03T19:55:18.770816885Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: https://charts.bitnami.com/bitnami
+      version: 19.0.7
+    description: A Helm chart for timelimit server
+    digest: a76d037e941822e23835870a5d8cca3356fe02a2be9193b83f1b609eefce4321
+    maintainers:
+    - name: Michael
+    name: timelimit
+    type: application
+    urls:
+    - https://github.com/MichaelSp/timelimit-server/releases/download/timelimit-1.0.0/timelimit-1.0.0.tgz
+    version: 1.0.0
+  - apiVersion: v2
+    appVersion: 1.17.1
     created: "2024-10-03T19:51:46.975098136Z"
     dependencies:
     - condition: mariadb.enabled
@@ -252,4 +269,4 @@ entries:
     urls:
     - https://github.com/MichaelSp/timelimit-server/releases/download/timelimit-0.2.3/timelimit-0.2.3.tgz
     version: 0.2.3
-generated: "2024-10-03T19:51:46.975177624Z"
+generated: "2024-10-03T19:55:18.770944164Z"
