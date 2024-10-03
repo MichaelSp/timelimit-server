@@ -17,11 +17,11 @@
 
 import * as Sequelize from 'sequelize'
 import { Database } from '../../../database'
-import { config, calculateExpireTime } from '../../../database/devicedhkey'
+import { calculateExpireTime, config } from '../../../database/devicedhkey'
+import { generateDhKeypair } from '../../../function/dh'
+import { EventHandler } from '../../../monitoring/eventhandler'
 import { ServerDhKey } from '../../../object/serverdatastatus'
 import { generateVersionId } from '../../../util/token'
-import { EventHandler } from '../../../monitoring/eventhandler'
-import { generateDhKeypair } from '../../../function/dh'
 import { FamilyEntry } from './family-entry'
 
 export async function getDeviceDhKeys ({

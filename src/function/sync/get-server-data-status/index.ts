@@ -19,21 +19,21 @@ import * as Sequelize from 'sequelize'
 import { config } from '../../../config'
 import { Database } from '../../../database'
 import { getStatusMessage } from '../../../function/statusmessage'
+import { EventHandler } from '../../../monitoring/eventhandler'
 import { ClientDataStatus } from '../../../object/clientdatastatus'
 import { ServerDataStatus } from '../../../object/serverdatastatus'
-import { EventHandler } from '../../../monitoring/eventhandler'
 import {
-  getCategoryAssignedApps, getCategoryBaseDatas, getCategoryDataToSync,
-  getRules, getTasks, getUsedTimes
+    getCategoryAssignedApps, getCategoryBaseDatas, getCategoryDataToSync,
+    getRules, getTasks, getUsedTimes
 } from './category'
 import { getDeviceDetailList } from './device-detail'
 import { getDeviceList } from './device-list'
 import { getDeviceDhKeys } from './dh-keys'
 import { getFamilyEntry } from './family-entry'
-import { getUserList } from './user-list'
 import { getKeyRequests } from './key-requests'
 import { getKeyResponses } from './key-responses'
 import { getU2f } from './u2f'
+import { getUserList } from './user-list'
 
 export const generateServerDataStatus = async ({
   database, clientStatus, familyId, deviceId, transaction, eventHandler

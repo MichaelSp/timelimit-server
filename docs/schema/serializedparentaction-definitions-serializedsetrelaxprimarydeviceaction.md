@@ -28,13 +28,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetRelaxPrima
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetrelaxprimarydeviceaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetRelaxPrimaryDeviceAction/properties/type")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetrelaxprimarydeviceaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetRelaxPrimaryDeviceAction/properties/type")
 
 ### type Type
 
@@ -42,11 +42,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetRelaxPrima
 
 ### type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                        | Explanation |
-| :--------------------------- | :---------- |
-| `"SET_RELAX_PRIMARY_DEVICE"` |             |
+```json
+"SET_RELAX_PRIMARY_DEVICE"
+```
 
 ## userId
 
@@ -54,13 +54,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetRelaxPrima
 
 `userId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetrelaxprimarydeviceaction-properties-userid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetRelaxPrimaryDeviceAction/properties/userId")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetrelaxprimarydeviceaction-properties-userid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetRelaxPrimaryDeviceAction/properties/userId")
 
 ### userId Type
 
@@ -72,13 +72,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetRelaxPrima
 
 `relax`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetrelaxprimarydeviceaction-properties-relax.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetRelaxPrimaryDeviceAction/properties/relax")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetrelaxprimarydeviceaction-properties-relax.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetRelaxPrimaryDeviceAction/properties/relax")
 
 ### relax Type
 

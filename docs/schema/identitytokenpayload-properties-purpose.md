@@ -16,8 +16,8 @@ https://timelimit.io/IdentityTokenPayload#/properties/purpose
 
 ## purpose Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value        | Explanation |
-| :----------- | :---------- |
-| `"purchase"` |             |
+```json
+"purchase"
+```

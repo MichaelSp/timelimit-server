@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { minPlatformLevel, maxPlatformLevel, minPlatformTypeLength, maxPlatformTypeLength } from '../database/device'
+import { maxPlatformLevel, maxPlatformTypeLength, minPlatformLevel, minPlatformTypeLength } from '../database/device'
 import { NewPermissionStatus } from '../model/newpermissionstatus'
 import { ProtectionLevel } from '../model/protectionlevel'
 import { RuntimePermissionStatus } from '../model/runtimepermissionstatus'

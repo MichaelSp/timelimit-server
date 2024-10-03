@@ -6,7 +6,9 @@
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "module": "commonjs",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "forceConsistentCasingInFileNames": true,
     "noUnusedLocals": true,
     "noUnusedParameters": false,
     "noImplicitReturns": true,
@@ -14,7 +16,7 @@
     "sourceMap": true
   },
   "include": [
-    "./src/**/*"
+    "./src/**/*",
   ],
   "compileOnSave": true
 }

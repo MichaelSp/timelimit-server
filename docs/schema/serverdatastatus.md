@@ -42,13 +42,13 @@ https://timelimit.io/ServerDataStatus
 
 `devices`
 
-*   is optional
+* is optional
 
-*   Type: `object` ([ServerDeviceList](serverdatastatus-definitions-serverdevicelist.md))
+* Type: `object` ([ServerDeviceList](serverdatastatus-definitions-serverdevicelist.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicelist.md "https://timelimit.io/ServerDataStatus#/properties/devices")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicelist.md "https://timelimit.io/ServerDataStatus#/properties/devices")
 
 ### devices Type
 
@@ -60,13 +60,13 @@ https://timelimit.io/ServerDataStatus
 
 `devices2`
 
-*   is optional
+* is optional
 
-*   Type: `object[]` ([ServerExtendedDeviceData](serverdatastatus-definitions-serverextendeddevicedata.md))
+* Type: `object[]` ([ServerExtendedDeviceData](serverdatastatus-definitions-serverextendeddevicedata.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-properties-devices2.md "https://timelimit.io/ServerDataStatus#/properties/devices2")
+* defined in: [ServerDataStatus](serverdatastatus-properties-devices2.md "https://timelimit.io/ServerDataStatus#/properties/devices2")
 
 ### devices2 Type
 
@@ -78,13 +78,13 @@ https://timelimit.io/ServerDataStatus
 
 `apps`
 
-*   is optional
+* is optional
 
-*   Type: `object[]` ([ServerInstalledAppsData](serverdatastatus-definitions-serverinstalledappsdata.md))
+* Type: `object[]` ([ServerInstalledAppsData](serverdatastatus-definitions-serverinstalledappsdata.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-properties-apps.md "https://timelimit.io/ServerDataStatus#/properties/apps")
+* defined in: [ServerDataStatus](serverdatastatus-properties-apps.md "https://timelimit.io/ServerDataStatus#/properties/apps")
 
 ### apps Type
 
@@ -96,13 +96,13 @@ https://timelimit.io/ServerDataStatus
 
 `rmCategories`
 
-*   is optional
+* is optional
 
-*   Type: `string[]`
+* Type: `string[]`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-properties-rmcategories.md "https://timelimit.io/ServerDataStatus#/properties/rmCategories")
+* defined in: [ServerDataStatus](serverdatastatus-properties-rmcategories.md "https://timelimit.io/ServerDataStatus#/properties/rmCategories")
 
 ### rmCategories Type
 
@@ -114,13 +114,13 @@ https://timelimit.io/ServerDataStatus
 
 `categoryBase`
 
-*   is optional
+* is optional
 
-*   Type: `object[]` ([ServerUpdatedCategoryBaseData](serverdatastatus-definitions-serverupdatedcategorybasedata.md))
+* Type: `object[]` ([ServerUpdatedCategoryBaseData](serverdatastatus-definitions-serverupdatedcategorybasedata.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-properties-categorybase.md "https://timelimit.io/ServerDataStatus#/properties/categoryBase")
+* defined in: [ServerDataStatus](serverdatastatus-properties-categorybase.md "https://timelimit.io/ServerDataStatus#/properties/categoryBase")
 
 ### categoryBase Type
 
@@ -132,13 +132,13 @@ https://timelimit.io/ServerDataStatus
 
 `categoryApp`
 
-*   is optional
+* is optional
 
-*   Type: `object[]` ([ServerUpdatedCategoryAssignedApps](serverdatastatus-definitions-serverupdatedcategoryassignedapps.md))
+* Type: `object[]` ([ServerUpdatedCategoryAssignedApps](serverdatastatus-definitions-serverupdatedcategoryassignedapps.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-properties-categoryapp.md "https://timelimit.io/ServerDataStatus#/properties/categoryApp")
+* defined in: [ServerDataStatus](serverdatastatus-properties-categoryapp.md "https://timelimit.io/ServerDataStatus#/properties/categoryApp")
 
 ### categoryApp Type
 
@@ -150,13 +150,13 @@ https://timelimit.io/ServerDataStatus
 
 `usedTimes`
 
-*   is optional
+* is optional
 
-*   Type: `object[]` ([ServerUpdatedCategoryUsedTimes](serverdatastatus-definitions-serverupdatedcategoryusedtimes.md))
+* Type: `object[]` ([ServerUpdatedCategoryUsedTimes](serverdatastatus-definitions-serverupdatedcategoryusedtimes.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-properties-usedtimes.md "https://timelimit.io/ServerDataStatus#/properties/usedTimes")
+* defined in: [ServerDataStatus](serverdatastatus-properties-usedtimes.md "https://timelimit.io/ServerDataStatus#/properties/usedTimes")
 
 ### usedTimes Type
 
@@ -168,13 +168,13 @@ https://timelimit.io/ServerDataStatus
 
 `rules`
 
-*   is optional
+* is optional
 
-*   Type: `object[]` ([ServerUpdatedTimeLimitRules](serverdatastatus-definitions-serverupdatedtimelimitrules.md))
+* Type: `object[]` ([ServerUpdatedTimeLimitRules](serverdatastatus-definitions-serverupdatedtimelimitrules.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-properties-rules.md "https://timelimit.io/ServerDataStatus#/properties/rules")
+* defined in: [ServerDataStatus](serverdatastatus-properties-rules.md "https://timelimit.io/ServerDataStatus#/properties/rules")
 
 ### rules Type
 
@@ -186,13 +186,13 @@ https://timelimit.io/ServerDataStatus
 
 `tasks`
 
-*   is optional
+* is optional
 
-*   Type: `object[]` ([ServerUpdatedCategoryTasks](serverdatastatus-definitions-serverupdatedcategorytasks.md))
+* Type: `object[]` ([ServerUpdatedCategoryTasks](serverdatastatus-definitions-serverupdatedcategorytasks.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-properties-tasks.md "https://timelimit.io/ServerDataStatus#/properties/tasks")
+* defined in: [ServerDataStatus](serverdatastatus-properties-tasks.md "https://timelimit.io/ServerDataStatus#/properties/tasks")
 
 ### tasks Type
 
@@ -204,13 +204,13 @@ https://timelimit.io/ServerDataStatus
 
 `users`
 
-*   is optional
+* is optional
 
-*   Type: `object` ([ServerUserList](serverdatastatus-definitions-serveruserlist.md))
+* Type: `object` ([ServerUserList](serverdatastatus-definitions-serveruserlist.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserlist.md "https://timelimit.io/ServerDataStatus#/properties/users")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserlist.md "https://timelimit.io/ServerDataStatus#/properties/users")
 
 ### users Type
 
@@ -222,13 +222,13 @@ https://timelimit.io/ServerDataStatus
 
 `krq`
 
-*   is optional
+* is optional
 
-*   Type: `object[]` ([ServerKeyRequest](serverdatastatus-definitions-serverkeyrequest.md))
+* Type: `object[]` ([ServerKeyRequest](serverdatastatus-definitions-serverkeyrequest.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-properties-krq.md "https://timelimit.io/ServerDataStatus#/properties/krq")
+* defined in: [ServerDataStatus](serverdatastatus-properties-krq.md "https://timelimit.io/ServerDataStatus#/properties/krq")
 
 ### krq Type
 
@@ -240,13 +240,13 @@ https://timelimit.io/ServerDataStatus
 
 `kr`
 
-*   is optional
+* is optional
 
-*   Type: `object[]` ([ServerKeyResponse](serverdatastatus-definitions-serverkeyresponse.md))
+* Type: `object[]` ([ServerKeyResponse](serverdatastatus-definitions-serverkeyresponse.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-properties-kr.md "https://timelimit.io/ServerDataStatus#/properties/kr")
+* defined in: [ServerDataStatus](serverdatastatus-properties-kr.md "https://timelimit.io/ServerDataStatus#/properties/kr")
 
 ### kr Type
 
@@ -258,13 +258,13 @@ https://timelimit.io/ServerDataStatus
 
 `dh`
 
-*   is optional
+* is optional
 
-*   Type: `object` ([ServerDhKey](serverdatastatus-definitions-serverdhkey.md))
+* Type: `object` ([ServerDhKey](serverdatastatus-definitions-serverdhkey.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdhkey.md "https://timelimit.io/ServerDataStatus#/properties/dh")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdhkey.md "https://timelimit.io/ServerDataStatus#/properties/dh")
 
 ### dh Type
 
@@ -276,13 +276,13 @@ https://timelimit.io/ServerDataStatus
 
 `u2f`
 
-*   is optional
+* is optional
 
-*   Type: `object` ([U2fData](serverdatastatus-definitions-u2fdata.md))
+* Type: `object` ([U2fData](serverdatastatus-definitions-u2fdata.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-u2fdata.md "https://timelimit.io/ServerDataStatus#/properties/u2f")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-u2fdata.md "https://timelimit.io/ServerDataStatus#/properties/u2f")
 
 ### u2f Type
 
@@ -294,13 +294,13 @@ https://timelimit.io/ServerDataStatus
 
 `fullVersion`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-properties-fullversion.md "https://timelimit.io/ServerDataStatus#/properties/fullVersion")
+* defined in: [ServerDataStatus](serverdatastatus-properties-fullversion.md "https://timelimit.io/ServerDataStatus#/properties/fullVersion")
 
 ### fullVersion Type
 
@@ -312,13 +312,13 @@ https://timelimit.io/ServerDataStatus
 
 `message`
 
-*   is optional
+* is optional
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-properties-message.md "https://timelimit.io/ServerDataStatus#/properties/message")
+* defined in: [ServerDataStatus](serverdatastatus-properties-message.md "https://timelimit.io/ServerDataStatus#/properties/message")
 
 ### message Type
 
@@ -330,13 +330,13 @@ https://timelimit.io/ServerDataStatus
 
 `apiLevel`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-properties-apilevel.md "https://timelimit.io/ServerDataStatus#/properties/apiLevel")
+* defined in: [ServerDataStatus](serverdatastatus-properties-apilevel.md "https://timelimit.io/ServerDataStatus#/properties/apiLevel")
 
 ### apiLevel Type
 
@@ -363,13 +363,13 @@ Reference this group by using
 
 `version`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicelist-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceList/properties/version")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicelist-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceList/properties/version")
 
 #### version Type
 
@@ -381,13 +381,13 @@ Reference this group by using
 
 `data`
 
-*   is required
+* is required
 
-*   Type: `object[]` ([ServerDeviceData](serverdatastatus-definitions-serverdevicedata.md))
+* Type: `object[]` ([ServerDeviceData](serverdatastatus-definitions-serverdevicedata.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicelist-properties-data.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceList/properties/data")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicelist-properties-data.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceList/properties/data")
 
 #### data Type
 
@@ -444,13 +444,13 @@ Reference this group by using
 
 `deviceId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/deviceId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/deviceId")
 
 #### deviceId Type
 
@@ -462,13 +462,13 @@ Reference this group by using
 
 `name`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-name.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/name")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-name.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/name")
 
 #### name Type
 
@@ -480,13 +480,13 @@ Reference this group by using
 
 `model`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-model.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/model")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-model.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/model")
 
 #### model Type
 
@@ -498,13 +498,13 @@ Reference this group by using
 
 `addedAt`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-addedat.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/addedAt")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-addedat.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/addedAt")
 
 #### addedAt Type
 
@@ -516,13 +516,13 @@ Reference this group by using
 
 `currentUserId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-currentuserid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/currentUserId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-currentuserid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/currentUserId")
 
 #### currentUserId Type
 
@@ -534,13 +534,13 @@ Reference this group by using
 
 `networkTime`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-networktime.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/networkTime")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-networktime.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/networkTime")
 
 #### networkTime Type
 
@@ -562,13 +562,13 @@ Reference this group by using
 
 `cProtectionLevel`
 
-*   is required
+* is required
 
-*   Type: `string` ([ProtectionLevel](serverdatastatus-definitions-serverdevicedata-properties-protectionlevel.md))
+* Type: `string` ([ProtectionLevel](serverdatastatus-definitions-serverdevicedata-properties-protectionlevel.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-protectionlevel.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cProtectionLevel")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-protectionlevel.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cProtectionLevel")
 
 #### cProtectionLevel Type
 
@@ -591,13 +591,13 @@ Reference this group by using
 
 `hProtectionLevel`
 
-*   is required
+* is required
 
-*   Type: `string` ([ProtectionLevel](serverdatastatus-definitions-serverdevicedata-properties-protectionlevel-1.md))
+* Type: `string` ([ProtectionLevel](serverdatastatus-definitions-serverdevicedata-properties-protectionlevel-1.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-protectionlevel-1.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hProtectionLevel")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-protectionlevel-1.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hProtectionLevel")
 
 #### hProtectionLevel Type
 
@@ -620,13 +620,13 @@ Reference this group by using
 
 `cUsageStats`
 
-*   is required
+* is required
 
-*   Type: `string` ([RuntimePermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus.md))
+* Type: `string` ([RuntimePermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cUsageStats")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cUsageStats")
 
 #### cUsageStats Type
 
@@ -648,13 +648,13 @@ Reference this group by using
 
 `hUsageStats`
 
-*   is required
+* is required
 
-*   Type: `string` ([RuntimePermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-1.md))
+* Type: `string` ([RuntimePermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-1.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-1.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hUsageStats")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-1.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hUsageStats")
 
 #### hUsageStats Type
 
@@ -676,13 +676,13 @@ Reference this group by using
 
 `cNotificationAccess`
 
-*   is required
+* is required
 
-*   Type: `string` ([NewPermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-newpermissionstatus.md))
+* Type: `string` ([NewPermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-newpermissionstatus.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-newpermissionstatus.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cNotificationAccess")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-newpermissionstatus.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cNotificationAccess")
 
 #### cNotificationAccess Type
 
@@ -704,13 +704,13 @@ Reference this group by using
 
 `hNotificationAccess`
 
-*   is required
+* is required
 
-*   Type: `string` ([NewPermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-newpermissionstatus-1.md))
+* Type: `string` ([NewPermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-newpermissionstatus-1.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-newpermissionstatus-1.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hNotificationAccess")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-newpermissionstatus-1.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hNotificationAccess")
 
 #### hNotificationAccess Type
 
@@ -732,13 +732,13 @@ Reference this group by using
 
 `cAppVersion`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-cappversion.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cAppVersion")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-cappversion.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cAppVersion")
 
 #### cAppVersion Type
 
@@ -750,13 +750,13 @@ Reference this group by using
 
 `hAppVersion`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-happversion.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hAppVersion")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-happversion.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hAppVersion")
 
 #### hAppVersion Type
 
@@ -768,13 +768,13 @@ Reference this group by using
 
 `tDisablingAdmin`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-tdisablingadmin.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/tDisablingAdmin")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-tdisablingadmin.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/tDisablingAdmin")
 
 #### tDisablingAdmin Type
 
@@ -786,13 +786,13 @@ Reference this group by using
 
 `reboot`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-reboot.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/reboot")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-reboot.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/reboot")
 
 #### reboot Type
 
@@ -804,13 +804,13 @@ Reference this group by using
 
 `hadManipulation`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-hadmanipulation.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hadManipulation")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-hadmanipulation.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hadManipulation")
 
 #### hadManipulation Type
 
@@ -822,13 +822,13 @@ Reference this group by using
 
 `hadManipulationFlags`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-hadmanipulationflags.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hadManipulationFlags")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-hadmanipulationflags.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hadManipulationFlags")
 
 #### hadManipulationFlags Type
 
@@ -840,13 +840,13 @@ Reference this group by using
 
 `reportUninstall`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-reportuninstall.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/reportUninstall")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-reportuninstall.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/reportUninstall")
 
 #### reportUninstall Type
 
@@ -858,13 +858,13 @@ Reference this group by using
 
 `isUserKeptSignedIn`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-isuserkeptsignedin.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/isUserKeptSignedIn")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-isuserkeptsignedin.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/isUserKeptSignedIn")
 
 #### isUserKeptSignedIn Type
 
@@ -876,13 +876,13 @@ Reference this group by using
 
 `showDeviceConnected`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-showdeviceconnected.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/showDeviceConnected")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-showdeviceconnected.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/showDeviceConnected")
 
 #### showDeviceConnected Type
 
@@ -894,13 +894,13 @@ Reference this group by using
 
 `defUser`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-defuser.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/defUser")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-defuser.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/defUser")
 
 #### defUser Type
 
@@ -912,13 +912,13 @@ Reference this group by using
 
 `defUserTimeout`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-defusertimeout.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/defUserTimeout")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-defusertimeout.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/defUserTimeout")
 
 #### defUserTimeout Type
 
@@ -930,13 +930,13 @@ Reference this group by using
 
 `rebootIsManipulation`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-rebootismanipulation.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/rebootIsManipulation")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-rebootismanipulation.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/rebootIsManipulation")
 
 #### rebootIsManipulation Type
 
@@ -948,13 +948,13 @@ Reference this group by using
 
 `cOverlay`
 
-*   is required
+* is required
 
-*   Type: `string` ([RuntimePermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-2.md))
+* Type: `string` ([RuntimePermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-2.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-2.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cOverlay")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-2.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cOverlay")
 
 #### cOverlay Type
 
@@ -976,13 +976,13 @@ Reference this group by using
 
 `hOverlay`
 
-*   is required
+* is required
 
-*   Type: `string` ([RuntimePermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-3.md))
+* Type: `string` ([RuntimePermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-3.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-3.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hOverlay")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-3.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hOverlay")
 
 #### hOverlay Type
 
@@ -1004,13 +1004,13 @@ Reference this group by using
 
 `asEnabled`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-asenabled.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/asEnabled")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-asenabled.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/asEnabled")
 
 #### asEnabled Type
 
@@ -1022,13 +1022,13 @@ Reference this group by using
 
 `wasAsEnabled`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-wasasenabled.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/wasAsEnabled")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-wasasenabled.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/wasAsEnabled")
 
 #### wasAsEnabled Type
 
@@ -1040,13 +1040,13 @@ Reference this group by using
 
 `activityLevelBlocking`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-activitylevelblocking.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/activityLevelBlocking")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-activitylevelblocking.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/activityLevelBlocking")
 
 #### activityLevelBlocking Type
 
@@ -1058,13 +1058,13 @@ Reference this group by using
 
 `qOrLater`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-qorlater.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/qOrLater")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-qorlater.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/qOrLater")
 
 #### qOrLater Type
 
@@ -1076,13 +1076,13 @@ Reference this group by using
 
 `mFlags`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-mflags.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/mFlags")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-mflags.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/mFlags")
 
 #### mFlags Type
 
@@ -1094,13 +1094,13 @@ Reference this group by using
 
 `pk`
 
-*   is optional
+* is optional
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-pk.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/pk")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-pk.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/pk")
 
 #### pk Type
 
@@ -1112,13 +1112,13 @@ Reference this group by using
 
 `pType`
 
-*   is optional
+* is optional
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-ptype.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/pType")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-ptype.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/pType")
 
 #### pType Type
 
@@ -1130,13 +1130,13 @@ Reference this group by using
 
 `pLevel`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-plevel.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/pLevel")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-plevel.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/pLevel")
 
 #### pLevel Type
 
@@ -1195,13 +1195,13 @@ Reference this group by using
 
 `deviceId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverextendeddevicedata-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData/properties/deviceId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverextendeddevicedata-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData/properties/deviceId")
 
 #### deviceId Type
 
@@ -1213,13 +1213,13 @@ Reference this group by using
 
 `appsBase`
 
-*   is optional
+* is optional
 
-*   Type: `object` ([ServerCryptContainer](serverdatastatus-definitions-servercryptcontainer.md))
+* Type: `object` ([ServerCryptContainer](serverdatastatus-definitions-servercryptcontainer.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer.md "https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData/properties/appsBase")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer.md "https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData/properties/appsBase")
 
 #### appsBase Type
 
@@ -1231,13 +1231,13 @@ Reference this group by using
 
 `appsDiff`
 
-*   is optional
+* is optional
 
-*   Type: `object` ([ServerCryptContainer](serverdatastatus-definitions-servercryptcontainer.md))
+* Type: `object` ([ServerCryptContainer](serverdatastatus-definitions-servercryptcontainer.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer.md "https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData/properties/appsDiff")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer.md "https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData/properties/appsDiff")
 
 #### appsDiff Type
 
@@ -1262,13 +1262,13 @@ Reference this group by using
 
 `version`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCryptContainer/properties/version")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCryptContainer/properties/version")
 
 #### version Type
 
@@ -1280,13 +1280,13 @@ Reference this group by using
 
 `data`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer-properties-data.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCryptContainer/properties/data")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer-properties-data.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCryptContainer/properties/data")
 
 #### data Type
 
@@ -1313,13 +1313,13 @@ Reference this group by using
 
 `deviceId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverinstalledappsdata-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData/properties/deviceId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverinstalledappsdata-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData/properties/deviceId")
 
 #### deviceId Type
 
@@ -1331,13 +1331,13 @@ Reference this group by using
 
 `version`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverinstalledappsdata-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData/properties/version")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverinstalledappsdata-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData/properties/version")
 
 #### version Type
 
@@ -1349,13 +1349,13 @@ Reference this group by using
 
 `apps`
 
-*   is required
+* is required
 
-*   Type: `object[]` ([SerializedInstalledApp](serverdatastatus-definitions-serializedinstalledapp.md))
+* Type: `object[]` ([SerializedInstalledApp](serverdatastatus-definitions-serializedinstalledapp.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverinstalledappsdata-properties-apps.md "https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData/properties/apps")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverinstalledappsdata-properties-apps.md "https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData/properties/apps")
 
 #### apps Type
 
@@ -1367,13 +1367,13 @@ Reference this group by using
 
 `activities`
 
-*   is required
+* is required
 
-*   Type: `object[]` ([SerializedAppActivityItem](serverdatastatus-definitions-serializedappactivityitem.md))
+* Type: `object[]` ([SerializedAppActivityItem](serverdatastatus-definitions-serializedappactivityitem.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverinstalledappsdata-properties-activities.md "https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData/properties/activities")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverinstalledappsdata-properties-activities.md "https://timelimit.io/ServerDataStatus#/definitions/ServerInstalledAppsData/properties/activities")
 
 #### activities Type
 
@@ -1400,13 +1400,13 @@ Reference this group by using
 
 `packageName`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serializedinstalledapp-properties-packagename.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp/properties/packageName")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serializedinstalledapp-properties-packagename.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp/properties/packageName")
 
 #### packageName Type
 
@@ -1418,13 +1418,13 @@ Reference this group by using
 
 `title`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serializedinstalledapp-properties-title.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp/properties/title")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serializedinstalledapp-properties-title.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp/properties/title")
 
 #### title Type
 
@@ -1436,13 +1436,13 @@ Reference this group by using
 
 `isLaunchable`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serializedinstalledapp-properties-islaunchable.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp/properties/isLaunchable")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serializedinstalledapp-properties-islaunchable.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp/properties/isLaunchable")
 
 #### isLaunchable Type
 
@@ -1454,13 +1454,13 @@ Reference this group by using
 
 `recommendation`
 
-*   is required
+* is required
 
-*   Type: `string` ([AppRecommendation](serverdatastatus-definitions-serializedinstalledapp-properties-apprecommendation.md))
+* Type: `string` ([AppRecommendation](serverdatastatus-definitions-serializedinstalledapp-properties-apprecommendation.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serializedinstalledapp-properties-apprecommendation.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp/properties/recommendation")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serializedinstalledapp-properties-apprecommendation.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp/properties/recommendation")
 
 #### recommendation Type
 
@@ -1507,13 +1507,13 @@ Reference this group by using
 
 `p`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serializedappactivityitem-properties-p.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedAppActivityItem/properties/p")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serializedappactivityitem-properties-p.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedAppActivityItem/properties/p")
 
 #### p Type
 
@@ -1525,13 +1525,13 @@ Reference this group by using
 
 `c`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serializedappactivityitem-properties-c.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedAppActivityItem/properties/c")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serializedappactivityitem-properties-c.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedAppActivityItem/properties/c")
 
 #### c Type
 
@@ -1543,13 +1543,13 @@ Reference this group by using
 
 `t`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serializedappactivityitem-properties-t.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedAppActivityItem/properties/t")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serializedappactivityitem-properties-t.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedAppActivityItem/properties/t")
 
 #### t Type
 
@@ -1592,13 +1592,13 @@ Reference this group by using
 
 `categoryId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/categoryId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/categoryId")
 
 #### categoryId Type
 
@@ -1610,13 +1610,13 @@ Reference this group by using
 
 `childId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-childid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/childId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-childid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/childId")
 
 #### childId Type
 
@@ -1628,13 +1628,13 @@ Reference this group by using
 
 `title`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-title.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/title")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-title.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/title")
 
 #### title Type
 
@@ -1646,13 +1646,13 @@ Reference this group by using
 
 `blockedTimes`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-blockedtimes.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/blockedTimes")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-blockedtimes.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/blockedTimes")
 
 #### blockedTimes Type
 
@@ -1664,13 +1664,13 @@ Reference this group by using
 
 `extraTime`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-extratime.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/extraTime")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-extratime.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/extraTime")
 
 #### extraTime Type
 
@@ -1682,13 +1682,13 @@ Reference this group by using
 
 `extraTimeDay`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-extratimeday.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/extraTimeDay")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-extratimeday.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/extraTimeDay")
 
 #### extraTimeDay Type
 
@@ -1700,13 +1700,13 @@ Reference this group by using
 
 `tempBlocked`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-tempblocked.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/tempBlocked")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-tempblocked.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/tempBlocked")
 
 #### tempBlocked Type
 
@@ -1718,13 +1718,13 @@ Reference this group by using
 
 `tempBlockTime`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-tempblocktime.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/tempBlockTime")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-tempblocktime.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/tempBlockTime")
 
 #### tempBlockTime Type
 
@@ -1736,13 +1736,13 @@ Reference this group by using
 
 `version`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/version")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/version")
 
 #### version Type
 
@@ -1754,13 +1754,13 @@ Reference this group by using
 
 `parentCategoryId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-parentcategoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/parentCategoryId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-parentcategoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/parentCategoryId")
 
 #### parentCategoryId Type
 
@@ -1772,13 +1772,13 @@ Reference this group by using
 
 `blockAllNotifications`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-blockallnotifications.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/blockAllNotifications")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-blockallnotifications.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/blockAllNotifications")
 
 #### blockAllNotifications Type
 
@@ -1790,13 +1790,13 @@ Reference this group by using
 
 `timeWarnings`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-timewarnings.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/timeWarnings")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-timewarnings.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/timeWarnings")
 
 #### timeWarnings Type
 
@@ -1808,13 +1808,13 @@ Reference this group by using
 
 `mblCharging`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-mblcharging.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/mblCharging")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-mblcharging.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/mblCharging")
 
 #### mblCharging Type
 
@@ -1826,13 +1826,13 @@ Reference this group by using
 
 `mblMobile`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-mblmobile.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/mblMobile")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-mblmobile.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/mblMobile")
 
 #### mblMobile Type
 
@@ -1844,13 +1844,13 @@ Reference this group by using
 
 `sort`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-sort.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/sort")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-sort.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/sort")
 
 #### sort Type
 
@@ -1862,13 +1862,13 @@ Reference this group by using
 
 `networks`
 
-*   is required
+* is required
 
-*   Type: `object[]` ([ServerCategoryNetworkId](serverdatastatus-definitions-servercategorynetworkid.md))
+* Type: `object[]` ([ServerCategoryNetworkId](serverdatastatus-definitions-servercategorynetworkid.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-networks.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/networks")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-networks.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/networks")
 
 #### networks Type
 
@@ -1880,13 +1880,13 @@ Reference this group by using
 
 `dlu`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-dlu.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/dlu")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-dlu.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/dlu")
 
 #### dlu Type
 
@@ -1898,13 +1898,13 @@ Reference this group by using
 
 `flags`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-flags.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/flags")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-flags.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/flags")
 
 #### flags Type
 
@@ -1916,13 +1916,13 @@ Reference this group by using
 
 `blockNotificationDelay`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-blocknotificationdelay.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/blockNotificationDelay")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-blocknotificationdelay.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/blockNotificationDelay")
 
 #### blockNotificationDelay Type
 
@@ -1934,13 +1934,13 @@ Reference this group by using
 
 `atw`
 
-*   is required
+* is required
 
-*   Type: `number[]`
+* Type: `number[]`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-atw.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/atw")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-atw.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/atw")
 
 #### atw Type
 
@@ -1965,13 +1965,13 @@ Reference this group by using
 
 `itemId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servercategorynetworkid-properties-itemid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCategoryNetworkId/properties/itemId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servercategorynetworkid-properties-itemid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCategoryNetworkId/properties/itemId")
 
 #### itemId Type
 
@@ -1983,13 +1983,13 @@ Reference this group by using
 
 `hashedNetworkId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servercategorynetworkid-properties-hashednetworkid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCategoryNetworkId/properties/hashedNetworkId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servercategorynetworkid-properties-hashednetworkid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCategoryNetworkId/properties/hashedNetworkId")
 
 #### hashedNetworkId Type
 
@@ -2015,13 +2015,13 @@ Reference this group by using
 
 `categoryId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryassignedapps-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssignedApps/properties/categoryId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryassignedapps-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssignedApps/properties/categoryId")
 
 #### categoryId Type
 
@@ -2033,13 +2033,13 @@ Reference this group by using
 
 `apps`
 
-*   is required
+* is required
 
-*   Type: `string[]`
+* Type: `string[]`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryassignedapps-properties-apps.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssignedApps/properties/apps")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryassignedapps-properties-apps.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssignedApps/properties/apps")
 
 #### apps Type
 
@@ -2051,13 +2051,13 @@ Reference this group by using
 
 `version`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryassignedapps-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssignedApps/properties/version")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryassignedapps-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssignedApps/properties/version")
 
 #### version Type
 
@@ -2084,13 +2084,13 @@ Reference this group by using
 
 `categoryId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryusedtimes-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryUsedTimes/properties/categoryId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryusedtimes-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryUsedTimes/properties/categoryId")
 
 #### categoryId Type
 
@@ -2102,13 +2102,13 @@ Reference this group by using
 
 `times`
 
-*   is required
+* is required
 
-*   Type: `object[]` ([ServerUsedTimeItem](serverdatastatus-definitions-serverusedtimeitem.md))
+* Type: `object[]` ([ServerUsedTimeItem](serverdatastatus-definitions-serverusedtimeitem.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryusedtimes-properties-times.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryUsedTimes/properties/times")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryusedtimes-properties-times.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryUsedTimes/properties/times")
 
 #### times Type
 
@@ -2120,13 +2120,13 @@ Reference this group by using
 
 `sessionDurations`
 
-*   is required
+* is required
 
-*   Type: `object[]` ([ServerSessionDurationItem](serverdatastatus-definitions-serversessiondurationitem.md))
+* Type: `object[]` ([ServerSessionDurationItem](serverdatastatus-definitions-serversessiondurationitem.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryusedtimes-properties-sessiondurations.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryUsedTimes/properties/sessionDurations")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryusedtimes-properties-sessiondurations.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryUsedTimes/properties/sessionDurations")
 
 #### sessionDurations Type
 
@@ -2138,13 +2138,13 @@ Reference this group by using
 
 `version`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryusedtimes-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryUsedTimes/properties/version")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryusedtimes-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryUsedTimes/properties/version")
 
 #### version Type
 
@@ -2171,13 +2171,13 @@ Reference this group by using
 
 `day`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverusedtimeitem-properties-day.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem/properties/day")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverusedtimeitem-properties-day.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem/properties/day")
 
 #### day Type
 
@@ -2189,13 +2189,13 @@ Reference this group by using
 
 `time`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverusedtimeitem-properties-time.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem/properties/time")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverusedtimeitem-properties-time.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem/properties/time")
 
 #### time Type
 
@@ -2207,13 +2207,13 @@ Reference this group by using
 
 `start`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverusedtimeitem-properties-start.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem/properties/start")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverusedtimeitem-properties-start.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem/properties/start")
 
 #### start Type
 
@@ -2225,13 +2225,13 @@ Reference this group by using
 
 `end`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverusedtimeitem-properties-end.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem/properties/end")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverusedtimeitem-properties-end.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem/properties/end")
 
 #### end Type
 
@@ -2260,13 +2260,13 @@ the maximum duration of a session (maxSessionDuration)
 
 `md`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-md.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/md")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-md.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/md")
 
 #### md Type
 
@@ -2278,13 +2278,13 @@ the pause duration after a session (sessionPauseDuration)
 
 `spd`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-spd.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/spd")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-spd.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/spd")
 
 #### spd Type
 
@@ -2297,13 +2297,13 @@ which created this session (startMinuteOfDay)
 
 `sm`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-sm.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/sm")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-sm.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/sm")
 
 #### sm Type
 
@@ -2316,13 +2316,13 @@ which created this session (endMinuteOfDay)
 
 `em`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-em.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/em")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-em.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/em")
 
 #### em Type
 
@@ -2334,13 +2334,13 @@ the timestamp of the last usage of this session (lastUsage)
 
 `l`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-l.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/l")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-l.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/l")
 
 #### l Type
 
@@ -2352,13 +2352,13 @@ the duration of the last/ current session (lastSessionDuration)
 
 `d`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-d.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/d")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-d.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/d")
 
 #### d Type
 
@@ -2384,13 +2384,13 @@ Reference this group by using
 
 `categoryId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedtimelimitrules-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedTimeLimitRules/properties/categoryId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedtimelimitrules-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedTimeLimitRules/properties/categoryId")
 
 #### categoryId Type
 
@@ -2402,13 +2402,13 @@ Reference this group by using
 
 `version`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedtimelimitrules-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedTimeLimitRules/properties/version")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedtimelimitrules-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedTimeLimitRules/properties/version")
 
 #### version Type
 
@@ -2420,13 +2420,13 @@ Reference this group by using
 
 `rules`
 
-*   is required
+* is required
 
-*   Type: `object[]` ([ServerTimeLimitRule](serverdatastatus-definitions-servertimelimitrule.md))
+* Type: `object[]` ([ServerTimeLimitRule](serverdatastatus-definitions-servertimelimitrule.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedtimelimitrules-properties-rules.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedTimeLimitRules/properties/rules")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedtimelimitrules-properties-rules.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedTimeLimitRules/properties/rules")
 
 #### rules Type
 
@@ -2458,13 +2458,13 @@ Reference this group by using
 
 `id`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servertimelimitrule-properties-id.md "https://timelimit.io/ServerDataStatus#/definitions/ServerTimeLimitRule/properties/id")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servertimelimitrule-properties-id.md "https://timelimit.io/ServerDataStatus#/definitions/ServerTimeLimitRule/properties/id")
 
 #### id Type
 
@@ -2476,13 +2476,13 @@ Reference this group by using
 
 `extraTime`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servertimelimitrule-properties-extratime.md "https://timelimit.io/ServerDataStatus#/definitions/ServerTimeLimitRule/properties/extraTime")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servertimelimitrule-properties-extratime.md "https://timelimit.io/ServerDataStatus#/definitions/ServerTimeLimitRule/properties/extraTime")
 
 #### extraTime Type
 
@@ -2494,13 +2494,13 @@ Reference this group by using
 
 `dayMask`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servertimelimitrule-properties-daymask.md "https://timelimit.io/ServerDataStatus#/definitions/ServerTimeLimitRule/properties/dayMask")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servertimelimitrule-properties-daymask.md "https://timelimit.io/ServerDataStatus#/definitions/ServerTimeLimitRule/properties/dayMask")
 
 #### dayMask Type
 
@@ -2512,13 +2512,13 @@ Reference this group by using
 
 `maxTime`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servertimelimitrule-properties-maxtime.md "https://timelimit.io/ServerDataStatus#/definitions/ServerTimeLimitRule/properties/maxTime")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servertimelimitrule-properties-maxtime.md "https://timelimit.io/ServerDataStatus#/definitions/ServerTimeLimitRule/properties/maxTime")
 
 #### maxTime Type
 
@@ -2530,13 +2530,13 @@ Reference this group by using
 
 `start`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servertimelimitrule-properties-start.md "https://timelimit.io/ServerDataStatus#/definitions/ServerTimeLimitRule/properties/start")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servertimelimitrule-properties-start.md "https://timelimit.io/ServerDataStatus#/definitions/ServerTimeLimitRule/properties/start")
 
 #### start Type
 
@@ -2548,13 +2548,13 @@ Reference this group by using
 
 `end`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servertimelimitrule-properties-end.md "https://timelimit.io/ServerDataStatus#/definitions/ServerTimeLimitRule/properties/end")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servertimelimitrule-properties-end.md "https://timelimit.io/ServerDataStatus#/definitions/ServerTimeLimitRule/properties/end")
 
 #### end Type
 
@@ -2566,13 +2566,13 @@ Reference this group by using
 
 `session`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servertimelimitrule-properties-session.md "https://timelimit.io/ServerDataStatus#/definitions/ServerTimeLimitRule/properties/session")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servertimelimitrule-properties-session.md "https://timelimit.io/ServerDataStatus#/definitions/ServerTimeLimitRule/properties/session")
 
 #### session Type
 
@@ -2584,13 +2584,13 @@ Reference this group by using
 
 `pause`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servertimelimitrule-properties-pause.md "https://timelimit.io/ServerDataStatus#/definitions/ServerTimeLimitRule/properties/pause")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servertimelimitrule-properties-pause.md "https://timelimit.io/ServerDataStatus#/definitions/ServerTimeLimitRule/properties/pause")
 
 #### pause Type
 
@@ -2602,13 +2602,13 @@ Reference this group by using
 
 `perDay`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servertimelimitrule-properties-perday.md "https://timelimit.io/ServerDataStatus#/definitions/ServerTimeLimitRule/properties/perDay")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servertimelimitrule-properties-perday.md "https://timelimit.io/ServerDataStatus#/definitions/ServerTimeLimitRule/properties/perDay")
 
 #### perDay Type
 
@@ -2634,13 +2634,13 @@ Reference this group by using
 
 `categoryId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytasks-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTasks/properties/categoryId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytasks-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTasks/properties/categoryId")
 
 #### categoryId Type
 
@@ -2652,13 +2652,13 @@ Reference this group by using
 
 `version`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytasks-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTasks/properties/version")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytasks-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTasks/properties/version")
 
 #### version Type
 
@@ -2670,13 +2670,13 @@ Reference this group by using
 
 `tasks`
 
-*   is required
+* is required
 
-*   Type: `object[]` ([ServerUpdatedCategoryTask](serverdatastatus-definitions-serverupdatedcategorytask.md))
+* Type: `object[]` ([ServerUpdatedCategoryTask](serverdatastatus-definitions-serverupdatedcategorytask.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytasks-properties-tasks.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTasks/properties/tasks")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytasks-properties-tasks.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTasks/properties/tasks")
 
 #### tasks Type
 
@@ -2704,13 +2704,13 @@ Reference this group by using
 
 `i`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-i.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/i")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-i.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/i")
 
 #### i Type
 
@@ -2722,13 +2722,13 @@ Reference this group by using
 
 `t`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-t.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/t")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-t.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/t")
 
 #### t Type
 
@@ -2740,13 +2740,13 @@ Reference this group by using
 
 `d`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-d.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/d")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-d.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/d")
 
 #### d Type
 
@@ -2758,13 +2758,13 @@ Reference this group by using
 
 `p`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-p.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/p")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-p.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/p")
 
 #### p Type
 
@@ -2776,13 +2776,13 @@ Reference this group by using
 
 `l`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-l.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/l")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-l.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/l")
 
 #### l Type
 
@@ -2807,13 +2807,13 @@ Reference this group by using
 
 `version`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserlist-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserList/properties/version")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserlist-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserList/properties/version")
 
 #### version Type
 
@@ -2825,13 +2825,13 @@ Reference this group by using
 
 `data`
 
-*   is required
+* is required
 
-*   Type: `object[]` ([ServerUserEntry](serverdatastatus-definitions-serveruserentry.md))
+* Type: `object[]` ([ServerUserEntry](serverdatastatus-definitions-serveruserentry.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserlist-properties-data.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserList/properties/data")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserlist-properties-data.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserList/properties/data")
 
 #### data Type
 
@@ -2870,13 +2870,13 @@ Reference this group by using
 
 `id`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-id.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/id")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-id.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/id")
 
 #### id Type
 
@@ -2888,13 +2888,13 @@ Reference this group by using
 
 `name`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-name.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/name")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-name.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/name")
 
 #### name Type
 
@@ -2906,13 +2906,13 @@ Reference this group by using
 
 `password`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-password.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/password")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-password.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/password")
 
 #### password Type
 
@@ -2924,13 +2924,13 @@ Reference this group by using
 
 `secondPasswordSalt`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-secondpasswordsalt.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/secondPasswordSalt")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-secondpasswordsalt.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/secondPasswordSalt")
 
 #### secondPasswordSalt Type
 
@@ -2942,13 +2942,13 @@ Reference this group by using
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-type.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/type")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-type.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/type")
 
 #### type Type
 
@@ -2969,13 +2969,13 @@ Reference this group by using
 
 `timeZone`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-timezone.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/timeZone")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-timezone.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/timeZone")
 
 #### timeZone Type
 
@@ -2987,13 +2987,13 @@ Reference this group by using
 
 `disableLimitsUntil`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-disablelimitsuntil.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/disableLimitsUntil")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-disablelimitsuntil.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/disableLimitsUntil")
 
 #### disableLimitsUntil Type
 
@@ -3005,13 +3005,13 @@ Reference this group by using
 
 `mail`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-mail.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/mail")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-mail.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/mail")
 
 #### mail Type
 
@@ -3023,13 +3023,13 @@ Reference this group by using
 
 `currentDevice`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-currentdevice.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/currentDevice")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-currentdevice.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/currentDevice")
 
 #### currentDevice Type
 
@@ -3041,13 +3041,13 @@ Reference this group by using
 
 `categoryForNotAssignedApps`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-categoryfornotassignedapps.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/categoryForNotAssignedApps")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-categoryfornotassignedapps.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/categoryForNotAssignedApps")
 
 #### categoryForNotAssignedApps Type
 
@@ -3059,13 +3059,13 @@ Reference this group by using
 
 `relaxPrimaryDevice`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-relaxprimarydevice.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/relaxPrimaryDevice")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-relaxprimarydevice.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/relaxPrimaryDevice")
 
 #### relaxPrimaryDevice Type
 
@@ -3077,13 +3077,13 @@ Reference this group by using
 
 `mailNotificationFlags`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-mailnotificationflags.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/mailNotificationFlags")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-mailnotificationflags.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/mailNotificationFlags")
 
 #### mailNotificationFlags Type
 
@@ -3095,13 +3095,13 @@ Reference this group by using
 
 `blockedTimes`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-blockedtimes.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/blockedTimes")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-blockedtimes.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/blockedTimes")
 
 #### blockedTimes Type
 
@@ -3113,13 +3113,13 @@ Reference this group by using
 
 `flags`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-flags.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/flags")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-flags.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/flags")
 
 #### flags Type
 
@@ -3131,13 +3131,13 @@ Reference this group by using
 
 `llc`
 
-*   is optional
+* is optional
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-llc.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/llc")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-llc.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/llc")
 
 #### llc Type
 
@@ -3149,13 +3149,13 @@ Reference this group by using
 
 `pbd`
 
-*   is optional
+* is optional
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-pbd.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/pbd")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serveruserentry-properties-pbd.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUserEntry/properties/pbd")
 
 #### pbd Type
 
@@ -3186,13 +3186,13 @@ Reference this group by using
 
 `srvSeq`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-srvseq.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/srvSeq")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-srvseq.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/srvSeq")
 
 #### srvSeq Type
 
@@ -3204,13 +3204,13 @@ Reference this group by using
 
 `senId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-senid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/senId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-senid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/senId")
 
 #### senId Type
 
@@ -3222,13 +3222,13 @@ Reference this group by using
 
 `senSeq`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-senseq.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/senSeq")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-senseq.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/senSeq")
 
 #### senSeq Type
 
@@ -3240,13 +3240,13 @@ Reference this group by using
 
 `deviceId`
 
-*   is optional
+* is optional
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/deviceId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/deviceId")
 
 #### deviceId Type
 
@@ -3258,13 +3258,13 @@ Reference this group by using
 
 `categoryId`
 
-*   is optional
+* is optional
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/categoryId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/categoryId")
 
 #### categoryId Type
 
@@ -3276,13 +3276,13 @@ Reference this group by using
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-type.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/type")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-type.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/type")
 
 #### type Type
 
@@ -3294,13 +3294,13 @@ Reference this group by using
 
 `tempKey`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-tempkey.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/tempKey")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-tempkey.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/tempKey")
 
 #### tempKey Type
 
@@ -3312,13 +3312,13 @@ Reference this group by using
 
 `signature`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-signature.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/signature")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-signature.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/signature")
 
 #### signature Type
 
@@ -3347,13 +3347,13 @@ Reference this group by using
 
 `srvSeq`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-srvseq.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/srvSeq")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-srvseq.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/srvSeq")
 
 #### srvSeq Type
 
@@ -3365,13 +3365,13 @@ Reference this group by using
 
 `sender`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-sender.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/sender")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-sender.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/sender")
 
 #### sender Type
 
@@ -3383,13 +3383,13 @@ Reference this group by using
 
 `rqSeq`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-rqseq.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/rqSeq")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-rqseq.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/rqSeq")
 
 #### rqSeq Type
 
@@ -3401,13 +3401,13 @@ Reference this group by using
 
 `tempKey`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-tempkey.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/tempKey")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-tempkey.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/tempKey")
 
 #### tempKey Type
 
@@ -3419,13 +3419,13 @@ Reference this group by using
 
 `cryptKey`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-cryptkey.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/cryptKey")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-cryptkey.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/cryptKey")
 
 #### cryptKey Type
 
@@ -3437,13 +3437,13 @@ Reference this group by using
 
 `signature`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-signature.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/signature")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyresponse-properties-signature.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse/properties/signature")
 
 #### signature Type
 
@@ -3468,13 +3468,13 @@ Reference this group by using
 
 `v`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdhkey-properties-v.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDhKey/properties/v")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdhkey-properties-v.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDhKey/properties/v")
 
 #### v Type
 
@@ -3486,13 +3486,13 @@ Reference this group by using
 
 `k`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdhkey-properties-k.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDhKey/properties/k")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdhkey-properties-k.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDhKey/properties/k")
 
 #### k Type
 
@@ -3517,13 +3517,13 @@ Reference this group by using
 
 `v`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-u2fdata-properties-v.md "https://timelimit.io/ServerDataStatus#/definitions/U2fData/properties/v")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-u2fdata-properties-v.md "https://timelimit.io/ServerDataStatus#/definitions/U2fData/properties/v")
 
 #### v Type
 
@@ -3535,13 +3535,13 @@ Reference this group by using
 
 `d`
 
-*   is required
+* is required
 
-*   Type: `object[]` ([U2fItem](serverdatastatus-definitions-u2fitem.md))
+* Type: `object[]` ([U2fItem](serverdatastatus-definitions-u2fitem.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-u2fdata-properties-d.md "https://timelimit.io/ServerDataStatus#/definitions/U2fData/properties/d")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-u2fdata-properties-d.md "https://timelimit.io/ServerDataStatus#/definitions/U2fData/properties/d")
 
 #### d Type
 
@@ -3568,13 +3568,13 @@ Reference this group by using
 
 `u`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-u2fitem-properties-u.md "https://timelimit.io/ServerDataStatus#/definitions/U2fItem/properties/u")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-u2fitem-properties-u.md "https://timelimit.io/ServerDataStatus#/definitions/U2fItem/properties/u")
 
 #### u Type
 
@@ -3586,13 +3586,13 @@ Reference this group by using
 
 `a`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-u2fitem-properties-a.md "https://timelimit.io/ServerDataStatus#/definitions/U2fItem/properties/a")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-u2fitem-properties-a.md "https://timelimit.io/ServerDataStatus#/definitions/U2fItem/properties/a")
 
 #### a Type
 
@@ -3604,13 +3604,13 @@ Reference this group by using
 
 `h`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-u2fitem-properties-h.md "https://timelimit.io/ServerDataStatus#/definitions/U2fItem/properties/h")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-u2fitem-properties-h.md "https://timelimit.io/ServerDataStatus#/definitions/U2fItem/properties/h")
 
 #### h Type
 
@@ -3622,13 +3622,13 @@ Reference this group by using
 
 `p`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-u2fitem-properties-p.md "https://timelimit.io/ServerDataStatus#/definitions/U2fItem/properties/p")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-u2fitem-properties-p.md "https://timelimit.io/ServerDataStatus#/definitions/U2fItem/properties/p")
 
 #### p Type
 

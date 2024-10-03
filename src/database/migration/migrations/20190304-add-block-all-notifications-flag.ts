@@ -15,23 +15,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { QueryInterface, Sequelize, Transaction } from 'sequelize'
+import { Transaction } from 'sequelize'
 import { attributesVersion3 as categoryAttributes } from '../../category'
+import { Migration } from '../../main'
 
-export async function up (queryInterface: QueryInterface, sequelize: Sequelize) {
-  await sequelize.transaction({
+export const up: Migration = async ({context}) => {
+  const queryInterface = context.getQueryInterface() 
+  context.transaction({
     type: Transaction.TYPES.EXCLUSIVE
-  }, async (transaction) => {
+  }, async ( transaction: Transaction) => {
     await queryInterface.addColumn('Categories', 'blockAllNotifications', {
       ...categoryAttributes.blockAllNotifications
     }, { transaction })
   })
 }
 
-export async function down (queryInterface: QueryInterface, sequelize: Sequelize) {
-  await sequelize.transaction({
+export const down: Migration = async ({context}) => {
+  const queryInterface = context.getQueryInterface() 
+  context.transaction({
     type: Transaction.TYPES.EXCLUSIVE
-  }, async (transaction) => {
+  }, async ( transaction: Transaction) => {
     await queryInterface.removeColumn('Categories', 'blockAllNotifications', { transaction })
   })
 }

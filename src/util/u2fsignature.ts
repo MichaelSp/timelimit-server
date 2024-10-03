@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { createVerify, createPublicKey, createHash } from 'crypto'
+import { createHash, createPublicKey, createVerify } from 'crypto'
 
 export function isU2fSignatureValid({
   u2fRawResponse, applicationId, challenge, publicKey

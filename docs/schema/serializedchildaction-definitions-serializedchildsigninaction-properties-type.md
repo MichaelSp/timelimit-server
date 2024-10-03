@@ -16,8 +16,8 @@ https://timelimit.io/SerializedChildAction#/definitions/SerializedChildSignInAct
 
 ## type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value             | Explanation |
-| :---------------- | :---------- |
-| `"CHILD_SIGN_IN"` |             |
+```json
+"CHILD_SIGN_IN"
+```

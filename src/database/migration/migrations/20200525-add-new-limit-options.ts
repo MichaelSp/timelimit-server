@@ -15,8 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { QueryInterface, Sequelize, Transaction } from 'sequelize'
+import { Transaction } from 'sequelize'
 import { MinuteOfDay } from '../../../util/minuteofday'
+import { Migration } from '../../main'
 import { attributesVersion1 as sessionDurationAttributes } from '../../sessionduration'
 import { attributesVersion2 as timelimitRuleAttributes } from '../../timelimitrule'
 import {
@@ -25,10 +26,11 @@ import {
   attributesVersion3 as usedTimeAttributesVersion3
 } from '../../usedtime'
 
-export async function up (queryInterface: QueryInterface, sequelize: Sequelize) {
-  await sequelize.transaction({
+export const up: Migration = async ({context}) => {
+  const queryInterface = context.getQueryInterface() 
+  context.transaction({
     type: Transaction.TYPES.EXCLUSIVE
-  }, async (transaction) => {
+  }, async ( transaction: Transaction) => {
     // session durations
     await queryInterface.createTable('SessionDurations', sessionDurationAttributes, { transaction })
 
@@ -58,18 +60,18 @@ export async function up (queryInterface: QueryInterface, sequelize: Sequelize) 
       ...usedTimeAttributesVersion3
     }, { transaction })
 
-    const dialect = sequelize.getDialect()
+    const dialect = context.getDialect()
     const isMysql = dialect === 'mysql' || dialect === 'mariadb'
 
     if (isMysql) {
-      await sequelize.query(`
+      await context.query(`
         INSERT INTO UsedTimes (familyId, categoryId, dayOfEpoch, usedTime, lastUpdate, startMinuteOfDay, endMinuteOfDay)
           SELECT familyId, categoryId, dayOfEpoch, usedTime, lastUpdate,
           ${MinuteOfDay.MIN} AS startMinuteOfDay, ${MinuteOfDay.MAX} AS endMinuteOfDay
           FROM UsedTimesOld
       `, { transaction })
     } else {
-      await sequelize.query(`
+      await context.query(`
         INSERT INTO "UsedTimes" ("familyId", "categoryId", "dayOfEpoch", "usedTime", "lastUpdate", "startMinuteOfDay", "endMinuteOfDay")
           SELECT "familyId", "categoryId", "dayOfEpoch", "usedTime", "lastUpdate",
           ${MinuteOfDay.MIN} AS "startMinuteOfDay", ${MinuteOfDay.MAX} AS "endMinuteOfDay"
@@ -81,10 +83,11 @@ export async function up (queryInterface: QueryInterface, sequelize: Sequelize) 
   })
 }
 
-export async function down (queryInterface: QueryInterface, sequelize: Sequelize) {
-  await sequelize.transaction({
+export const down: Migration = async ({context}) => {
+  const queryInterface = context.getQueryInterface() 
+  context.transaction({
     type: Transaction.TYPES.EXCLUSIVE
-  }, async (transaction) => {
+  }, async ( transaction: Transaction) => {
     // session durations
     await queryInterface.dropTable('SessionDurations', { transaction })
 

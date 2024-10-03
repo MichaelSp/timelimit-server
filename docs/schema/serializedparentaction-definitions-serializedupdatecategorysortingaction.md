@@ -27,13 +27,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategor
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategorysortingaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategorySortingAction/properties/type")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategorysortingaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategorySortingAction/properties/type")
 
 ### type Type
 
@@ -41,11 +41,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategor
 
 ### type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                       | Explanation |
-| :-------------------------- | :---------- |
-| `"UPDATE_CATEGORY_SORTING"` |             |
+```json
+"UPDATE_CATEGORY_SORTING"
+```
 
 ## categoryIds
 
@@ -53,13 +53,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategor
 
 `categoryIds`
 
-*   is required
+* is required
 
-*   Type: `string[]`
+* Type: `string[]`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategorysortingaction-properties-categoryids.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategorySortingAction/properties/categoryIds")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategorysortingaction-properties-categoryids.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategorySortingAction/properties/categoryIds")
 
 ### categoryIds Type
 

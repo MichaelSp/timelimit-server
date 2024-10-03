@@ -17,9 +17,9 @@
 
 import { UpdateTimelimitRuleAction } from '../../../../action'
 import { Cache } from '../cache'
-import { MissingRuleException, MissingCategoryException } from '../exception/missing-item'
+import { MissingCategoryException, MissingRuleException } from '../exception/missing-item'
 import {
-  CanNotModifyOtherUsersBySelfLimitationException, CanNotRelaxRestrictionsSelfLimitException
+    CanNotModifyOtherUsersBySelfLimitationException, CanNotRelaxRestrictionsSelfLimitException
 } from '../exception/self-limit'
 
 export async function dispatchUpdateTimelimitRule ({

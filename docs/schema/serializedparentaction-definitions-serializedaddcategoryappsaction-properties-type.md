@@ -16,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedAddCategoryAp
 
 ## type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                 | Explanation |
-| :-------------------- | :---------- |
-| `"ADD_CATEGORY_APPS"` |             |
+```json
+"ADD_CATEGORY_APPS"
+```

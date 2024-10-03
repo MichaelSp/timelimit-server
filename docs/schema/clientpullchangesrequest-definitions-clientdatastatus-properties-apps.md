@@ -26,13 +26,13 @@ Additional properties are allowed, as long as they follow this schema:
 
 
 
-*   is optional
+* is optional
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-apps-additionalproperties.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/apps/additionalProperties")
+* defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-apps-additionalproperties.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/apps/additionalProperties")
 
 ### additionalProperties Type
 

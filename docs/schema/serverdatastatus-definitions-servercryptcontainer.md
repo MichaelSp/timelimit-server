@@ -27,13 +27,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerCryptContainer
 
 `version`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCryptContainer/properties/version")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCryptContainer/properties/version")
 
 ### version Type
 
@@ -45,13 +45,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerCryptContainer
 
 `data`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer-properties-data.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCryptContainer/properties/data")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer-properties-data.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCryptContainer/properties/data")
 
 ### data Type
 

@@ -8,7 +8,7 @@ https://timelimit.io/RequestIdentityTokenRequest
 
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                                |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :-------------------------------------------------------------------------------------------------------- |
-| Can be instantiated | Yes        | Unknown status | No           | Forbidden         | Forbidden             | none                | [RequestIdentityTokenRequest.schema.json](RequestIdentityTokenRequest.schema.json "open original schema") |
+| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [RequestIdentityTokenRequest.schema.json](RequestIdentityTokenRequest.schema.json "open original schema") |
 
 ## RequestIdentityTokenRequest Type
 
@@ -29,13 +29,13 @@ https://timelimit.io/RequestIdentityTokenRequest
 
 `deviceAuthToken`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [RequestIdentityTokenRequest](requestidentitytokenrequest-properties-deviceauthtoken.md "https://timelimit.io/RequestIdentityTokenRequest#/properties/deviceAuthToken")
+* defined in: [RequestIdentityTokenRequest](requestidentitytokenrequest-properties-deviceauthtoken.md "https://timelimit.io/RequestIdentityTokenRequest#/properties/deviceAuthToken")
 
 ### deviceAuthToken Type
 
@@ -47,13 +47,13 @@ https://timelimit.io/RequestIdentityTokenRequest
 
 `parentUserId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [RequestIdentityTokenRequest](requestidentitytokenrequest-properties-parentuserid.md "https://timelimit.io/RequestIdentityTokenRequest#/properties/parentUserId")
+* defined in: [RequestIdentityTokenRequest](requestidentitytokenrequest-properties-parentuserid.md "https://timelimit.io/RequestIdentityTokenRequest#/properties/parentUserId")
 
 ### parentUserId Type
 
@@ -65,13 +65,13 @@ https://timelimit.io/RequestIdentityTokenRequest
 
 `parentPasswordSecondHash`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [RequestIdentityTokenRequest](requestidentitytokenrequest-properties-parentpasswordsecondhash.md "https://timelimit.io/RequestIdentityTokenRequest#/properties/parentPasswordSecondHash")
+* defined in: [RequestIdentityTokenRequest](requestidentitytokenrequest-properties-parentpasswordsecondhash.md "https://timelimit.io/RequestIdentityTokenRequest#/properties/parentPasswordSecondHash")
 
 ### parentPasswordSecondHash Type
 
@@ -83,13 +83,13 @@ https://timelimit.io/RequestIdentityTokenRequest
 
 `purpose`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [RequestIdentityTokenRequest](requestidentitytokenrequest-properties-purpose.md "https://timelimit.io/RequestIdentityTokenRequest#/properties/purpose")
+* defined in: [RequestIdentityTokenRequest](requestidentitytokenrequest-properties-purpose.md "https://timelimit.io/RequestIdentityTokenRequest#/properties/purpose")
 
 ### purpose Type
 
@@ -97,10 +97,8 @@ https://timelimit.io/RequestIdentityTokenRequest
 
 ### purpose Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value        | Explanation |
-| :----------- | :---------- |
-| `"purchase"` |             |
-
-# RequestIdentityTokenRequest Definitions
+```json
+"purchase"
+```

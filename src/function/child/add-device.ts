@@ -18,14 +18,14 @@
 import { Unauthorized } from 'http-errors'
 import { RegisterChildDeviceRequest } from '../../api/schema'
 import { Database } from '../../database'
+import { EventHandler } from '../../monitoring/eventhandler'
+import { createEmptyClientDataStatus } from '../../object/clientdatastatus'
+import { ServerDataStatus } from '../../object/serverdatastatus'
 import { generateAuthToken, generateVersionId } from '../../util/token'
 import { WebsocketApi } from '../../websocket'
 import { prepareDeviceEntry } from '../device/prepare-device-entry'
-import { notifyClientsAboutChangesDelayed } from '../websocket'
 import { generateServerDataStatus } from '../sync/get-server-data-status'
-import { EventHandler } from '../../monitoring/eventhandler'
-import { ServerDataStatus } from '../../object/serverdatastatus'
-import { createEmptyClientDataStatus } from '../../object/clientdatastatus'
+import { notifyClientsAboutChangesDelayed } from '../websocket'
 
 export const addChildDevice = async ({ database, eventHandler, websocket, request }: {
   database: Database

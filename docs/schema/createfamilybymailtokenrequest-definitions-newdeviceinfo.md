@@ -26,13 +26,13 @@ https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/NewDeviceInfo
 
 `model`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-newdeviceinfo-properties-model.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/NewDeviceInfo/properties/model")
+* defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-newdeviceinfo-properties-model.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/NewDeviceInfo/properties/model")
 
 ### model Type
 

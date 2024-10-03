@@ -15,18 +15,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { QueryInterface, Sequelize, Transaction } from 'sequelize'
+import { Transaction } from 'sequelize'
 import { attributesVersion10 as categoryAttributes } from '../../category'
+import { Migration } from '../../main'
 
-export async function up (queryInterface: QueryInterface, sequelize: Sequelize) {
-  await sequelize.transaction({
+export const up: Migration = async ({context}) => {
+  const queryInterface = context.getQueryInterface() 
+  context.transaction({
     type: Transaction.TYPES.EXCLUSIVE
-  }, async (transaction) => {
-    const dialect = sequelize.getDialect()
+  }, async ( transaction: Transaction) => {
+    const dialect = context.getDialect()
     const isMysql = dialect === 'mysql' || dialect === 'mariadb'
 
     if (isMysql) {
-      await sequelize.query(
+      await context.query(
         'CREATE TABLE `ChildTasks` (' +
         '`familyId` VARCHAR(10) NOT NULL, `taskId` VARCHAR(6) NOT NULL,' +
         '`categoryId` VARCHAR(6) NOT NULL, `taskTitle` VARCHAR(50) NOT NULL,' +
@@ -39,7 +41,7 @@ export async function up (queryInterface: QueryInterface, sequelize: Sequelize) 
         { transaction }
       )
     } else {
-      await sequelize.query(
+      await context.query(
         'CREATE TABLE "ChildTasks" (' +
         '"familyId" VARCHAR(10) NOT NULL, "taskId" VARCHAR(6) NOT NULL,' +
         '"categoryId" VARCHAR(6) NOT NULL, "taskTitle" VARCHAR(50) NOT NULL,' +
@@ -61,10 +63,11 @@ export async function up (queryInterface: QueryInterface, sequelize: Sequelize) 
   })
 }
 
-export async function down (queryInterface: QueryInterface, sequelize: Sequelize) {
-  await sequelize.transaction({
+export const down: Migration = async ({context}) => {
+  const queryInterface = context.getQueryInterface() 
+  context.transaction({
     type: Transaction.TYPES.EXCLUSIVE
-  }, async (transaction) => {
+  }, async ( transaction: Transaction) => {
     await queryInterface.dropTable('ChildTasks', { transaction })
     await queryInterface.removeColumn('Categories', 'taskListVersion', { transaction })
   })

@@ -16,9 +16,9 @@
  */
 
 import {
-  ChildAction,
-  ChildChangePasswordAction,
-  ChildSignInAction
+    ChildAction,
+    ChildChangePasswordAction,
+    ChildSignInAction
 } from '../../../../action'
 import { Cache } from '../cache'
 import { ActionObjectTypeNotHandledException } from '../exception/illegal-state'

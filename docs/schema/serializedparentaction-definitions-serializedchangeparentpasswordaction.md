@@ -31,13 +31,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentP
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedchangeparentpasswordaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentPasswordAction/properties/type")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedchangeparentpasswordaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentPasswordAction/properties/type")
 
 ### type Type
 
@@ -45,11 +45,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentP
 
 ### type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                      | Explanation |
-| :------------------------- | :---------- |
-| `"CHANGE_PARENT_PASSWORD"` |             |
+```json
+"CHANGE_PARENT_PASSWORD"
+```
 
 ## userId
 
@@ -57,13 +57,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentP
 
 `userId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedchangeparentpasswordaction-properties-userid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentPasswordAction/properties/userId")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedchangeparentpasswordaction-properties-userid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentPasswordAction/properties/userId")
 
 ### userId Type
 
@@ -75,13 +75,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentP
 
 `hash`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedchangeparentpasswordaction-properties-hash.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentPasswordAction/properties/hash")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedchangeparentpasswordaction-properties-hash.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentPasswordAction/properties/hash")
 
 ### hash Type
 
@@ -93,13 +93,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentP
 
 `secondSalt`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedchangeparentpasswordaction-properties-secondsalt.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentPasswordAction/properties/secondSalt")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedchangeparentpasswordaction-properties-secondsalt.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentPasswordAction/properties/secondSalt")
 
 ### secondSalt Type
 
@@ -111,13 +111,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentP
 
 `secondHashEncrypted`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedchangeparentpasswordaction-properties-secondhashencrypted.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentPasswordAction/properties/secondHashEncrypted")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedchangeparentpasswordaction-properties-secondhashencrypted.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentPasswordAction/properties/secondHashEncrypted")
 
 ### secondHashEncrypted Type
 
@@ -129,13 +129,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentP
 
 `integrity`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedchangeparentpasswordaction-properties-integrity.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentPasswordAction/properties/integrity")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedchangeparentpasswordaction-properties-integrity.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentPasswordAction/properties/integrity")
 
 ### integrity Type
 

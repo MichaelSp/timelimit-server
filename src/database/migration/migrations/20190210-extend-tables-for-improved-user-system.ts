@@ -15,14 +15,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { QueryInterface, Sequelize, Transaction } from 'sequelize'
+import { Transaction } from 'sequelize'
 import { attributesVersion5 as deviceAttributes } from '../../device'
+import { Migration } from '../../main'
 import { attributesVersion3 as userAttributes } from '../../user'
 
-export async function up (queryInterface: QueryInterface, sequelize: Sequelize) {
-  await sequelize.transaction({
+export const up: Migration = async ({context}) => {
+  const queryInterface = context.getQueryInterface() 
+  context.transaction({
     type: Transaction.TYPES.EXCLUSIVE
-  }, async (transaction) => {
+  }, async ( transaction: Transaction) => {
     // users
     await queryInterface.addColumn('Users', 'relaxPrimaryDeviceRule', {
       ...userAttributes.relaxPrimaryDeviceRule
@@ -39,10 +41,11 @@ export async function up (queryInterface: QueryInterface, sequelize: Sequelize) 
   })
 }
 
-export async function down (queryInterface: QueryInterface, sequelize: Sequelize) {
-  await sequelize.transaction({
+export const down: Migration = async ({context}) => {
+  const queryInterface = context.getQueryInterface() 
+  context.transaction({
     type: Transaction.TYPES.EXCLUSIVE
-  }, async (transaction) => {
+  }, async ( transaction: Transaction) => {
     // users
     await queryInterface.removeColumn('Users', 'relaxPrimaryDeviceRule', { transaction })
 

@@ -32,13 +32,13 @@ https://timelimit.io/CreateFamilyByMailTokenRequest
 
 `mailAuthToken`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-properties-mailauthtoken.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/properties/mailAuthToken")
+* defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-properties-mailauthtoken.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/properties/mailAuthToken")
 
 ### mailAuthToken Type
 
@@ -50,13 +50,13 @@ https://timelimit.io/CreateFamilyByMailTokenRequest
 
 `parentPassword`
 
-*   is required
+* is required
 
-*   Type: `object` ([PlaintextParentPassword](createfamilybymailtokenrequest-definitions-plaintextparentpassword.md))
+* Type: `object` ([PlaintextParentPassword](createfamilybymailtokenrequest-definitions-plaintextparentpassword.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-plaintextparentpassword.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/properties/parentPassword")
+* defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-plaintextparentpassword.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/properties/parentPassword")
 
 ### parentPassword Type
 
@@ -68,13 +68,13 @@ https://timelimit.io/CreateFamilyByMailTokenRequest
 
 `parentDevice`
 
-*   is required
+* is required
 
-*   Type: `object` ([NewDeviceInfo](createfamilybymailtokenrequest-definitions-newdeviceinfo.md))
+* Type: `object` ([NewDeviceInfo](createfamilybymailtokenrequest-definitions-newdeviceinfo.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-newdeviceinfo.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/properties/parentDevice")
+* defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-newdeviceinfo.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/properties/parentDevice")
 
 ### parentDevice Type
 
@@ -86,13 +86,13 @@ https://timelimit.io/CreateFamilyByMailTokenRequest
 
 `deviceName`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-properties-devicename.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/properties/deviceName")
+* defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-properties-devicename.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/properties/deviceName")
 
 ### deviceName Type
 
@@ -104,13 +104,13 @@ https://timelimit.io/CreateFamilyByMailTokenRequest
 
 `timeZone`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-properties-timezone.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/properties/timeZone")
+* defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-properties-timezone.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/properties/timeZone")
 
 ### timeZone Type
 
@@ -122,13 +122,13 @@ https://timelimit.io/CreateFamilyByMailTokenRequest
 
 `parentName`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-properties-parentname.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/properties/parentName")
+* defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-properties-parentname.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/properties/parentName")
 
 ### parentName Type
 
@@ -140,13 +140,13 @@ https://timelimit.io/CreateFamilyByMailTokenRequest
 
 `clientLevel`
 
-*   is optional
+* is optional
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-properties-clientlevel.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/properties/clientLevel")
+* defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-properties-clientlevel.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/properties/clientLevel")
 
 ### clientLevel Type
 
@@ -174,13 +174,13 @@ Reference this group by using
 
 `hash`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-plaintextparentpassword-properties-hash.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/PlaintextParentPassword/properties/hash")
+* defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-plaintextparentpassword-properties-hash.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/PlaintextParentPassword/properties/hash")
 
 #### hash Type
 
@@ -192,13 +192,13 @@ Reference this group by using
 
 `secondHash`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-plaintextparentpassword-properties-secondhash.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/PlaintextParentPassword/properties/secondHash")
+* defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-plaintextparentpassword-properties-secondhash.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/PlaintextParentPassword/properties/secondHash")
 
 #### secondHash Type
 
@@ -210,13 +210,13 @@ Reference this group by using
 
 `secondSalt`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-plaintextparentpassword-properties-secondsalt.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/PlaintextParentPassword/properties/secondSalt")
+* defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-plaintextparentpassword-properties-secondsalt.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/PlaintextParentPassword/properties/secondSalt")
 
 #### secondSalt Type
 
@@ -240,13 +240,13 @@ Reference this group by using
 
 `model`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-newdeviceinfo-properties-model.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/NewDeviceInfo/properties/model")
+* defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-newdeviceinfo-properties-model.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/NewDeviceInfo/properties/model")
 
 #### model Type
 

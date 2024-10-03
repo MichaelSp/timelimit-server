@@ -181,5 +181,6 @@ export interface DeleteAccountPayload {
   mailAuthTokens: Array<string>
 }
 
-export { SerializedParentAction, SerializedChildAction, SerializedAppLogicAction } from '../action/serialization'
+export { SerializedAppLogicAction, SerializedChildAction, SerializedParentAction } from '../action/serialization'
 export { ServerDataStatus } from '../object/serverdatastatus'
+

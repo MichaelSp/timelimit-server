@@ -30,13 +30,13 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/CategoryDataStatus
 
 `base`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-categorydatastatus-properties-base.md "https://timelimit.io/ClientPullChangesRequest#/definitions/CategoryDataStatus/properties/base")
+* defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-categorydatastatus-properties-base.md "https://timelimit.io/ClientPullChangesRequest#/definitions/CategoryDataStatus/properties/base")
 
 ### base Type
 
@@ -48,13 +48,13 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/CategoryDataStatus
 
 `apps`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-categorydatastatus-properties-apps.md "https://timelimit.io/ClientPullChangesRequest#/definitions/CategoryDataStatus/properties/apps")
+* defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-categorydatastatus-properties-apps.md "https://timelimit.io/ClientPullChangesRequest#/definitions/CategoryDataStatus/properties/apps")
 
 ### apps Type
 
@@ -66,13 +66,13 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/CategoryDataStatus
 
 `rules`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-categorydatastatus-properties-rules.md "https://timelimit.io/ClientPullChangesRequest#/definitions/CategoryDataStatus/properties/rules")
+* defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-categorydatastatus-properties-rules.md "https://timelimit.io/ClientPullChangesRequest#/definitions/CategoryDataStatus/properties/rules")
 
 ### rules Type
 
@@ -84,13 +84,13 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/CategoryDataStatus
 
 `usedTime`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-categorydatastatus-properties-usedtime.md "https://timelimit.io/ClientPullChangesRequest#/definitions/CategoryDataStatus/properties/usedTime")
+* defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-categorydatastatus-properties-usedtime.md "https://timelimit.io/ClientPullChangesRequest#/definitions/CategoryDataStatus/properties/usedTime")
 
 ### usedTime Type
 
@@ -102,13 +102,13 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/CategoryDataStatus
 
 `tasks`
 
-*   is optional
+* is optional
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-categorydatastatus-properties-tasks.md "https://timelimit.io/ClientPullChangesRequest#/definitions/CategoryDataStatus/properties/tasks")
+* defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-categorydatastatus-properties-tasks.md "https://timelimit.io/ClientPullChangesRequest#/definitions/CategoryDataStatus/properties/tasks")
 
 ### tasks Type
 

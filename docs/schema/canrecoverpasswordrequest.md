@@ -27,13 +27,13 @@ https://timelimit.io/CanRecoverPasswordRequest
 
 `mailAuthToken`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [CanRecoverPasswordRequest](canrecoverpasswordrequest-properties-mailauthtoken.md "https://timelimit.io/CanRecoverPasswordRequest#/properties/mailAuthToken")
+* defined in: [CanRecoverPasswordRequest](canrecoverpasswordrequest-properties-mailauthtoken.md "https://timelimit.io/CanRecoverPasswordRequest#/properties/mailAuthToken")
 
 ### mailAuthToken Type
 
@@ -45,13 +45,13 @@ https://timelimit.io/CanRecoverPasswordRequest
 
 `parentUserId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [CanRecoverPasswordRequest](canrecoverpasswordrequest-properties-parentuserid.md "https://timelimit.io/CanRecoverPasswordRequest#/properties/parentUserId")
+* defined in: [CanRecoverPasswordRequest](canrecoverpasswordrequest-properties-parentuserid.md "https://timelimit.io/CanRecoverPasswordRequest#/properties/parentUserId")
 
 ### parentUserId Type
 

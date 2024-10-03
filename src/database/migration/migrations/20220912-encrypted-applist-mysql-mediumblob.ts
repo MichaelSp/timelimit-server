@@ -15,17 +15,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { QueryInterface, Sequelize, Transaction } from 'sequelize'
+import { Transaction } from 'sequelize'
+import { Migration } from '../../main'
 
-export async function up (queryInterface: QueryInterface, sequelize: Sequelize) {
-  await sequelize.transaction({
+export const up: Migration = async ({context}) => {
+  context.transaction({
     type: Transaction.TYPES.EXCLUSIVE
-  }, async (transaction) => {
-    const dialect = sequelize.getDialect()
+  }, async ( transaction: Transaction) => {
+    const dialect = context.getDialect()
     const isMysql = dialect === 'mysql' || dialect === 'mariadb'
 
     if (isMysql) {
-      await sequelize.query(
+      await context.query(
         'ALTER TABLE `EncryptedAppLists` MODIFY `data` MEDIUMBLOB',
         { transaction }
       )
@@ -33,15 +34,15 @@ export async function up (queryInterface: QueryInterface, sequelize: Sequelize) 
   })
 }
 
-export async function down (queryInterface: QueryInterface, sequelize: Sequelize) {
-  await sequelize.transaction({
+export const down: Migration = async ({context}) => {
+  context.transaction({
     type: Transaction.TYPES.EXCLUSIVE
-  }, async (transaction) => {
-    const dialect = sequelize.getDialect()
+  }, async ( transaction: Transaction) => {
+    const dialect = context.getDialect()
     const isMysql = dialect === 'mysql' || dialect === 'mariadb'
 
     if (isMysql) {
-      await sequelize.query(
+      await context.query(
         'ALTER TABLE `EncryptedAppLists` MODIFY `data` BLOB',
         { transaction }
       )

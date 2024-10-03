@@ -16,9 +16,9 @@
  */
 
 import { SetChildPasswordAction } from '../../../../action'
+import { decryptParentPassword } from '../../../dh'
 import { Cache } from '../cache'
 import { MissingUserException } from '../exception/missing-item'
-import { decryptParentPassword } from '../../../dh'
 
 export async function dispatchSetChildPassword ({ action, cache }: {
   action: SetChildPasswordAction

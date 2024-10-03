@@ -16,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdatCategory
 
 ## type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                              | Explanation |
-| :--------------------------------- | :---------- |
-| `"UPDATE_CATEGORY_DISABLE_LIMITS"` |             |
+```json
+"UPDATE_CATEGORY_DISABLE_LIMITS"
+```

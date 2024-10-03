@@ -15,14 +15,16 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { QueryInterface, Sequelize, Transaction } from 'sequelize'
+import { Transaction } from 'sequelize'
 import { attributesVersion2 } from '../../device'
+import { Migration } from '../../main'
 import { attributes as oldDeviceAttributes } from '../../olddevice'
 
-export async function up (queryInterface: QueryInterface, sequelize: Sequelize) {
-  await sequelize.transaction({
+export const up: Migration = async ({context}) => {
+  const queryInterface = context.getQueryInterface() 
+  context.transaction({
     type: Transaction.TYPES.EXCLUSIVE
-  }, async (transaction) => {
+  }, async ( transaction: Transaction) => {
     await queryInterface.addColumn('Devices', 'lastConnectivity', {
       ...attributesVersion2.lastConnectivity
     }, {
@@ -45,10 +47,11 @@ export async function up (queryInterface: QueryInterface, sequelize: Sequelize) 
   })
 }
 
-export async function down (queryInterface: QueryInterface, sequelize: Sequelize) {
-  await sequelize.transaction({
+export const down: Migration = async ({context}) => {
+  const queryInterface = context.getQueryInterface() 
+  context.transaction({
     type: Transaction.TYPES.EXCLUSIVE
-  }, async (transaction) => {
+  }, async ( transaction: Transaction) => {
     await queryInterface.removeColumn('Devices', 'lastConnectivity', { transaction })
     await queryInterface.removeColumn('Devices', 'notSeenForLongTime', { transaction })
     await queryInterface.removeColumn('Devices', 'didDeviceReportUninstall', { transaction })

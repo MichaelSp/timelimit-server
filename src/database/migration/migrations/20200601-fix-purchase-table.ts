@@ -15,27 +15,29 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { QueryInterface, Sequelize, Transaction } from 'sequelize'
+import { Transaction } from 'sequelize'
+import { Migration } from '../../main'
 import { attributes as purchaseAttributes } from '../../purchase'
 
-export async function up (queryInterface: QueryInterface, sequelize: Sequelize) {
-  await sequelize.transaction({
+export const up: Migration = async ({context}) => {
+  const queryInterface = context.getQueryInterface() 
+  context.transaction({
     type: Transaction.TYPES.EXCLUSIVE
-  }, async (transaction) => {
+  }, async ( transaction: Transaction) => {
     await queryInterface.renameTable('Purchases', 'PurchasesOld', { transaction })
     await queryInterface.createTable('Purchases', purchaseAttributes, { transaction })
 
-    const dialect = sequelize.getDialect()
+    const dialect = context.getDialect()
     const isMysql = dialect === 'mysql' || dialect === 'mariadb'
 
     if (isMysql) {
-      await sequelize.query(`
+      await context.query(`
         INSERT INTO Purchases (familyId, service, transactionId, type, loggedAt, previousFullVersionEndTime, newFullVersionEndTime)
           SELECT familyId, service, transactionId, type, 0 AS loggedAt, 0 AS previousFullVersionEndTime, loggedAt AS newFullVersionEndTime
           FROM PurchasesOld
       `, { transaction })
     } else {
-      await sequelize.query(`
+      await context.query(`
         INSERT INTO "Purchases" ("familyId", service, "transactionId", type, "loggedAt", "previousFullVersionEndTime", "newFullVersionEndTime")
           SELECT "familyId", service, "transactionId", type, 0 AS "loggedAt", 0 AS "previousFullVersionEndTime", "loggedAt" AS "newFullVersionEndTime"
           FROM "PurchasesOld"
@@ -46,10 +48,11 @@ export async function up (queryInterface: QueryInterface, sequelize: Sequelize) 
   })
 }
 
-export async function down (queryInterface: QueryInterface, sequelize: Sequelize) {
-  await sequelize.transaction({
+export const down: Migration = async ({context}) => {
+  const queryInterface = context.getQueryInterface() 
+  context.transaction({
     type: Transaction.TYPES.EXCLUSIVE
-  }, async (transaction) => {
+  }, async ( transaction: Transaction) => {
     await queryInterface.removeColumn('Purchases', 'previousFullVersionEndTime', { transaction })
     await queryInterface.removeColumn('Purchases', 'newFullVersionEndTime', { transaction })
   })

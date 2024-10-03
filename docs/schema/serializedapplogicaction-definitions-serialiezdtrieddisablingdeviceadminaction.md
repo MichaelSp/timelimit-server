@@ -26,13 +26,13 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerialiezdTriedDisabl
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serialiezdtrieddisablingdeviceadminaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerialiezdTriedDisablingDeviceAdminAction/properties/type")
+* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serialiezdtrieddisablingdeviceadminaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerialiezdTriedDisablingDeviceAdminAction/properties/type")
 
 ### type Type
 
@@ -40,8 +40,8 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerialiezdTriedDisabl
 
 ### type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                            | Explanation |
-| :------------------------------- | :---------- |
-| `"TRIED_DISABLING_DEVICE_ADMIN"` |             |
+```json
+"TRIED_DISABLING_DEVICE_ADMIN"
+```

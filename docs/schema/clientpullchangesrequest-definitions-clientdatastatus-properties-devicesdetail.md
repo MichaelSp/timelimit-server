@@ -26,13 +26,13 @@ Additional properties are allowed, as long as they follow this schema:
 
 
 
-*   is optional
+* is optional
 
-*   Type: `object` ([DeviceDataStatus](clientpullchangesrequest-definitions-devicedatastatus.md))
+* Type: `object` ([DeviceDataStatus](clientpullchangesrequest-definitions-devicedatastatus.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-devicedatastatus.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/devicesDetail/additionalProperties")
+* defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-devicedatastatus.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/devicesDetail/additionalProperties")
 
 ### additionalProperties Type
 

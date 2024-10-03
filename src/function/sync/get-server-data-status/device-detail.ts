@@ -17,10 +17,10 @@
 
 import * as Sequelize from 'sequelize'
 import { Database } from '../../../database'
-import { ClientDataStatusDevicesExtended } from '../../../object/clientdatastatus'
-import { ServerExtendedDeviceData, ServerCryptContainer } from '../../../object/serverdatastatus'
-import { FamilyEntry } from './family-entry'
 import { types } from '../../../database/encryptedapplist'
+import { ClientDataStatusDevicesExtended } from '../../../object/clientdatastatus'
+import { ServerCryptContainer, ServerExtendedDeviceData } from '../../../object/serverdatastatus'
+import { FamilyEntry } from './family-entry'
 
 export async function getDeviceDetailList ({ database, transaction, familyEntry, devicesDetail }: {
   database: Database

@@ -16,22 +16,22 @@
  */
 
 import {
-  AddInstalledAppsAction,
-  AddUsedTimeAction,
-  AddUsedTimeActionVersion2,
-  AppLogicAction,
-  FinishKeyRequestAction,
-  ForceSyncAction,
-  MarkTaskPendingAction,
-  ReplyToKeyRequestAction,
-  RemoveInstalledAppsAction,
-  SendKeyRequestAction,
-  SignOutAtDeviceAction,
-  TriedDisablingDeviceAdminAction,
-  UpdateAppActivitiesAction,
-  UpdateDeviceStatusAction,
-  UpdateInstalledAppsAction,
-  UploadDevicePublicKeyAction
+    AddInstalledAppsAction,
+    AddUsedTimeAction,
+    AddUsedTimeActionVersion2,
+    AppLogicAction,
+    FinishKeyRequestAction,
+    ForceSyncAction,
+    MarkTaskPendingAction,
+    RemoveInstalledAppsAction,
+    ReplyToKeyRequestAction,
+    SendKeyRequestAction,
+    SignOutAtDeviceAction,
+    TriedDisablingDeviceAdminAction,
+    UpdateAppActivitiesAction,
+    UpdateDeviceStatusAction,
+    UpdateInstalledAppsAction,
+    UploadDevicePublicKeyAction
 } from '../../../../action'
 import { EventHandler } from '../../../../monitoring/eventhandler'
 import { Cache } from '../cache'

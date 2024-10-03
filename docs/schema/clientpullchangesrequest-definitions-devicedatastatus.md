@@ -27,13 +27,13 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/DeviceDataStatus
 
 `appsB`
 
-*   is optional
+* is optional
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-devicedatastatus-properties-appsb.md "https://timelimit.io/ClientPullChangesRequest#/definitions/DeviceDataStatus/properties/appsB")
+* defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-devicedatastatus-properties-appsb.md "https://timelimit.io/ClientPullChangesRequest#/definitions/DeviceDataStatus/properties/appsB")
 
 ### appsB Type
 
@@ -45,13 +45,13 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/DeviceDataStatus
 
 `appsD`
 
-*   is optional
+* is optional
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-devicedatastatus-properties-appsd.md "https://timelimit.io/ClientPullChangesRequest#/definitions/DeviceDataStatus/properties/appsD")
+* defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-devicedatastatus-properties-appsd.md "https://timelimit.io/ClientPullChangesRequest#/definitions/DeviceDataStatus/properties/appsD")
 
 ### appsD Type
 

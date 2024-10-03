@@ -16,18 +16,18 @@
  */
 
 import { Conflict } from 'http-errors'
-import { generateServerDataStatus } from '../sync/get-server-data-status'
 import { NewDeviceInfo, PlaintextParentPassword, assertPlaintextParentPasswordValid } from '../../api/schema'
 import { Database } from '../../database'
 import { maxMailNotificationFlags } from '../../database/user'
 import { EventHandler } from '../../monitoring/eventhandler'
-import { ServerDataStatus } from '../../object/serverdatastatus'
 import { createEmptyClientDataStatus } from '../../object/clientdatastatus'
+import { ServerDataStatus } from '../../object/serverdatastatus'
 import {
-  generateAuthToken, generateFamilyId, generateIdWithinFamily, generateVersionId
+    generateAuthToken, generateFamilyId, generateIdWithinFamily, generateVersionId
 } from '../../util/token'
 import { requireMailAndLocaleByAuthToken } from '../authentication'
 import { prepareDeviceEntry } from '../device/prepare-device-entry'
+import { generateServerDataStatus } from '../sync/get-server-data-status'
 
 export async function createFamily ({
   database, eventHandler, mailAuthToken, firstParentDevice,

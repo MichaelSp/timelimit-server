@@ -20,12 +20,12 @@ import { Router } from 'express'
 import { BadRequest, Conflict, Unauthorized } from 'http-errors'
 import { Database } from '../database'
 import {
-  addPurchase,
-  areGooglePlayPaymentsPossible,
-  canDoNextPurchase,
-  googlePlayPublicKey,
-  isGooglePlayPurchaseSignatureValid,
-  requireFamilyEntry
+    addPurchase,
+    areGooglePlayPaymentsPossible,
+    canDoNextPurchase,
+    googlePlayPublicKey,
+    isGooglePlayPurchaseSignatureValid,
+    requireFamilyEntry
 } from '../function/purchase'
 import { WebsocketApi } from '../websocket'
 import { isCanDoPurchaseRequest, isFinishPurchaseByGooglePlayRequest } from './validator'

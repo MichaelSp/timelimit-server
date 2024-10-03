@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
 import { createPrivateKey, createPublicKey, diffieHellman } from 'crypto'
+import * as Sequelize from 'sequelize'
 import { Database } from '../../database'
 import { calculateExpireTime } from '../../database/devicedhkey'
 import { isVersionId } from '../../util/token'

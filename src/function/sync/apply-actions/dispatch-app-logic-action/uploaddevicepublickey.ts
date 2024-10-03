@@ -16,8 +16,8 @@
  */
 
 import { UploadDevicePublicKeyAction } from '../../../../action'
-import { Cache } from '../cache'
 import { EventHandler } from '../../../../monitoring/eventhandler'
+import { Cache } from '../cache'
 import { SourceDeviceNotFoundException } from '../exception/illegal-state'
 
 export async function dispatchUploadDevicePublicKeyAction ({ deviceId, action, cache, eventHandler }: {
