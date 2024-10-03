@@ -3,6 +3,7 @@ templates:
   - deployment.yaml
 chart:
   version: 0.2.8
+  appVersion: 1.17.1
 tests:
   - it: Matches the snapshot
     asserts:
