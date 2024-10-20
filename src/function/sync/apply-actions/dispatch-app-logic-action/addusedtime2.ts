@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2023 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,28 +15,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AddUsedTimeActionVersion2 } from "../../../../action"
-import { EventHandler } from "../../../../monitoring/eventhandler"
-import { MinuteOfDay } from "../../../../util/minuteofday"
-import { Cache } from "../cache"
-import {
-  IllegalStateException,
-  SourceDeviceNotFoundException,
-} from "../exception/illegal-state"
-import { getRoundedTimestamp as getRoundedTimestampForUsedTime } from "./addusedtime"
+import * as Sequelize from 'sequelize'
+import { AddUsedTimeActionVersion2 } from '../../../../action'
+import { EventHandler } from '../../../../monitoring/eventhandler'
+import { MinuteOfDay } from '../../../../util/minuteofday'
+import { Cache } from '../cache'
+import { IllegalStateException, SourceDeviceNotFoundException } from '../exception/illegal-state'
+import { getRoundedTimestamp as getRoundedTimestampForUsedTime } from './addusedtime'
+
+const tolerance = 5 * 1000  // 5 seconds
 
 export const getRoundedTimestampForSessionDuration = () => {
   const now = Date.now()
 
-  return now - (now % (1000 * 60 * 60 * 12)) /* 12 hours */
+  return now - (now % (1000 * 60 * 60 * 12 /* 12 hours */))
 }
 
-export async function dispatchAddUsedTimeVersion2({
-  deviceId,
-  action,
-  cache,
-  eventHandler,
-}: {
+export async function dispatchAddUsedTimeVersion2 ({ deviceId, action, cache, eventHandler }: {
   deviceId: string
   action: AddUsedTimeActionVersion2
   cache: Cache
@@ -45,10 +40,10 @@ export async function dispatchAddUsedTimeVersion2({
   const deviceEntryUnsafe = await cache.database.device.findOne({
     where: {
       familyId: cache.familyId,
-      deviceId: deviceId,
+      deviceId: deviceId
     },
-    attributes: ["currentUserId"],
-    transaction: cache.transaction,
+    attributes: ['currentUserId'],
+    transaction: cache.transaction
   })
 
   if (!deviceEntryUnsafe) {
@@ -56,13 +51,11 @@ export async function dispatchAddUsedTimeVersion2({
   }
 
   const deviceEntry = {
-    currentUserId: deviceEntryUnsafe.currentUserId,
+    currentUserId: deviceEntryUnsafe.currentUserId
   }
 
-  const roundedTimestampForUsedTime =
-    getRoundedTimestampForUsedTime().toString(10)
-  const roundedTimestampForSessionDuration =
-    getRoundedTimestampForSessionDuration().toString(10)
+  const roundedTimestampForUsedTime = getRoundedTimestampForUsedTime().toString(10)
+  const roundedTimestampForSessionDuration = getRoundedTimestampForSessionDuration().toString(10)
 
   let addUsedTimeForADifferentUserThanTheCurrentUserOfTheDevice = false
 
@@ -70,17 +63,18 @@ export async function dispatchAddUsedTimeVersion2({
     const categoryEntryUnsafe = await cache.database.category.findOne({
       where: {
         familyId: cache.familyId,
-        categoryId: item.categoryId,
+        categoryId: item.categoryId
       },
       transaction: cache.transaction,
-      attributes: ["childId", "extraTimeInMillis"],
+      attributes: [
+        'childId',
+        'extraTimeInMillis'
+      ]
     })
 
     // verify that the category exists
     if (!categoryEntryUnsafe) {
-      eventHandler.countEvent(
-        "add used time category to add time for not found",
-      )
+      eventHandler.countEvent('add used time category to add time for not found')
       cache.requireSenderFullSync()
 
       continue
@@ -88,15 +82,16 @@ export async function dispatchAddUsedTimeVersion2({
 
     const categoryEntry = {
       childId: categoryEntryUnsafe.childId,
-      extraTimeInMillis: categoryEntryUnsafe.extraTimeInMillis,
+      extraTimeInMillis: categoryEntryUnsafe.extraTimeInMillis
     }
 
     if (categoryEntry.childId !== deviceEntry.currentUserId) {
       addUsedTimeForADifferentUserThanTheCurrentUserOfTheDevice = true
     }
 
-    async function handle(start: number, end: number) {
-      const lengthInMinutes = end - start + 1
+    // eslint-disable-next-line no-inner-declarations
+    async function handle (start: number, end: number) {
+      const lengthInMinutes = (end - start) + 1
       const lengthInMs = lengthInMinutes * 1000 * 60
 
       const oldItem = await cache.database.usedTime.findOne({
@@ -105,60 +100,70 @@ export async function dispatchAddUsedTimeVersion2({
           categoryId: item.categoryId,
           dayOfEpoch: action.dayOfEpoch,
           startMinuteOfDay: start,
-          endMinuteOfDay: end,
+          endMinuteOfDay: end
         },
-        transaction: cache.transaction,
+        transaction: cache.transaction
       })
 
       if (oldItem) {
         const oldUsedTime = oldItem.usedTime
-        const newUsedTime = Math.max(
-          0,
-          Math.min(oldUsedTime + item.timeToAdd, lengthInMs),
-        )
+        const newUsedTime = Math.max(0, Math.min(oldUsedTime + item.timeToAdd, lengthInMs))
 
         const oldLastUpdate = parseInt(oldItem.lastUpdate, 10)
         const newLastUpdate = parseInt(roundedTimestampForUsedTime, 10)
 
         if (oldUsedTime !== newUsedTime || oldLastUpdate !== newLastUpdate) {
-          const [updatedRows] = await cache.database.usedTime.update(
-            {
-              usedTime: newUsedTime,
-              lastUpdate: newLastUpdate.toString(10),
+          const [updatedRows] = await cache.database.usedTime.update({
+            usedTime: newUsedTime,
+            lastUpdate: newLastUpdate.toString(10)
+          }, {
+            where: {
+              familyId: cache.familyId,
+              categoryId: item.categoryId,
+              dayOfEpoch: action.dayOfEpoch,
+              startMinuteOfDay: start,
+              endMinuteOfDay: end
             },
-            {
-              where: {
-                familyId: cache.familyId,
-                categoryId: item.categoryId,
-                dayOfEpoch: action.dayOfEpoch,
-                startMinuteOfDay: start,
-                endMinuteOfDay: end,
-              },
-              transaction: cache.transaction,
-            },
-          )
+            transaction: cache.transaction
+          })
 
           if (updatedRows === 0) {
-            throw new IllegalStateException({
-              staticMessage: "could not update fetched row",
-            })
+            throw new IllegalStateException({ staticMessage: 'could not update fetched row' })
           }
         }
       } else {
-        await cache.database.usedTime.create(
+        const oldTime: number | null = await cache.database.usedTime.aggregate(
+          'usedTime',
+          'MAX',
           {
-            familyId: cache.familyId,
-            categoryId: item.categoryId,
-            dayOfEpoch: action.dayOfEpoch,
-            usedTime: Math.max(0, Math.min(item.timeToAdd, lengthInMs)),
-            lastUpdate: roundedTimestampForUsedTime,
-            startMinuteOfDay: start,
-            endMinuteOfDay: end,
-          },
-          {
-            transaction: cache.transaction,
-          },
-        )
+            where: {
+              familyId: cache.familyId,
+              categoryId: item.categoryId,
+              dayOfEpoch: action.dayOfEpoch,
+              startMinuteOfDay: {
+                [Sequelize.Op.gte]: start
+              },
+              endMinuteOfDay: {
+                [Sequelize.Op.lte]: end
+              }
+            },
+            transaction: cache.transaction
+          }
+        ) || 0
+
+        if (oldTime !== null && typeof oldTime !== 'number') throw new Error()
+
+        await cache.database.usedTime.create({
+          familyId: cache.familyId,
+          categoryId: item.categoryId,
+          dayOfEpoch: action.dayOfEpoch,
+          usedTime: Math.max(0, Math.min(oldTime + item.timeToAdd, lengthInMs)),
+          lastUpdate: roundedTimestampForUsedTime,
+          startMinuteOfDay: start,
+          endMinuteOfDay: end
+        }, {
+          transaction: cache.transaction
+        })
       }
     }
 
@@ -182,10 +187,43 @@ export async function dispatchAddUsedTimeVersion2({
           maxSessionDuration: limit.duration,
           sessionPauseDuration: limit.pause,
           startMinuteOfDay: limit.start,
-          endMinuteOfDay: limit.end,
+          endMinuteOfDay: limit.end
         },
-        transaction: cache.transaction,
+        transaction: cache.transaction
       })
+
+      const oldDuration: () => Promise<number> = async () => {
+        const fittingDurationItems = await cache.database.sessionDuration.findAll({
+          where: {
+            familyId: cache.familyId,
+            categoryId: item.categoryId,
+            startMinuteOfDay: {
+              [Sequelize.Op.gte]: limit.start
+            },
+            endMinuteOfDay: {
+              [Sequelize.Op.lte]: limit.end
+            },
+            maxSessionDuration: {
+              [Sequelize.Op.gte]: limit.duration
+            },
+            sessionPauseDuration: {
+              [Sequelize.Op.lte]: limit.pause
+            }
+          },
+          transaction: cache.transaction
+        })
+
+        const fittingDurationItemsLastUsageFiltered =
+          hasTrustedTimestamp ?
+          fittingDurationItems.filter((it) => {
+            action.trustedTimestamp - item.timeToAdd <=
+            parseInt(it.lastUsage, 10) + it.sessionPauseDuration - tolerance
+          }) : fittingDurationItems
+
+        return fittingDurationItemsLastUsageFiltered
+          .map((it) => it.lastSessionDuration)
+          .reduce((a, b) => Math.max(a, b), 0)
+      }
 
       if (oldItem) {
         let extendSession: boolean
@@ -207,20 +245,13 @@ export async function dispatchAddUsedTimeVersion2({
            * Due to this, a session is reset if it would be over in a few seconds, too.
            */
 
-          const tolerance = 5 * 1000 // 5 seconds
-          const timeWhenStartingCurrentUsage =
-            action.trustedTimestamp - item.timeToAdd
-          const nextSessionStart =
-            parseInt(oldItem.lastUsage, 10) +
-            oldItem.sessionPauseDuration -
-            tolerance
+          const timeWhenStartingCurrentUsage = action.trustedTimestamp - item.timeToAdd
+          const nextSessionStart = parseInt(oldItem.lastUsage, 10) + oldItem.sessionPauseDuration - tolerance
 
           extendSession = timeWhenStartingCurrentUsage <= nextSessionStart
         }
 
-        oldItem.lastSessionDuration = extendSession
-          ? oldItem.lastSessionDuration + item.timeToAdd
-          : item.timeToAdd
+        oldItem.lastSessionDuration = extendSession ? oldItem.lastSessionDuration + item.timeToAdd : await oldDuration() + item.timeToAdd
         oldItem.roundedLastUpdate = roundedTimestampForSessionDuration
 
         if (hasTrustedTimestamp) {
@@ -231,42 +262,33 @@ export async function dispatchAddUsedTimeVersion2({
 
         await oldItem.save({ transaction: cache.transaction })
       } else {
-        await cache.database.sessionDuration.create(
-          {
-            familyId: cache.familyId,
-            categoryId: item.categoryId,
-            maxSessionDuration: limit.duration,
-            sessionPauseDuration: limit.pause,
-            startMinuteOfDay: limit.start,
-            endMinuteOfDay: limit.end,
-            // end of primary key
-            lastUsage: action.trustedTimestamp.toString(10),
-            lastSessionDuration: item.timeToAdd,
-            roundedLastUpdate: roundedTimestampForSessionDuration,
-          },
-          { transaction: cache.transaction },
-        )
+        await cache.database.sessionDuration.create({
+          familyId: cache.familyId,
+          categoryId: item.categoryId,
+          maxSessionDuration: limit.duration,
+          sessionPauseDuration: limit.pause,
+          startMinuteOfDay: limit.start,
+          endMinuteOfDay: limit.end,
+          // end of primary key
+          lastUsage: action.trustedTimestamp.toString(10),
+          lastSessionDuration: await oldDuration() + item.timeToAdd,
+          roundedLastUpdate: roundedTimestampForSessionDuration
+        }, { transaction: cache.transaction })
       }
     }
 
     cache.categoriesWithModifiedUsedTimes.add(item.categoryId)
 
     if (item.extraTimeToSubtract !== 0) {
-      await cache.database.category.update(
-        {
-          extraTimeInMillis: Math.max(
-            0,
-            categoryEntry.extraTimeInMillis - item.extraTimeToSubtract,
-          ),
+      await cache.database.category.update({
+        extraTimeInMillis: Math.max(0, categoryEntry.extraTimeInMillis - item.extraTimeToSubtract)
+      }, {
+        where: {
+          familyId: cache.familyId,
+          categoryId: item.categoryId
         },
-        {
-          where: {
-            familyId: cache.familyId,
-            categoryId: item.categoryId,
-          },
-          transaction: cache.transaction,
-        },
-      )
+        transaction: cache.transaction
+      })
 
       cache.categoriesWithModifiedBaseData.add(item.categoryId)
     }
@@ -283,9 +305,7 @@ export async function dispatchAddUsedTimeVersion2({
 
       cache.incrementTriggeredSyncLevel(2)
 
-      eventHandler.countEvent(
-        "add used time for a different user than the current user of the device",
-      )
+      eventHandler.countEvent('add used time for a different user than the current user of the device')
     }
   }
 

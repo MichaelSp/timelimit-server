@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2024 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,16 +15,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { CreateTimeLimitRuleAction } from "../../../../action"
-import { Cache } from "../cache"
-import { MissingCategoryException } from "../exception/missing-item"
-import { CanNotModifyOtherUsersBySelfLimitationException } from "../exception/self-limit"
+import { CreateTimeLimitRuleAction } from '../../../../action'
+import { Cache } from '../cache'
+import { MissingCategoryException } from '../exception/missing-item'
+import { CanNotModifyOtherUsersBySelfLimitationException } from '../exception/self-limit'
 
-export async function dispatchCreateTimeLimitRule({
-  action,
-  cache,
-  fromChildSelfLimitAddChildUserId,
-}: {
+export async function dispatchCreateTimeLimitRule ({ action, cache, fromChildSelfLimitAddChildUserId }: {
   action: CreateTimeLimitRuleAction
   cache: Cache
   fromChildSelfLimitAddChildUserId: string | null
@@ -32,10 +28,10 @@ export async function dispatchCreateTimeLimitRule({
   const categoryEntryUnsafe = await cache.database.category.findOne({
     where: {
       familyId: cache.familyId,
-      categoryId: action.rule.categoryId,
+      categoryId: action.rule.categoryId
     },
     transaction: cache.transaction,
-    attributes: ["childId"],
+    attributes: ['childId']
   })
 
   if (!categoryEntryUnsafe) {
@@ -48,22 +44,20 @@ export async function dispatchCreateTimeLimitRule({
     }
   }
 
-  await cache.database.timelimitRule.create(
-    {
-      familyId: cache.familyId,
-      ruleId: action.rule.ruleId,
-      categoryId: action.rule.categoryId,
-      applyToExtraTimeUsage: action.rule.applyToExtraTimeUsage,
-      maximumTimeInMillis: action.rule.maxTimeInMillis,
-      dayMaskAsBitmask: action.rule.dayMask,
-      startMinuteOfDay: action.rule.start,
-      endMinuteOfDay: action.rule.end,
-      sessionDurationMilliseconds: action.rule.sessionDurationMilliseconds,
-      sessionPauseMilliseconds: action.rule.sessionPauseMilliseconds,
-      perDay: action.rule.perDay ? 1 : 0,
-    },
-    { transaction: cache.transaction },
-  )
+  await cache.database.timelimitRule.create({
+    familyId: cache.familyId,
+    ruleId: action.rule.ruleId,
+    categoryId: action.rule.categoryId,
+    applyToExtraTimeUsage: action.rule.applyToExtraTimeUsage,
+    maximumTimeInMillis: action.rule.maxTimeInMillis,
+    dayMaskAsBitmask: action.rule.dayMask,
+    startMinuteOfDay: action.rule.start,
+    endMinuteOfDay: action.rule.end,
+    sessionDurationMilliseconds: action.rule.sessionDurationMilliseconds,
+    sessionPauseMilliseconds: action.rule.sessionPauseMilliseconds,
+    perDay: action.rule.perDay ? 1 : 0,
+    expiresAt: action.rule.expiresAt ? action.rule.expiresAt.toString() : null
+  }, { transaction: cache.transaction })
 
   cache.categoriesWithModifiedTimeLimitRules.add(action.rule.categoryId)
   cache.incrementTriggeredSyncLevel(2)

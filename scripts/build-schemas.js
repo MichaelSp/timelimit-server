@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2023 Jonas Lochmann
+ * Copyright (C) 2019 - 2024 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,64 +15,69 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const { resolve } = require("path")
-const TJS = require("typescript-json-schema")
-const { writeFileSync } = require("fs")
-const { each, isEqual } = require("lodash")
+const { resolve } = require('path')
+const TJS = require('typescript-json-schema')
+const { writeFileSync } = require('fs')
+const { each, isEqual } = require('lodash')
 
-const randomString = "WK9fxjlOcM"
+const randomString = 'WK9fxjlOcM'
 
 const types = [
-  "ClientPushChangesRequest",
-  "ClientPullChangesRequest",
-  "MailAuthTokenRequestBody",
-  "CreateFamilyByMailTokenRequest",
-  "SignIntoFamilyRequest",
-  "RecoverParentPasswordRequest",
-  "RegisterChildDeviceRequest",
-  "SerializedParentAction",
-  "SerializedAppLogicAction",
-  "SerializedChildAction",
-  "CreateRegisterDeviceTokenRequest",
-  "CanDoPurchaseRequest",
-  "FinishPurchaseByGooglePlayRequest",
-  "LinkParentMailAddressRequest",
-  "UpdatePrimaryDeviceRequest",
-  "RemoveDeviceRequest",
-  "RequestIdentityTokenRequest",
-  "RequestWithAuthToken",
-  "SendMailLoginCodeRequest",
-  "SignInByMailCodeRequest",
-  "IdentityTokenPayload",
-  "DeleteAccountPayload",
+  'ClientPushChangesRequest',
+  'ClientPullChangesRequest',
+  'MailAuthTokenRequestBody',
+  'CreateFamilyByMailTokenRequest',
+  'SignIntoFamilyRequest',
+  'RecoverParentPasswordRequest',
+  'RegisterChildDeviceRequest',
+  'SerializedParentAction',
+  'SerializedAppLogicAction',
+  'SerializedChildAction',
+  'CreateRegisterDeviceTokenRequest',
+  'CanDoPurchaseRequest',
+  'FinishPurchaseByGooglePlayRequest',
+  'LinkParentMailAddressRequest',
+  'UpdatePrimaryDeviceRequest',
+  'RemoveDeviceRequest',
+  'RequestIdentityTokenRequest',
+  'RequestWithAuthToken',
+  'SendMailLoginCodeRequest',
+  'SignInByMailCodeRequest',
+  'IdentityTokenPayload',
+  'DeleteAccountPayload',
 ]
 
-const docOnlyTypes = ["ServerDataStatus"]
+const docOnlyTypes = [
+  'ServerDataStatus'
+]
 
-const allTypes = [...types, ...docOnlyTypes]
+const allTypes = [
+  ...types,
+  ...docOnlyTypes
+]
 
 const settings = {
   required: true,
   noExtraProps: true,
-}
+  // otherwise it finds errors in dependencies that we don't care about
+  ignoreErrors: true
+};
 
 const compilerOptions = {
   strictNullChecks: true,
-  lib: ["es2015", "dom"],
+  lib: ['es2015', 'dom']
 }
 
 // optionally pass a base path
-const program = TJS.getProgramFromFiles(
-  [resolve(__dirname, "../src/api/schema.ts")],
-  compilerOptions,
-  __dirname,
-)
+const program = TJS.getProgramFromFiles([
+  resolve(__dirname, '../src/api/schema.ts')
+], compilerOptions, __dirname)
 
 const generator = TJS.buildGenerator(program, settings)
 
 let definitions = {}
 let schemas = {}
-let output = ""
+let output = ''
 
 allTypes.forEach((type) => {
   const schema = generator.getSchemaForSymbol(type)
@@ -85,48 +90,37 @@ allTypes.forEach((type) => {
         definitions[name] = value
       } else {
         if (!isEqual(definitions[name], value)) {
-          throw new Error("different schemas for " + name)
+          throw new Error('different schemas for ' + name)
         }
       }
     })
   }
 })
 
-output += "// tslint:disable \n"
-output += "import { " + types.join(", ") + " } from './schema'\n"
-output += "import Ajv from 'ajv'\n"
-output += "const ajv = new Ajv()\n"
-output += "\n"
-output += "const definitions = " + JSON.stringify(definitions, null, 2) + "\n\n"
+output += '// tslint:disable \n'
+output += 'import { ' + types.join(', ') + ' } from \'./schema\'\n'
+output += 'import Ajv from \'ajv\'\n'
+output += 'const ajv = new Ajv()\n'
+output += '\n'
+output += 'const definitions = ' + JSON.stringify(definitions, null, 2) + '\n\n'
 
 types.forEach((type) => {
   const schema = schemas[type]
   let schemaString
 
   if (schema.definitions) {
-    schemaString = JSON.stringify(
-      {
-        ...schema,
-        definitions: randomString,
-      },
-      null,
-      2,
-    ).replace(JSON.stringify(randomString), "definitions")
+    schemaString = JSON.stringify({
+      ...schema,
+      definitions: randomString
+    }, null, 2).replace(JSON.stringify(randomString), 'definitions')
   } else {
     schemaString = JSON.stringify(schema, null, 2)
   }
 
-  const functionBody = "ajv.compile(" + schemaString + ")"
-  const functionName = "is" + type.substr(0, 1).toUpperCase() + type.substr(1)
+  const functionBody = 'ajv.compile(' + schemaString + ')'
+  const functionName = 'is' + type.substr(0, 1).toUpperCase() + type.substr(1)
 
-  output +=
-    "export const " +
-    functionName +
-    ": (value: unknown) => value is " +
-    type +
-    " = " +
-    functionBody +
-    "\n"
+  output += 'export const ' + functionName + ': (value: unknown) => value is ' + type + ' = ' + functionBody + '\n'
 })
 
 allTypes.forEach((type) => {
@@ -135,16 +129,16 @@ allTypes.forEach((type) => {
   const schemaToSave = {
     ...addDefinitionTitles(removeUnusedDefinitions(schema)),
     title: type,
-    $id: "https://timelimit.io/" + type,
+    $id: 'https://timelimit.io/' + type
   }
 
   writeFileSync(
-    resolve(__dirname, "../docs/schema/" + type + ".schema.json"),
-    JSON.stringify(schemaToSave, null, 2),
+    resolve(__dirname, '../docs/schema/' + type + '.schema.json'),
+    JSON.stringify(schemaToSave, null, 2)
   )
 })
 
-writeFileSync(resolve(__dirname, "../src/api/validator.ts"), output)
+writeFileSync(resolve(__dirname, '../src/api/validator.ts'), output)
 
 function getUsedDefinitions(schema) {
   const usedDefinitions = []
@@ -160,20 +154,20 @@ function getUsedDefinitions(schema) {
   }
 
   function handleUsedDefinitions(obj) {
-    if (typeof obj !== "object") {
+    if (typeof obj !== 'object') {
       return
     }
 
-    if (typeof obj.$ref === "string") {
+    if (typeof obj.$ref === 'string') {
       const value = obj.$ref
 
-      if (value.startsWith("#/definitions/")) {
-        addItem(value.substr("#/definitions/".length))
+      if (value.startsWith('#/definitions/')) {
+        addItem(value.substr('#/definitions/'.length))
       }
     }
 
     each(obj, (value, name) => {
-      if (name !== "definitions") {
+      if (name !== 'definitions') {
         handleUsedDefinitions(value)
       }
     })
@@ -191,7 +185,7 @@ function removeUnusedDefinitions(schema) {
 
   const result = {
     ...schema,
-    definitions: {},
+    definitions: {}
   }
 
   getUsedDefinitions(schema).forEach((definition) => {
@@ -208,13 +202,13 @@ function addDefinitionTitles(schema) {
 
   const result = {
     ...schema,
-    definitions: {},
+    definitions: {}
   }
 
   each(schema.definitions, (definition, title) => {
     result.definitions[title] = {
       ...definition,
-      title,
+      title
     }
   })
 

@@ -362,6 +362,9 @@
         },
         "perDay": {
           "type": "boolean"
+        },
+        "e": {
+          "type": "number"
         }
       },
       "additionalProperties": false,
@@ -1177,6 +1180,9 @@
         },
         "perDay": {
           "type": "boolean"
+        },
+        "e": {
+          "type": "number"
         }
       },
       "additionalProperties": false,

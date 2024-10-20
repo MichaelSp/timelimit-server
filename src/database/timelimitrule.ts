@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2021 Jonas Lochmann
+ * Copyright (C) 2019 - 2024 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,11 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from "sequelize"
-import { ValidationException } from "../exception"
-import { MinuteOfDay } from "../util/minuteofday"
-import { booleanColumn, familyIdColumn, idWithinFamilyColumn } from "./columns"
-import { SequelizeAttributes } from "./types"
+import * as Sequelize from 'sequelize'
+import { ValidationException } from '../exception'
+import { MinuteOfDay } from '../util/minuteofday'
+import { booleanColumn, familyIdColumn, idWithinFamilyColumn } from './columns'
+import { SequelizeAttributes } from './types'
 
 interface TimelimitRuleAttributesVersion1 {
   familyId: string
@@ -41,123 +41,123 @@ interface TimelimitRuleAttributesVersion3 {
   perDay: number
 }
 
-type TimelimitRuleAttributes = TimelimitRuleAttributesVersion1 &
-  TimelimitRuleAttributesVersion2 &
-  TimelimitRuleAttributesVersion3
-
-export type TimelimitRuleModel = Sequelize.Model<TimelimitRuleAttributes> &
-  TimelimitRuleAttributes
-export type TimelimitRuleModelStatic = typeof Sequelize.Model & {
-  new (values?: object, options?: Sequelize.BuildOptions): TimelimitRuleModel
+interface TimelimitRuleAttributesVersion4 {
+  expiresAt: string | null
 }
 
-export const attributesVersion1: SequelizeAttributes<TimelimitRuleAttributesVersion1> =
-  {
-    familyId: {
-      ...familyIdColumn,
-      primaryKey: true,
-    },
-    ruleId: {
-      ...idWithinFamilyColumn,
-      primaryKey: true,
-    },
-    categoryId: { ...idWithinFamilyColumn },
-    applyToExtraTimeUsage: { ...booleanColumn },
-    dayMaskAsBitmask: {
-      type: Sequelize.SMALLINT,
-      allowNull: false,
-      validate: {
-        min: 0,
-        max: 1 | 2 | 4 | 8 | 16 | 32 | 64,
-      },
-    },
-    maximumTimeInMillis: {
-      type: Sequelize.INTEGER,
-      allowNull: false,
-      validate: {
-        min: 0,
-      },
-    },
+type TimelimitRuleAttributes = TimelimitRuleAttributesVersion1 &
+  TimelimitRuleAttributesVersion2 & TimelimitRuleAttributesVersion3 &
+  TimelimitRuleAttributesVersion4
+
+export type TimelimitRuleModel = Sequelize.Model<TimelimitRuleAttributes> & TimelimitRuleAttributes
+export type TimelimitRuleModelStatic = typeof Sequelize.Model & {
+  new (values?: object, options?: Sequelize.BuildOptions): TimelimitRuleModel;
+}
+
+export const attributesVersion1: SequelizeAttributes<TimelimitRuleAttributesVersion1> = {
+  familyId: {
+    ...familyIdColumn,
+    primaryKey: true
+  },
+  ruleId: {
+    ...idWithinFamilyColumn,
+    primaryKey: true
+  },
+  categoryId: { ...idWithinFamilyColumn },
+  applyToExtraTimeUsage: { ...booleanColumn },
+  dayMaskAsBitmask: {
+    type: Sequelize.SMALLINT,
+    allowNull: false,
+    validate: {
+      min: 0,
+      max: 1 | 2 | 4 | 8 | 16 | 32 | 64
+    }
+  },
+  maximumTimeInMillis: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      min: 0
+    }
   }
+}
 
-export const attributesVersion2: SequelizeAttributes<TimelimitRuleAttributesVersion2> =
-  {
-    startMinuteOfDay: {
-      type: Sequelize.INTEGER,
-      validate: {
-        min: MinuteOfDay.MIN,
-        max: MinuteOfDay.MAX,
-      },
-      allowNull: false,
-      defaultValue: MinuteOfDay.MIN,
+export const attributesVersion2: SequelizeAttributes<TimelimitRuleAttributesVersion2> = {
+  startMinuteOfDay: {
+    type: Sequelize.INTEGER,
+    validate: {
+      min: MinuteOfDay.MIN,
+      max: MinuteOfDay.MAX
     },
-    endMinuteOfDay: {
-      type: Sequelize.INTEGER,
-      validate: {
-        min: MinuteOfDay.MIN,
-        max: MinuteOfDay.MAX,
-        customValidator(endMinuteOfDay: unknown) {
-          const startMinuteOfDay = this.startMinuteOfDay
+    allowNull: false,
+    defaultValue: MinuteOfDay.MIN
+  },
+  endMinuteOfDay: {
+    type: Sequelize.INTEGER,
+    validate: {
+      min: MinuteOfDay.MIN,
+      max: MinuteOfDay.MAX,
+      customValidator (endMinuteOfDay: unknown) {
+        const startMinuteOfDay = this.startMinuteOfDay
 
-          if (
-            typeof endMinuteOfDay !== "number" ||
-            typeof startMinuteOfDay !== "number"
-          ) {
-            throw new ValidationException({
-              staticMessage:
-                "wrong data types for start and end minute at the time limit rule",
-            })
-          }
+        if (typeof endMinuteOfDay !== 'number' || typeof startMinuteOfDay !== 'number') {
+          throw new ValidationException({ staticMessage: 'wrong data types for start and end minute at the time limit rule' })
+        }
 
-          if (startMinuteOfDay > endMinuteOfDay) {
-            throw new ValidationException({
-              staticMessage:
-                "startMinuteOfDay must not be bigger than endMinuteOfDay for a time limit rule",
-            })
-          }
-        },
-      },
-      allowNull: false,
-      defaultValue: MinuteOfDay.MAX,
+        if (startMinuteOfDay > endMinuteOfDay) {
+          throw new ValidationException({ staticMessage: 'startMinuteOfDay must not be bigger than endMinuteOfDay for a time limit rule' })
+        }
+      }
     },
-    sessionDurationMilliseconds: {
-      type: Sequelize.INTEGER,
-      validate: {
-        min: 0,
-      },
-      allowNull: false,
-      defaultValue: 0,
+    allowNull: false,
+    defaultValue: MinuteOfDay.MAX
+  },
+  sessionDurationMilliseconds: {
+    type: Sequelize.INTEGER,
+    validate: {
+      min: 0
     },
-    sessionPauseMilliseconds: {
-      type: Sequelize.INTEGER,
-      validate: {
-        min: 0,
-      },
-      allowNull: false,
-      defaultValue: 0,
+    allowNull: false,
+    defaultValue: 0
+  },
+  sessionPauseMilliseconds: {
+    type: Sequelize.INTEGER,
+    validate: {
+      min: 0
     },
+    allowNull: false,
+    defaultValue: 0
   }
+}
 
-export const attributesVersion3: SequelizeAttributes<TimelimitRuleAttributesVersion3> =
-  {
-    perDay: {
-      type: Sequelize.INTEGER,
-      validate: {
-        min: 0,
-        max: 1,
-      },
-      allowNull: false,
-      defaultValue: 0,
+export const attributesVersion3: SequelizeAttributes<TimelimitRuleAttributesVersion3> = {
+  perDay: {
+    type: Sequelize.INTEGER,
+    validate: {
+      min: 0,
+      max: 1
     },
+    allowNull: false,
+    defaultValue: 0
   }
+}
+
+export const attributesVersion4: SequelizeAttributes<TimelimitRuleAttributesVersion4> = {
+  expiresAt: {
+    type: Sequelize.BIGINT,
+    validate: {
+      min: 1
+    },
+    allowNull: true,
+    defaultValue: null
+  }
+}
 
 export const attributes: SequelizeAttributes<TimelimitRuleAttributes> = {
   ...attributesVersion1,
   ...attributesVersion2,
   ...attributesVersion3,
+  ...attributesVersion4
 }
 
-export const createTimelimitRuleModel = (
-  sequelize: Sequelize.Sequelize,
-): TimelimitRuleModelStatic =>
-  sequelize.define("TimelimitRule", attributes) as TimelimitRuleModelStatic
+export const createTimelimitRuleModel = (sequelize: Sequelize.Sequelize): TimelimitRuleModelStatic => sequelize.define('TimelimitRule', attributes) as TimelimitRuleModelStatic

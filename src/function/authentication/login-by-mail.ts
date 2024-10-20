@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2023 Jonas Lochmann
+ * Copyright (C) 2019 - 2024 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,24 +15,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Forbidden, Gone, TooManyRequests, Unauthorized } from "http-errors"
-import { Database } from "../../database"
-import { sendAuthenticationMail } from "../../util/mail"
-import { areWordSequencesEqual, randomWords } from "../../util/random-words"
-import { checkMailSendLimit } from "../../util/ratelimit-authmail"
-import { generateAuthToken } from "../../util/token"
-import { createAuthTokenByMailAddress } from "./index"
+import { Forbidden, Gone, TooManyRequests, Unauthorized } from 'http-errors'
+import { Database } from '../../database'
+import { sendAuthenticationMail } from '../../util/mail'
+import { areWordSequencesEqual, randomWords } from '../../util/random-words'
+import { checkMailSendLimit } from '../../util/ratelimit-authmail'
+import { generateAuthToken } from '../../util/token'
+import { createAuthTokenByMailAddress } from './index'
 
-export const sendLoginCode = async ({
-  mail,
-  deviceAuthToken,
-  locale,
-  database,
-}: {
+export const sendLoginCode = async ({ mail, deviceAuthToken, locale, database, info }: {
   mail: string
   deviceAuthToken?: string
   locale: string
   database: Database
+  info: Buffer
   // no transaction here because this is directly called from an API endpoint
 }): Promise<{ mailLoginToken: string }> => {
   let deviceName = null
@@ -41,8 +37,8 @@ export const sendLoginCode = async ({
     const info = await database.transaction(async (transaction) => {
       const deviceEntryUnsafe = await database.device.findOne({
         where: { deviceAuthToken },
-        attributes: ["familyId", "name"],
-        transaction,
+        attributes: ['familyId', 'name'],
+        transaction
       })
 
       if (!deviceEntryUnsafe) {
@@ -51,15 +47,15 @@ export const sendLoginCode = async ({
 
       const deviceEntry = {
         familyId: deviceEntryUnsafe.familyId,
-        name: deviceEntryUnsafe.name,
+        name: deviceEntryUnsafe.name
       }
 
       const userEntryCounter = await database.user.count({
         where: {
           familyId: deviceEntry.familyId,
-          mail,
+          mail
         },
-        transaction,
+        transaction
       })
 
       if (userEntryCounter === 1) {
@@ -88,34 +84,28 @@ export const sendLoginCode = async ({
     code,
     locale,
     deviceName,
+    info
   })
 
   await database.transaction(async (transaction) => {
-    await database.mailLoginToken.create(
-      {
-        mailLoginToken,
-        receivedCode: code,
-        mail,
-        createdAt: Date.now().toString(10),
-        remainingAttempts: 3,
-        locale,
-      },
-      { transaction },
-    )
+    await database.mailLoginToken.create({
+      mailLoginToken,
+      receivedCode: code,
+      mail,
+      createdAt: Date.now().toString(10),
+      remainingAttempts: 3,
+      locale
+    }, { transaction })
   })
 
   return {
-    mailLoginToken,
+    mailLoginToken
   }
 }
 
 // 403 Forbidden = receivedCode is invalid
 // 410 Gone = mailLoginToken is invalid or expired
-export const signInByMailCode = async ({
-  mailLoginToken,
-  receivedCode,
-  database,
-}: {
+export const signInByMailCode = async ({ mailLoginToken, receivedCode, database }: {
   mailLoginToken: string
   receivedCode: string
   database: Database
@@ -124,12 +114,12 @@ export const signInByMailCode = async ({
   const result = await database.transaction(async (transaction) => {
     const entry = await database.mailLoginToken.findOne({
       where: {
-        mailLoginToken,
+        mailLoginToken
       },
-      transaction,
+      transaction
     })
 
-    if (!entry || entry.remainingAttempts === 0) {
+    if ((!entry) || entry.remainingAttempts === 0) {
       throw new Gone()
     }
 
@@ -139,21 +129,17 @@ export const signInByMailCode = async ({
       await entry.save({ transaction })
 
       if (entry.remainingAttempts === 0) {
-        return () => {
-          throw new Gone()
-        }
+        return () => { throw new Gone() }
       } else {
-        return () => {
-          throw new Forbidden()
-        }
+        return () => { throw new Forbidden() }
       }
     }
 
     const counter = await database.mailLoginToken.destroy({
       where: {
-        mailLoginToken,
+        mailLoginToken
       },
-      transaction,
+      transaction
     })
 
     if (counter !== 1) {
@@ -164,7 +150,7 @@ export const signInByMailCode = async ({
       mail: entry.mail,
       locale: entry.locale,
       database,
-      transaction,
+      transaction
     })
 
     return () => ({ mailAuthToken })

@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2021 Jonas Lochmann
+ * Copyright (C) 2019 - 2024 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,28 +15,28 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { json } from "body-parser"
-import { Router } from "express"
-import { BadRequest } from "http-errors"
-import { Database } from "../database"
-import {
-  sendLoginCode,
-  signInByMailCode,
-} from "../function/authentication/login-by-mail"
-import {
-  isMailAddressCoveredByWhitelist,
-  isMailServerBlacklisted,
-  sanitizeMailAddress,
-} from "../util/mail"
+import { json } from 'body-parser'
+import { Router } from 'express'
+import { BadRequest, Forbidden } from 'http-errors'
+import { config } from '../config'
+import { Database } from '../database'
+import { sendLoginCode, signInByMailCode } from '../function/authentication/login-by-mail'
+import { isMailAddressCoveredByWhitelist, isMailServerBlacklisted, sanitizeMailAddress } from '../util/mail'
 import {
   isSendMailLoginCodeRequest,
-  isSignInByMailCodeRequest,
-} from "./validator"
+  isSignInByMailCodeRequest
+} from './validator'
+import { analyze } from './integrity'
 
 export const createAuthRouter = (database: Database) => {
   const router = Router()
 
-  router.post("/send-mail-login-code-v2", json(), async (req, res, next) => {
+  router.post('/send-mail-login-code-v2', json(), async (req, res, next) => {
+    const info = {
+      ua: req.headers['user-agent'],
+      cert: analyze(req),
+    }
+
     try {
       if (!isSendMailLoginCodeRequest(req.body)) {
         throw new BadRequest()
@@ -52,12 +52,15 @@ export const createAuthRouter = (database: Database) => {
         res.json({ mailAddressNotWhitelisted: true })
       } else if (isMailServerBlacklisted(mail)) {
         res.json({ mailServerBlacklisted: true })
+      } else if (config.uaMailBlocklist.indexOf(req.headers['user-agent'] || '') !== -1) {
+        throw new Forbidden()
       } else {
         const { mailLoginToken } = await sendLoginCode({
           mail,
           deviceAuthToken: req.body.deviceAuthToken,
           locale: req.body.locale,
           database,
+          info: Buffer.from(JSON.stringify(info), 'utf8')
         })
 
         res.json({ mailLoginToken })
@@ -67,7 +70,7 @@ export const createAuthRouter = (database: Database) => {
     }
   })
 
-  router.post("/sign-in-by-mail-code", json(), async (req, res, next) => {
+  router.post('/sign-in-by-mail-code', json(), async (req, res, next) => {
     try {
       if (!isSignInByMailCodeRequest(req.body)) {
         throw new BadRequest()
@@ -76,7 +79,7 @@ export const createAuthRouter = (database: Database) => {
       const { mailAuthToken } = await signInByMailCode({
         receivedCode: req.body.receivedCode,
         mailLoginToken: req.body.mailLoginToken,
-        database,
+        database
       })
 
       res.json({ mailAuthToken })

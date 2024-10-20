@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2024 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,21 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateTimelimitRuleAction } from "../../../../action"
-import { Cache } from "../cache"
+import { UpdateTimelimitRuleAction } from '../../../../action'
+import { Cache } from '../cache'
+import { MissingRuleException, MissingCategoryException } from '../exception/missing-item'
 import {
-  MissingCategoryException,
-  MissingRuleException,
-} from "../exception/missing-item"
-import {
-  CanNotModifyOtherUsersBySelfLimitationException,
-  CanNotRelaxRestrictionsSelfLimitException,
-} from "../exception/self-limit"
+  CanNotModifyOtherUsersBySelfLimitationException, CanNotRelaxRestrictionsSelfLimitException
+} from '../exception/self-limit'
 
-export async function dispatchUpdateTimelimitRule({
-  action,
-  cache,
-  fromChildSelfLimitAddChildUserId,
+export async function dispatchUpdateTimelimitRule ({
+  action, cache, fromChildSelfLimitAddChildUserId
 }: {
   action: UpdateTimelimitRuleAction
   cache: Cache
@@ -38,9 +32,9 @@ export async function dispatchUpdateTimelimitRule({
   const ruleEntry = await cache.database.timelimitRule.findOne({
     where: {
       familyId: cache.familyId,
-      ruleId: action.ruleId,
+      ruleId: action.ruleId
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction
   })
 
   if (!ruleEntry) {
@@ -51,10 +45,10 @@ export async function dispatchUpdateTimelimitRule({
     const categoryEntryUnsafe = await cache.database.category.findOne({
       where: {
         familyId: cache.familyId,
-        categoryId: ruleEntry.categoryId,
+        categoryId: ruleEntry.categoryId
       },
       transaction: cache.transaction,
-      attributes: ["childId"],
+      attributes: ['childId']
     })
 
     if (!categoryEntryUnsafe) {
@@ -62,37 +56,33 @@ export async function dispatchUpdateTimelimitRule({
     }
 
     const categoryEntry = {
-      childId: categoryEntryUnsafe.childId,
+      childId: categoryEntryUnsafe.childId
     }
+
 
     if (fromChildSelfLimitAddChildUserId !== categoryEntry.childId) {
       throw new CanNotModifyOtherUsersBySelfLimitationException()
     }
 
     const wasSessionDurationLimitationEnabled =
-      ruleEntry.sessionPauseMilliseconds > 0 &&
-      ruleEntry.sessionDurationMilliseconds > 0
+      ruleEntry.sessionPauseMilliseconds > 0 && ruleEntry.sessionDurationMilliseconds > 0
 
     const countOldAffectedDays = Array(7)
       .fill(0)
-      .reduce(
-        (sum, _, index) => sum + ((ruleEntry.dayMaskAsBitmask >> index) & 1),
-        0,
-      )
+      .reduce((sum, _, index) => sum + ((ruleEntry.dayMaskAsBitmask >> index) & 1), 0)
 
     const isAtLeastAsStrictAsPreviously =
       action.maximumTimeInMillis <= ruleEntry.maximumTimeInMillis &&
-      (action.dayMask & ruleEntry.dayMaskAsBitmask) ===
-        ruleEntry.dayMaskAsBitmask &&
+      (action.dayMask & ruleEntry.dayMaskAsBitmask) === ruleEntry.dayMaskAsBitmask &&
       (action.applyToExtraTimeUsage || !ruleEntry.applyToExtraTimeUsage) &&
       action.start <= ruleEntry.startMinuteOfDay &&
       action.end >= ruleEntry.endMinuteOfDay &&
-      (!wasSessionDurationLimitationEnabled ||
-        (action.sessionDurationMilliseconds <=
-          ruleEntry.sessionDurationMilliseconds &&
-          action.sessionPauseMilliseconds >=
-            ruleEntry.sessionPauseMilliseconds)) &&
-      (!action.perDay || ruleEntry.perDay || countOldAffectedDays <= 1)
+      (!wasSessionDurationLimitationEnabled || (
+          action.sessionDurationMilliseconds <= ruleEntry.sessionDurationMilliseconds &&
+          action.sessionPauseMilliseconds >= ruleEntry.sessionPauseMilliseconds
+      )) &&
+      (!action.perDay || ruleEntry.perDay || countOldAffectedDays <= 1) &&
+      (action.expiresAt === undefined || (ruleEntry.expiresAt !== null && action.expiresAt >= parseInt(ruleEntry.expiresAt, 10)))
 
     if (!isAtLeastAsStrictAsPreviously) {
       throw new CanNotRelaxRestrictionsSelfLimitException()
@@ -107,6 +97,7 @@ export async function dispatchUpdateTimelimitRule({
   ruleEntry.sessionDurationMilliseconds = action.sessionDurationMilliseconds
   ruleEntry.sessionPauseMilliseconds = action.sessionPauseMilliseconds
   ruleEntry.perDay = action.perDay ? 1 : 0
+  ruleEntry.expiresAt = action.expiresAt ? action.expiresAt.toString() : null
 
   await ruleEntry.save({ transaction: cache.transaction })
 

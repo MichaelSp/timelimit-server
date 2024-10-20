@@ -26,6 +26,7 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule
 | [dur](#dur)               | `number`  | Optional | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-dur.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/dur")               |
 | [pause](#pause)           | `number`  | Optional | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-pause.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/pause")           |
 | [perDay](#perday)         | `boolean` | Optional | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-perday.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/perDay")         |
+| [e](#e)                   | `number`  | Optional | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-e.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/e")                   |
 
 ## ruleId
 
@@ -186,3 +187,21 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule
 ### perDay Type
 
 `boolean`
+
+## e
+
+
+
+`e`
+
+*   is optional
+
+*   Type: `number`
+
+*   cannot be null
+
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-e.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/e")
+
+### e Type
+
+`number`

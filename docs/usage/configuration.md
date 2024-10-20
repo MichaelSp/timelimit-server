@@ -57,3 +57,5 @@
 - SIGN_SECRET
   - used for signing tokens
   - if not set or set to an empty string, then the features that depend on it are disabled
+- UA_MAIL_BLOCKLIST
+  - List of user agents, separated by comma, that are not allowed to trigger sign in mails
