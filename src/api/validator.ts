@@ -164,9 +164,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "ADD_CATEGORY_APPS"
-        ]
+        "const": "ADD_CATEGORY_APPS"
       },
       "categoryId": {
         "type": "string"
@@ -190,9 +188,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "ADD_CATEGORY_NETWORK_ID"
-        ]
+        "const": "ADD_CATEGORY_NETWORK_ID"
       },
       "categoryId": {
         "type": "string"
@@ -217,9 +213,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "ADD_PARENT_U2F"
-        ]
+        "const": "ADD_PARENT_U2F"
       },
       "keyHandle": {
         "type": "string"
@@ -240,9 +234,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "ADD_USER"
-        ]
+        "const": "ADD_USER"
       },
       "name": {
         "type": "string"
@@ -301,9 +293,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "CHANGE_PARENT_PASSWORD"
-        ]
+        "const": "CHANGE_PARENT_PASSWORD"
       },
       "userId": {
         "type": "string"
@@ -336,9 +326,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "CREATE_CATEGORY"
-        ]
+        "const": "CREATE_CATEGORY"
       },
       "childId": {
         "type": "string"
@@ -363,9 +351,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "CREATE_TIMELIMIT_RULE"
-        ]
+        "const": "CREATE_TIMELIMIT_RULE"
       },
       "rule": {
         "$ref": "#/definitions/SerializedTimeLimitRule"
@@ -428,9 +414,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "DELETE_CATEGORY"
-        ]
+        "const": "DELETE_CATEGORY"
       },
       "categoryId": {
         "type": "string"
@@ -447,9 +431,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "DELETE_CHILD_TASK"
-        ]
+        "const": "DELETE_CHILD_TASK"
       },
       "taskId": {
         "type": "string"
@@ -466,9 +448,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "DELETE_TIMELIMIT_RULE"
-        ]
+        "const": "DELETE_TIMELIMIT_RULE"
       },
       "ruleId": {
         "type": "string"
@@ -485,9 +465,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "IGNORE_MANIPULATION"
-        ]
+        "const": "IGNORE_MANIPULATION"
       },
       "deviceId": {
         "type": "string"
@@ -543,9 +521,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "INCREMENT_CATEGORY_EXTRATIME"
-        ]
+        "const": "INCREMENT_CATEGORY_EXTRATIME"
       },
       "categoryId": {
         "type": "string"
@@ -569,9 +545,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "REMOVE_CATEGORY_APPS"
-        ]
+        "const": "REMOVE_CATEGORY_APPS"
       },
       "categoryId": {
         "type": "string"
@@ -595,9 +569,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "REMOVE_PARENT_U2F"
-        ]
+        "const": "REMOVE_PARENT_U2F"
       },
       "keyHandle": {
         "type": "string"
@@ -618,9 +590,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "REMOVE_USER"
-        ]
+        "const": "REMOVE_USER"
       },
       "userId": {
         "type": "string"
@@ -640,9 +610,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "RENAME_CHILD"
-        ]
+        "const": "RENAME_CHILD"
       },
       "childId": {
         "type": "string"
@@ -663,9 +631,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "REPORT_U2F_LOGIN"
-        ]
+        "const": "REPORT_U2F_LOGIN"
       }
     },
     "additionalProperties": false,
@@ -678,9 +644,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "RESET_CATEGORY_NETWORK_IDS"
-        ]
+        "const": "RESET_CATEGORY_NETWORK_IDS"
       },
       "categoryId": {
         "type": "string"
@@ -697,9 +661,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "REVIEW_CHILD_TASK"
-        ]
+        "const": "REVIEW_CHILD_TASK"
       },
       "taskId": {
         "type": "string"
@@ -727,9 +689,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "SET_CATEGORY_EXTRA_TIME"
-        ]
+        "const": "SET_CATEGORY_EXTRA_TIME"
       },
       "categoryId": {
         "type": "string"
@@ -753,9 +713,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "SET_CATEGORY_FOR_UNASSIGNED_APPS"
-        ]
+        "const": "SET_CATEGORY_FOR_UNASSIGNED_APPS"
       },
       "childId": {
         "type": "string"
@@ -776,9 +734,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "SET_CHILD_PASSWORD"
-        ]
+        "const": "SET_CHILD_PASSWORD"
       },
       "childId": {
         "type": "string"
@@ -799,9 +755,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "SET_CONSIDER_REBOOT_MANIPULATION"
-        ]
+        "const": "SET_CONSIDER_REBOOT_MANIPULATION"
       },
       "deviceId": {
         "type": "string"
@@ -822,9 +776,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "SET_DEVICE_DEFAULT_USER"
-        ]
+        "const": "SET_DEVICE_DEFAULT_USER"
       },
       "deviceId": {
         "type": "string"
@@ -845,9 +797,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "SET_DEVICE_DEFAULT_USER_TIMEOUT"
-        ]
+        "const": "SET_DEVICE_DEFAULT_USER_TIMEOUT"
       },
       "deviceId": {
         "type": "string"
@@ -868,9 +818,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "SET_DEVICE_USER"
-        ]
+        "const": "SET_DEVICE_USER"
       },
       "deviceId": {
         "type": "string"
@@ -891,9 +839,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "SET_KEEP_SIGNED_IN"
-        ]
+        "const": "SET_KEEP_SIGNED_IN"
       },
       "deviceId": {
         "type": "string"
@@ -914,9 +860,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "SET_PARENT_CATEGORY"
-        ]
+        "const": "SET_PARENT_CATEGORY"
       },
       "categoryId": {
         "type": "string"
@@ -937,9 +881,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "SET_RELAX_PRIMARY_DEVICE"
-        ]
+        "const": "SET_RELAX_PRIMARY_DEVICE"
       },
       "userId": {
         "type": "string"
@@ -960,9 +902,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "SET_SEND_DEVICE_CONNECTED"
-        ]
+        "const": "SET_SEND_DEVICE_CONNECTED"
       },
       "deviceId": {
         "type": "string"
@@ -983,9 +923,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "SET_USER_DISABLE_LIMITS_UNTIL"
-        ]
+        "const": "SET_USER_DISABLE_LIMITS_UNTIL"
       },
       "childId": {
         "type": "string"
@@ -1006,9 +944,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "SET_USER_TIMEZONE"
-        ]
+        "const": "SET_USER_TIMEZONE"
       },
       "userId": {
         "type": "string"
@@ -1029,9 +965,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_CATEGORY_BATTERY_LIMIT"
-        ]
+        "const": "UPDATE_CATEGORY_BATTERY_LIMIT"
       },
       "categoryId": {
         "type": "string"
@@ -1054,9 +988,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_CATEGORY_BLOCK_ALL_NOTIFICATIONS"
-        ]
+        "const": "UPDATE_CATEGORY_BLOCK_ALL_NOTIFICATIONS"
       },
       "categoryId": {
         "type": "string"
@@ -1070,6 +1002,7 @@ const definitions = {
     },
     "additionalProperties": false,
     "required": [
+      "blockDelay",
       "blocked",
       "categoryId",
       "type"
@@ -1080,9 +1013,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_CATEGORY_BLOCKED_TIMES"
-        ]
+        "const": "UPDATE_CATEGORY_BLOCKED_TIMES"
       },
       "categoryId": {
         "type": "string"
@@ -1103,9 +1034,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_CATEGORY_DISABLE_LIMITS"
-        ]
+        "const": "UPDATE_CATEGORY_DISABLE_LIMITS"
       },
       "categoryId": {
         "type": "string"
@@ -1126,9 +1055,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_CATEGORY_FLAGS"
-        ]
+        "const": "UPDATE_CATEGORY_FLAGS"
       },
       "categoryId": {
         "type": "string"
@@ -1153,9 +1080,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_CATEGORY_SORTING"
-        ]
+        "const": "UPDATE_CATEGORY_SORTING"
       },
       "categoryIds": {
         "type": "array",
@@ -1175,9 +1100,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_CATEGORY_TEMPORARILY_BLOCKED"
-        ]
+        "const": "UPDATE_CATEGORY_TEMPORARILY_BLOCKED"
       },
       "categoryId": {
         "type": "string"
@@ -1201,9 +1124,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_CATEGORY_TIME_WARNINGS"
-        ]
+        "const": "UPDATE_CATEGORY_TIME_WARNINGS"
       },
       "categoryId": {
         "type": "string"
@@ -1231,9 +1152,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_CATEGORY_TITLE"
-        ]
+        "const": "UPDATE_CATEGORY_TITLE"
       },
       "categoryId": {
         "type": "string"
@@ -1254,9 +1173,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_CHILD_TASK"
-        ]
+        "const": "UPDATE_CHILD_TASK"
       },
       "isNew": {
         "type": "boolean"
@@ -1289,9 +1206,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_DEVICE_NAME"
-        ]
+        "const": "UPDATE_DEVICE_NAME"
       },
       "deviceId": {
         "type": "string"
@@ -1312,9 +1227,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_ENABLE_ACTIVITY_LEVEL_BLOCKING"
-        ]
+        "const": "UPDATE_ENABLE_ACTIVITY_LEVEL_BLOCKING"
       },
       "deviceId": {
         "type": "string"
@@ -1335,9 +1248,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_NETWORK_TIME_VERIFICATION"
-        ]
+        "const": "UPDATE_NETWORK_TIME_VERIFICATION"
       },
       "deviceId": {
         "type": "string"
@@ -1363,9 +1274,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_PARENT_NOTIFICATION_FLAGS"
-        ]
+        "const": "UPDATE_PARENT_NOTIFICATION_FLAGS"
       },
       "parentId": {
         "type": "string"
@@ -1390,9 +1299,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_TIMELIMIT_RULE"
-        ]
+        "const": "UPDATE_TIMELIMIT_RULE"
       },
       "ruleId": {
         "type": "string"
@@ -1439,9 +1346,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_USER_FLAGS"
-        ]
+        "const": "UPDATE_USER_FLAGS"
       },
       "userId": {
         "type": "string"
@@ -1466,9 +1371,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_USER_LIMIT_LOGIN_CATEGORY"
-        ]
+        "const": "UPDATE_USER_LIMIT_LOGIN_CATEGORY"
       },
       "userId": {
         "type": "string"
@@ -1488,9 +1391,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_USER_LIMIT_LOGIN_PRE_BLOCK_DURATION"
-        ]
+        "const": "UPDATE_USER_LIMIT_LOGIN_PRE_BLOCK_DURATION"
       },
       "userId": {
         "type": "string"
@@ -1511,9 +1412,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "ADD_INSTALLED_APPS"
-        ]
+        "const": "ADD_INSTALLED_APPS"
       },
       "apps": {
         "type": "array",
@@ -1565,9 +1464,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "ADD_USED_TIME"
-        ]
+        "const": "ADD_USED_TIME"
       },
       "categoryId": {
         "type": "string"
@@ -1596,9 +1493,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "ADD_USED_TIME_V2"
-        ]
+        "const": "ADD_USED_TIME_V2"
       },
       "d": {
         "type": "number"
@@ -1680,9 +1575,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "FINISH_KEY_REQUEST"
-        ]
+        "const": "FINISH_KEY_REQUEST"
       },
       "dsn": {
         "type": "number"
@@ -1699,9 +1592,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "FORCE_SYNC"
-        ]
+        "const": "FORCE_SYNC"
       }
     },
     "additionalProperties": false,
@@ -1714,9 +1605,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "MARK_TASK_PENDING"
-        ]
+        "const": "MARK_TASK_PENDING"
       },
       "taskId": {
         "type": "string"
@@ -1733,9 +1622,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "REMOVE_INSTALLED_APPS"
-        ]
+        "const": "REMOVE_INSTALLED_APPS"
       },
       "packageNames": {
         "type": "array",
@@ -1755,9 +1642,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "REPLY_TO_KEY_REQUEST"
-        ]
+        "const": "REPLY_TO_KEY_REQUEST"
       },
       "rsn": {
         "type": "number"
@@ -1786,9 +1671,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "SEND_KEY_REQUEST"
-        ]
+        "const": "SEND_KEY_REQUEST"
       },
       "dsn": {
         "type": "number"
@@ -1823,9 +1706,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "SIGN_OUT_AT_DEVICE"
-        ]
+        "const": "SIGN_OUT_AT_DEVICE"
       }
     },
     "additionalProperties": false,
@@ -1838,9 +1719,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "TRIED_DISABLING_DEVICE_ADMIN"
-        ]
+        "const": "TRIED_DISABLING_DEVICE_ADMIN"
       }
     },
     "additionalProperties": false,
@@ -1853,9 +1732,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_APP_ACTIVITIES"
-        ]
+        "const": "UPDATE_APP_ACTIVITIES"
       },
       "removed": {
         "type": "array",
@@ -1912,9 +1789,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_DEVICE_STATUS"
-        ]
+        "const": "UPDATE_DEVICE_STATUS"
       },
       "protectionLevel": {
         "enum": [
@@ -1981,9 +1856,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPDATE_INSTALLED_APPS"
-        ]
+        "const": "UPDATE_INSTALLED_APPS"
       },
       "b": {
         "type": "string"
@@ -2006,9 +1879,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "UPLOAD_DEVICE_PUBLIC_KEY"
-        ]
+        "const": "UPLOAD_DEVICE_PUBLIC_KEY"
       },
       "key": {
         "type": "string"
@@ -2025,9 +1896,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "CHILD_CHANGE_PASSWORD"
-        ]
+        "const": "CHILD_CHANGE_PASSWORD"
       },
       "password": {
         "$ref": "#/definitions/EncryptableParentPassword"
@@ -2044,9 +1913,7 @@ const definitions = {
     "properties": {
       "type": {
         "type": "string",
-        "enum": [
-          "CHILD_SIGN_IN"
-        ]
+        "const": "CHILD_SIGN_IN"
       }
     },
     "additionalProperties": false,
@@ -2926,7 +2793,6 @@ export const isMailAuthTokenRequestBody: (value: unknown) => value is MailAuthTo
   "required": [
     "mailAuthToken"
   ],
-  "definitions": definitions,
   "$schema": "http://json-schema.org/draft-07/schema#"
 })
 export const isCreateFamilyByMailTokenRequest: (value: unknown) => value is CreateFamilyByMailTokenRequest = ajv.compile({
@@ -3272,7 +3138,6 @@ export const isCreateRegisterDeviceTokenRequest: (value: unknown) => value is Cr
     "parentId",
     "parentPasswordSecondHash"
   ],
-  "definitions": definitions,
   "$schema": "http://json-schema.org/draft-07/schema#"
 })
 export const isCanDoPurchaseRequest: (value: unknown) => value is CanDoPurchaseRequest = ajv.compile({
@@ -3294,7 +3159,6 @@ export const isCanDoPurchaseRequest: (value: unknown) => value is CanDoPurchaseR
     "deviceAuthToken",
     "type"
   ],
-  "definitions": definitions,
   "$schema": "http://json-schema.org/draft-07/schema#"
 })
 export const isFinishPurchaseByGooglePlayRequest: (value: unknown) => value is FinishPurchaseByGooglePlayRequest = ajv.compile({
@@ -3316,7 +3180,6 @@ export const isFinishPurchaseByGooglePlayRequest: (value: unknown) => value is F
     "receipt",
     "signature"
   ],
-  "definitions": definitions,
   "$schema": "http://json-schema.org/draft-07/schema#"
 })
 export const isLinkParentMailAddressRequest: (value: unknown) => value is LinkParentMailAddressRequest = ajv.compile({
@@ -3342,7 +3205,6 @@ export const isLinkParentMailAddressRequest: (value: unknown) => value is LinkPa
     "parentPasswordSecondHash",
     "parentUserId"
   ],
-  "definitions": definitions,
   "$schema": "http://json-schema.org/draft-07/schema#"
 })
 export const isUpdatePrimaryDeviceRequest: (value: unknown) => value is UpdatePrimaryDeviceRequest = ajv.compile({
@@ -3368,7 +3230,6 @@ export const isUpdatePrimaryDeviceRequest: (value: unknown) => value is UpdatePr
     "authToken",
     "currentUserId"
   ],
-  "definitions": definitions,
   "$schema": "http://json-schema.org/draft-07/schema#"
 })
 export const isRemoveDeviceRequest: (value: unknown) => value is RemoveDeviceRequest = ajv.compile({
@@ -3394,7 +3255,6 @@ export const isRemoveDeviceRequest: (value: unknown) => value is RemoveDeviceReq
     "parentPasswordSecondHash",
     "parentUserId"
   ],
-  "definitions": definitions,
   "$schema": "http://json-schema.org/draft-07/schema#"
 })
 export const isRequestIdentityTokenRequest: (value: unknown) => value is RequestIdentityTokenRequest = ajv.compile({
@@ -3411,9 +3271,7 @@ export const isRequestIdentityTokenRequest: (value: unknown) => value is Request
     },
     "purpose": {
       "type": "string",
-      "enum": [
-        "purchase"
-      ]
+      "const": "purchase"
     }
   },
   "additionalProperties": false,
@@ -3423,7 +3281,6 @@ export const isRequestIdentityTokenRequest: (value: unknown) => value is Request
     "parentUserId",
     "purpose"
   ],
-  "definitions": definitions,
   "$schema": "http://json-schema.org/draft-07/schema#"
 })
 export const isRequestWithAuthToken: (value: unknown) => value is RequestWithAuthToken = ajv.compile({
@@ -3437,7 +3294,6 @@ export const isRequestWithAuthToken: (value: unknown) => value is RequestWithAut
   "required": [
     "deviceAuthToken"
   ],
-  "definitions": definitions,
   "$schema": "http://json-schema.org/draft-07/schema#"
 })
 export const isSendMailLoginCodeRequest: (value: unknown) => value is SendMailLoginCodeRequest = ajv.compile({
@@ -3458,7 +3314,6 @@ export const isSendMailLoginCodeRequest: (value: unknown) => value is SendMailLo
     "locale",
     "mail"
   ],
-  "definitions": definitions,
   "$schema": "http://json-schema.org/draft-07/schema#"
 })
 export const isSignInByMailCodeRequest: (value: unknown) => value is SignInByMailCodeRequest = ajv.compile({
@@ -3476,7 +3331,6 @@ export const isSignInByMailCodeRequest: (value: unknown) => value is SignInByMai
     "mailLoginToken",
     "receivedCode"
   ],
-  "definitions": definitions,
   "$schema": "http://json-schema.org/draft-07/schema#"
 })
 export const isIdentityTokenPayload: (value: unknown) => value is IdentityTokenPayload = ajv.compile({
@@ -3485,9 +3339,7 @@ export const isIdentityTokenPayload: (value: unknown) => value is IdentityTokenP
   "properties": {
     "purpose": {
       "type": "string",
-      "enum": [
-        "purchase"
-      ]
+      "const": "purchase"
     },
     "familyId": {
       "type": "string"
@@ -3509,7 +3361,6 @@ export const isIdentityTokenPayload: (value: unknown) => value is IdentityTokenP
     "purpose",
     "userId"
   ],
-  "definitions": definitions,
   "$schema": "http://json-schema.org/draft-07/schema#"
 })
 export const isDeleteAccountPayload: (value: unknown) => value is DeleteAccountPayload = ajv.compile({
@@ -3530,6 +3381,5 @@ export const isDeleteAccountPayload: (value: unknown) => value is DeleteAccountP
     "deviceAuthToken",
     "mailAuthTokens"
   ],
-  "definitions": definitions,
   "$schema": "http://json-schema.org/draft-07/schema#"
 })
