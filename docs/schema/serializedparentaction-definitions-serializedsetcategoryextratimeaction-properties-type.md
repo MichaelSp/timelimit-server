@@ -16,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetCategoryEx
 
 ## type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                       | Explanation |
-| :-------------------------- | :---------- |
-| `"SET_CATEGORY_EXTRA_TIME"` |             |
+```json
+"SET_CATEGORY_EXTRA_TIME"
+```

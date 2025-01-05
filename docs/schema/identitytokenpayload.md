@@ -8,7 +8,7 @@ https://timelimit.io/IdentityTokenPayload
 
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                  |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------ |
-| Can be instantiated | Yes        | Unknown status | No           | Forbidden         | Forbidden             | none                | [IdentityTokenPayload.schema.json](IdentityTokenPayload.schema.json "open original schema") |
+| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [IdentityTokenPayload.schema.json](IdentityTokenPayload.schema.json "open original schema") |
 
 ## IdentityTokenPayload Type
 
@@ -30,13 +30,13 @@ https://timelimit.io/IdentityTokenPayload
 
 `purpose`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [IdentityTokenPayload](identitytokenpayload-properties-purpose.md "https://timelimit.io/IdentityTokenPayload#/properties/purpose")
+* defined in: [IdentityTokenPayload](identitytokenpayload-properties-purpose.md "https://timelimit.io/IdentityTokenPayload#/properties/purpose")
 
 ### purpose Type
 
@@ -44,11 +44,11 @@ https://timelimit.io/IdentityTokenPayload
 
 ### purpose Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value        | Explanation |
-| :----------- | :---------- |
-| `"purchase"` |             |
+```json
+"purchase"
+```
 
 ## familyId
 
@@ -56,13 +56,13 @@ https://timelimit.io/IdentityTokenPayload
 
 `familyId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [IdentityTokenPayload](identitytokenpayload-properties-familyid.md "https://timelimit.io/IdentityTokenPayload#/properties/familyId")
+* defined in: [IdentityTokenPayload](identitytokenpayload-properties-familyid.md "https://timelimit.io/IdentityTokenPayload#/properties/familyId")
 
 ### familyId Type
 
@@ -74,13 +74,13 @@ https://timelimit.io/IdentityTokenPayload
 
 `userId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [IdentityTokenPayload](identitytokenpayload-properties-userid.md "https://timelimit.io/IdentityTokenPayload#/properties/userId")
+* defined in: [IdentityTokenPayload](identitytokenpayload-properties-userid.md "https://timelimit.io/IdentityTokenPayload#/properties/userId")
 
 ### userId Type
 
@@ -92,13 +92,13 @@ https://timelimit.io/IdentityTokenPayload
 
 `mail`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [IdentityTokenPayload](identitytokenpayload-properties-mail.md "https://timelimit.io/IdentityTokenPayload#/properties/mail")
+* defined in: [IdentityTokenPayload](identitytokenpayload-properties-mail.md "https://timelimit.io/IdentityTokenPayload#/properties/mail")
 
 ### mail Type
 
@@ -110,16 +110,14 @@ https://timelimit.io/IdentityTokenPayload
 
 `exp`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [IdentityTokenPayload](identitytokenpayload-properties-exp.md "https://timelimit.io/IdentityTokenPayload#/properties/exp")
+* defined in: [IdentityTokenPayload](identitytokenpayload-properties-exp.md "https://timelimit.io/IdentityTokenPayload#/properties/exp")
 
 ### exp Type
 
 `number`
-
-# IdentityTokenPayload Definitions

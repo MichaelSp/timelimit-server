@@ -28,13 +28,13 @@ https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/PlaintextParent
 
 `hash`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-plaintextparentpassword-properties-hash.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/PlaintextParentPassword/properties/hash")
+* defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-plaintextparentpassword-properties-hash.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/PlaintextParentPassword/properties/hash")
 
 ### hash Type
 
@@ -46,13 +46,13 @@ https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/PlaintextParent
 
 `secondHash`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-plaintextparentpassword-properties-secondhash.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/PlaintextParentPassword/properties/secondHash")
+* defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-plaintextparentpassword-properties-secondhash.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/PlaintextParentPassword/properties/secondHash")
 
 ### secondHash Type
 
@@ -64,13 +64,13 @@ https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/PlaintextParent
 
 `secondSalt`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-plaintextparentpassword-properties-secondsalt.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/PlaintextParentPassword/properties/secondSalt")
+* defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-plaintextparentpassword-properties-secondsalt.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/PlaintextParentPassword/properties/secondSalt")
 
 ### secondSalt Type
 

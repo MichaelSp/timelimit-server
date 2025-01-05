@@ -16,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedCreateTimelim
 
 ## type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                     | Explanation |
-| :------------------------ | :---------- |
-| `"CREATE_TIMELIMIT_RULE"` |             |
+```json
+"CREATE_TIMELIMIT_RULE"
+```

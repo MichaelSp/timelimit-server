@@ -8,7 +8,7 @@ https://timelimit.io/LinkParentMailAddressRequest
 
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                                  |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------------- |
-| Can be instantiated | Yes        | Unknown status | No           | Forbidden         | Forbidden             | none                | [LinkParentMailAddressRequest.schema.json](LinkParentMailAddressRequest.schema.json "open original schema") |
+| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [LinkParentMailAddressRequest.schema.json](LinkParentMailAddressRequest.schema.json "open original schema") |
 
 ## LinkParentMailAddressRequest Type
 
@@ -29,13 +29,13 @@ https://timelimit.io/LinkParentMailAddressRequest
 
 `mailAuthToken`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [LinkParentMailAddressRequest](linkparentmailaddressrequest-properties-mailauthtoken.md "https://timelimit.io/LinkParentMailAddressRequest#/properties/mailAuthToken")
+* defined in: [LinkParentMailAddressRequest](linkparentmailaddressrequest-properties-mailauthtoken.md "https://timelimit.io/LinkParentMailAddressRequest#/properties/mailAuthToken")
 
 ### mailAuthToken Type
 
@@ -47,13 +47,13 @@ https://timelimit.io/LinkParentMailAddressRequest
 
 `deviceAuthToken`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [LinkParentMailAddressRequest](linkparentmailaddressrequest-properties-deviceauthtoken.md "https://timelimit.io/LinkParentMailAddressRequest#/properties/deviceAuthToken")
+* defined in: [LinkParentMailAddressRequest](linkparentmailaddressrequest-properties-deviceauthtoken.md "https://timelimit.io/LinkParentMailAddressRequest#/properties/deviceAuthToken")
 
 ### deviceAuthToken Type
 
@@ -65,13 +65,13 @@ https://timelimit.io/LinkParentMailAddressRequest
 
 `parentUserId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [LinkParentMailAddressRequest](linkparentmailaddressrequest-properties-parentuserid.md "https://timelimit.io/LinkParentMailAddressRequest#/properties/parentUserId")
+* defined in: [LinkParentMailAddressRequest](linkparentmailaddressrequest-properties-parentuserid.md "https://timelimit.io/LinkParentMailAddressRequest#/properties/parentUserId")
 
 ### parentUserId Type
 
@@ -83,16 +83,14 @@ https://timelimit.io/LinkParentMailAddressRequest
 
 `parentPasswordSecondHash`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [LinkParentMailAddressRequest](linkparentmailaddressrequest-properties-parentpasswordsecondhash.md "https://timelimit.io/LinkParentMailAddressRequest#/properties/parentPasswordSecondHash")
+* defined in: [LinkParentMailAddressRequest](linkparentmailaddressrequest-properties-parentpasswordsecondhash.md "https://timelimit.io/LinkParentMailAddressRequest#/properties/parentPasswordSecondHash")
 
 ### parentPasswordSecondHash Type
 
 `string`
-
-# LinkParentMailAddressRequest Definitions

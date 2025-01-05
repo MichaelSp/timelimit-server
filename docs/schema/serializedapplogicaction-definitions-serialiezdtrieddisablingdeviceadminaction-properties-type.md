@@ -16,8 +16,8 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerialiezdTriedDisabl
 
 ## type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                            | Explanation |
-| :------------------------------- | :---------- |
-| `"TRIED_DISABLING_DEVICE_ADMIN"` |             |
+```json
+"TRIED_DISABLING_DEVICE_ADMIN"
+```

@@ -16,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedChangeParentP
 
 ## type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                      | Explanation |
-| :------------------------- | :---------- |
-| `"CHANGE_PARENT_PASSWORD"` |             |
+```json
+"CHANGE_PARENT_PASSWORD"
+```

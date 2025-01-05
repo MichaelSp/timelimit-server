@@ -28,13 +28,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData
 
 `deviceId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverextendeddevicedata-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData/properties/deviceId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverextendeddevicedata-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData/properties/deviceId")
 
 ### deviceId Type
 
@@ -46,13 +46,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData
 
 `appsBase`
 
-*   is optional
+* is optional
 
-*   Type: `object` ([ServerCryptContainer](serverdatastatus-definitions-servercryptcontainer.md))
+* Type: `object` ([ServerCryptContainer](serverdatastatus-definitions-servercryptcontainer.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer.md "https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData/properties/appsBase")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer.md "https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData/properties/appsBase")
 
 ### appsBase Type
 
@@ -64,13 +64,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData
 
 `appsDiff`
 
-*   is optional
+* is optional
 
-*   Type: `object` ([ServerCryptContainer](serverdatastatus-definitions-servercryptcontainer.md))
+* Type: `object` ([ServerCryptContainer](serverdatastatus-definitions-servercryptcontainer.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer.md "https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData/properties/appsDiff")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer.md "https://timelimit.io/ServerDataStatus#/definitions/ServerExtendedDeviceData/properties/appsDiff")
 
 ### appsDiff Type
 

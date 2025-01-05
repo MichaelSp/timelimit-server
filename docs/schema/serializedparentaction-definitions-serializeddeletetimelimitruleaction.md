@@ -27,13 +27,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedDeleteTimeLim
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializeddeletetimelimitruleaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedDeleteTimeLimitRuleAction/properties/type")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializeddeletetimelimitruleaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedDeleteTimeLimitRuleAction/properties/type")
 
 ### type Type
 
@@ -41,11 +41,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedDeleteTimeLim
 
 ### type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                     | Explanation |
-| :------------------------ | :---------- |
-| `"DELETE_TIMELIMIT_RULE"` |             |
+```json
+"DELETE_TIMELIMIT_RULE"
+```
 
 ## ruleId
 
@@ -53,13 +53,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedDeleteTimeLim
 
 `ruleId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializeddeletetimelimitruleaction-properties-ruleid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedDeleteTimeLimitRuleAction/properties/ruleId")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializeddeletetimelimitruleaction-properties-ruleid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedDeleteTimeLimitRuleAction/properties/ruleId")
 
 ### ruleId Type
 

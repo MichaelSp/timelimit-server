@@ -45,13 +45,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `categoryId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/categoryId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/categoryId")
 
 ### categoryId Type
 
@@ -63,13 +63,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `childId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-childid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/childId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-childid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/childId")
 
 ### childId Type
 
@@ -81,13 +81,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `title`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-title.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/title")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-title.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/title")
 
 ### title Type
 
@@ -99,13 +99,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `blockedTimes`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-blockedtimes.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/blockedTimes")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-blockedtimes.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/blockedTimes")
 
 ### blockedTimes Type
 
@@ -117,13 +117,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `extraTime`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-extratime.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/extraTime")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-extratime.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/extraTime")
 
 ### extraTime Type
 
@@ -135,13 +135,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `extraTimeDay`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-extratimeday.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/extraTimeDay")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-extratimeday.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/extraTimeDay")
 
 ### extraTimeDay Type
 
@@ -153,13 +153,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `tempBlocked`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-tempblocked.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/tempBlocked")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-tempblocked.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/tempBlocked")
 
 ### tempBlocked Type
 
@@ -171,13 +171,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `tempBlockTime`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-tempblocktime.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/tempBlockTime")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-tempblocktime.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/tempBlockTime")
 
 ### tempBlockTime Type
 
@@ -189,13 +189,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `version`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/version")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/version")
 
 ### version Type
 
@@ -207,13 +207,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `parentCategoryId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-parentcategoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/parentCategoryId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-parentcategoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/parentCategoryId")
 
 ### parentCategoryId Type
 
@@ -225,13 +225,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `blockAllNotifications`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-blockallnotifications.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/blockAllNotifications")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-blockallnotifications.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/blockAllNotifications")
 
 ### blockAllNotifications Type
 
@@ -243,13 +243,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `timeWarnings`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-timewarnings.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/timeWarnings")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-timewarnings.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/timeWarnings")
 
 ### timeWarnings Type
 
@@ -261,13 +261,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `mblCharging`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-mblcharging.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/mblCharging")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-mblcharging.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/mblCharging")
 
 ### mblCharging Type
 
@@ -279,13 +279,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `mblMobile`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-mblmobile.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/mblMobile")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-mblmobile.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/mblMobile")
 
 ### mblMobile Type
 
@@ -297,13 +297,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `sort`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-sort.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/sort")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-sort.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/sort")
 
 ### sort Type
 
@@ -315,13 +315,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `networks`
 
-*   is required
+* is required
 
-*   Type: `object[]` ([ServerCategoryNetworkId](serverdatastatus-definitions-servercategorynetworkid.md))
+* Type: `object[]` ([ServerCategoryNetworkId](serverdatastatus-definitions-servercategorynetworkid.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-networks.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/networks")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-networks.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/networks")
 
 ### networks Type
 
@@ -333,13 +333,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `dlu`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-dlu.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/dlu")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-dlu.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/dlu")
 
 ### dlu Type
 
@@ -351,13 +351,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `flags`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-flags.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/flags")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-flags.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/flags")
 
 ### flags Type
 
@@ -369,13 +369,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `blockNotificationDelay`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-blocknotificationdelay.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/blockNotificationDelay")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-blocknotificationdelay.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/blockNotificationDelay")
 
 ### blockNotificationDelay Type
 
@@ -387,13 +387,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData
 
 `atw`
 
-*   is required
+* is required
 
-*   Type: `number[]`
+* Type: `number[]`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-atw.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/atw")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorybasedata-properties-atw.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryBaseData/properties/atw")
 
 ### atw Type
 

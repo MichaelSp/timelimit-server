@@ -16,8 +16,8 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSignOutAtDe
 
 ## type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                  | Explanation |
-| :--------------------- | :---------- |
-| `"SIGN_OUT_AT_DEVICE"` |             |
+```json
+"SIGN_OUT_AT_DEVICE"
+```

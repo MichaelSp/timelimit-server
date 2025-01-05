@@ -31,13 +31,13 @@ the maximum duration of a session (maxSessionDuration)
 
 `md`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-md.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/md")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-md.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/md")
 
 ### md Type
 
@@ -49,13 +49,13 @@ the pause duration after a session (sessionPauseDuration)
 
 `spd`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-spd.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/spd")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-spd.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/spd")
 
 ### spd Type
 
@@ -68,13 +68,13 @@ which created this session (startMinuteOfDay)
 
 `sm`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-sm.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/sm")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-sm.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/sm")
 
 ### sm Type
 
@@ -87,13 +87,13 @@ which created this session (endMinuteOfDay)
 
 `em`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-em.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/em")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-em.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/em")
 
 ### em Type
 
@@ -105,13 +105,13 @@ the timestamp of the last usage of this session (lastUsage)
 
 `l`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-l.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/l")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-l.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/l")
 
 ### l Type
 
@@ -123,13 +123,13 @@ the duration of the last/ current session (lastSessionDuration)
 
 `d`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-d.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/d")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serversessiondurationitem-properties-d.md "https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem/properties/d")
 
 ### d Type
 

@@ -27,13 +27,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceList
 
 `version`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicelist-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceList/properties/version")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicelist-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceList/properties/version")
 
 ### version Type
 
@@ -45,13 +45,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceList
 
 `data`
 
-*   is required
+* is required
 
-*   Type: `object[]` ([ServerDeviceData](serverdatastatus-definitions-serverdevicedata.md))
+* Type: `object[]` ([ServerDeviceData](serverdatastatus-definitions-serverdevicedata.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicelist-properties-data.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceList/properties/data")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicelist-properties-data.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceList/properties/data")
 
 ### data Type
 

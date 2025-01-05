@@ -29,13 +29,13 @@ https://timelimit.io/SignIntoFamilyRequest
 
 `mailAuthToken`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SignIntoFamilyRequest](signintofamilyrequest-properties-mailauthtoken.md "https://timelimit.io/SignIntoFamilyRequest#/properties/mailAuthToken")
+* defined in: [SignIntoFamilyRequest](signintofamilyrequest-properties-mailauthtoken.md "https://timelimit.io/SignIntoFamilyRequest#/properties/mailAuthToken")
 
 ### mailAuthToken Type
 
@@ -47,13 +47,13 @@ https://timelimit.io/SignIntoFamilyRequest
 
 `parentDevice`
 
-*   is required
+* is required
 
-*   Type: `object` ([NewDeviceInfo](signintofamilyrequest-definitions-newdeviceinfo.md))
+* Type: `object` ([NewDeviceInfo](signintofamilyrequest-definitions-newdeviceinfo.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SignIntoFamilyRequest](signintofamilyrequest-definitions-newdeviceinfo.md "https://timelimit.io/SignIntoFamilyRequest#/properties/parentDevice")
+* defined in: [SignIntoFamilyRequest](signintofamilyrequest-definitions-newdeviceinfo.md "https://timelimit.io/SignIntoFamilyRequest#/properties/parentDevice")
 
 ### parentDevice Type
 
@@ -65,13 +65,13 @@ https://timelimit.io/SignIntoFamilyRequest
 
 `deviceName`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SignIntoFamilyRequest](signintofamilyrequest-properties-devicename.md "https://timelimit.io/SignIntoFamilyRequest#/properties/deviceName")
+* defined in: [SignIntoFamilyRequest](signintofamilyrequest-properties-devicename.md "https://timelimit.io/SignIntoFamilyRequest#/properties/deviceName")
 
 ### deviceName Type
 
@@ -83,13 +83,13 @@ https://timelimit.io/SignIntoFamilyRequest
 
 `clientLevel`
 
-*   is optional
+* is optional
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SignIntoFamilyRequest](signintofamilyrequest-properties-clientlevel.md "https://timelimit.io/SignIntoFamilyRequest#/properties/clientLevel")
+* defined in: [SignIntoFamilyRequest](signintofamilyrequest-properties-clientlevel.md "https://timelimit.io/SignIntoFamilyRequest#/properties/clientLevel")
 
 ### clientLevel Type
 
@@ -115,13 +115,13 @@ Reference this group by using
 
 `model`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SignIntoFamilyRequest](signintofamilyrequest-definitions-newdeviceinfo-properties-model.md "https://timelimit.io/SignIntoFamilyRequest#/definitions/NewDeviceInfo/properties/model")
+* defined in: [SignIntoFamilyRequest](signintofamilyrequest-definitions-newdeviceinfo-properties-model.md "https://timelimit.io/SignIntoFamilyRequest#/definitions/NewDeviceInfo/properties/model")
 
 #### model Type
 

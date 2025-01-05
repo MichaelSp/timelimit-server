@@ -27,13 +27,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedDeleteCategor
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializeddeletecategoryaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedDeleteCategoryAction/properties/type")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializeddeletecategoryaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedDeleteCategoryAction/properties/type")
 
 ### type Type
 
@@ -41,11 +41,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedDeleteCategor
 
 ### type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value               | Explanation |
-| :------------------ | :---------- |
-| `"DELETE_CATEGORY"` |             |
+```json
+"DELETE_CATEGORY"
+```
 
 ## categoryId
 
@@ -53,13 +53,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedDeleteCategor
 
 `categoryId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializeddeletecategoryaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedDeleteCategoryAction/properties/categoryId")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializeddeletecategoryaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedDeleteCategoryAction/properties/categoryId")
 
 ### categoryId Type
 

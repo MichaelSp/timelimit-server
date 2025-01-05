@@ -26,13 +26,13 @@ Additional properties are allowed, as long as they follow this schema:
 
 
 
-*   is optional
+* is optional
 
-*   Type: `object` ([CategoryDataStatus](clientpullchangesrequest-definitions-categorydatastatus.md))
+* Type: `object` ([CategoryDataStatus](clientpullchangesrequest-definitions-categorydatastatus.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-categorydatastatus.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/categories/additionalProperties")
+* defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-categorydatastatus.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/categories/additionalProperties")
 
 ### additionalProperties Type
 

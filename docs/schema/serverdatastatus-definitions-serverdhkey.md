@@ -27,13 +27,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDhKey
 
 `v`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdhkey-properties-v.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDhKey/properties/v")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdhkey-properties-v.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDhKey/properties/v")
 
 ### v Type
 
@@ -45,13 +45,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDhKey
 
 `k`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdhkey-properties-k.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDhKey/properties/k")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdhkey-properties-k.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDhKey/properties/k")
 
 ### k Type
 

@@ -28,13 +28,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateDeviceN
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatedevicenameaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateDeviceNameAction/properties/type")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatedevicenameaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateDeviceNameAction/properties/type")
 
 ### type Type
 
@@ -42,11 +42,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateDeviceN
 
 ### type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                  | Explanation |
-| :--------------------- | :---------- |
-| `"UPDATE_DEVICE_NAME"` |             |
+```json
+"UPDATE_DEVICE_NAME"
+```
 
 ## deviceId
 
@@ -54,13 +54,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateDeviceN
 
 `deviceId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatedevicenameaction-properties-deviceid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateDeviceNameAction/properties/deviceId")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatedevicenameaction-properties-deviceid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateDeviceNameAction/properties/deviceId")
 
 ### deviceId Type
 
@@ -72,13 +72,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateDeviceN
 
 `name`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatedevicenameaction-properties-name.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateDeviceNameAction/properties/name")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatedevicenameaction-properties-name.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateDeviceNameAction/properties/name")
 
 ### name Type
 

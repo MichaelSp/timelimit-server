@@ -16,8 +16,8 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUploadDevic
 
 ## type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                        | Explanation |
-| :--------------------------- | :---------- |
-| `"UPLOAD_DEVICE_PUBLIC_KEY"` |             |
+```json
+"UPLOAD_DEVICE_PUBLIC_KEY"
+```
