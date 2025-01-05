@@ -27,13 +27,13 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddInstalle
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddinstalledappsaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddInstalledAppsAction/properties/type")
+* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddinstalledappsaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddInstalledAppsAction/properties/type")
 
 ### type Type
 
@@ -41,11 +41,11 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddInstalle
 
 ### type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                  | Explanation |
-| :--------------------- | :---------- |
-| `"ADD_INSTALLED_APPS"` |             |
+```json
+"ADD_INSTALLED_APPS"
+```
 
 ## apps
 
@@ -53,13 +53,13 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddInstalle
 
 `apps`
 
-*   is required
+* is required
 
-*   Type: `object[]` ([SerializedInstalledApp](serializedapplogicaction-definitions-serializedinstalledapp.md))
+* Type: `object[]` ([SerializedInstalledApp](serializedapplogicaction-definitions-serializedinstalledapp.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddinstalledappsaction-properties-apps.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddInstalledAppsAction/properties/apps")
+* defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedaddinstalledappsaction-properties-apps.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddInstalledAppsAction/properties/apps")
 
 ### apps Type
 

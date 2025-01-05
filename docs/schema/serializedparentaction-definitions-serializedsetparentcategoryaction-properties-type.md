@@ -16,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetParentCate
 
 ## type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                   | Explanation |
-| :---------------------- | :---------- |
-| `"SET_PARENT_CATEGORY"` |             |
+```json
+"SET_PARENT_CATEGORY"
+```

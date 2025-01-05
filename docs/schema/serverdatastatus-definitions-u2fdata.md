@@ -27,13 +27,13 @@ https://timelimit.io/ServerDataStatus#/definitions/U2fData
 
 `v`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-u2fdata-properties-v.md "https://timelimit.io/ServerDataStatus#/definitions/U2fData/properties/v")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-u2fdata-properties-v.md "https://timelimit.io/ServerDataStatus#/definitions/U2fData/properties/v")
 
 ### v Type
 
@@ -45,13 +45,13 @@ https://timelimit.io/ServerDataStatus#/definitions/U2fData
 
 `d`
 
-*   is required
+* is required
 
-*   Type: `object[]` ([U2fItem](serverdatastatus-definitions-u2fitem.md))
+* Type: `object[]` ([U2fItem](serverdatastatus-definitions-u2fitem.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-u2fdata-properties-d.md "https://timelimit.io/ServerDataStatus#/definitions/U2fData/properties/d")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-u2fdata-properties-d.md "https://timelimit.io/ServerDataStatus#/definitions/U2fData/properties/d")
 
 ### d Type
 

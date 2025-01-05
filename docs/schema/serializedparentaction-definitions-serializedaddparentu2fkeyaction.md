@@ -28,13 +28,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedAddParentU2fK
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedaddparentu2fkeyaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedAddParentU2fKeyAction/properties/type")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedaddparentu2fkeyaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedAddParentU2fKeyAction/properties/type")
 
 ### type Type
 
@@ -42,11 +42,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedAddParentU2fK
 
 ### type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value              | Explanation |
-| :----------------- | :---------- |
-| `"ADD_PARENT_U2F"` |             |
+```json
+"ADD_PARENT_U2F"
+```
 
 ## keyHandle
 
@@ -54,13 +54,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedAddParentU2fK
 
 `keyHandle`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedaddparentu2fkeyaction-properties-keyhandle.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedAddParentU2fKeyAction/properties/keyHandle")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedaddparentu2fkeyaction-properties-keyhandle.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedAddParentU2fKeyAction/properties/keyHandle")
 
 ### keyHandle Type
 
@@ -72,13 +72,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedAddParentU2fK
 
 `publicKey`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedaddparentu2fkeyaction-properties-publickey.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedAddParentU2fKeyAction/properties/publicKey")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedaddparentu2fkeyaction-properties-publickey.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedAddParentU2fKeyAction/properties/publicKey")
 
 ### publicKey Type
 

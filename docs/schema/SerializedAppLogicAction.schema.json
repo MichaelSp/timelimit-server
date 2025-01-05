@@ -52,9 +52,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "ADD_INSTALLED_APPS"
-          ]
+          "const": "ADD_INSTALLED_APPS"
         },
         "apps": {
           "type": "array",
@@ -109,9 +107,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "ADD_USED_TIME"
-          ]
+          "const": "ADD_USED_TIME"
         },
         "categoryId": {
           "type": "string"
@@ -141,9 +137,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "ADD_USED_TIME_V2"
-          ]
+          "const": "ADD_USED_TIME_V2"
         },
         "d": {
           "type": "number"
@@ -226,9 +220,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "FINISH_KEY_REQUEST"
-          ]
+          "const": "FINISH_KEY_REQUEST"
         },
         "dsn": {
           "type": "number"
@@ -246,9 +238,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "FORCE_SYNC"
-          ]
+          "const": "FORCE_SYNC"
         }
       },
       "additionalProperties": false,
@@ -262,9 +252,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "MARK_TASK_PENDING"
-          ]
+          "const": "MARK_TASK_PENDING"
         },
         "taskId": {
           "type": "string"
@@ -282,9 +270,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "REMOVE_INSTALLED_APPS"
-          ]
+          "const": "REMOVE_INSTALLED_APPS"
         },
         "packageNames": {
           "type": "array",
@@ -305,9 +291,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "REPLY_TO_KEY_REQUEST"
-          ]
+          "const": "REPLY_TO_KEY_REQUEST"
         },
         "rsn": {
           "type": "number"
@@ -337,9 +321,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "SEND_KEY_REQUEST"
-          ]
+          "const": "SEND_KEY_REQUEST"
         },
         "dsn": {
           "type": "number"
@@ -375,9 +357,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "SIGN_OUT_AT_DEVICE"
-          ]
+          "const": "SIGN_OUT_AT_DEVICE"
         }
       },
       "additionalProperties": false,
@@ -391,9 +371,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "TRIED_DISABLING_DEVICE_ADMIN"
-          ]
+          "const": "TRIED_DISABLING_DEVICE_ADMIN"
         }
       },
       "additionalProperties": false,
@@ -407,9 +385,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_APP_ACTIVITIES"
-          ]
+          "const": "UPDATE_APP_ACTIVITIES"
         },
         "removed": {
           "type": "array",
@@ -468,9 +444,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_DEVICE_STATUS"
-          ]
+          "const": "UPDATE_DEVICE_STATUS"
         },
         "protectionLevel": {
           "enum": [
@@ -538,9 +512,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_INSTALLED_APPS"
-          ]
+          "const": "UPDATE_INSTALLED_APPS"
         },
         "b": {
           "type": "string"
@@ -564,9 +536,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPLOAD_DEVICE_PUBLIC_KEY"
-          ]
+          "const": "UPLOAD_DEVICE_PUBLIC_KEY"
         },
         "key": {
           "type": "string"

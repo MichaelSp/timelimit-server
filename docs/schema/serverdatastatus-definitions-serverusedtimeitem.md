@@ -29,13 +29,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem
 
 `day`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverusedtimeitem-properties-day.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem/properties/day")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverusedtimeitem-properties-day.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem/properties/day")
 
 ### day Type
 
@@ -47,13 +47,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem
 
 `time`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverusedtimeitem-properties-time.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem/properties/time")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverusedtimeitem-properties-time.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem/properties/time")
 
 ### time Type
 
@@ -65,13 +65,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem
 
 `start`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverusedtimeitem-properties-start.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem/properties/start")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverusedtimeitem-properties-start.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem/properties/start")
 
 ### start Type
 
@@ -83,13 +83,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem
 
 `end`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverusedtimeitem-properties-end.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem/properties/end")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverusedtimeitem-properties-end.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUsedTimeItem/properties/end")
 
 ### end Type
 

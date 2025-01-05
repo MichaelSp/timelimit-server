@@ -59,13 +59,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `deviceId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/deviceId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/deviceId")
 
 ### deviceId Type
 
@@ -77,13 +77,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `name`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-name.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/name")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-name.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/name")
 
 ### name Type
 
@@ -95,13 +95,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `model`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-model.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/model")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-model.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/model")
 
 ### model Type
 
@@ -113,13 +113,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `addedAt`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-addedat.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/addedAt")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-addedat.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/addedAt")
 
 ### addedAt Type
 
@@ -131,13 +131,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `currentUserId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-currentuserid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/currentUserId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-currentuserid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/currentUserId")
 
 ### currentUserId Type
 
@@ -149,13 +149,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `networkTime`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-networktime.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/networkTime")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-networktime.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/networkTime")
 
 ### networkTime Type
 
@@ -177,13 +177,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `cProtectionLevel`
 
-*   is required
+* is required
 
-*   Type: `string` ([ProtectionLevel](serverdatastatus-definitions-serverdevicedata-properties-protectionlevel.md))
+* Type: `string` ([ProtectionLevel](serverdatastatus-definitions-serverdevicedata-properties-protectionlevel.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-protectionlevel.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cProtectionLevel")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-protectionlevel.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cProtectionLevel")
 
 ### cProtectionLevel Type
 
@@ -206,13 +206,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `hProtectionLevel`
 
-*   is required
+* is required
 
-*   Type: `string` ([ProtectionLevel](serverdatastatus-definitions-serverdevicedata-properties-protectionlevel-1.md))
+* Type: `string` ([ProtectionLevel](serverdatastatus-definitions-serverdevicedata-properties-protectionlevel-1.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-protectionlevel-1.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hProtectionLevel")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-protectionlevel-1.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hProtectionLevel")
 
 ### hProtectionLevel Type
 
@@ -235,13 +235,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `cUsageStats`
 
-*   is required
+* is required
 
-*   Type: `string` ([RuntimePermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus.md))
+* Type: `string` ([RuntimePermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cUsageStats")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cUsageStats")
 
 ### cUsageStats Type
 
@@ -263,13 +263,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `hUsageStats`
 
-*   is required
+* is required
 
-*   Type: `string` ([RuntimePermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-1.md))
+* Type: `string` ([RuntimePermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-1.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-1.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hUsageStats")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-1.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hUsageStats")
 
 ### hUsageStats Type
 
@@ -291,13 +291,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `cNotificationAccess`
 
-*   is required
+* is required
 
-*   Type: `string` ([NewPermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-newpermissionstatus.md))
+* Type: `string` ([NewPermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-newpermissionstatus.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-newpermissionstatus.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cNotificationAccess")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-newpermissionstatus.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cNotificationAccess")
 
 ### cNotificationAccess Type
 
@@ -319,13 +319,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `hNotificationAccess`
 
-*   is required
+* is required
 
-*   Type: `string` ([NewPermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-newpermissionstatus-1.md))
+* Type: `string` ([NewPermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-newpermissionstatus-1.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-newpermissionstatus-1.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hNotificationAccess")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-newpermissionstatus-1.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hNotificationAccess")
 
 ### hNotificationAccess Type
 
@@ -347,13 +347,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `cAppVersion`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-cappversion.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cAppVersion")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-cappversion.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cAppVersion")
 
 ### cAppVersion Type
 
@@ -365,13 +365,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `hAppVersion`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-happversion.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hAppVersion")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-happversion.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hAppVersion")
 
 ### hAppVersion Type
 
@@ -383,13 +383,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `tDisablingAdmin`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-tdisablingadmin.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/tDisablingAdmin")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-tdisablingadmin.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/tDisablingAdmin")
 
 ### tDisablingAdmin Type
 
@@ -401,13 +401,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `reboot`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-reboot.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/reboot")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-reboot.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/reboot")
 
 ### reboot Type
 
@@ -419,13 +419,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `hadManipulation`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-hadmanipulation.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hadManipulation")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-hadmanipulation.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hadManipulation")
 
 ### hadManipulation Type
 
@@ -437,13 +437,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `hadManipulationFlags`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-hadmanipulationflags.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hadManipulationFlags")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-hadmanipulationflags.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hadManipulationFlags")
 
 ### hadManipulationFlags Type
 
@@ -455,13 +455,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `reportUninstall`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-reportuninstall.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/reportUninstall")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-reportuninstall.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/reportUninstall")
 
 ### reportUninstall Type
 
@@ -473,13 +473,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `isUserKeptSignedIn`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-isuserkeptsignedin.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/isUserKeptSignedIn")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-isuserkeptsignedin.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/isUserKeptSignedIn")
 
 ### isUserKeptSignedIn Type
 
@@ -491,13 +491,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `showDeviceConnected`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-showdeviceconnected.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/showDeviceConnected")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-showdeviceconnected.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/showDeviceConnected")
 
 ### showDeviceConnected Type
 
@@ -509,13 +509,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `defUser`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-defuser.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/defUser")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-defuser.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/defUser")
 
 ### defUser Type
 
@@ -527,13 +527,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `defUserTimeout`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-defusertimeout.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/defUserTimeout")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-defusertimeout.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/defUserTimeout")
 
 ### defUserTimeout Type
 
@@ -545,13 +545,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `rebootIsManipulation`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-rebootismanipulation.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/rebootIsManipulation")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-rebootismanipulation.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/rebootIsManipulation")
 
 ### rebootIsManipulation Type
 
@@ -563,13 +563,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `cOverlay`
 
-*   is required
+* is required
 
-*   Type: `string` ([RuntimePermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-2.md))
+* Type: `string` ([RuntimePermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-2.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-2.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cOverlay")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-2.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/cOverlay")
 
 ### cOverlay Type
 
@@ -591,13 +591,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `hOverlay`
 
-*   is required
+* is required
 
-*   Type: `string` ([RuntimePermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-3.md))
+* Type: `string` ([RuntimePermissionStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-3.md))
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-3.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hOverlay")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-runtimepermissionstatus-3.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/hOverlay")
 
 ### hOverlay Type
 
@@ -619,13 +619,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `asEnabled`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-asenabled.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/asEnabled")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-asenabled.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/asEnabled")
 
 ### asEnabled Type
 
@@ -637,13 +637,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `wasAsEnabled`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-wasasenabled.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/wasAsEnabled")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-wasasenabled.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/wasAsEnabled")
 
 ### wasAsEnabled Type
 
@@ -655,13 +655,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `activityLevelBlocking`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-activitylevelblocking.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/activityLevelBlocking")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-activitylevelblocking.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/activityLevelBlocking")
 
 ### activityLevelBlocking Type
 
@@ -673,13 +673,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `qOrLater`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-qorlater.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/qOrLater")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-qorlater.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/qOrLater")
 
 ### qOrLater Type
 
@@ -691,13 +691,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `mFlags`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-mflags.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/mFlags")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-mflags.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/mFlags")
 
 ### mFlags Type
 
@@ -709,13 +709,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `pk`
 
-*   is optional
+* is optional
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-pk.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/pk")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-pk.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/pk")
 
 ### pk Type
 
@@ -727,13 +727,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `pType`
 
-*   is optional
+* is optional
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-ptype.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/pType")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-ptype.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/pType")
 
 ### pType Type
 
@@ -745,13 +745,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData
 
 `pLevel`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-plevel.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/pLevel")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverdevicedata-properties-plevel.md "https://timelimit.io/ServerDataStatus#/definitions/ServerDeviceData/properties/pLevel")
 
 ### pLevel Type
 

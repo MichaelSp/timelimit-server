@@ -8,7 +8,7 @@ https://timelimit.io/RemoveDeviceRequest
 
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------- |
-| Can be instantiated | Yes        | Unknown status | No           | Forbidden         | Forbidden             | none                | [RemoveDeviceRequest.schema.json](RemoveDeviceRequest.schema.json "open original schema") |
+| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [RemoveDeviceRequest.schema.json](RemoveDeviceRequest.schema.json "open original schema") |
 
 ## RemoveDeviceRequest Type
 
@@ -29,13 +29,13 @@ https://timelimit.io/RemoveDeviceRequest
 
 `deviceAuthToken`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [RemoveDeviceRequest](removedevicerequest-properties-deviceauthtoken.md "https://timelimit.io/RemoveDeviceRequest#/properties/deviceAuthToken")
+* defined in: [RemoveDeviceRequest](removedevicerequest-properties-deviceauthtoken.md "https://timelimit.io/RemoveDeviceRequest#/properties/deviceAuthToken")
 
 ### deviceAuthToken Type
 
@@ -47,13 +47,13 @@ https://timelimit.io/RemoveDeviceRequest
 
 `parentUserId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [RemoveDeviceRequest](removedevicerequest-properties-parentuserid.md "https://timelimit.io/RemoveDeviceRequest#/properties/parentUserId")
+* defined in: [RemoveDeviceRequest](removedevicerequest-properties-parentuserid.md "https://timelimit.io/RemoveDeviceRequest#/properties/parentUserId")
 
 ### parentUserId Type
 
@@ -65,13 +65,13 @@ https://timelimit.io/RemoveDeviceRequest
 
 `parentPasswordSecondHash`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [RemoveDeviceRequest](removedevicerequest-properties-parentpasswordsecondhash.md "https://timelimit.io/RemoveDeviceRequest#/properties/parentPasswordSecondHash")
+* defined in: [RemoveDeviceRequest](removedevicerequest-properties-parentpasswordsecondhash.md "https://timelimit.io/RemoveDeviceRequest#/properties/parentPasswordSecondHash")
 
 ### parentPasswordSecondHash Type
 
@@ -83,16 +83,14 @@ https://timelimit.io/RemoveDeviceRequest
 
 `deviceId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [RemoveDeviceRequest](removedevicerequest-properties-deviceid.md "https://timelimit.io/RemoveDeviceRequest#/properties/deviceId")
+* defined in: [RemoveDeviceRequest](removedevicerequest-properties-deviceid.md "https://timelimit.io/RemoveDeviceRequest#/properties/deviceId")
 
 ### deviceId Type
 
 `string`
-
-# RemoveDeviceRequest Definitions

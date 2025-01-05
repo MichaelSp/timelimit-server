@@ -16,8 +16,8 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequ
 
 ## type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                | Explanation |
-| :------------------- | :---------- |
-| `"SEND_KEY_REQUEST"` |             |
+```json
+"SEND_KEY_REQUEST"
+```

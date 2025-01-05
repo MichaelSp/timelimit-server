@@ -28,13 +28,13 @@ https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPa
 
 `hash`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword-properties-hash.md "https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword/properties/hash")
+* defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword-properties-hash.md "https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword/properties/hash")
 
 ### hash Type
 
@@ -46,13 +46,13 @@ https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPa
 
 `secondHash`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword-properties-secondhash.md "https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword/properties/secondHash")
+* defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword-properties-secondhash.md "https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword/properties/secondHash")
 
 ### secondHash Type
 
@@ -64,13 +64,13 @@ https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPa
 
 `secondSalt`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword-properties-secondsalt.md "https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword/properties/secondSalt")
+* defined in: [RecoverParentPasswordRequest](recoverparentpasswordrequest-definitions-plaintextparentpassword-properties-secondsalt.md "https://timelimit.io/RecoverParentPasswordRequest#/definitions/PlaintextParentPassword/properties/secondSalt")
 
 ### secondSalt Type
 

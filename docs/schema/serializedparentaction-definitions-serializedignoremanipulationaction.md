@@ -38,13 +38,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipul
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/type")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/type")
 
 ### type Type
 
@@ -52,11 +52,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipul
 
 ### type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                   | Explanation |
-| :---------------------- | :---------- |
-| `"IGNORE_MANIPULATION"` |             |
+```json
+"IGNORE_MANIPULATION"
+```
 
 ## deviceId
 
@@ -64,13 +64,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipul
 
 `deviceId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-deviceid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/deviceId")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-deviceid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/deviceId")
 
 ### deviceId Type
 
@@ -82,13 +82,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipul
 
 `admin`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-admin.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/admin")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-admin.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/admin")
 
 ### admin Type
 
@@ -100,13 +100,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipul
 
 `adminA`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-admina.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/adminA")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-admina.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/adminA")
 
 ### adminA Type
 
@@ -118,13 +118,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipul
 
 `downgrade`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-downgrade.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/downgrade")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-downgrade.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/downgrade")
 
 ### downgrade Type
 
@@ -136,13 +136,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipul
 
 `notification`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-notification.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/notification")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-notification.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/notification")
 
 ### notification Type
 
@@ -154,13 +154,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipul
 
 `usageStats`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-usagestats.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/usageStats")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-usagestats.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/usageStats")
 
 ### usageStats Type
 
@@ -172,13 +172,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipul
 
 `hadManipulation`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-hadmanipulation.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/hadManipulation")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-hadmanipulation.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/hadManipulation")
 
 ### hadManipulation Type
 
@@ -190,13 +190,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipul
 
 `reboot`
 
-*   is optional
+* is optional
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-reboot.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/reboot")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-reboot.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/reboot")
 
 ### reboot Type
 
@@ -208,13 +208,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipul
 
 `overlay`
 
-*   is optional
+* is optional
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-overlay.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/overlay")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-overlay.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/overlay")
 
 ### overlay Type
 
@@ -226,13 +226,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipul
 
 `accessibilityService`
 
-*   is optional
+* is optional
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-accessibilityservice.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/accessibilityService")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-accessibilityservice.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/accessibilityService")
 
 ### accessibilityService Type
 
@@ -244,13 +244,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipul
 
 `ignoreHadManipulationFlags`
 
-*   is optional
+* is optional
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-ignorehadmanipulationflags.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/ignoreHadManipulationFlags")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-ignorehadmanipulationflags.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/ignoreHadManipulationFlags")
 
 ### ignoreHadManipulationFlags Type
 
@@ -262,13 +262,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipul
 
 `ignoreManipulationFlags`
 
-*   is optional
+* is optional
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-ignoremanipulationflags.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/ignoreManipulationFlags")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedignoremanipulationaction-properties-ignoremanipulationflags.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipulationAction/properties/ignoreManipulationFlags")
 
 ### ignoreManipulationFlags Type
 

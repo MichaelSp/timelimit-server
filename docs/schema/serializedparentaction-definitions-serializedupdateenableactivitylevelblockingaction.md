@@ -28,13 +28,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateEnableA
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateenableactivitylevelblockingaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateEnableActivityLevelBlockingAction/properties/type")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateenableactivitylevelblockingaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateEnableActivityLevelBlockingAction/properties/type")
 
 ### type Type
 
@@ -42,11 +42,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateEnableA
 
 ### type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                                     | Explanation |
-| :---------------------------------------- | :---------- |
-| `"UPDATE_ENABLE_ACTIVITY_LEVEL_BLOCKING"` |             |
+```json
+"UPDATE_ENABLE_ACTIVITY_LEVEL_BLOCKING"
+```
 
 ## deviceId
 
@@ -54,13 +54,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateEnableA
 
 `deviceId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateenableactivitylevelblockingaction-properties-deviceid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateEnableActivityLevelBlockingAction/properties/deviceId")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateenableactivitylevelblockingaction-properties-deviceid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateEnableActivityLevelBlockingAction/properties/deviceId")
 
 ### deviceId Type
 
@@ -72,13 +72,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateEnableA
 
 `enable`
 
-*   is required
+* is required
 
-*   Type: `boolean`
+* Type: `boolean`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateenableactivitylevelblockingaction-properties-enable.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateEnableActivityLevelBlockingAction/properties/enable")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdateenableactivitylevelblockingaction-properties-enable.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateEnableActivityLevelBlockingAction/properties/enable")
 
 ### enable Type
 

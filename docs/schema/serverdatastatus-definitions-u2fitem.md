@@ -29,13 +29,13 @@ https://timelimit.io/ServerDataStatus#/definitions/U2fItem
 
 `u`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-u2fitem-properties-u.md "https://timelimit.io/ServerDataStatus#/definitions/U2fItem/properties/u")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-u2fitem-properties-u.md "https://timelimit.io/ServerDataStatus#/definitions/U2fItem/properties/u")
 
 ### u Type
 
@@ -47,13 +47,13 @@ https://timelimit.io/ServerDataStatus#/definitions/U2fItem
 
 `a`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-u2fitem-properties-a.md "https://timelimit.io/ServerDataStatus#/definitions/U2fItem/properties/a")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-u2fitem-properties-a.md "https://timelimit.io/ServerDataStatus#/definitions/U2fItem/properties/a")
 
 ### a Type
 
@@ -65,13 +65,13 @@ https://timelimit.io/ServerDataStatus#/definitions/U2fItem
 
 `h`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-u2fitem-properties-h.md "https://timelimit.io/ServerDataStatus#/definitions/U2fItem/properties/h")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-u2fitem-properties-h.md "https://timelimit.io/ServerDataStatus#/definitions/U2fItem/properties/h")
 
 ### h Type
 
@@ -83,13 +83,13 @@ https://timelimit.io/ServerDataStatus#/definitions/U2fItem
 
 `p`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-u2fitem-properties-p.md "https://timelimit.io/ServerDataStatus#/definitions/U2fItem/properties/p")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-u2fitem-properties-p.md "https://timelimit.io/ServerDataStatus#/definitions/U2fItem/properties/p")
 
 ### p Type
 

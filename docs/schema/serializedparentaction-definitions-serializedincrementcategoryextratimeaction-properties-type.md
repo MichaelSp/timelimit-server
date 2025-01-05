@@ -16,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIncrementCate
 
 ## type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                            | Explanation |
-| :------------------------------- | :---------- |
-| `"INCREMENT_CATEGORY_EXTRATIME"` |             |
+```json
+"INCREMENT_CATEGORY_EXTRATIME"
+```

@@ -28,13 +28,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveUserAct
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedremoveuseraction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveUserAction/properties/type")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedremoveuseraction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveUserAction/properties/type")
 
 ### type Type
 
@@ -42,11 +42,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveUserAct
 
 ### type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value           | Explanation |
-| :-------------- | :---------- |
-| `"REMOVE_USER"` |             |
+```json
+"REMOVE_USER"
+```
 
 ## userId
 
@@ -54,13 +54,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveUserAct
 
 `userId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedremoveuseraction-properties-userid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveUserAction/properties/userId")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedremoveuseraction-properties-userid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveUserAction/properties/userId")
 
 ### userId Type
 
@@ -72,13 +72,13 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveUserAct
 
 `authentication`
 
-*   is optional
+* is optional
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedremoveuseraction-properties-authentication.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveUserAction/properties/authentication")
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedremoveuseraction-properties-authentication.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveUserAction/properties/authentication")
 
 ### authentication Type
 

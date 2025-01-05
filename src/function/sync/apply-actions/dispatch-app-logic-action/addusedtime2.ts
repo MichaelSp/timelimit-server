@@ -89,7 +89,6 @@ export async function dispatchAddUsedTimeVersion2 ({ deviceId, action, cache, ev
       addUsedTimeForADifferentUserThanTheCurrentUserOfTheDevice = true
     }
 
-    // eslint-disable-next-line no-inner-declarations
     async function handle (start: number, end: number) {
       const lengthInMinutes = (end - start) + 1
       const lengthInMs = lengthInMinutes * 1000 * 60

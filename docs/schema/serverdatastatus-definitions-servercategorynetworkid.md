@@ -27,13 +27,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerCategoryNetworkId
 
 `itemId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servercategorynetworkid-properties-itemid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCategoryNetworkId/properties/itemId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servercategorynetworkid-properties-itemid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCategoryNetworkId/properties/itemId")
 
 ### itemId Type
 
@@ -45,13 +45,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerCategoryNetworkId
 
 `hashedNetworkId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-servercategorynetworkid-properties-hashednetworkid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCategoryNetworkId/properties/hashedNetworkId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-servercategorynetworkid-properties-hashednetworkid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCategoryNetworkId/properties/hashedNetworkId")
 
 ### hashedNetworkId Type
 

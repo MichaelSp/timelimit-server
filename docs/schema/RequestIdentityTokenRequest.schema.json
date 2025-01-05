@@ -12,9 +12,7 @@
     },
     "purpose": {
       "type": "string",
-      "enum": [
-        "purchase"
-      ]
+      "const": "purchase"
     }
   },
   "additionalProperties": false,
@@ -24,7 +22,6 @@
     "parentUserId",
     "purpose"
   ],
-  "definitions": {},
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "RequestIdentityTokenRequest",
   "$id": "https://timelimit.io/RequestIdentityTokenRequest"

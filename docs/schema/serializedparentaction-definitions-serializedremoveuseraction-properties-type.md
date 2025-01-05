@@ -16,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveUserAct
 
 ## type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value           | Explanation |
-| :-------------- | :---------- |
-| `"REMOVE_USER"` |             |
+```json
+"REMOVE_USER"
+```

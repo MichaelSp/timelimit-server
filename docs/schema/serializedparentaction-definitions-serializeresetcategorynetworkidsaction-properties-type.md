@@ -16,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializeResetCategoryN
 
 ## type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                          | Explanation |
-| :----------------------------- | :---------- |
-| `"RESET_CATEGORY_NETWORK_IDS"` |             |
+```json
+"RESET_CATEGORY_NETWORK_IDS"
+```

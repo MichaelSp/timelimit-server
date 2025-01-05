@@ -16,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetRelaxPrima
 
 ## type Constraints
 
-**enum**: the value of this property must be equal to one of the following values:
+**constant**: the value of this property must be equal to:
 
-| Value                        | Explanation |
-| :--------------------------- | :---------- |
-| `"SET_RELAX_PRIMARY_DEVICE"` |             |
+```json
+"SET_RELAX_PRIMARY_DEVICE"
+```

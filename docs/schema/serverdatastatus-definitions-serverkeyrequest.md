@@ -33,13 +33,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest
 
 `srvSeq`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-srvseq.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/srvSeq")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-srvseq.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/srvSeq")
 
 ### srvSeq Type
 
@@ -51,13 +51,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest
 
 `senId`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-senid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/senId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-senid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/senId")
 
 ### senId Type
 
@@ -69,13 +69,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest
 
 `senSeq`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-senseq.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/senSeq")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-senseq.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/senSeq")
 
 ### senSeq Type
 
@@ -87,13 +87,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest
 
 `deviceId`
 
-*   is optional
+* is optional
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/deviceId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/deviceId")
 
 ### deviceId Type
 
@@ -105,13 +105,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest
 
 `categoryId`
 
-*   is optional
+* is optional
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/categoryId")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/categoryId")
 
 ### categoryId Type
 
@@ -123,13 +123,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest
 
 `type`
 
-*   is required
+* is required
 
-*   Type: `number`
+* Type: `number`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-type.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/type")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-type.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/type")
 
 ### type Type
 
@@ -141,13 +141,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest
 
 `tempKey`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-tempkey.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/tempKey")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-tempkey.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/tempKey")
 
 ### tempKey Type
 
@@ -159,13 +159,13 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest
 
 `signature`
 
-*   is required
+* is required
 
-*   Type: `string`
+* Type: `string`
 
-*   cannot be null
+* cannot be null
 
-*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-signature.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/signature")
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverkeyrequest-properties-signature.md "https://timelimit.io/ServerDataStatus#/definitions/ServerKeyRequest/properties/signature")
 
 ### signature Type
 
