@@ -4,6 +4,8 @@
 https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/categories
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                            |
 | :------------------ | :--------- | :------------- | :---------------------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [ClientPullChangesRequest.schema.json\*](ClientPullChangesRequest.schema.json "open original schema") |
@@ -22,13 +24,15 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/prop
 
 Additional properties are allowed, as long as they follow this schema:
 
-- is optional
 
-- Type: `object` ([CategoryDataStatus](clientpullchangesrequest-definitions-categorydatastatus.md))
 
-- cannot be null
+*   is optional
 
-- defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-categorydatastatus.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/categories/additionalProperties")
+*   Type: `object` ([CategoryDataStatus](clientpullchangesrequest-definitions-categorydatastatus.md))
+
+*   cannot be null
+
+*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-categorydatastatus.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/categories/additionalProperties")
 
 ### additionalProperties Type
 

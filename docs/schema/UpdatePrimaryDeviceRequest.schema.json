@@ -2,7 +2,10 @@
   "type": "object",
   "properties": {
     "action": {
-      "enum": ["set this device", "unset this device"],
+      "enum": [
+        "set this device",
+        "unset this device"
+      ],
       "type": "string"
     },
     "currentUserId": {
@@ -13,7 +16,12 @@
     }
   },
   "additionalProperties": false,
-  "required": ["action", "authToken", "currentUserId"],
+  "required": [
+    "action",
+    "authToken",
+    "currentUserId"
+  ],
+  "definitions": {},
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "UpdatePrimaryDeviceRequest",
   "$id": "https://timelimit.io/UpdatePrimaryDeviceRequest"

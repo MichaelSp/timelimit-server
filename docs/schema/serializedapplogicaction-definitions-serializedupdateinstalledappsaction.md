@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateInstalledAppsAction
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedAppLogicAction.schema.json\*](SerializedAppLogicAction.schema.json "open original schema") |
@@ -23,15 +25,17 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateInsta
 
 ## type
 
+
+
 `type`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateinstalledappsaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateInstalledAppsAction/properties/type")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateinstalledappsaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateInstalledAppsAction/properties/type")
 
 ### type Type
 
@@ -39,23 +43,25 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateInsta
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"UPDATE_INSTALLED_APPS"
-```
+| Value                     | Explanation |
+| :------------------------ | :---------- |
+| `"UPDATE_INSTALLED_APPS"` |             |
 
 ## b
 
+
+
 `b`
 
-- is optional
+*   is optional
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateinstalledappsaction-properties-b.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateInstalledAppsAction/properties/b")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateinstalledappsaction-properties-b.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateInstalledAppsAction/properties/b")
 
 ### b Type
 
@@ -63,15 +69,17 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateInsta
 
 ## d
 
+
+
 `d`
 
-- is optional
+*   is optional
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateinstalledappsaction-properties-d.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateInstalledAppsAction/properties/d")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateinstalledappsaction-properties-d.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateInstalledAppsAction/properties/d")
 
 ### d Type
 
@@ -79,15 +87,17 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateInsta
 
 ## w
 
+
+
 `w`
 
-- is required
+*   is required
 
-- Type: `boolean`
+*   Type: `boolean`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateinstalledappsaction-properties-w.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateInstalledAppsAction/properties/w")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateinstalledappsaction-properties-w.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateInstalledAppsAction/properties/w")
 
 ### w Type
 

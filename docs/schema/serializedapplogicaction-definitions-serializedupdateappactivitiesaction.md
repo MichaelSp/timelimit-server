@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateAppActivitiesAction
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedAppLogicAction.schema.json\*](SerializedAppLogicAction.schema.json "open original schema") |
@@ -22,15 +24,17 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateAppAc
 
 ## type
 
+
+
 `type`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateappactivitiesaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateAppActivitiesAction/properties/type")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateappactivitiesaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateAppActivitiesAction/properties/type")
 
 ### type Type
 
@@ -38,47 +42,51 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateAppAc
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"UPDATE_APP_ACTIVITIES"
-```
+| Value                     | Explanation |
+| :------------------------ | :---------- |
+| `"UPDATE_APP_ACTIVITIES"` |             |
 
 ## removed
 
+
+
 `removed`
 
-- is required
+*   is required
 
-- Type: an array where each item follows the corresponding schema in the following list:
+*   Type: an array where each item follows the corresponding schema in the following list:
 
-  1. [Untitled string in SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateappactivitiesaction-properties-removed-items-items-0.md "check type definition")
+    1.  [Untitled string in SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateappactivitiesaction-properties-removed-items-items-0.md "check type definition")
 
-  2. [Untitled string in SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateappactivitiesaction-properties-removed-items-items-1.md "check type definition")
+    2.  [Untitled string in SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateappactivitiesaction-properties-removed-items-items-1.md "check type definition")
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateappactivitiesaction-properties-removed.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateAppActivitiesAction/properties/removed")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateappactivitiesaction-properties-removed.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateAppActivitiesAction/properties/removed")
 
 ### removed Type
 
 an array where each item follows the corresponding schema in the following list:
 
-1. [Untitled string in SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateappactivitiesaction-properties-removed-items-items-0.md "check type definition")
+1.  [Untitled string in SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateappactivitiesaction-properties-removed-items-items-0.md "check type definition")
 
-2. [Untitled string in SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateappactivitiesaction-properties-removed-items-items-1.md "check type definition")
+2.  [Untitled string in SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateappactivitiesaction-properties-removed-items-items-1.md "check type definition")
 
 ## updatedOrAdded
 
+
+
 `updatedOrAdded`
 
-- is required
+*   is required
 
-- Type: `object[]` ([SerializedAppActivityItem](serializedapplogicaction-definitions-serializedappactivityitem.md))
+*   Type: `object[]` ([SerializedAppActivityItem](serializedapplogicaction-definitions-serializedappactivityitem.md))
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateappactivitiesaction-properties-updatedoradded.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateAppActivitiesAction/properties/updatedOrAdded")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedupdateappactivitiesaction-properties-updatedoradded.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateAppActivitiesAction/properties/updatedOrAdded")
 
 ### updatedOrAdded Type
 

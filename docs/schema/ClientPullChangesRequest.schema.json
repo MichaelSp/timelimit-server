@@ -9,7 +9,10 @@
     }
   },
   "additionalProperties": false,
-  "required": ["deviceAuthToken", "status"],
+  "required": [
+    "deviceAuthToken",
+    "status"
+  ],
   "definitions": {
     "ClientDataStatus": {
       "type": "object",
@@ -55,7 +58,12 @@
         }
       },
       "additionalProperties": false,
-      "required": ["apps", "categories", "devices", "users"],
+      "required": [
+        "apps",
+        "categories",
+        "devices",
+        "users"
+      ],
       "title": "ClientDataStatus"
     },
     "CategoryDataStatus": {
@@ -78,7 +86,12 @@
         }
       },
       "additionalProperties": false,
-      "required": ["apps", "base", "rules", "usedTime"],
+      "required": [
+        "apps",
+        "base",
+        "rules",
+        "usedTime"
+      ],
       "title": "CategoryDataStatus"
     },
     "DeviceDataStatus": {

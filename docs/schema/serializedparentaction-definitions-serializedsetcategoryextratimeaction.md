@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedSetCategoryExtraTimeAction
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -23,15 +25,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetCategoryEx
 
 ## type
 
+
+
 `type`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetcategoryextratimeaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetCategoryExtraTimeAction/properties/type")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetcategoryextratimeaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetCategoryExtraTimeAction/properties/type")
 
 ### type Type
 
@@ -39,23 +43,25 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetCategoryEx
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"SET_CATEGORY_EXTRA_TIME"
-```
+| Value                       | Explanation |
+| :-------------------------- | :---------- |
+| `"SET_CATEGORY_EXTRA_TIME"` |             |
 
 ## categoryId
 
+
+
 `categoryId`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetcategoryextratimeaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetCategoryExtraTimeAction/properties/categoryId")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetcategoryextratimeaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetCategoryExtraTimeAction/properties/categoryId")
 
 ### categoryId Type
 
@@ -63,15 +69,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetCategoryEx
 
 ## newExtraTime
 
+
+
 `newExtraTime`
 
-- is required
+*   is required
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetcategoryextratimeaction-properties-newextratime.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetCategoryExtraTimeAction/properties/newExtraTime")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetcategoryextratimeaction-properties-newextratime.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetCategoryExtraTimeAction/properties/newExtraTime")
 
 ### newExtraTime Type
 
@@ -79,15 +87,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetCategoryEx
 
 ## day
 
+
+
 `day`
 
-- is optional
+*   is optional
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetcategoryextratimeaction-properties-day.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetCategoryExtraTimeAction/properties/day")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetcategoryextratimeaction-properties-day.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetCategoryExtraTimeAction/properties/day")
 
 ### day Type
 

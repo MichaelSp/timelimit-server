@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedAppLogicAction.schema.json\*](SerializedAppLogicAction.schema.json "open original schema") |
@@ -24,15 +26,17 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyR
 
 ## type
 
+
+
 `type`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/type")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/type")
 
 ### type Type
 
@@ -40,23 +44,25 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyR
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"REPLY_TO_KEY_REQUEST"
-```
+| Value                    | Explanation |
+| :----------------------- | :---------- |
+| `"REPLY_TO_KEY_REQUEST"` |             |
 
 ## rsn
 
+
+
 `rsn`
 
-- is required
+*   is required
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-rsn.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/rsn")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-rsn.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/rsn")
 
 ### rsn Type
 
@@ -64,15 +70,17 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyR
 
 ## tempKey
 
+
+
 `tempKey`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-tempkey.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/tempKey")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-tempkey.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/tempKey")
 
 ### tempKey Type
 
@@ -80,15 +88,17 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyR
 
 ## encryptedKey
 
+
+
 `encryptedKey`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-encryptedkey.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/encryptedKey")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-encryptedkey.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/encryptedKey")
 
 ### encryptedKey Type
 
@@ -96,15 +106,17 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyR
 
 ## signature
 
+
+
 `signature`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-signature.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/signature")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedreplytokeyrequestaction-properties-signature.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyRequestAction/properties/signature")
 
 ### signature Type
 

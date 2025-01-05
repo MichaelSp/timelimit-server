@@ -4,6 +4,8 @@
 https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedTimeLimitRules
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [ServerDataStatus.schema.json\*](ServerDataStatus.schema.json "open original schema") |
@@ -22,15 +24,17 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedTimeLimitRules
 
 ## categoryId
 
+
+
 `categoryId`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedtimelimitrules-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedTimeLimitRules/properties/categoryId")
+*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedtimelimitrules-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedTimeLimitRules/properties/categoryId")
 
 ### categoryId Type
 
@@ -38,15 +42,17 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedTimeLimitRules
 
 ## version
 
+
+
 `version`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedtimelimitrules-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedTimeLimitRules/properties/version")
+*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedtimelimitrules-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedTimeLimitRules/properties/version")
 
 ### version Type
 
@@ -54,15 +60,17 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedTimeLimitRules
 
 ## rules
 
+
+
 `rules`
 
-- is required
+*   is required
 
-- Type: `object[]` ([ServerTimeLimitRule](serverdatastatus-definitions-servertimelimitrule.md))
+*   Type: `object[]` ([ServerTimeLimitRule](serverdatastatus-definitions-servertimelimitrule.md))
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedtimelimitrules-properties-rules.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedTimeLimitRules/properties/rules")
+*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedtimelimitrules-properties-rules.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedTimeLimitRules/properties/rules")
 
 ### rules Type
 

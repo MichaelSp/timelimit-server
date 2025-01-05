@@ -4,6 +4,8 @@
 https://timelimit.io/RequestIdentityTokenRequest#/properties/purpose
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                                  |
 | :------------------ | :--------- | :------------- | :---------------------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [RequestIdentityTokenRequest.schema.json\*](RequestIdentityTokenRequest.schema.json "open original schema") |
@@ -14,8 +16,8 @@ https://timelimit.io/RequestIdentityTokenRequest#/properties/purpose
 
 ## purpose Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"purchase"
-```
+| Value        | Explanation |
+| :----------- | :---------- |
+| `"purchase"` |             |

@@ -4,6 +4,8 @@
 https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [ServerDataStatus.schema.json\*](ServerDataStatus.schema.json "open original schema") |
@@ -23,15 +25,17 @@ https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp
 
 ## packageName
 
+
+
 `packageName`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ServerDataStatus](serverdatastatus-definitions-serializedinstalledapp-properties-packagename.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp/properties/packageName")
+*   defined in: [ServerDataStatus](serverdatastatus-definitions-serializedinstalledapp-properties-packagename.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp/properties/packageName")
 
 ### packageName Type
 
@@ -39,15 +43,17 @@ https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp
 
 ## title
 
+
+
 `title`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ServerDataStatus](serverdatastatus-definitions-serializedinstalledapp-properties-title.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp/properties/title")
+*   defined in: [ServerDataStatus](serverdatastatus-definitions-serializedinstalledapp-properties-title.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp/properties/title")
 
 ### title Type
 
@@ -55,15 +61,17 @@ https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp
 
 ## isLaunchable
 
+
+
 `isLaunchable`
 
-- is required
+*   is required
 
-- Type: `boolean`
+*   Type: `boolean`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ServerDataStatus](serverdatastatus-definitions-serializedinstalledapp-properties-islaunchable.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp/properties/isLaunchable")
+*   defined in: [ServerDataStatus](serverdatastatus-definitions-serializedinstalledapp-properties-islaunchable.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp/properties/isLaunchable")
 
 ### isLaunchable Type
 
@@ -71,15 +79,17 @@ https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp
 
 ## recommendation
 
+
+
 `recommendation`
 
-- is required
+*   is required
 
-- Type: `string` ([AppRecommendation](serverdatastatus-definitions-serializedinstalledapp-properties-apprecommendation.md))
+*   Type: `string` ([AppRecommendation](serverdatastatus-definitions-serializedinstalledapp-properties-apprecommendation.md))
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ServerDataStatus](serverdatastatus-definitions-serializedinstalledapp-properties-apprecommendation.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp/properties/recommendation")
+*   defined in: [ServerDataStatus](serverdatastatus-definitions-serializedinstalledapp-properties-apprecommendation.md "https://timelimit.io/ServerDataStatus#/definitions/SerializedInstalledApp/properties/recommendation")
 
 ### recommendation Type
 

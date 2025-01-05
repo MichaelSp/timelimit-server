@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedSetSendDeviceConnected
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -22,15 +24,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetSendDevice
 
 ## type
 
+
+
 `type`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetsenddeviceconnected-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetSendDeviceConnected/properties/type")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetsenddeviceconnected-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetSendDeviceConnected/properties/type")
 
 ### type Type
 
@@ -38,23 +42,25 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetSendDevice
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"SET_SEND_DEVICE_CONNECTED"
-```
+| Value                         | Explanation |
+| :---------------------------- | :---------- |
+| `"SET_SEND_DEVICE_CONNECTED"` |             |
 
 ## deviceId
 
+
+
 `deviceId`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetsenddeviceconnected-properties-deviceid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetSendDeviceConnected/properties/deviceId")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetsenddeviceconnected-properties-deviceid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetSendDeviceConnected/properties/deviceId")
 
 ### deviceId Type
 
@@ -62,15 +68,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetSendDevice
 
 ## enable
 
+
+
 `enable`
 
-- is required
+*   is required
 
-- Type: `boolean`
+*   Type: `boolean`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetsenddeviceconnected-properties-enable.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetSendDeviceConnected/properties/enable")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetsenddeviceconnected-properties-enable.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetSendDeviceConnected/properties/enable")
 
 ### enable Type
 

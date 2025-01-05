@@ -4,9 +4,11 @@
 https://timelimit.io/RequestWithAuthToken
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                  |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------ |
-| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [RequestWithAuthToken.schema.json](RequestWithAuthToken.schema.json "open original schema") |
+| Can be instantiated | Yes        | Unknown status | No           | Forbidden         | Forbidden             | none                | [RequestWithAuthToken.schema.json](RequestWithAuthToken.schema.json "open original schema") |
 
 ## RequestWithAuthToken Type
 
@@ -20,16 +22,20 @@ https://timelimit.io/RequestWithAuthToken
 
 ## deviceAuthToken
 
+
+
 `deviceAuthToken`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [RequestWithAuthToken](requestwithauthtoken-properties-deviceauthtoken.md "https://timelimit.io/RequestWithAuthToken#/properties/deviceAuthToken")
+*   defined in: [RequestWithAuthToken](requestwithauthtoken-properties-deviceauthtoken.md "https://timelimit.io/RequestWithAuthToken#/properties/deviceAuthToken")
 
 ### deviceAuthToken Type
 
 `string`
+
+# RequestWithAuthToken Definitions

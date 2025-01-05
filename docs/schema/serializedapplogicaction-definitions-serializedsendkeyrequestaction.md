@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequestAction
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedAppLogicAction.schema.json\*](SerializedAppLogicAction.schema.json "open original schema") |
@@ -26,15 +28,17 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequ
 
 ## type
 
+
+
 `type`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedsendkeyrequestaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequestAction/properties/type")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedsendkeyrequestaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequestAction/properties/type")
 
 ### type Type
 
@@ -42,23 +46,25 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequ
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"SEND_KEY_REQUEST"
-```
+| Value                | Explanation |
+| :------------------- | :---------- |
+| `"SEND_KEY_REQUEST"` |             |
 
 ## dsn
 
+
+
 `dsn`
 
-- is required
+*   is required
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedsendkeyrequestaction-properties-dsn.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequestAction/properties/dsn")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedsendkeyrequestaction-properties-dsn.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequestAction/properties/dsn")
 
 ### dsn Type
 
@@ -66,15 +72,17 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequ
 
 ## deviceId
 
+
+
 `deviceId`
 
-- is optional
+*   is optional
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedsendkeyrequestaction-properties-deviceid.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequestAction/properties/deviceId")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedsendkeyrequestaction-properties-deviceid.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequestAction/properties/deviceId")
 
 ### deviceId Type
 
@@ -82,15 +90,17 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequ
 
 ## categoryId
 
+
+
 `categoryId`
 
-- is optional
+*   is optional
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedsendkeyrequestaction-properties-categoryid.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequestAction/properties/categoryId")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedsendkeyrequestaction-properties-categoryid.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequestAction/properties/categoryId")
 
 ### categoryId Type
 
@@ -98,15 +108,17 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequ
 
 ## dataType
 
+
+
 `dataType`
 
-- is required
+*   is required
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedsendkeyrequestaction-properties-datatype.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequestAction/properties/dataType")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedsendkeyrequestaction-properties-datatype.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequestAction/properties/dataType")
 
 ### dataType Type
 
@@ -114,15 +126,17 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequ
 
 ## tempKey
 
+
+
 `tempKey`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedsendkeyrequestaction-properties-tempkey.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequestAction/properties/tempKey")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedsendkeyrequestaction-properties-tempkey.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequestAction/properties/tempKey")
 
 ### tempKey Type
 
@@ -130,15 +144,17 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequ
 
 ## signature
 
+
+
 `signature`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedsendkeyrequestaction-properties-signature.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequestAction/properties/signature")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedsendkeyrequestaction-properties-signature.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedSendKeyRequestAction/properties/signature")
 
 ### signature Type
 

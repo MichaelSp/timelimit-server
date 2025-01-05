@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedReviewChildTaskAction
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -24,15 +26,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedReviewChildTa
 
 ## type
 
+
+
 `type`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedreviewchildtaskaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedReviewChildTaskAction/properties/type")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedreviewchildtaskaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedReviewChildTaskAction/properties/type")
 
 ### type Type
 
@@ -40,23 +44,25 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedReviewChildTa
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"REVIEW_CHILD_TASK"
-```
+| Value                 | Explanation |
+| :-------------------- | :---------- |
+| `"REVIEW_CHILD_TASK"` |             |
 
 ## taskId
 
+
+
 `taskId`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedreviewchildtaskaction-properties-taskid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedReviewChildTaskAction/properties/taskId")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedreviewchildtaskaction-properties-taskid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedReviewChildTaskAction/properties/taskId")
 
 ### taskId Type
 
@@ -64,15 +70,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedReviewChildTa
 
 ## ok
 
+
+
 `ok`
 
-- is required
+*   is required
 
-- Type: `boolean`
+*   Type: `boolean`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedreviewchildtaskaction-properties-ok.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedReviewChildTaskAction/properties/ok")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedreviewchildtaskaction-properties-ok.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedReviewChildTaskAction/properties/ok")
 
 ### ok Type
 
@@ -80,15 +88,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedReviewChildTa
 
 ## time
 
+
+
 `time`
 
-- is required
+*   is required
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedreviewchildtaskaction-properties-time.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedReviewChildTaskAction/properties/time")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedreviewchildtaskaction-properties-time.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedReviewChildTaskAction/properties/time")
 
 ### time Type
 
@@ -96,15 +106,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedReviewChildTa
 
 ## day
 
+
+
 `day`
 
-- is optional
+*   is optional
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedreviewchildtaskaction-properties-day.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedReviewChildTaskAction/properties/day")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedreviewchildtaskaction-properties-day.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedReviewChildTaskAction/properties/day")
 
 ### day Type
 

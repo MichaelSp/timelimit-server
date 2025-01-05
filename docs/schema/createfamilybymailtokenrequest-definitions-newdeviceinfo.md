@@ -4,6 +4,8 @@
 https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/NewDeviceInfo
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [CreateFamilyByMailTokenRequest.schema.json\*](CreateFamilyByMailTokenRequest.schema.json "open original schema") |
@@ -20,15 +22,17 @@ https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/NewDeviceInfo
 
 ## model
 
+
+
 `model`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-newdeviceinfo-properties-model.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/NewDeviceInfo/properties/model")
+*   defined in: [CreateFamilyByMailTokenRequest](createfamilybymailtokenrequest-definitions-newdeviceinfo-properties-model.md "https://timelimit.io/CreateFamilyByMailTokenRequest#/definitions/NewDeviceInfo/properties/model")
 
 ### model Type
 

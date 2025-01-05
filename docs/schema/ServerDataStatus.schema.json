@@ -84,7 +84,10 @@
     }
   },
   "additionalProperties": false,
-  "required": ["apiLevel", "fullVersion"],
+  "required": [
+    "apiLevel",
+    "fullVersion"
+  ],
   "definitions": {
     "ServerDeviceList": {
       "type": "object",
@@ -100,7 +103,10 @@
         }
       },
       "additionalProperties": false,
-      "required": ["data", "version"],
+      "required": [
+        "data",
+        "version"
+      ],
       "title": "ServerDeviceList"
     },
     "ServerDeviceData": {
@@ -122,7 +128,11 @@
           "type": "string"
         },
         "networkTime": {
-          "enum": ["disabled", "enabled", "if possible"],
+          "enum": [
+            "disabled",
+            "enabled",
+            "if possible"
+          ],
           "type": "string"
         },
         "cProtectionLevel": {
@@ -258,12 +268,20 @@
       "title": "ProtectionLevel"
     },
     "RuntimePermissionStatus": {
-      "enum": ["granted", "not granted", "not required"],
+      "enum": [
+        "granted",
+        "not granted",
+        "not required"
+      ],
       "type": "string",
       "title": "RuntimePermissionStatus"
     },
     "NewPermissionStatus": {
-      "enum": ["granted", "not granted", "not supported"],
+      "enum": [
+        "granted",
+        "not granted",
+        "not supported"
+      ],
       "type": "string",
       "title": "NewPermissionStatus"
     },
@@ -281,7 +299,9 @@
         }
       },
       "additionalProperties": false,
-      "required": ["deviceId"],
+      "required": [
+        "deviceId"
+      ],
       "title": "ServerExtendedDeviceData"
     },
     "ServerCryptContainer": {
@@ -295,7 +315,10 @@
         }
       },
       "additionalProperties": false,
-      "required": ["data", "version"],
+      "required": [
+        "data",
+        "version"
+      ],
       "title": "ServerCryptContainer"
     },
     "ServerInstalledAppsData": {
@@ -321,7 +344,12 @@
         }
       },
       "additionalProperties": false,
-      "required": ["activities", "apps", "deviceId", "version"],
+      "required": [
+        "activities",
+        "apps",
+        "deviceId",
+        "version"
+      ],
       "title": "ServerInstalledAppsData"
     },
     "SerializedInstalledApp": {
@@ -341,11 +369,20 @@
         }
       },
       "additionalProperties": false,
-      "required": ["isLaunchable", "packageName", "recommendation", "title"],
+      "required": [
+        "isLaunchable",
+        "packageName",
+        "recommendation",
+        "title"
+      ],
       "title": "SerializedInstalledApp"
     },
     "AppRecommendation": {
-      "enum": ["blacklist", "none", "whitelist"],
+      "enum": [
+        "blacklist",
+        "none",
+        "whitelist"
+      ],
       "type": "string",
       "title": "AppRecommendation"
     },
@@ -363,7 +400,11 @@
         }
       },
       "additionalProperties": false,
-      "required": ["c", "p", "t"],
+      "required": [
+        "c",
+        "p",
+        "t"
+      ],
       "title": "SerializedAppActivityItem"
     },
     "ServerUpdatedCategoryBaseData": {
@@ -472,7 +513,10 @@
         }
       },
       "additionalProperties": false,
-      "required": ["hashedNetworkId", "itemId"],
+      "required": [
+        "hashedNetworkId",
+        "itemId"
+      ],
       "title": "ServerCategoryNetworkId"
     },
     "ServerUpdatedCategoryAssignedApps": {
@@ -492,7 +536,11 @@
         }
       },
       "additionalProperties": false,
-      "required": ["apps", "categoryId", "version"],
+      "required": [
+        "apps",
+        "categoryId",
+        "version"
+      ],
       "title": "ServerUpdatedCategoryAssignedApps"
     },
     "ServerUpdatedCategoryUsedTimes": {
@@ -518,7 +566,12 @@
         }
       },
       "additionalProperties": false,
-      "required": ["categoryId", "sessionDurations", "times", "version"],
+      "required": [
+        "categoryId",
+        "sessionDurations",
+        "times",
+        "version"
+      ],
       "title": "ServerUpdatedCategoryUsedTimes"
     },
     "ServerUsedTimeItem": {
@@ -538,7 +591,12 @@
         }
       },
       "additionalProperties": false,
-      "required": ["day", "end", "start", "time"],
+      "required": [
+        "day",
+        "end",
+        "start",
+        "time"
+      ],
       "title": "ServerUsedTimeItem"
     },
     "ServerSessionDurationItem": {
@@ -570,7 +628,14 @@
         }
       },
       "additionalProperties": false,
-      "required": ["d", "em", "l", "md", "sm", "spd"],
+      "required": [
+        "d",
+        "em",
+        "l",
+        "md",
+        "sm",
+        "spd"
+      ],
       "title": "ServerSessionDurationItem"
     },
     "ServerUpdatedTimeLimitRules": {
@@ -590,7 +655,11 @@
         }
       },
       "additionalProperties": false,
-      "required": ["categoryId", "rules", "version"],
+      "required": [
+        "categoryId",
+        "rules",
+        "version"
+      ],
       "title": "ServerUpdatedTimeLimitRules"
     },
     "ServerTimeLimitRule": {
@@ -655,7 +724,11 @@
         }
       },
       "additionalProperties": false,
-      "required": ["categoryId", "tasks", "version"],
+      "required": [
+        "categoryId",
+        "tasks",
+        "version"
+      ],
       "title": "ServerUpdatedCategoryTasks"
     },
     "ServerUpdatedCategoryTask": {
@@ -678,7 +751,13 @@
         }
       },
       "additionalProperties": false,
-      "required": ["d", "i", "l", "p", "t"],
+      "required": [
+        "d",
+        "i",
+        "l",
+        "p",
+        "t"
+      ],
       "title": "ServerUpdatedCategoryTask"
     },
     "ServerUserList": {
@@ -695,7 +774,10 @@
         }
       },
       "additionalProperties": false,
-      "required": ["data", "version"],
+      "required": [
+        "data",
+        "version"
+      ],
       "title": "ServerUserList"
     },
     "ServerUserEntry": {
@@ -714,7 +796,10 @@
           "type": "string"
         },
         "type": {
-          "enum": ["child", "parent"],
+          "enum": [
+            "child",
+            "parent"
+          ],
           "type": "string"
         },
         "timeZone": {
@@ -799,7 +884,14 @@
         }
       },
       "additionalProperties": false,
-      "required": ["senId", "senSeq", "signature", "srvSeq", "tempKey", "type"],
+      "required": [
+        "senId",
+        "senSeq",
+        "signature",
+        "srvSeq",
+        "tempKey",
+        "type"
+      ],
       "title": "ServerKeyRequest"
     },
     "ServerKeyResponse": {
@@ -846,7 +938,10 @@
         }
       },
       "additionalProperties": false,
-      "required": ["k", "v"],
+      "required": [
+        "k",
+        "v"
+      ],
       "title": "ServerDhKey"
     },
     "U2fData": {
@@ -863,7 +958,10 @@
         }
       },
       "additionalProperties": false,
-      "required": ["d", "v"],
+      "required": [
+        "d",
+        "v"
+      ],
       "title": "U2fData"
     },
     "U2fItem": {
@@ -883,7 +981,12 @@
         }
       },
       "additionalProperties": false,
-      "required": ["a", "h", "p", "u"],
+      "required": [
+        "a",
+        "h",
+        "p",
+        "u"
+      ],
       "title": "U2fItem"
     }
   },

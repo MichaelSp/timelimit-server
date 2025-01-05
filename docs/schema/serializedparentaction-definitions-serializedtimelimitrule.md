@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -30,15 +32,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule
 
 ## ruleId
 
+
+
 `ruleId`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-ruleid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/ruleId")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-ruleid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/ruleId")
 
 ### ruleId Type
 
@@ -46,15 +50,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule
 
 ## categoryId
 
+
+
 `categoryId`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/categoryId")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/categoryId")
 
 ### categoryId Type
 
@@ -62,15 +68,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule
 
 ## time
 
+
+
 `time`
 
-- is required
+*   is required
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-time.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/time")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-time.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/time")
 
 ### time Type
 
@@ -78,15 +86,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule
 
 ## days
 
+
+
 `days`
 
-- is required
+*   is required
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-days.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/days")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-days.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/days")
 
 ### days Type
 
@@ -94,15 +104,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule
 
 ## extraTime
 
+
+
 `extraTime`
 
-- is required
+*   is required
 
-- Type: `boolean`
+*   Type: `boolean`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-extratime.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/extraTime")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-extratime.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/extraTime")
 
 ### extraTime Type
 
@@ -110,15 +122,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule
 
 ## start
 
+
+
 `start`
 
-- is optional
+*   is optional
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-start.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/start")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-start.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/start")
 
 ### start Type
 
@@ -126,15 +140,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule
 
 ## end
 
+
+
 `end`
 
-- is optional
+*   is optional
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-end.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/end")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-end.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/end")
 
 ### end Type
 
@@ -142,15 +158,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule
 
 ## dur
 
+
+
 `dur`
 
-- is optional
+*   is optional
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-dur.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/dur")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-dur.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/dur")
 
 ### dur Type
 
@@ -158,15 +176,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule
 
 ## pause
 
+
+
 `pause`
 
-- is optional
+*   is optional
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-pause.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/pause")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-pause.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/pause")
 
 ### pause Type
 
@@ -174,15 +194,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule
 
 ## perDay
 
+
+
 `perDay`
 
-- is optional
+*   is optional
 
-- Type: `boolean`
+*   Type: `boolean`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-perday.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/perDay")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedtimelimitrule-properties-perday.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedTimeLimitRule/properties/perDay")
 
 ### perDay Type
 

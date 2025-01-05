@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedSetConsiderRebootManipulationAction/properties/type
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :---------------------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -14,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetConsiderRe
 
 ## type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"SET_CONSIDER_REBOOT_MANIPULATION"
-```
+| Value                                | Explanation |
+| :----------------------------------- | :---------- |
+| `"SET_CONSIDER_REBOOT_MANIPULATION"` |             |

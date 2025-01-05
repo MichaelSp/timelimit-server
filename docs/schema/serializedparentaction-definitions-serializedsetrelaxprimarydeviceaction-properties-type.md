@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedSetRelaxPrimaryDeviceAction/properties/type
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :---------------------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -14,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetRelaxPrima
 
 ## type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"SET_RELAX_PRIMARY_DEVICE"
-```
+| Value                        | Explanation |
+| :--------------------------- | :---------- |
+| `"SET_RELAX_PRIMARY_DEVICE"` |             |

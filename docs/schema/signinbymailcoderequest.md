@@ -4,9 +4,11 @@
 https://timelimit.io/SignInByMailCodeRequest
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
-| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SignInByMailCodeRequest.schema.json](SignInByMailCodeRequest.schema.json "open original schema") |
+| Can be instantiated | Yes        | Unknown status | No           | Forbidden         | Forbidden             | none                | [SignInByMailCodeRequest.schema.json](SignInByMailCodeRequest.schema.json "open original schema") |
 
 ## SignInByMailCodeRequest Type
 
@@ -21,15 +23,17 @@ https://timelimit.io/SignInByMailCodeRequest
 
 ## mailLoginToken
 
+
+
 `mailLoginToken`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SignInByMailCodeRequest](signinbymailcoderequest-properties-maillogintoken.md "https://timelimit.io/SignInByMailCodeRequest#/properties/mailLoginToken")
+*   defined in: [SignInByMailCodeRequest](signinbymailcoderequest-properties-maillogintoken.md "https://timelimit.io/SignInByMailCodeRequest#/properties/mailLoginToken")
 
 ### mailLoginToken Type
 
@@ -37,16 +41,20 @@ https://timelimit.io/SignInByMailCodeRequest
 
 ## receivedCode
 
+
+
 `receivedCode`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SignInByMailCodeRequest](signinbymailcoderequest-properties-receivedcode.md "https://timelimit.io/SignInByMailCodeRequest#/properties/receivedCode")
+*   defined in: [SignInByMailCodeRequest](signinbymailcoderequest-properties-receivedcode.md "https://timelimit.io/SignInByMailCodeRequest#/properties/receivedCode")
 
 ### receivedCode Type
 
 `string`
+
+# SignInByMailCodeRequest Definitions

@@ -13,14 +13,19 @@
       "properties": {
         "type": {
           "type": "string",
-          "const": "CHILD_CHANGE_PASSWORD"
+          "enum": [
+            "CHILD_CHANGE_PASSWORD"
+          ]
         },
         "password": {
           "$ref": "#/definitions/EncryptableParentPassword"
         }
       },
       "additionalProperties": false,
-      "required": ["password", "type"],
+      "required": [
+        "password",
+        "type"
+      ],
       "title": "SerializedChildChangePasswordAction"
     },
     "EncryptableParentPassword": {
@@ -40,7 +45,11 @@
         }
       },
       "additionalProperties": false,
-      "required": ["hash", "secondHash", "secondSalt"],
+      "required": [
+        "hash",
+        "secondHash",
+        "secondSalt"
+      ],
       "title": "EncryptableParentPassword"
     },
     "SerializedChildSignInAction": {
@@ -48,11 +57,15 @@
       "properties": {
         "type": {
           "type": "string",
-          "const": "CHILD_SIGN_IN"
+          "enum": [
+            "CHILD_SIGN_IN"
+          ]
         }
       },
       "additionalProperties": false,
-      "required": ["type"],
+      "required": [
+        "type"
+      ],
       "title": "SerializedChildSignInAction"
     }
   },
