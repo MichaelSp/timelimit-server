@@ -27,7 +27,7 @@ export const createUmzug = (sequelize: Sequelize) => (
       resolve: ({ name, path }) => {
         if (!path) throw new Error()
 
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const migration = require(path)
 
         return {
