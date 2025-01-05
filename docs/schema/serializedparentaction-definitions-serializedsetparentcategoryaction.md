@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedSetParentCategoryAction
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -22,15 +24,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetParentCate
 
 ## type
 
+
+
 `type`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetparentcategoryaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetParentCategoryAction/properties/type")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetparentcategoryaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetParentCategoryAction/properties/type")
 
 ### type Type
 
@@ -38,23 +42,25 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetParentCate
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"SET_PARENT_CATEGORY"
-```
+| Value                   | Explanation |
+| :---------------------- | :---------- |
+| `"SET_PARENT_CATEGORY"` |             |
 
 ## categoryId
 
+
+
 `categoryId`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetparentcategoryaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetParentCategoryAction/properties/categoryId")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetparentcategoryaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetParentCategoryAction/properties/categoryId")
 
 ### categoryId Type
 
@@ -62,15 +68,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetParentCate
 
 ## parentCategory
 
+
+
 `parentCategory`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetparentcategoryaction-properties-parentcategory.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetParentCategoryAction/properties/parentCategory")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetparentcategoryaction-properties-parentcategory.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetParentCategoryAction/properties/parentCategory")
 
 ### parentCategory Type
 

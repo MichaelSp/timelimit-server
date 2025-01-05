@@ -1,18 +1,20 @@
 # EncryptableParentPassword Schema
 
 ```txt
-https://timelimit.io/SerializedParentAction#/definitions/EncryptableParentPassword
+https://timelimit.io/SerializedParentAction#/definitions/SerializedSetChildPasswordAction/properties/newPassword
 ```
+
+
 
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
 
-## EncryptableParentPassword Type
+## newPassword Type
 
 `object` ([EncryptableParentPassword](serializedparentaction-definitions-encryptableparentpassword.md))
 
-# EncryptableParentPassword Properties
+# newPassword Properties
 
 | Property                  | Type      | Required | Nullable       | Defined by                                                                                                                                                                                                                 |
 | :------------------------ | :-------- | :------- | :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -23,15 +25,17 @@ https://timelimit.io/SerializedParentAction#/definitions/EncryptableParentPasswo
 
 ## hash
 
+
+
 `hash`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-encryptableparentpassword-properties-hash.md "https://timelimit.io/SerializedParentAction#/definitions/EncryptableParentPassword/properties/hash")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-encryptableparentpassword-properties-hash.md "https://timelimit.io/SerializedParentAction#/definitions/EncryptableParentPassword/properties/hash")
 
 ### hash Type
 
@@ -39,15 +43,17 @@ https://timelimit.io/SerializedParentAction#/definitions/EncryptableParentPasswo
 
 ## secondHash
 
+
+
 `secondHash`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-encryptableparentpassword-properties-secondhash.md "https://timelimit.io/SerializedParentAction#/definitions/EncryptableParentPassword/properties/secondHash")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-encryptableparentpassword-properties-secondhash.md "https://timelimit.io/SerializedParentAction#/definitions/EncryptableParentPassword/properties/secondHash")
 
 ### secondHash Type
 
@@ -55,15 +61,17 @@ https://timelimit.io/SerializedParentAction#/definitions/EncryptableParentPasswo
 
 ## secondSalt
 
+
+
 `secondSalt`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-encryptableparentpassword-properties-secondsalt.md "https://timelimit.io/SerializedParentAction#/definitions/EncryptableParentPassword/properties/secondSalt")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-encryptableparentpassword-properties-secondsalt.md "https://timelimit.io/SerializedParentAction#/definitions/EncryptableParentPassword/properties/secondSalt")
 
 ### secondSalt Type
 
@@ -71,15 +79,17 @@ https://timelimit.io/SerializedParentAction#/definitions/EncryptableParentPasswo
 
 ## encrypted
 
+
+
 `encrypted`
 
-- is optional
+*   is optional
 
-- Type: `boolean`
+*   Type: `boolean`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-encryptableparentpassword-properties-encrypted.md "https://timelimit.io/SerializedParentAction#/definitions/EncryptableParentPassword/properties/encrypted")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-encryptableparentpassword-properties-encrypted.md "https://timelimit.io/SerializedParentAction#/definitions/EncryptableParentPassword/properties/encrypted")
 
 ### encrypted Type
 

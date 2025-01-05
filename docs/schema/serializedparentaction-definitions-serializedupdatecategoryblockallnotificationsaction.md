@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryBlockAllNotificationsAction
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -19,19 +21,21 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategor
 | [type](#type)             | `string`  | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryblockallnotificationsaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryBlockAllNotificationsAction/properties/type")             |
 | [categoryId](#categoryid) | `string`  | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryblockallnotificationsaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryBlockAllNotificationsAction/properties/categoryId") |
 | [blocked](#blocked)       | `boolean` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryblockallnotificationsaction-properties-blocked.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryBlockAllNotificationsAction/properties/blocked")       |
-| [blockDelay](#blockdelay) | `number`  | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryblockallnotificationsaction-properties-blockdelay.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryBlockAllNotificationsAction/properties/blockDelay") |
+| [blockDelay](#blockdelay) | `number`  | Optional | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryblockallnotificationsaction-properties-blockdelay.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryBlockAllNotificationsAction/properties/blockDelay") |
 
 ## type
 
+
+
 `type`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryblockallnotificationsaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryBlockAllNotificationsAction/properties/type")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryblockallnotificationsaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryBlockAllNotificationsAction/properties/type")
 
 ### type Type
 
@@ -39,23 +43,25 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategor
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"UPDATE_CATEGORY_BLOCK_ALL_NOTIFICATIONS"
-```
+| Value                                       | Explanation |
+| :------------------------------------------ | :---------- |
+| `"UPDATE_CATEGORY_BLOCK_ALL_NOTIFICATIONS"` |             |
 
 ## categoryId
 
+
+
 `categoryId`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryblockallnotificationsaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryBlockAllNotificationsAction/properties/categoryId")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryblockallnotificationsaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryBlockAllNotificationsAction/properties/categoryId")
 
 ### categoryId Type
 
@@ -63,15 +69,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategor
 
 ## blocked
 
+
+
 `blocked`
 
-- is required
+*   is required
 
-- Type: `boolean`
+*   Type: `boolean`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryblockallnotificationsaction-properties-blocked.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryBlockAllNotificationsAction/properties/blocked")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryblockallnotificationsaction-properties-blocked.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryBlockAllNotificationsAction/properties/blocked")
 
 ### blocked Type
 
@@ -79,15 +87,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategor
 
 ## blockDelay
 
+
+
 `blockDelay`
 
-- is required
+*   is optional
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryblockallnotificationsaction-properties-blockdelay.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryBlockAllNotificationsAction/properties/blockDelay")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryblockallnotificationsaction-properties-blockdelay.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryBlockAllNotificationsAction/properties/blockDelay")
 
 ### blockDelay Type
 

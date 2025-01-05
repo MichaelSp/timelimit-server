@@ -4,9 +4,11 @@
 https://timelimit.io/SendMailLoginCodeRequest
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                          |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :-------------------------------------------------------------------------------------------------- |
-| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SendMailLoginCodeRequest.schema.json](SendMailLoginCodeRequest.schema.json "open original schema") |
+| Can be instantiated | Yes        | Unknown status | No           | Forbidden         | Forbidden             | none                | [SendMailLoginCodeRequest.schema.json](SendMailLoginCodeRequest.schema.json "open original schema") |
 
 ## SendMailLoginCodeRequest Type
 
@@ -22,15 +24,17 @@ https://timelimit.io/SendMailLoginCodeRequest
 
 ## mail
 
+
+
 `mail`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SendMailLoginCodeRequest](sendmaillogincoderequest-properties-mail.md "https://timelimit.io/SendMailLoginCodeRequest#/properties/mail")
+*   defined in: [SendMailLoginCodeRequest](sendmaillogincoderequest-properties-mail.md "https://timelimit.io/SendMailLoginCodeRequest#/properties/mail")
 
 ### mail Type
 
@@ -38,15 +42,17 @@ https://timelimit.io/SendMailLoginCodeRequest
 
 ## locale
 
+
+
 `locale`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SendMailLoginCodeRequest](sendmaillogincoderequest-properties-locale.md "https://timelimit.io/SendMailLoginCodeRequest#/properties/locale")
+*   defined in: [SendMailLoginCodeRequest](sendmaillogincoderequest-properties-locale.md "https://timelimit.io/SendMailLoginCodeRequest#/properties/locale")
 
 ### locale Type
 
@@ -54,16 +60,20 @@ https://timelimit.io/SendMailLoginCodeRequest
 
 ## deviceAuthToken
 
+
+
 `deviceAuthToken`
 
-- is optional
+*   is optional
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SendMailLoginCodeRequest](sendmaillogincoderequest-properties-deviceauthtoken.md "https://timelimit.io/SendMailLoginCodeRequest#/properties/deviceAuthToken")
+*   defined in: [SendMailLoginCodeRequest](sendmaillogincoderequest-properties-deviceauthtoken.md "https://timelimit.io/SendMailLoginCodeRequest#/properties/deviceAuthToken")
 
 ### deviceAuthToken Type
 
 `string`
+
+# SendMailLoginCodeRequest Definitions

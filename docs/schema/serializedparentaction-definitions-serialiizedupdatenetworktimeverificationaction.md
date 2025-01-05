@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerialiizedUpdateNetworkTimeVerificationAction
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -22,15 +24,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerialiizedUpdateNetwor
 
 ## type
 
+
+
 `type`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serialiizedupdatenetworktimeverificationaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerialiizedUpdateNetworkTimeVerificationAction/properties/type")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serialiizedupdatenetworktimeverificationaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerialiizedUpdateNetworkTimeVerificationAction/properties/type")
 
 ### type Type
 
@@ -38,23 +42,25 @@ https://timelimit.io/SerializedParentAction#/definitions/SerialiizedUpdateNetwor
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"UPDATE_NETWORK_TIME_VERIFICATION"
-```
+| Value                                | Explanation |
+| :----------------------------------- | :---------- |
+| `"UPDATE_NETWORK_TIME_VERIFICATION"` |             |
 
 ## deviceId
 
+
+
 `deviceId`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serialiizedupdatenetworktimeverificationaction-properties-deviceid.md "https://timelimit.io/SerializedParentAction#/definitions/SerialiizedUpdateNetworkTimeVerificationAction/properties/deviceId")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serialiizedupdatenetworktimeverificationaction-properties-deviceid.md "https://timelimit.io/SerializedParentAction#/definitions/SerialiizedUpdateNetworkTimeVerificationAction/properties/deviceId")
 
 ### deviceId Type
 
@@ -62,15 +68,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerialiizedUpdateNetwor
 
 ## mode
 
+
+
 `mode`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serialiizedupdatenetworktimeverificationaction-properties-mode.md "https://timelimit.io/SerializedParentAction#/definitions/SerialiizedUpdateNetworkTimeVerificationAction/properties/mode")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serialiizedupdatenetworktimeverificationaction-properties-mode.md "https://timelimit.io/SerializedParentAction#/definitions/SerialiizedUpdateNetworkTimeVerificationAction/properties/mode")
 
 ### mode Type
 

@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefaultUserTimeoutAction
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -22,15 +24,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefa
 
 ## type
 
+
+
 `type`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetdevicedefaultusertimeoutaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefaultUserTimeoutAction/properties/type")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetdevicedefaultusertimeoutaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefaultUserTimeoutAction/properties/type")
 
 ### type Type
 
@@ -38,23 +42,25 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefa
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"SET_DEVICE_DEFAULT_USER_TIMEOUT"
-```
+| Value                               | Explanation |
+| :---------------------------------- | :---------- |
+| `"SET_DEVICE_DEFAULT_USER_TIMEOUT"` |             |
 
 ## deviceId
 
+
+
 `deviceId`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetdevicedefaultusertimeoutaction-properties-deviceid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefaultUserTimeoutAction/properties/deviceId")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetdevicedefaultusertimeoutaction-properties-deviceid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefaultUserTimeoutAction/properties/deviceId")
 
 ### deviceId Type
 
@@ -62,15 +68,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefa
 
 ## timeout
 
+
+
 `timeout`
 
-- is required
+*   is required
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetdevicedefaultusertimeoutaction-properties-timeout.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefaultUserTimeoutAction/properties/timeout")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedsetdevicedefaultusertimeoutaction-properties-timeout.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedSetDeviceDefaultUserTimeoutAction/properties/timeout")
 
 ### timeout Type
 

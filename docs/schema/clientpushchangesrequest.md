@@ -4,6 +4,8 @@
 https://timelimit.io/ClientPushChangesRequest
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                          |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :-------------------------------------------------------------------------------------------------- |
 | Can be instantiated | Yes        | Unknown status | No           | Forbidden         | Forbidden             | none                | [ClientPushChangesRequest.schema.json](ClientPushChangesRequest.schema.json "open original schema") |
@@ -21,15 +23,17 @@ https://timelimit.io/ClientPushChangesRequest
 
 ## deviceAuthToken
 
+
+
 `deviceAuthToken`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ClientPushChangesRequest](clientpushchangesrequest-properties-deviceauthtoken.md "https://timelimit.io/ClientPushChangesRequest#/properties/deviceAuthToken")
+*   defined in: [ClientPushChangesRequest](clientpushchangesrequest-properties-deviceauthtoken.md "https://timelimit.io/ClientPushChangesRequest#/properties/deviceAuthToken")
 
 ### deviceAuthToken Type
 
@@ -37,15 +41,17 @@ https://timelimit.io/ClientPushChangesRequest
 
 ## actions
 
+
+
 `actions`
 
-- is required
+*   is required
 
-- Type: `object[]` ([ClientPushChangesRequestAction](clientpushchangesrequest-definitions-clientpushchangesrequestaction.md))
+*   Type: `object[]` ([ClientPushChangesRequestAction](clientpushchangesrequest-definitions-clientpushchangesrequestaction.md))
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ClientPushChangesRequest](clientpushchangesrequest-properties-actions.md "https://timelimit.io/ClientPushChangesRequest#/properties/actions")
+*   defined in: [ClientPushChangesRequest](clientpushchangesrequest-properties-actions.md "https://timelimit.io/ClientPushChangesRequest#/properties/actions")
 
 ### actions Type
 
@@ -58,9 +64,7 @@ https://timelimit.io/ClientPushChangesRequest
 Reference this group by using
 
 ```json
-{
-  "$ref": "https://timelimit.io/ClientPushChangesRequest#/definitions/ClientPushChangesRequestAction"
-}
+{"$ref":"https://timelimit.io/ClientPushChangesRequest#/definitions/ClientPushChangesRequestAction"}
 ```
 
 | Property                          | Type     | Required | Nullable       | Defined by                                                                                                                                                                                                                                         |
@@ -73,15 +77,17 @@ Reference this group by using
 
 ### encodedAction
 
+
+
 `encodedAction`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ClientPushChangesRequest](clientpushchangesrequest-definitions-clientpushchangesrequestaction-properties-encodedaction.md "https://timelimit.io/ClientPushChangesRequest#/definitions/ClientPushChangesRequestAction/properties/encodedAction")
+*   defined in: [ClientPushChangesRequest](clientpushchangesrequest-definitions-clientpushchangesrequestaction-properties-encodedaction.md "https://timelimit.io/ClientPushChangesRequest#/definitions/ClientPushChangesRequestAction/properties/encodedAction")
 
 #### encodedAction Type
 
@@ -89,15 +95,17 @@ Reference this group by using
 
 ### sequenceNumber
 
+
+
 `sequenceNumber`
 
-- is required
+*   is required
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ClientPushChangesRequest](clientpushchangesrequest-definitions-clientpushchangesrequestaction-properties-sequencenumber.md "https://timelimit.io/ClientPushChangesRequest#/definitions/ClientPushChangesRequestAction/properties/sequenceNumber")
+*   defined in: [ClientPushChangesRequest](clientpushchangesrequest-definitions-clientpushchangesrequestaction-properties-sequencenumber.md "https://timelimit.io/ClientPushChangesRequest#/definitions/ClientPushChangesRequestAction/properties/sequenceNumber")
 
 #### sequenceNumber Type
 
@@ -105,15 +113,17 @@ Reference this group by using
 
 ### integrity
 
+
+
 `integrity`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ClientPushChangesRequest](clientpushchangesrequest-definitions-clientpushchangesrequestaction-properties-integrity.md "https://timelimit.io/ClientPushChangesRequest#/definitions/ClientPushChangesRequestAction/properties/integrity")
+*   defined in: [ClientPushChangesRequest](clientpushchangesrequest-definitions-clientpushchangesrequestaction-properties-integrity.md "https://timelimit.io/ClientPushChangesRequest#/definitions/ClientPushChangesRequestAction/properties/integrity")
 
 #### integrity Type
 
@@ -121,15 +131,17 @@ Reference this group by using
 
 ### type
 
+
+
 `type`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ClientPushChangesRequest](clientpushchangesrequest-definitions-clientpushchangesrequestaction-properties-type.md "https://timelimit.io/ClientPushChangesRequest#/definitions/ClientPushChangesRequestAction/properties/type")
+*   defined in: [ClientPushChangesRequest](clientpushchangesrequest-definitions-clientpushchangesrequestaction-properties-type.md "https://timelimit.io/ClientPushChangesRequest#/definitions/ClientPushChangesRequestAction/properties/type")
 
 #### type Type
 
@@ -147,15 +159,17 @@ Reference this group by using
 
 ### userId
 
+
+
 `userId`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ClientPushChangesRequest](clientpushchangesrequest-definitions-clientpushchangesrequestaction-properties-userid.md "https://timelimit.io/ClientPushChangesRequest#/definitions/ClientPushChangesRequestAction/properties/userId")
+*   defined in: [ClientPushChangesRequest](clientpushchangesrequest-definitions-clientpushchangesrequestaction-properties-userid.md "https://timelimit.io/ClientPushChangesRequest#/definitions/ClientPushChangesRequestAction/properties/userId")
 
 #### userId Type
 

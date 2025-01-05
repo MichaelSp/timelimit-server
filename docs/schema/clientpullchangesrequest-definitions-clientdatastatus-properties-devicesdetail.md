@@ -4,6 +4,8 @@
 https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/devicesDetail
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                            |
 | :------------------ | :--------- | :------------- | :---------------------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [ClientPullChangesRequest.schema.json\*](ClientPullChangesRequest.schema.json "open original schema") |
@@ -22,13 +24,15 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/prop
 
 Additional properties are allowed, as long as they follow this schema:
 
-- is optional
 
-- Type: `object` ([DeviceDataStatus](clientpullchangesrequest-definitions-devicedatastatus.md))
 
-- cannot be null
+*   is optional
 
-- defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-devicedatastatus.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/devicesDetail/additionalProperties")
+*   Type: `object` ([DeviceDataStatus](clientpullchangesrequest-definitions-devicedatastatus.md))
+
+*   cannot be null
+
+*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-devicedatastatus.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/devicesDetail/additionalProperties")
 
 ### additionalProperties Type
 

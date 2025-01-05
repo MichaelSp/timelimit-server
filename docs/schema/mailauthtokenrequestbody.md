@@ -4,9 +4,11 @@
 https://timelimit.io/MailAuthTokenRequestBody
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                          |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :-------------------------------------------------------------------------------------------------- |
-| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [MailAuthTokenRequestBody.schema.json](MailAuthTokenRequestBody.schema.json "open original schema") |
+| Can be instantiated | Yes        | Unknown status | No           | Forbidden         | Forbidden             | none                | [MailAuthTokenRequestBody.schema.json](MailAuthTokenRequestBody.schema.json "open original schema") |
 
 ## MailAuthTokenRequestBody Type
 
@@ -20,16 +22,20 @@ https://timelimit.io/MailAuthTokenRequestBody
 
 ## mailAuthToken
 
+
+
 `mailAuthToken`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [MailAuthTokenRequestBody](mailauthtokenrequestbody-properties-mailauthtoken.md "https://timelimit.io/MailAuthTokenRequestBody#/properties/mailAuthToken")
+*   defined in: [MailAuthTokenRequestBody](mailauthtokenrequestbody-properties-mailauthtoken.md "https://timelimit.io/MailAuthTokenRequestBody#/properties/mailAuthToken")
 
 ### mailAuthToken Type
 
 `string`
+
+# MailAuthTokenRequestBody Definitions

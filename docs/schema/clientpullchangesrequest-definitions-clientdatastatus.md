@@ -4,6 +4,8 @@
 https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [ClientPullChangesRequest.schema.json\*](ClientPullChangesRequest.schema.json "open original schema") |
@@ -29,15 +31,17 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus
 
 ## devices
 
+
+
 `devices`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-devices.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/devices")
+*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-devices.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/devices")
 
 ### devices Type
 
@@ -45,15 +49,17 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus
 
 ## apps
 
+
+
 `apps`
 
-- is required
+*   is required
 
-- Type: `object` ([Details](clientpullchangesrequest-definitions-clientdatastatus-properties-apps.md))
+*   Type: `object` ([Details](clientpullchangesrequest-definitions-clientdatastatus-properties-apps.md))
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-apps.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/apps")
+*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-apps.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/apps")
 
 ### apps Type
 
@@ -61,15 +67,17 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus
 
 ## categories
 
+
+
 `categories`
 
-- is required
+*   is required
 
-- Type: `object` ([Details](clientpullchangesrequest-definitions-clientdatastatus-properties-categories.md))
+*   Type: `object` ([Details](clientpullchangesrequest-definitions-clientdatastatus-properties-categories.md))
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-categories.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/categories")
+*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-categories.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/categories")
 
 ### categories Type
 
@@ -77,15 +85,17 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus
 
 ## users
 
+
+
 `users`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-users.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/users")
+*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-users.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/users")
 
 ### users Type
 
@@ -93,15 +103,17 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus
 
 ## clientLevel
 
+
+
 `clientLevel`
 
-- is optional
+*   is optional
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-clientlevel.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/clientLevel")
+*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-clientlevel.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/clientLevel")
 
 ### clientLevel Type
 
@@ -109,15 +121,17 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus
 
 ## devicesDetail
 
+
+
 `devicesDetail`
 
-- is optional
+*   is optional
 
-- Type: `object` ([Details](clientpullchangesrequest-definitions-clientdatastatus-properties-devicesdetail.md))
+*   Type: `object` ([Details](clientpullchangesrequest-definitions-clientdatastatus-properties-devicesdetail.md))
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-devicesdetail.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/devicesDetail")
+*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-devicesdetail.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/devicesDetail")
 
 ### devicesDetail Type
 
@@ -125,15 +139,17 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus
 
 ## kri
 
+
+
 `kri`
 
-- is optional
+*   is optional
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-kri.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/kri")
+*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-kri.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/kri")
 
 ### kri Type
 
@@ -141,15 +157,17 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus
 
 ## kr
 
+
+
 `kr`
 
-- is optional
+*   is optional
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-kr.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/kr")
+*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-kr.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/kr")
 
 ### kr Type
 
@@ -157,15 +175,17 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus
 
 ## dh
 
+
+
 `dh`
 
-- is optional
+*   is optional
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-dh.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/dh")
+*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-dh.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/dh")
 
 ### dh Type
 
@@ -173,15 +193,17 @@ https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus
 
 ## u2f
 
+
+
 `u2f`
 
-- is optional
+*   is optional
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-u2f.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/u2f")
+*   defined in: [ClientPullChangesRequest](clientpullchangesrequest-definitions-clientdatastatus-properties-u2f.md "https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/u2f")
 
 ### u2f Type
 

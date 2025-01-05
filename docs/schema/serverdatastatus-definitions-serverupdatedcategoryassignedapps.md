@@ -4,6 +4,8 @@
 https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssignedApps
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [ServerDataStatus.schema.json\*](ServerDataStatus.schema.json "open original schema") |
@@ -22,15 +24,17 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssigned
 
 ## categoryId
 
+
+
 `categoryId`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryassignedapps-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssignedApps/properties/categoryId")
+*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryassignedapps-properties-categoryid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssignedApps/properties/categoryId")
 
 ### categoryId Type
 
@@ -38,15 +42,17 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssigned
 
 ## apps
 
+
+
 `apps`
 
-- is required
+*   is required
 
-- Type: `string[]`
+*   Type: `string[]`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryassignedapps-properties-apps.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssignedApps/properties/apps")
+*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryassignedapps-properties-apps.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssignedApps/properties/apps")
 
 ### apps Type
 
@@ -54,15 +60,17 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssigned
 
 ## version
 
+
+
 `version`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryassignedapps-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssignedApps/properties/version")
+*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategoryassignedapps-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryAssignedApps/properties/version")
 
 ### version Type
 

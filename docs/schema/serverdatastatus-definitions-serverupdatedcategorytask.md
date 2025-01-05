@@ -4,6 +4,8 @@
 https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [ServerDataStatus.schema.json\*](ServerDataStatus.schema.json "open original schema") |
@@ -24,15 +26,17 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask
 
 ## i
 
+
+
 `i`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-i.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/i")
+*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-i.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/i")
 
 ### i Type
 
@@ -40,15 +44,17 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask
 
 ## t
 
+
+
 `t`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-t.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/t")
+*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-t.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/t")
 
 ### t Type
 
@@ -56,15 +62,17 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask
 
 ## d
 
+
+
 `d`
 
-- is required
+*   is required
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-d.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/d")
+*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-d.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/d")
 
 ### d Type
 
@@ -72,15 +80,17 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask
 
 ## p
 
+
+
 `p`
 
-- is required
+*   is required
 
-- Type: `boolean`
+*   Type: `boolean`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-p.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/p")
+*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-p.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/p")
 
 ### p Type
 
@@ -88,15 +98,17 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask
 
 ## l
 
+
+
 `l`
 
-- is required
+*   is required
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-l.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/l")
+*   defined in: [ServerDataStatus](serverdatastatus-definitions-serverupdatedcategorytask-properties-l.md "https://timelimit.io/ServerDataStatus#/definitions/ServerUpdatedCategoryTask/properties/l")
 
 ### l Type
 

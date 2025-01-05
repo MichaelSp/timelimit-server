@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializeResetCategoryNetworkIdsAction/properties/type
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable            | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :---------------------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | Unknown identifiability | Forbidden         | Allowed               | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -14,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializeResetCategoryN
 
 ## type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"RESET_CATEGORY_NETWORK_IDS"
-```
+| Value                          | Explanation |
+| :----------------------------- | :---------- |
+| `"RESET_CATEGORY_NETWORK_IDS"` |             |

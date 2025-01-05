@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedFinishKeyRequestAction
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedAppLogicAction.schema.json\*](SerializedAppLogicAction.schema.json "open original schema") |
@@ -21,15 +23,17 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedFinishKeyRe
 
 ## type
 
+
+
 `type`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedfinishkeyrequestaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedFinishKeyRequestAction/properties/type")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedfinishkeyrequestaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedFinishKeyRequestAction/properties/type")
 
 ### type Type
 
@@ -37,23 +41,25 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedFinishKeyRe
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"FINISH_KEY_REQUEST"
-```
+| Value                  | Explanation |
+| :--------------------- | :---------- |
+| `"FINISH_KEY_REQUEST"` |             |
 
 ## dsn
 
+
+
 `dsn`
 
-- is required
+*   is required
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedfinishkeyrequestaction-properties-dsn.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedFinishKeyRequestAction/properties/dsn")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedfinishkeyrequestaction-properties-dsn.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedFinishKeyRequestAction/properties/dsn")
 
 ### dsn Type
 

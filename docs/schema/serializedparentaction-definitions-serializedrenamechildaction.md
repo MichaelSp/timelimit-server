@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedRenameChildAction
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -22,15 +24,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedRenameChildAc
 
 ## type
 
+
+
 `type`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedrenamechildaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRenameChildAction/properties/type")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedrenamechildaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRenameChildAction/properties/type")
 
 ### type Type
 
@@ -38,23 +42,25 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedRenameChildAc
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"RENAME_CHILD"
-```
+| Value            | Explanation |
+| :--------------- | :---------- |
+| `"RENAME_CHILD"` |             |
 
 ## childId
 
+
+
 `childId`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedrenamechildaction-properties-childid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRenameChildAction/properties/childId")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedrenamechildaction-properties-childid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRenameChildAction/properties/childId")
 
 ### childId Type
 
@@ -62,15 +68,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedRenameChildAc
 
 ## newName
 
+
+
 `newName`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedrenamechildaction-properties-newname.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRenameChildAction/properties/newName")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedrenamechildaction-properties-newname.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRenameChildAction/properties/newName")
 
 ### newName Type
 

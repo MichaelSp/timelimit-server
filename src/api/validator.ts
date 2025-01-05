@@ -564,21 +564,6 @@ const definitions = {
       "type"
     ]
   },
-  "SerializedReportU2fLoginAction": {
-    "type": "object",
-    "properties": {
-      "type": {
-        "type": "string",
-        "enum": [
-          "REPORT_U2F_LOGIN"
-        ]
-      }
-    },
-    "additionalProperties": false,
-    "required": [
-      "type"
-    ]
-  },
   "SerializedRemoveCategoryAppsAction": {
     "type": "object",
     "properties": {
@@ -670,6 +655,21 @@ const definitions = {
     "required": [
       "childId",
       "newName",
+      "type"
+    ]
+  },
+  "SerializedReportU2fLoginAction": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": [
+          "REPORT_U2F_LOGIN"
+        ]
+      }
+    },
+    "additionalProperties": false,
+    "required": [
       "type"
     ]
   },
@@ -1709,6 +1709,47 @@ const definitions = {
       "type"
     ]
   },
+  "SerializedMarkTaskPendingAction": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": [
+          "MARK_TASK_PENDING"
+        ]
+      },
+      "taskId": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "taskId",
+      "type"
+    ]
+  },
+  "SerializedRemoveInstalledAppsAction": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": [
+          "REMOVE_INSTALLED_APPS"
+        ]
+      },
+      "packageNames": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "packageNames",
+      "type"
+    ]
+  },
   "SerializedReplyToKeyRequestAction": {
     "type": "object",
     "properties": {
@@ -1737,72 +1778,6 @@ const definitions = {
       "rsn",
       "signature",
       "tempKey",
-      "type"
-    ]
-  },
-  "SerializedMarkTaskPendingAction": {
-    "type": "object",
-    "properties": {
-      "type": {
-        "type": "string",
-        "enum": [
-          "MARK_TASK_PENDING"
-        ]
-      },
-      "taskId": {
-        "type": "string"
-      }
-    },
-    "additionalProperties": false,
-    "required": [
-      "taskId",
-      "type"
-    ]
-  },
-  "SerializedUpdateInstalledAppsAction": {
-    "type": "object",
-    "properties": {
-      "type": {
-        "type": "string",
-        "enum": [
-          "UPDATE_INSTALLED_APPS"
-        ]
-      },
-      "b": {
-        "type": "string"
-      },
-      "d": {
-        "type": "string"
-      },
-      "w": {
-        "type": "boolean"
-      }
-    },
-    "additionalProperties": false,
-    "required": [
-      "type",
-      "w"
-    ]
-  },
-  "SerializedRemoveInstalledAppsAction": {
-    "type": "object",
-    "properties": {
-      "type": {
-        "type": "string",
-        "enum": [
-          "REMOVE_INSTALLED_APPS"
-        ]
-      },
-      "packageNames": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        }
-      }
-    },
-    "additionalProperties": false,
-    "required": [
-      "packageNames",
       "type"
     ]
   },
@@ -1999,6 +1974,31 @@ const definitions = {
     "additionalProperties": false,
     "required": [
       "type"
+    ]
+  },
+  "SerializedUpdateInstalledAppsAction": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": [
+          "UPDATE_INSTALLED_APPS"
+        ]
+      },
+      "b": {
+        "type": "string"
+      },
+      "d": {
+        "type": "string"
+      },
+      "w": {
+        "type": "boolean"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "type",
+      "w"
     ]
   },
   "SerializedUploadDevicePublicKeyAction": {
@@ -3073,9 +3073,6 @@ export const isSerializedParentAction: (value: unknown) => value is SerializedPa
       "$ref": "#/definitions/SerializedIncrementCategoryExtraTimeAction"
     },
     {
-      "$ref": "#/definitions/SerializedReportU2fLoginAction"
-    },
-    {
       "$ref": "#/definitions/SerializedRemoveCategoryAppsAction"
     },
     {
@@ -3086,6 +3083,9 @@ export const isSerializedParentAction: (value: unknown) => value is SerializedPa
     },
     {
       "$ref": "#/definitions/SerializedRenameChildAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedReportU2fLoginAction"
     },
     {
       "$ref": "#/definitions/SerializeResetCategoryNetworkIdsAction"
@@ -3208,16 +3208,13 @@ export const isSerializedAppLogicAction: (value: unknown) => value is Serialized
       "$ref": "#/definitions/SerializedForceSyncAction"
     },
     {
-      "$ref": "#/definitions/SerializedReplyToKeyRequestAction"
-    },
-    {
       "$ref": "#/definitions/SerializedMarkTaskPendingAction"
     },
     {
-      "$ref": "#/definitions/SerializedUpdateInstalledAppsAction"
+      "$ref": "#/definitions/SerializedRemoveInstalledAppsAction"
     },
     {
-      "$ref": "#/definitions/SerializedRemoveInstalledAppsAction"
+      "$ref": "#/definitions/SerializedReplyToKeyRequestAction"
     },
     {
       "$ref": "#/definitions/SerializedSendKeyRequestAction"
@@ -3233,6 +3230,9 @@ export const isSerializedAppLogicAction: (value: unknown) => value is Serialized
     },
     {
       "$ref": "#/definitions/SerializedUpdateDeviceStatusAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedUpdateInstalledAppsAction"
     },
     {
       "$ref": "#/definitions/SerializedUploadDevicePublicKeyAction"

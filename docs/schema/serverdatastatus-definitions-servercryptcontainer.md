@@ -4,6 +4,8 @@
 https://timelimit.io/ServerDataStatus#/definitions/ServerCryptContainer
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [ServerDataStatus.schema.json\*](ServerDataStatus.schema.json "open original schema") |
@@ -21,15 +23,17 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerCryptContainer
 
 ## version
 
+
+
 `version`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCryptContainer/properties/version")
+*   defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer-properties-version.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCryptContainer/properties/version")
 
 ### version Type
 
@@ -37,15 +41,17 @@ https://timelimit.io/ServerDataStatus#/definitions/ServerCryptContainer
 
 ## data
 
+
+
 `data`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer-properties-data.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCryptContainer/properties/data")
+*   defined in: [ServerDataStatus](serverdatastatus-definitions-servercryptcontainer-properties-data.md "https://timelimit.io/ServerDataStatus#/definitions/ServerCryptContainer/properties/data")
 
 ### data Type
 

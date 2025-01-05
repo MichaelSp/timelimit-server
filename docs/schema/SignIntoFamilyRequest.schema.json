@@ -15,7 +15,11 @@
     }
   },
   "additionalProperties": false,
-  "required": ["deviceName", "mailAuthToken", "parentDevice"],
+  "required": [
+    "deviceName",
+    "mailAuthToken",
+    "parentDevice"
+  ],
   "definitions": {
     "NewDeviceInfo": {
       "type": "object",
@@ -25,7 +29,9 @@
         }
       },
       "additionalProperties": false,
-      "required": ["model"],
+      "required": [
+        "model"
+      ],
       "title": "NewDeviceInfo"
     }
   },

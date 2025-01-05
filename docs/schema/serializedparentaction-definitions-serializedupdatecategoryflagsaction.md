@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryFlagsAction
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -23,15 +25,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategor
 
 ## type
 
+
+
 `type`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryflagsaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryFlagsAction/properties/type")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryflagsaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryFlagsAction/properties/type")
 
 ### type Type
 
@@ -39,23 +43,25 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategor
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"UPDATE_CATEGORY_FLAGS"
-```
+| Value                     | Explanation |
+| :------------------------ | :---------- |
+| `"UPDATE_CATEGORY_FLAGS"` |             |
 
 ## categoryId
 
+
+
 `categoryId`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryflagsaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryFlagsAction/properties/categoryId")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryflagsaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryFlagsAction/properties/categoryId")
 
 ### categoryId Type
 
@@ -63,15 +69,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategor
 
 ## modified
 
+
+
 `modified`
 
-- is required
+*   is required
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryflagsaction-properties-modified.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryFlagsAction/properties/modified")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryflagsaction-properties-modified.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryFlagsAction/properties/modified")
 
 ### modified Type
 
@@ -79,15 +87,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategor
 
 ## values
 
+
+
 `values`
 
-- is required
+*   is required
 
-- Type: `number`
+*   Type: `number`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryflagsaction-properties-values.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryFlagsAction/properties/values")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryflagsaction-properties-values.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryFlagsAction/properties/values")
 
 ### values Type
 

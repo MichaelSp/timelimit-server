@@ -4,9 +4,11 @@
 https://timelimit.io/UpdatePrimaryDeviceRequest
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                              |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------------ |
-| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [UpdatePrimaryDeviceRequest.schema.json](UpdatePrimaryDeviceRequest.schema.json "open original schema") |
+| Can be instantiated | Yes        | Unknown status | No           | Forbidden         | Forbidden             | none                | [UpdatePrimaryDeviceRequest.schema.json](UpdatePrimaryDeviceRequest.schema.json "open original schema") |
 
 ## UpdatePrimaryDeviceRequest Type
 
@@ -22,15 +24,17 @@ https://timelimit.io/UpdatePrimaryDeviceRequest
 
 ## action
 
+
+
 `action`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [UpdatePrimaryDeviceRequest](updateprimarydevicerequest-properties-action.md "https://timelimit.io/UpdatePrimaryDeviceRequest#/properties/action")
+*   defined in: [UpdatePrimaryDeviceRequest](updateprimarydevicerequest-properties-action.md "https://timelimit.io/UpdatePrimaryDeviceRequest#/properties/action")
 
 ### action Type
 
@@ -47,15 +51,17 @@ https://timelimit.io/UpdatePrimaryDeviceRequest
 
 ## currentUserId
 
+
+
 `currentUserId`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [UpdatePrimaryDeviceRequest](updateprimarydevicerequest-properties-currentuserid.md "https://timelimit.io/UpdatePrimaryDeviceRequest#/properties/currentUserId")
+*   defined in: [UpdatePrimaryDeviceRequest](updateprimarydevicerequest-properties-currentuserid.md "https://timelimit.io/UpdatePrimaryDeviceRequest#/properties/currentUserId")
 
 ### currentUserId Type
 
@@ -63,16 +69,20 @@ https://timelimit.io/UpdatePrimaryDeviceRequest
 
 ## authToken
 
+
+
 `authToken`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [UpdatePrimaryDeviceRequest](updateprimarydevicerequest-properties-authtoken.md "https://timelimit.io/UpdatePrimaryDeviceRequest#/properties/authToken")
+*   defined in: [UpdatePrimaryDeviceRequest](updateprimarydevicerequest-properties-authtoken.md "https://timelimit.io/UpdatePrimaryDeviceRequest#/properties/authToken")
 
 ### authToken Type
 
 `string`
+
+# UpdatePrimaryDeviceRequest Definitions

@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedMarkTaskPendingAction
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :---------------------------------------------------------------------------------------------------- |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedAppLogicAction.schema.json\*](SerializedAppLogicAction.schema.json "open original schema") |
@@ -21,15 +23,17 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedMarkTaskPen
 
 ## type
 
+
+
 `type`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedmarktaskpendingaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedMarkTaskPendingAction/properties/type")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedmarktaskpendingaction-properties-type.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedMarkTaskPendingAction/properties/type")
 
 ### type Type
 
@@ -37,23 +41,25 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedMarkTaskPen
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"MARK_TASK_PENDING"
-```
+| Value                 | Explanation |
+| :-------------------- | :---------- |
+| `"MARK_TASK_PENDING"` |             |
 
 ## taskId
 
+
+
 `taskId`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedmarktaskpendingaction-properties-taskid.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedMarkTaskPendingAction/properties/taskId")
+*   defined in: [SerializedAppLogicAction](serializedapplogicaction-definitions-serializedmarktaskpendingaction-properties-taskid.md "https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedMarkTaskPendingAction/properties/taskId")
 
 ### taskId Type
 

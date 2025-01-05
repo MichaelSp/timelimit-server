@@ -4,6 +4,8 @@
 https://timelimit.io/SerializedParentAction#/definitions/SerializeResetCategoryNetworkIdsAction
 ```
 
+
+
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
 | Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SerializedParentAction.schema.json\*](SerializedParentAction.schema.json "open original schema") |
@@ -21,15 +23,17 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializeResetCategoryN
 
 ## type
 
+
+
 `type`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializeresetcategorynetworkidsaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializeResetCategoryNetworkIdsAction/properties/type")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializeresetcategorynetworkidsaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializeResetCategoryNetworkIdsAction/properties/type")
 
 ### type Type
 
@@ -37,23 +41,25 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializeResetCategoryN
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"RESET_CATEGORY_NETWORK_IDS"
-```
+| Value                          | Explanation |
+| :----------------------------- | :---------- |
+| `"RESET_CATEGORY_NETWORK_IDS"` |             |
 
 ## categoryId
 
+
+
 `categoryId`
 
-- is required
+*   is required
 
-- Type: `string`
+*   Type: `string`
 
-- cannot be null
+*   cannot be null
 
-- defined in: [SerializedParentAction](serializedparentaction-definitions-serializeresetcategorynetworkidsaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializeResetCategoryNetworkIdsAction/properties/categoryId")
+*   defined in: [SerializedParentAction](serializedparentaction-definitions-serializeresetcategorynetworkidsaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializeResetCategoryNetworkIdsAction/properties/categoryId")
 
 ### categoryId Type
 
