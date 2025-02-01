@@ -8,8 +8,7 @@
       "automerge": true
     },
     {
-      "matchManagers": ["regex"],
-      "matchPackagePatterns": ["^remote-repo$"],
+      "matchManagers": ["custom.regex"],
       "postUpgradeTasks": {
         "commands": [
           "git clone --depth 1 --branch ${newValue} https://codeberg.org/timelimit/timelimit-server temp-repo",
@@ -17,7 +16,8 @@
           "rm -rf temp-repo"
         ],
         "fileFilters": ["**/*"]
-      }
+      },
+      "matchPackageNames": ["/^remote-repo$/"]
     }
   ],
   "customManagers": [
