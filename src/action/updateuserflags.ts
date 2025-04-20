@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UserFlags } from "../model/userflags"
-import { ParentAction } from "./basetypes"
-import { InvalidActionParameterException } from "./meta/exception"
-import { assertIdWithinFamily, assertSafeInteger } from "./meta/util"
+import { UserFlags } from "../model/userflags.js"
+import { ParentAction } from "./basetypes.js"
+import { InvalidActionParameterException } from "./meta/exception.js"
+import { assertIdWithinFamily, assertSafeInteger } from "./meta/util.js"
 
 const actionType = "UpdateUserFlagsAction"
 

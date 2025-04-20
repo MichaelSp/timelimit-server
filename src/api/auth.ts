@@ -18,15 +18,15 @@
 import { json } from 'body-parser'
 import { Router } from 'express'
 import { BadRequest, Forbidden } from 'http-errors'
-import { config } from '../config'
-import { Database } from '../database'
-import { sendLoginCode, signInByMailCode } from '../function/authentication/login-by-mail'
-import { isMailAddressCoveredByWhitelist, isMailServerBlacklisted, sanitizeMailAddress } from '../util/mail'
+import { config } from '../config.js'
+import { Database } from '../database/index.js'
+import { sendLoginCode, signInByMailCode } from '../function/authentication/login-by-mail.js'
+import { isMailAddressCoveredByWhitelist, isMailServerBlacklisted, sanitizeMailAddress } from '../util/mail.js'
 import {
   isSendMailLoginCodeRequest,
   isSignInByMailCodeRequest
-} from './validator'
-import { analyze } from './integrity'
+} from './validator.js'
+import { analyze } from './integrity.js'
 
 export const createAuthRouter = (database: Database) => {
   const router = Router()

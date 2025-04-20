@@ -16,9 +16,9 @@
  */
 
 import * as Sequelize from "sequelize"
-import { RemoveCategoryAppsAction } from "../../../../action"
-import { Cache } from "../cache"
-import { MissingItemException } from "../exception/missing-item"
+import { RemoveCategoryAppsAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { MissingItemException } from "../exception/missing-item.js"
 
 export async function dispatchRemoveCategoryApps({
   action,

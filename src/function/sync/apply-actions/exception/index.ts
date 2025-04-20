@@ -15,6 +15,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { StaticMessageException } from "../../../../exception"
+import { StaticMessageException } from "../../../../exception/index.js"
 
 export class ApplyActionException extends StaticMessageException {}

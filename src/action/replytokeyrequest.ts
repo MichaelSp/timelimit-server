@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AppLogicAction } from "./basetypes"
-import { InvalidActionParameterException } from "./meta/exception"
-import { assertSafeInteger } from "./meta/util"
+import { AppLogicAction } from "./basetypes.js"
+import { InvalidActionParameterException } from "./meta/exception.js"
+import { assertSafeInteger } from "./meta/util.js"
 
 const actionType = "ReplyToKeyRequestAction"
 

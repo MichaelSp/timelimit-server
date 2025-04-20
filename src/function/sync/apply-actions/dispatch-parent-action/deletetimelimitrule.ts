@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { DeleteTimeLimitRuleAction } from "../../../../action"
-import { Cache } from "../cache"
-import { MissingRuleException } from "../exception/missing-item"
+import { DeleteTimeLimitRuleAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { MissingRuleException } from "../exception/missing-item.js"
 
 export async function dispatchDeleteTimeLimitRule({
   action,

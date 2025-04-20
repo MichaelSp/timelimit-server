@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SetCategoryExtraTimeAction } from "../../../../action"
-import { Cache } from "../cache"
-import { MissingCategoryException } from "../exception/missing-item"
-import { PremiumVersionMissingException } from "../exception/premium"
+import { SetCategoryExtraTimeAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { MissingCategoryException } from "../exception/missing-item.js"
+import { PremiumVersionMissingException } from "../exception/premium.js"
 
 export async function dispatchSetCategoryExtraTime({
   action,

@@ -15,15 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MarkTaskPendingAction } from "../../../../action"
-import { sendTaskDoneMails } from "../../../warningmail/taskdone"
-import { Cache } from "../cache"
+import { MarkTaskPendingAction } from "../../../../action/index.js"
+import { sendTaskDoneMails } from "../../../warningmail/taskdone.js"
+import { Cache } from "../cache.js"
 import {
   IllegalStateException,
   SourceDeviceNotFoundException,
   SourceUserNotFoundException,
-} from "../exception/illegal-state"
-import { MissingTaskException } from "../exception/missing-item"
+} from "../exception/illegal-state.js"
+import { MissingTaskException } from "../exception/missing-item.js"
 
 export async function dispatchMarkTaskPendingAction({
   action,

@@ -15,11 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AddUsedTimeAction } from "../../../../action"
-import { MinuteOfDay } from "../../../../util/minuteofday"
-import { Cache } from "../cache"
-import { IllegalStateException } from "../exception/illegal-state"
-import { MissingCategoryException } from "../exception/missing-item"
+import { AddUsedTimeAction } from "../../../../action/index.js"
+import { MinuteOfDay } from "../../../../util/minuteofday.js"
+import { Cache } from "../cache.js"
+import { IllegalStateException } from "../exception/illegal-state.js"
+import { MissingCategoryException } from "../exception/missing-item.js"
 
 export const getRoundedTimestamp = () => {
   const now = Date.now()

@@ -16,9 +16,9 @@
  */
 
 import * as Sequelize from "sequelize"
-import { Database, Transaction } from "../../../../database"
-import { ServerUpdatedCategoryBaseData } from "../../../../object/serverdatastatus"
-import { FamilyEntry } from "../family-entry"
+import { Database, Transaction } from "../../../../database/index.js"
+import { ServerUpdatedCategoryBaseData } from "../../../../object/serverdatastatus.js"
+import { FamilyEntry } from "../family-entry.js"
 
 export async function getCategoryBaseDatas({
   database,

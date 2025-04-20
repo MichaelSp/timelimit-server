@@ -16,7 +16,7 @@
  */
 
 import { Transaction } from "sequelize"
-import { Migration } from "../../main"
+import { Migration } from "../../main.js"
 
 export const up: Migration = async ({ context }) => {
   context.transaction(

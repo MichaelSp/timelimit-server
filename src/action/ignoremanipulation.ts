@@ -15,13 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { DeviceHadManipulationFlags } from "../database/device"
-import { ParentAction } from "./basetypes"
+import { DeviceHadManipulationFlags } from "../database/device.js"
+import { ParentAction } from "./basetypes.js"
 import {
   assertIdWithinFamily,
   assertSafeInteger,
   throwOutOfRange,
-} from "./meta/util"
+} from "./meta/util.js"
 
 const actionType = "IgnoreManipulationAction"
 

@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { EventHandler } from "./eventhandler"
+import { EventHandler } from "./eventhandler.js"
 
 export class InMemoryEventHandler implements EventHandler {
   private counters = new Map<string, number>()

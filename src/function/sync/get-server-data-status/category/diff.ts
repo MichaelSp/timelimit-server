@@ -17,10 +17,10 @@
 
 import { difference, intersection } from "lodash"
 import * as Sequelize from "sequelize"
-import { Database } from "../../../../database"
-import { ClientDataStatusCategories } from "../../../../object/clientdatastatus"
-import { GetServerDataStatusIllegalStateException } from "../exception"
-import { FamilyEntry } from "../family-entry"
+import { Database } from "../../../../database/index.js"
+import { ClientDataStatusCategories } from "../../../../object/clientdatastatus.js"
+import { GetServerDataStatusIllegalStateException } from "../exception.js"
+import { FamilyEntry } from "../family-entry.js"
 
 export async function getCategoryDataToSync({
   database,

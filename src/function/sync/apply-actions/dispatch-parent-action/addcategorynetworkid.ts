@@ -15,11 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AddCategoryNetworkIdAction } from "../../../../action"
-import { maxNetworkIdsPerCategory } from "../../../../database/categorynetworkid"
-import { Cache } from "../cache"
-import { ApplyActionException } from "../exception/index"
-import { MissingCategoryException } from "../exception/missing-item"
+import { AddCategoryNetworkIdAction } from "../../../../action/index.js"
+import { maxNetworkIdsPerCategory } from "../../../../database/categorynetworkid.js"
+import { Cache } from "../cache.js"
+import { ApplyActionException } from "../exception/index.js"
+import { MissingCategoryException } from "../exception/missing-item.js"
 
 export async function dispatchAddCategoryNetworkId({
   action,

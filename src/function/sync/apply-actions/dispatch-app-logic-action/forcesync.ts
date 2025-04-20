@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ForceSyncAction } from "../../../../action"
-import { Cache } from "../cache"
+import { ForceSyncAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
 
 export async function dispatchForceSyncAction({
   cache,

@@ -15,14 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { maxExtraTime, maxTitleLength } from "../database/childtask"
-import { ParentAction } from "./basetypes"
-import { InvalidActionParameterException } from "./meta/exception"
+import { maxExtraTime, maxTitleLength } from "../database/childtask.js"
+import { ParentAction } from "./basetypes.js"
+import { InvalidActionParameterException } from "./meta/exception.js"
 import {
   assertIdWithinFamily,
   assertSafeInteger,
   throwOutOfRange,
-} from "./meta/util"
+} from "./meta/util.js"
 
 const actionType = "UpdateChildTaskAction"
 

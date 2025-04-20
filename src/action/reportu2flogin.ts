@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from "./basetypes"
+import { ParentAction } from "./basetypes.js"
 
 export class ReportU2fLoginAction extends ParentAction {
   static instance = new ReportU2fLoginAction()

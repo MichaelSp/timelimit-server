@@ -16,8 +16,8 @@
  */
 
 import { Transaction } from "sequelize"
-import { Migration } from "../../main"
-import { attributesVersion3 as ruleAttributes } from "../../timelimitrule"
+import { Migration } from "../../main.js"
+import { attributesVersion3 as ruleAttributes } from "../../timelimitrule.js"
 
 export const up: Migration = async ({ context }) => {
   const queryInterface = context.getQueryInterface()

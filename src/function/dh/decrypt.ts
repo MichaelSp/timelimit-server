@@ -17,9 +17,9 @@
 
 import { createDecipheriv } from "crypto"
 import * as Sequelize from "sequelize"
-import { Database } from "../../database"
-import { isVersionId } from "../../util/token"
-import { getSharedSecret, SharedSecretException } from "./shared-secret"
+import { Database } from "../../database/index.js"
+import { isVersionId } from "../../util/token.js"
+import { getSharedSecret, SharedSecretException } from "./shared-secret.js"
 
 export async function decrypt({
   database,

@@ -15,11 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { IncrementCategoryExtraTimeAction } from "../../../../action"
-import { CategoryModel } from "../../../../database/category"
-import { Cache } from "../cache"
-import { MissingCategoryException } from "../exception/missing-item"
-import { PremiumVersionMissingException } from "../exception/premium"
+import { IncrementCategoryExtraTimeAction } from "../../../../action/index.js"
+import { CategoryModel } from "../../../../database/category.js"
+import { Cache } from "../cache.js"
+import { MissingCategoryException } from "../exception/missing-item.js"
+import { PremiumVersionMissingException } from "../exception/premium.js"
 
 export async function dispatchIncrementCategoryExtraTime({
   action,

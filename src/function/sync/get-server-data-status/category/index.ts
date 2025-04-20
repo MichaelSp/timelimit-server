@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export { getCategoryDataToSync } from "./diff"
-export { getCategoryBaseDatas } from "./base-data"
-export { getRules } from "./rules"
-export { getTasks } from "./tasks"
-export { getUsedTimes } from "./used-times"
-export { getCategoryAssignedApps } from "./assigned-apps"
+export { getCategoryDataToSync } from "./diff.js"
+export { getCategoryBaseDatas } from "./base-data.js"
+export { getRules } from "./rules.js"
+export { getTasks } from "./tasks.js"
+export { getUsedTimes } from "./used-times.js"
+export { getCategoryAssignedApps } from "./assigned-apps.js"

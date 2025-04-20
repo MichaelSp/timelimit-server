@@ -15,11 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SetKeepSignedInAction } from "../../../../action"
-import { Cache } from "../cache"
-import { SourceUserNotFoundException } from "../exception/illegal-state"
-import { ApplyActionException } from "../exception/index"
-import { MissingDeviceException } from "../exception/missing-item"
+import { SetKeepSignedInAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { SourceUserNotFoundException } from "../exception/illegal-state.js"
+import { ApplyActionException } from "../exception/index.js"
+import { MissingDeviceException } from "../exception/missing-item.js"
 
 export async function dispatchSetKeepSignedIn({
   action,

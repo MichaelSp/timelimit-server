@@ -19,15 +19,15 @@ import * as Sequelize from "sequelize"
 import {
   AppRecommendation,
   appRecommendationValues,
-} from "../model/apprecommendation"
+} from "../model/apprecommendation.js"
 import {
   booleanColumn,
   createEnumColumn,
   familyIdColumn,
   idWithinFamilyColumn,
   optionalLabelColumn,
-} from "./columns"
-import { SequelizeAttributes } from "./types"
+} from "./columns.js"
+import { SequelizeAttributes } from "./types.js"
 
 export interface AppAttributes {
   familyId: string

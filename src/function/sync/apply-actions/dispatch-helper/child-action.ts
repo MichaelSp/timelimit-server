@@ -15,13 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { parseChildAction } from "../../../../action/serialization"
-import { ClientPushChangesRequestAction } from "../../../../api/schema"
-import { isSerializedChildAction } from "../../../../api/validator"
-import { EventHandler } from "../../../../monitoring/eventhandler"
-import { Cache } from "../cache"
-import { dispatchChildAction as dispatchChildActionInternal } from "../dispatch-child-action"
-import { dispatch } from "./helper"
+import { parseChildAction } from "../../../../action/serialization/index.js"
+import { ClientPushChangesRequestAction } from "../../../../api/schema.js"
+import { isSerializedChildAction } from "../../../../api/validator.js"
+import { EventHandler } from "../../../../monitoring/eventhandler.js"
+import { Cache } from "../cache.js"
+import { dispatchChildAction as dispatchChildActionInternal } from "../dispatch-child-action/index.js"
+import { dispatch } from "./helper.js"
 
 export async function dispatchChildAction({
   action,

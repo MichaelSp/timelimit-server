@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SetCategoryForUnassignedAppsAction } from "../../../../action"
-import { Cache } from "../cache"
-import { ApplyActionException } from "../exception/index"
-import { MissingUserException } from "../exception/missing-item"
+import { SetCategoryForUnassignedAppsAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { ApplyActionException } from "../exception/index.js"
+import { MissingUserException } from "../exception/missing-item.js"
 
 export async function dispatchSetCategoryForUnassignedApps({
   action,

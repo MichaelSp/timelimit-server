@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UploadDevicePublicKeyAction } from "../../../../action"
-import { EventHandler } from "../../../../monitoring/eventhandler"
-import { Cache } from "../cache"
-import { SourceDeviceNotFoundException } from "../exception/illegal-state"
+import { UploadDevicePublicKeyAction } from "../../../../action/index.js"
+import { EventHandler } from "../../../../monitoring/eventhandler.js"
+import { Cache } from "../cache.js"
+import { SourceDeviceNotFoundException } from "../exception/illegal-state.js"
 
 export async function dispatchUploadDevicePublicKeyAction({
   deviceId,

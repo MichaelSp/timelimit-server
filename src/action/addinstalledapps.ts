@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { InstalledApp, SerializedInstalledApp } from "../model/installedapp"
-import { AppLogicAction } from "./basetypes"
-import { assertNonEmptyListWithoutDuplicates } from "./meta/util"
+import { InstalledApp, SerializedInstalledApp } from "../model/installedapp.js"
+import { AppLogicAction } from "./basetypes.js"
+import { assertNonEmptyListWithoutDuplicates } from "./meta/util.js"
 
 const actionType = "AddInstalledAppsAction"
 

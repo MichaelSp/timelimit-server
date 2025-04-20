@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MinuteOfDay } from '../util/minuteofday'
-import { ParentAction } from './basetypes'
-import { InvalidActionParameterException } from './meta/exception'
-import { assertIdWithinFamily, assertSafeInteger, throwOutOfRange } from './meta/util'
+import { MinuteOfDay } from '../util/minuteofday.js'
+import { ParentAction } from './basetypes.js'
+import { InvalidActionParameterException } from './meta/exception.js'
+import { assertIdWithinFamily, assertSafeInteger, throwOutOfRange } from './meta/util.js'
 
 const actionType = 'UpdateTimelimitRuleAction'
 

@@ -16,16 +16,16 @@
  */
 
 import { Unauthorized } from "http-errors"
-import { RegisterChildDeviceRequest } from "../../api/schema"
-import { Database } from "../../database"
-import { EventHandler } from "../../monitoring/eventhandler"
-import { createEmptyClientDataStatus } from "../../object/clientdatastatus"
-import { ServerDataStatus } from "../../object/serverdatastatus"
-import { generateAuthToken, generateVersionId } from "../../util/token"
-import { WebsocketApi } from "../../websocket"
-import { prepareDeviceEntry } from "../device/prepare-device-entry"
-import { generateServerDataStatus } from "../sync/get-server-data-status"
-import { notifyClientsAboutChangesDelayed } from "../websocket"
+import { RegisterChildDeviceRequest } from "../../api/schema.js"
+import { Database } from "../../database/index.js"
+import { EventHandler } from "../../monitoring/eventhandler.js"
+import { createEmptyClientDataStatus } from "../../object/clientdatastatus.js"
+import { ServerDataStatus } from "../../object/serverdatastatus.js"
+import { generateAuthToken, generateVersionId } from "../../util/token.js"
+import { WebsocketApi } from "../../websocket/index.js"
+import { prepareDeviceEntry } from "../device/prepare-device-entry.js"
+import { generateServerDataStatus } from "../sync/get-server-data-status/index.js"
+import { notifyClientsAboutChangesDelayed } from "../websocket/index.js"
 
 export const addChildDevice = async ({
   database,

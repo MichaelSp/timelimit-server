@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { IABVerifier } from "./iab_verifierr"
+import { IABVerifier } from "./iab_verifierr.js"
 
 export const googlePlayPublicKey = process.env.GOOGLE_PLAY_PUBLIC_KEY || ""
 

@@ -15,11 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SerializedAppActivityItem } from "../model/appactivity"
-import { SerializedInstalledApp } from "../model/installedapp"
-import { NewPermissionStatus } from "../model/newpermissionstatus"
-import { ProtectionLevel } from "../model/protectionlevel"
-import { RuntimePermissionStatus } from "../model/runtimepermissionstatus"
+import { SerializedAppActivityItem } from "../model/appactivity.js"
+import { SerializedInstalledApp } from "../model/installedapp.js"
+import { NewPermissionStatus } from "../model/newpermissionstatus.js"
+import { ProtectionLevel } from "../model/protectionlevel.js"
+import { RuntimePermissionStatus } from "../model/runtimepermissionstatus.js"
 
 export interface ServerDataStatus {
   devices?: ServerDeviceList // newDeviceList

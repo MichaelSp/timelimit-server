@@ -20,9 +20,9 @@ import { Server } from "socket.io"
 import {
   ConnectedDevicesManager,
   VisibleConnectedDevicesManager,
-} from "../connected-devices"
-import { Database } from "../database"
-import { deviceByAuthTokenRoom } from "./rooms"
+} from "../connected-devices/index.js"
+import { Database } from "../database/index.js"
+import { deviceByAuthTokenRoom } from "./rooms.js"
 
 export const createWebsocketHandler = ({
   connectedDevicesManager,

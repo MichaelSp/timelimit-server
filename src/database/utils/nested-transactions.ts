@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { generateIdWithinFamily } from "../../util/token"
-import { configItemIds } from "../config"
-import { Database } from "../main"
+import { generateIdWithinFamily } from "../../util/token.js"
+import { configItemIds } from "../config.js"
+import { Database } from "../main.js"
 
 class NestedTransactionTestException extends Error {}
 class TestRollbackException extends NestedTransactionTestException {}

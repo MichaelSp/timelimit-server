@@ -16,13 +16,13 @@
  */
 
 import * as Sequelize from "sequelize"
-import { Database, Transaction } from "../../../../database"
+import { Database, Transaction } from "../../../../database/index.js"
 import {
   ServerUpdatedCategoryTask,
   ServerUpdatedCategoryTasks,
-} from "../../../../object/serverdatastatus"
-import { FamilyEntry } from "../family-entry"
-import { ServerCategoryVersions } from "./diff"
+} from "../../../../object/serverdatastatus.js"
+import { FamilyEntry } from "../family-entry.js"
+import { ServerCategoryVersions } from "./diff.js"
 
 export async function getTasks({
   database,

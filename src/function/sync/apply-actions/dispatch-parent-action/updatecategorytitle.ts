@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateCategoryTitleAction } from "../../../../action"
-import { Cache } from "../cache"
-import { MissingCategoryException } from "../exception/missing-item"
+import { UpdateCategoryTitleAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { MissingCategoryException } from "../exception/missing-item.js"
 
 export async function dispatchUpdateCategoryTitle({
   action,

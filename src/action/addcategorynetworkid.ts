@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { anonymizedNetworkIdLength } from "../database/categorynetworkid"
-import { ParentAction } from "./basetypes"
-import { InvalidActionParameterException } from "./meta/exception"
-import { assertHexString, assertIdWithinFamily } from "./meta/util"
+import { anonymizedNetworkIdLength } from "../database/categorynetworkid.js"
+import { ParentAction } from "./basetypes.js"
+import { InvalidActionParameterException } from "./meta/exception.js"
+import { assertHexString, assertIdWithinFamily } from "./meta/util.js"
 
 const actionType = "AddCategoryNetworkIdAction"
 

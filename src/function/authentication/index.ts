@@ -16,8 +16,8 @@
  */
 
 import { Unauthorized } from "http-errors"
-import { Database, Transaction } from "../../database"
-import { generateAuthToken } from "../../util/token"
+import { Database, Transaction } from "../../database/index.js"
+import { generateAuthToken } from "../../util/token.js"
 
 export const createAuthTokenByMailAddress = async ({
   mail,

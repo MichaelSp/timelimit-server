@@ -16,11 +16,11 @@
  */
 
 import { Conflict, Unauthorized } from "http-errors"
-import { Database } from "../../database"
-import { generateVersionId } from "../../util/token"
-import { WebsocketApi } from "../../websocket"
-import { requireMailAndLocaleByAuthToken } from "../authentication"
-import { notifyClientsAboutChangesDelayed } from "../websocket"
+import { Database } from "../../database/index.js"
+import { generateVersionId } from "../../util/token.js"
+import { WebsocketApi } from "../../websocket/index.js"
+import { requireMailAndLocaleByAuthToken } from "../authentication/index.js"
+import { notifyClientsAboutChangesDelayed } from "../websocket/index.js"
 
 export const linkMailAddress = async ({
   mailAuthToken,

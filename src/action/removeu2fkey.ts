@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from "./basetypes"
-import { throwOutOfRange } from "./meta/util"
+import { ParentAction } from "./basetypes.js"
+import { throwOutOfRange } from "./meta/util.js"
 
 const actionType = "RemoveParentU2FKey"
 

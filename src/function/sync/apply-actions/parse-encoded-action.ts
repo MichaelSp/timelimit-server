@@ -15,12 +15,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { InvalidActionParameterException } from "../../../action/meta/exception"
-import { ClientPushChangesRequestAction } from "../../../api/schema"
+import { InvalidActionParameterException } from "../../../action/meta/exception.js"
+import { ClientPushChangesRequestAction } from "../../../api/schema.js"
 import {
   BadEncodedActionJsonException,
   InvalidActionParamterException,
-} from "./exception/invalidaction"
+} from "./exception/invalidaction.js"
 
 export function parseEncodedAction(
   action: ClientPushChangesRequestAction,

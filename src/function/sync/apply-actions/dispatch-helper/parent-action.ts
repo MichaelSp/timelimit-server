@@ -15,17 +15,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { parseParentAction } from "../../../../action/serialization"
-import { ClientPushChangesRequestAction } from "../../../../api/schema"
-import { isSerializedParentAction } from "../../../../api/validator"
-import { UserFlags } from "../../../../model/userflags"
-import { EventHandler } from "../../../../monitoring/eventhandler"
-import { Cache } from "../cache"
-import { dispatchParentAction as dispatchParentActionInternal } from "../dispatch-parent-action"
-import { SourceDeviceNotFoundException } from "../exception/illegal-state"
-import { SelfLimitNotPossibleException } from "../exception/self-limit"
-import { AuthenticationMethod } from "../types"
-import { dispatch } from "./helper"
+import { parseParentAction } from "../../../../action/serialization/index.js"
+import { ClientPushChangesRequestAction } from "../../../../api/schema.js"
+import { isSerializedParentAction } from "../../../../api/validator.js"
+import { UserFlags } from "../../../../model/userflags.js"
+import { EventHandler } from "../../../../monitoring/eventhandler.js"
+import { Cache } from "../cache.js"
+import { dispatchParentAction as dispatchParentActionInternal } from "../dispatch-parent-action/index.js"
+import { SourceDeviceNotFoundException } from "../exception/illegal-state.js"
+import { SelfLimitNotPossibleException } from "../exception/self-limit.js"
+import { AuthenticationMethod } from "../types.js"
+import { dispatch } from "./helper.js"
 
 export async function dispatchParentAction({
   action,

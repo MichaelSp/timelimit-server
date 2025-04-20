@@ -16,9 +16,9 @@
  */
 
 import { Conflict } from "http-errors"
-import { Database, Transaction } from "../../database"
-import { notifyClientsAboutChangesDelayed } from "../../function/websocket"
-import { WebsocketApi } from "../../websocket"
+import { Database, Transaction } from "../../database/index.js"
+import { notifyClientsAboutChangesDelayed } from "../../function/websocket/index.js"
+import { WebsocketApi } from "../../websocket/index.js"
 
 const day = 1000 * 60 * 60 * 24
 const month = day * 31

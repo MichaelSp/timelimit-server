@@ -19,9 +19,9 @@ import {
   ParseTimeLimitRuleException,
   SerializedTimeLimitRule,
   TimelimitRule,
-} from "../model/timelimitrule"
-import { ParentAction } from "./basetypes"
-import { InvalidActionParameterException } from "./meta/exception"
+} from "../model/timelimitrule.js"
+import { ParentAction } from "./basetypes.js"
+import { InvalidActionParameterException } from "./meta/exception.js"
 
 const actionType = "CreateTimeLimitRuleAction"
 

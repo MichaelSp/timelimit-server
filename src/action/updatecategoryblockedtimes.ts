@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { BitmapValidationException, validateBitmask } from "../util/bitmask"
-import { ParentAction } from "./basetypes"
-import { InvalidActionParameterException } from "./meta/exception"
-import { assertIdWithinFamily } from "./meta/util"
+import { BitmapValidationException, validateBitmask } from "../util/bitmask.js"
+import { ParentAction } from "./basetypes.js"
+import { InvalidActionParameterException } from "./meta/exception.js"
+import { assertIdWithinFamily } from "./meta/util.js"
 
 export const blockedTimesBitmaskLength =
   60 * 24 * 7 /* number of minutes per week */

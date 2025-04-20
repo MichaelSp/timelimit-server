@@ -16,9 +16,9 @@
  */
 
 import { Transaction } from "sequelize"
-import { attributesVersion2 } from "../../device"
-import { Migration } from "../../main"
-import { attributes as oldDeviceAttributes } from "../../olddevice"
+import { attributesVersion2 } from "../../device.js"
+import { Migration } from "../../main.js"
+import { attributes as oldDeviceAttributes } from "../../olddevice.js"
 
 export const up: Migration = async ({ context }) => {
   const queryInterface = context.getQueryInterface()

@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MinuteOfDay } from '../util/minuteofday'
-import { assertIdWithinFamily } from '../util/token'
+import { MinuteOfDay } from '../util/minuteofday.js'
+import { assertIdWithinFamily } from '../util/token.js'
 
 export class TimelimitRule {
   readonly ruleId: string

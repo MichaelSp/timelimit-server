@@ -17,19 +17,19 @@
 
 import { Server } from "http"
 import { pid } from "process"
-import { createApi } from "./api"
-import { config } from "./config"
-import { VisibleConnectedDevicesManager } from "./connected-devices"
+import { createApi } from "./api/index.js"
+import { config } from "./config.js"
+import { VisibleConnectedDevicesManager } from "./connected-devices/index.js"
 import {
   assertNestedTransactionsAreWorking,
   assertSerializeableTransactionsAreWorking,
   defaultDatabase,
   defaultUmzug,
-} from "./database"
-import { EventHandler } from "./monitoring/eventhandler"
-import { InMemoryEventHandler } from "./monitoring/inmemoryeventhandler"
-import { createWebsocketHandler } from "./websocket"
-import { initWorkers } from "./worker"
+} from "./database/index.js"
+import { EventHandler } from "./monitoring/eventhandler.js"
+import { InMemoryEventHandler } from "./monitoring/inmemoryeventhandler.js"
+import { createWebsocketHandler } from "./websocket/index.js"
+import { initWorkers } from "./worker/index.js"
 
 async function main() {
   await defaultUmzug.up()

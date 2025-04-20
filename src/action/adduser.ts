@@ -19,10 +19,10 @@ import {
   assertParentPasswordValid,
   EncryptableParentPassword,
   ParentPasswordValidationException,
-} from "../api/schema"
-import { ParentAction } from "./basetypes"
-import { InvalidActionParameterException } from "./meta/exception"
-import { assertIdWithinFamily } from "./meta/util"
+} from "../api/schema.js"
+import { ParentAction } from "./basetypes.js"
+import { InvalidActionParameterException } from "./meta/exception.js"
+import { assertIdWithinFamily } from "./meta/util.js"
 
 const actionType = "AddUserAction"
 

@@ -15,14 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { allowedTimeWarningFlags } from "../database/category"
-import { categoryTimeWarningConstants } from "../database/categorytimewarning"
-import { ParentAction } from "./basetypes"
+import { allowedTimeWarningFlags } from "../database/category.js"
+import { categoryTimeWarningConstants } from "../database/categorytimewarning.js"
+import { ParentAction } from "./basetypes.js"
 import {
   assertIdWithinFamily,
   assertSafeInteger,
   throwOutOfRange,
-} from "./meta/util"
+} from "./meta/util.js"
 
 const actionType = "UpdateCategoryTimeWarningsAction"
 

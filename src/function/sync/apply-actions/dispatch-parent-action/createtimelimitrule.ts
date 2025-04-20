@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { CreateTimeLimitRuleAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingCategoryException } from '../exception/missing-item'
-import { CanNotModifyOtherUsersBySelfLimitationException } from '../exception/self-limit'
+import { CreateTimeLimitRuleAction } from '../../../../action/index.js'
+import { Cache } from '../cache.js'
+import { MissingCategoryException } from '../exception/missing-item.js'
+import { CanNotModifyOtherUsersBySelfLimitationException } from '../exception/self-limit.js'
 
 export async function dispatchCreateTimeLimitRule ({ action, cache, fromChildSelfLimitAddChildUserId }: {
   action: CreateTimeLimitRuleAction

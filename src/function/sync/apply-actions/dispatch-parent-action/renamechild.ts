@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { RenameChildAction } from "../../../../action"
-import { Cache } from "../cache"
-import { MissingUserException } from "../exception/missing-item"
+import { RenameChildAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { MissingUserException } from "../exception/missing-item.js"
 
 export async function dispatchRenameChild({
   action,

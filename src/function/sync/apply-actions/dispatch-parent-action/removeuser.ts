@@ -19,11 +19,11 @@ import { createHash } from "crypto"
 import { InternalServerError } from "http-errors"
 import { difference } from "lodash"
 import * as Sequelize from "sequelize"
-import { RemoveUserAction } from "../../../../action"
-import { Cache } from "../cache"
-import { ApplyActionException } from "../exception/index"
-import { ApplyActionIntegrityException } from "../exception/integrity"
-import { MissingUserException } from "../exception/missing-item"
+import { RemoveUserAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { ApplyActionException } from "../exception/index.js"
+import { ApplyActionIntegrityException } from "../exception/integrity.js"
+import { MissingUserException } from "../exception/missing-item.js"
 
 export async function dispatchRemoveUser({
   action,

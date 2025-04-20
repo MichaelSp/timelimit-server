@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SendKeyRequestAction } from "../../../../action"
-import { Cache } from "../cache"
-import { SourceFamilyNotFoundException } from "../exception/illegal-state"
+import { SendKeyRequestAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { SourceFamilyNotFoundException } from "../exception/illegal-state.js"
 
 export async function dispatchSendKeyRequestAction({
   action,

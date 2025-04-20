@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { InvalidActionParameterException } from "../../../../action/meta/exception"
-import { ApplyActionException } from "./index"
+import { InvalidActionParameterException } from "../../../../action/meta/exception.js"
+import { ApplyActionException } from "./index.js"
 
 export class InvalidActionException extends ApplyActionException {}
 

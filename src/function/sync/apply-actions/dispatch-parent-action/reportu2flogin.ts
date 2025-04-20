@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ReportU2fLoginAction } from "../../../../action"
-import { Cache } from "../cache"
-import { ApplyActionUnacceptableAuthMethodException } from "../exception/auth"
-import { AuthenticationMethod } from "../types"
+import { ReportU2fLoginAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { ApplyActionUnacceptableAuthMethodException } from "../exception/auth.js"
+import { AuthenticationMethod } from "../types.js"
 
 export async function dispatchReportU2fLogin({
   authentication,

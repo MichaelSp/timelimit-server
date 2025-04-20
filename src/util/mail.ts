@@ -20,8 +20,8 @@ import { parseOneAddress } from 'email-addresses'
 import { readFileSync } from 'fs'
 import { createTransport } from 'nodemailer'
 import { resolve } from 'path'
-import { config } from '../config'
-import { IllegalStateException } from '../exception'
+import { config } from '../config.js'
+import { IllegalStateException } from '../exception/index.js'
 
 const mailimprint = process.env.MAIL_IMPRINT || 'not defined'
 const mailServerBlacklist = (process.env.MAIL_SERVER_BLACKLIST || '').split(',').filter((item) => !!item)

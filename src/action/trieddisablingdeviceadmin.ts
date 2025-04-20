@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AppLogicAction } from "./basetypes"
+import { AppLogicAction } from "./basetypes.js"
 
 export class TriedDisablingDeviceAdminAction extends AppLogicAction {
   constructor() {

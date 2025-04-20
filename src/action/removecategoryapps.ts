@@ -15,11 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from "./basetypes"
+import { ParentAction } from "./basetypes.js"
 import {
   assertIdWithinFamily,
   assertNonEmptyListWithoutDuplicates,
-} from "./meta/util"
+} from "./meta/util.js"
 
 const actionType = "RemoveCategoryAppsAction"
 

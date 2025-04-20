@@ -16,11 +16,11 @@
  */
 
 import { Unauthorized } from "http-errors"
-import { Database } from "../../database"
-import { generateAuthToken, generateVersionId } from "../../util/token"
-import { WebsocketApi } from "../../websocket"
-import { sendUninstallWarnings } from "../warningmail/uninstall"
-import { notifyClientsAboutChangesDelayed } from "../websocket"
+import { Database } from "../../database/index.js"
+import { generateAuthToken, generateVersionId } from "../../util/token.js"
+import { WebsocketApi } from "../../websocket/index.js"
+import { sendUninstallWarnings } from "../warningmail/uninstall.js"
+import { notifyClientsAboutChangesDelayed } from "../websocket/index.js"
 
 export async function reportDeviceRemoved({
   database,

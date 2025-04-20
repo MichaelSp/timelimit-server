@@ -20,8 +20,8 @@ import {
   familyIdColumn,
   idWithinFamilyColumn,
   optionalLabelColumn,
-} from "./columns"
-import { SequelizeAttributes } from "./types"
+} from "./columns.js"
+import { SequelizeAttributes } from "./types.js"
 
 export interface AppActivityAttributes {
   familyId: string

@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Database, Transaction } from "../../database"
-import { mailNotificationFlags } from "../../database/user"
-import { sendTaskDoneMail } from "../../util/mail"
-import { canSendTaskDoneMail } from "../../util/ratelimit-taskdonemail"
+import { Database, Transaction } from "../../database/index.js"
+import { mailNotificationFlags } from "../../database/user.js"
+import { sendTaskDoneMail } from "../../util/mail.js"
+import { canSendTaskDoneMail } from "../../util/ratelimit-taskdonemail.js"
 
 export const sendTaskDoneMails = async ({
   database,

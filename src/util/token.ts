@@ -16,7 +16,7 @@
  */
 
 import { randomInt } from "crypto"
-import { ValidationException } from "../exception"
+import { ValidationException } from "../exception/index.js"
 
 const defaultAlphabet =
   "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"

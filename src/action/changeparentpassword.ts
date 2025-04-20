@@ -16,9 +16,9 @@
  */
 
 import { createDecipheriv, createHash } from "crypto"
-import { ParentAction } from "./basetypes"
-import { InvalidActionParameterException } from "./meta/exception"
-import { assertHexString, assertIdWithinFamily } from "./meta/util"
+import { ParentAction } from "./basetypes.js"
+import { InvalidActionParameterException } from "./meta/exception.js"
+import { assertHexString, assertIdWithinFamily } from "./meta/util.js"
 
 const actionType = "ChangeParentPasswordAction"
 

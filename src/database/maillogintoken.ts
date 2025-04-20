@@ -16,8 +16,8 @@
  */
 
 import * as Sequelize from "sequelize"
-import { authTokenColumn, timestampColumn } from "./columns"
-import { SequelizeAttributes } from "./types"
+import { authTokenColumn, timestampColumn } from "./columns.js"
+import { SequelizeAttributes } from "./types.js"
 
 export interface MailLoginTokenAttributesVersion1 {
   mailLoginToken: string

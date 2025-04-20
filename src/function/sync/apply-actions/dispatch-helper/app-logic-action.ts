@@ -20,14 +20,14 @@ import {
   AddInstalledAppsAction,
   AppLogicAction,
   UpdateAppActivitiesAction,
-} from "../../../../action"
-import { parseAppLogicAction } from "../../../../action/serialization"
-import { ClientPushChangesRequestAction } from "../../../../api/schema"
-import { isSerializedAppLogicAction } from "../../../../api/validator"
-import { EventHandler } from "../../../../monitoring/eventhandler"
-import { Cache } from "../cache"
-import { dispatchAppLogicAction as dispatchAppLogicActionInternal } from "../dispatch-app-logic-action"
-import { dispatch } from "./helper"
+} from "../../../../action/index.js"
+import { parseAppLogicAction } from "../../../../action/serialization/index.js"
+import { ClientPushChangesRequestAction } from "../../../../api/schema.js"
+import { isSerializedAppLogicAction } from "../../../../api/validator.js"
+import { EventHandler } from "../../../../monitoring/eventhandler.js"
+import { Cache } from "../cache.js"
+import { dispatchAppLogicAction as dispatchAppLogicActionInternal } from "../dispatch-app-logic-action/index.js"
+import { dispatch } from "./helper.js"
 
 function getAppRelatedMaxValues(action: AppLogicAction): {
   packageNameLength: number | null

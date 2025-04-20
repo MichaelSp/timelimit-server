@@ -16,8 +16,8 @@
  */
 
 import * as Sequelize from "sequelize"
-import { Database } from "../../database"
-import { configItemIds } from "../../database/config"
+import { Database } from "../../database/index.js"
+import { configItemIds } from "../../database/config.js"
 
 export const getStatusMessage = async ({
   database,

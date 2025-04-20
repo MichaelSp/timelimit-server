@@ -16,9 +16,9 @@
  */
 
 import * as Sequelize from "sequelize"
-import { Database } from "../../../database"
-import { ServerUserList } from "../../../object/serverdatastatus"
-import { FamilyEntry } from "./family-entry"
+import { Database } from "../../../database/index.js"
+import { ServerUserList } from "../../../object/serverdatastatus.js"
+import { FamilyEntry } from "./family-entry.js"
 
 export async function getUserList({
   database,

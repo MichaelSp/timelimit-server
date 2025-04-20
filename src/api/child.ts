@@ -18,17 +18,17 @@
 import { json } from "body-parser"
 import { Router } from "express"
 import { BadRequest } from "http-errors"
-import { Database } from "../database"
-import { addChildDevice } from "../function/child/add-device"
-import { logoutAtPrimaryDevice } from "../function/child/logout-at-primary-device"
-import { setPrimaryDevice } from "../function/child/set-primary-device"
-import { EventHandler } from "../monitoring/eventhandler"
-import { WebsocketApi } from "../websocket"
+import { Database } from "../database/index.js"
+import { addChildDevice } from "../function/child/add-device.js"
+import { logoutAtPrimaryDevice } from "../function/child/logout-at-primary-device.js"
+import { setPrimaryDevice } from "../function/child/set-primary-device.js"
+import { EventHandler } from "../monitoring/eventhandler.js"
+import { WebsocketApi } from "../websocket/index.js"
 import {
   isRegisterChildDeviceRequest,
   isRequestWithAuthToken,
   isUpdatePrimaryDeviceRequest,
-} from "./validator"
+} from "./validator.js"
 
 export const createChildRouter = ({
   database,

@@ -16,8 +16,8 @@
  */
 
 import { Transaction } from "sequelize"
-import { attributesVersion2 as dhKeyAttributes } from "../../devicedhkey"
-import { Migration } from "../../main"
+import { attributesVersion2 as dhKeyAttributes } from "../../devicedhkey.js"
+import { Migration } from "../../main.js"
 
 export const up: Migration = async ({ context }) => {
   const queryInterface = context.getQueryInterface()

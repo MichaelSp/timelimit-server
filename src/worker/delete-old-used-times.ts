@@ -17,8 +17,8 @@
 
 import { uniqBy } from "lodash"
 import * as Sequelize from "sequelize"
-import { Database } from "../database"
-import { generateVersionId } from "../util/token"
+import { Database } from "../database/index.js"
+import { generateVersionId } from "../util/token.js"
 
 export function initDeleteOldUsedTimesWorker({
   database,

@@ -15,11 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { RemoveParentU2fKeyAction } from "../../../../action"
-import { getU2fKeyId } from "../../../../database/u2fkey"
-import { Cache } from "../cache"
-import { ApplyActionUnacceptableAuthMethodException } from "../exception/auth"
-import { AuthenticationMethod } from "../types"
+import { RemoveParentU2fKeyAction } from "../../../../action/index.js"
+import { getU2fKeyId } from "../../../../database/u2fkey.js"
+import { Cache } from "../cache.js"
+import { ApplyActionUnacceptableAuthMethodException } from "../exception/auth.js"
+import { AuthenticationMethod } from "../types.js"
 
 export async function dispatchRemoveU2f({
   action,

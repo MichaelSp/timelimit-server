@@ -16,11 +16,11 @@
  */
 
 import * as Sequelize from "sequelize"
-import { Database, Transaction } from "../../../../database"
-import { ServerUpdatedCategoryUsedTimes } from "../../../../object/serverdatastatus"
-import { MinuteOfDay } from "../../../../util/minuteofday"
-import { FamilyEntry } from "../family-entry"
-import { ServerCategoryVersions } from "./diff"
+import { Database, Transaction } from "../../../../database/index.js"
+import { ServerUpdatedCategoryUsedTimes } from "../../../../object/serverdatastatus.js"
+import { MinuteOfDay } from "../../../../util/minuteofday.js"
+import { FamilyEntry } from "../family-entry.js"
+import { ServerCategoryVersions } from "./diff.js"
 
 export async function getUsedTimes({
   database,

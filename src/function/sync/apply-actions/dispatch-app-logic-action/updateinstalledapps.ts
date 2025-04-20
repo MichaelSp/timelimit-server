@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateInstalledAppsAction } from "../../../../action"
-import { types } from "../../../../database/encryptedapplist"
-import { generateVersionId } from "../../../../util/token"
-import { Cache } from "../cache"
+import { UpdateInstalledAppsAction } from "../../../../action/index.js"
+import { types } from "../../../../database/encryptedapplist.js"
+import { generateVersionId } from "../../../../util/token.js"
+import { Cache } from "../cache.js"
 
 export async function dispatchUpdateInstalledApps({
   deviceId,

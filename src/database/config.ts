@@ -16,7 +16,7 @@
  */
 
 import * as Sequelize from "sequelize"
-import { SequelizeAttributes } from "./types"
+import { SequelizeAttributes } from "./types.js"
 
 export interface ConfigAttributes {
   id: string

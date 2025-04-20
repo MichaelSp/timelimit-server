@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ApplyActionException } from "./index"
+import { ApplyActionException } from "./index.js"
 
 export class LimitReachedException extends ApplyActionException {
   constructor({ type }: { type: string }) {

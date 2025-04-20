@@ -15,11 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ReviewChildTaskAction } from "../../../../action"
-import { Cache } from "../cache"
-import { IllegalStateException } from "../exception/illegal-state"
-import { MissingTaskException } from "../exception/missing-item"
-import { PremiumVersionMissingException } from "../exception/premium"
+import { ReviewChildTaskAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { IllegalStateException } from "../exception/illegal-state.js"
+import { MissingTaskException } from "../exception/missing-item.js"
+import { PremiumVersionMissingException } from "../exception/premium.js"
 
 export async function dispatchReviewChildTaskAction({
   action,

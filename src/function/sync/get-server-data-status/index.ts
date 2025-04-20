@@ -16,24 +16,24 @@
  */
 
 import * as Sequelize from 'sequelize'
-import { config } from '../../../config'
-import { Database } from '../../../database'
-import { getStatusMessage } from '../../../function/statusmessage'
-import { ClientDataStatus } from '../../../object/clientdatastatus'
-import { ServerDataStatus } from '../../../object/serverdatastatus'
-import { EventHandler } from '../../../monitoring/eventhandler'
+import { config } from '../../../config.js'
+import { Database } from '../../../database/index.js'
+import { getStatusMessage } from '../../../function/statusmessage/index.js'
+import { ClientDataStatus } from '../../../object/clientdatastatus.js'
+import { ServerDataStatus } from '../../../object/serverdatastatus.js'
+import { EventHandler } from '../../../monitoring/eventhandler.js'
 import {
   getCategoryAssignedApps, getCategoryBaseDatas, getCategoryDataToSync,
   getRules, getTasks, getUsedTimes
-} from './category'
-import { getDeviceDetailList } from './device-detail'
-import { getDeviceList } from './device-list'
-import { getDeviceDhKeys } from './dh-keys'
-import { getFamilyEntry } from './family-entry'
-import { getUserList } from './user-list'
-import { getKeyRequests } from './key-requests'
-import { getKeyResponses } from './key-responses'
-import { getU2f } from './u2f'
+} from './category/index.js'
+import { getDeviceDetailList } from './device-detail.js'
+import { getDeviceList } from './device-list.js'
+import { getDeviceDhKeys } from './dh-keys.js'
+import { getFamilyEntry } from './family-entry.js'
+import { getUserList } from './user-list.js'
+import { getKeyRequests } from './key-requests.js'
+import { getKeyResponses } from './key-responses.js'
+import { getU2f } from './u2f.js'
 
 export const generateServerDataStatus = async ({
   database, clientStatus, familyId, deviceId, transaction, eventHandler

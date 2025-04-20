@@ -16,12 +16,12 @@
  */
 
 import { Unauthorized } from "http-errors"
-import { DeleteAccountPayload } from "../../api/schema"
-import { Database } from "../../database"
-import { sendAccountDeletedMail } from "../../util/mail"
-import { WebsocketApi } from "../../websocket"
-import { requireMailAndLocaleByAuthToken } from "../authentication"
-import { deleteFamilies } from "./delete-families"
+import { DeleteAccountPayload } from "../../api/schema.js"
+import { Database } from "../../database/index.js"
+import { sendAccountDeletedMail } from "../../util/mail.js"
+import { WebsocketApi } from "../../websocket/index.js"
+import { requireMailAndLocaleByAuthToken } from "../authentication/index.js"
+import { deleteFamilies } from "./delete-families.js"
 
 export async function deleteAccount({
   request,

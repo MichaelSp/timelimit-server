@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export { decrypt } from "./decrypt"
-export { generateDhKeypair } from "./genkey"
-export { decryptParentPassword } from "./parentpassword"
-export { getSharedSecret, SharedSecretException } from "./shared-secret"
+export { decrypt } from "./decrypt.js"
+export { generateDhKeypair } from "./genkey.js"
+export { decryptParentPassword } from "./parentpassword.js"
+export { getSharedSecret, SharedSecretException } from "./shared-secret.js"

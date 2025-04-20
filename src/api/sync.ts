@@ -18,18 +18,18 @@
 import { json } from "body-parser"
 import { Router } from "express"
 import { BadRequest, Unauthorized } from "http-errors"
-import { VisibleConnectedDevicesManager } from "../connected-devices"
-import { Database } from "../database"
-import { reportDeviceRemoved } from "../function/device/report-device-removed"
-import { applyActionsFromDevice } from "../function/sync/apply-actions"
-import { generateServerDataStatus } from "../function/sync/get-server-data-status"
-import { EventHandler } from "../monitoring/eventhandler"
-import { WebsocketApi } from "../websocket"
+import { VisibleConnectedDevicesManager } from "../connected-devices/index.js"
+import { Database } from "../database/index.js"
+import { reportDeviceRemoved } from "../function/device/report-device-removed.js"
+import { applyActionsFromDevice } from "../function/sync/apply-actions/index.js"
+import { generateServerDataStatus } from "../function/sync/get-server-data-status/index.js"
+import { EventHandler } from "../monitoring/eventhandler.js"
+import { WebsocketApi } from "../websocket/index.js"
 import {
   isClientPullChangesRequest,
   isClientPushChangesRequest,
   isRequestWithAuthToken,
-} from "./validator"
+} from "./validator.js"
 
 const getRoundedTimestampForLastConnectivity = () => {
   const now = Date.now()

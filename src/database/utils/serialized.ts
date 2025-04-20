@@ -16,8 +16,8 @@
  */
 
 import * as Sequelize from "sequelize"
-import { configItemIds } from "../config"
-import { Database } from "../main"
+import { configItemIds } from "../config.js"
+import { Database } from "../main.js"
 
 export class SerializationFeatureCheckException extends Error {}
 

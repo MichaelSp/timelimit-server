@@ -21,10 +21,10 @@ import {
   RemovedAppActivityItem,
   SerializedAppActivityItem,
   SerializedRemovedAppActivityItem,
-} from "../model/appactivity"
-import { AppLogicAction } from "./basetypes"
-import { InvalidActionParameterException } from "./meta/exception"
-import { assertListWithoutDuplicates } from "./meta/util"
+} from "../model/appactivity.js"
+import { AppLogicAction } from "./basetypes.js"
+import { InvalidActionParameterException } from "./meta/exception.js"
+import { assertListWithoutDuplicates } from "./meta/util.js"
 
 const actionType = "UpdateAppActivitiesAction"
 

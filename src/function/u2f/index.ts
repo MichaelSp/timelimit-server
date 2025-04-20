@@ -17,13 +17,13 @@
 
 import { createHash, timingSafeEqual } from "crypto"
 import * as Sequelize from "sequelize"
-import { Database } from "../../database"
-import { intToBuffer } from "../../util/binary-number"
+import { Database } from "../../database/index.js"
+import { intToBuffer } from "../../util/binary-number.js"
 import {
   calculateApplicationId,
   isU2fSignatureValid,
-} from "../../util/u2fsignature"
-import { getSharedSecret, SharedSecretException } from "../dh"
+} from "../../util/u2fsignature.js"
+import { getSharedSecret, SharedSecretException } from "../dh/index.js"
 
 export class U2fValidationError extends Error {}
 class IntegrityMalformedException extends U2fValidationError {

@@ -16,12 +16,12 @@
  */
 
 import { Forbidden, Gone, TooManyRequests, Unauthorized } from 'http-errors'
-import { Database } from '../../database'
-import { sendAuthenticationMail } from '../../util/mail'
-import { areWordSequencesEqual, randomWords } from '../../util/random-words'
-import { checkMailSendLimit } from '../../util/ratelimit-authmail'
-import { generateAuthToken } from '../../util/token'
-import { createAuthTokenByMailAddress } from './index'
+import { Database } from '../../database/index.js'
+import { sendAuthenticationMail } from '../../util/mail.js'
+import { areWordSequencesEqual, randomWords } from '../../util/random-words.js'
+import { checkMailSendLimit } from '../../util/ratelimit-authmail.js'
+import { generateAuthToken } from '../../util/token.js'
+import { createAuthTokenByMailAddress } from './index.js'
 
 export const sendLoginCode = async ({ mail, deviceAuthToken, locale, database, info }: {
   mail: string

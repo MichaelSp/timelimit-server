@@ -16,7 +16,7 @@
  */
 
 import * as Sequelize from "sequelize"
-import { serializedBitmaskRegex } from "../util/bitmask"
+import { serializedBitmaskRegex } from "../util/bitmask.js"
 import {
   booleanColumn,
   familyIdColumn,
@@ -25,8 +25,8 @@ import {
   optionalIdWithinFamilyColumn,
   timestampColumn,
   versionColumn,
-} from "./columns"
-import { SequelizeAttributes } from "./types"
+} from "./columns.js"
+import { SequelizeAttributes } from "./types.js"
 
 export const allowedTimeWarningFlags = 1 | 2 | 4 | 8 | 16
 

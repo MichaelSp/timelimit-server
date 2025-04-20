@@ -18,5 +18,5 @@
 export {
   StaticMessageException,
   IllegalStateException,
-} from "./static-message-exception"
-export { ValidationException } from "./validation"
+} from "./static-message-exception.js"
+export { ValidationException } from "./validation.js"

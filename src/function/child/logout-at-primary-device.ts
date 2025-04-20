@@ -16,8 +16,8 @@
  */
 
 import { Conflict, Unauthorized } from "http-errors"
-import { Database } from "../../database"
-import { WebsocketApi } from "../../websocket"
+import { Database } from "../../database/index.js"
+import { WebsocketApi } from "../../websocket/index.js"
 
 export const logoutAtPrimaryDevice = async ({
   deviceAuthToken,
