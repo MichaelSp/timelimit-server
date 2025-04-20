@@ -15,10 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const { resolve } = require('path')
-const TJS = require('typescript-json-schema')
-const { writeFileSync } = require('fs')
-const { each, isEqual } = require('lodash')
+import { writeFileSync } from 'fs'
+import { resolve } from 'path'
+import { buildGenerator, getProgramFromFiles } from 'typescript-json-schema'
 
 const randomString = 'WK9fxjlOcM'
 
@@ -69,11 +68,17 @@ const compilerOptions = {
 }
 
 // optionally pass a base path
-const program = TJS.getProgramFromFiles([
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const program = getProgramFromFiles([
   resolve(__dirname, '../src/api/schema.ts')
 ], compilerOptions, __dirname)
 
-const generator = TJS.buildGenerator(program, settings)
+const generator = buildGenerator(program, settings)
 
 let definitions = {}
 let schemas = {}
@@ -85,21 +90,20 @@ allTypes.forEach((type) => {
   schemas[type] = schema
 
   if (schema.definitions) {
-    each(schema.definitions, (value, name) => {
+    for (const [name, value] of Object.entries(schema.definitions)) {
       if (!definitions[name]) {
         definitions[name] = value
       } else {
-        if (!isEqual(definitions[name], value)) {
+        if (JSON.stringify(definitions[name]) !== JSON.stringify(value)) {
           throw new Error('different schemas for ' + name)
         }
       }
-    })
+    }
   }
 })
 
-output += '// tslint:disable \n'
-output += 'import { ' + types.join(', ') + ' } from \'./schema\'\n'
-output += 'import Ajv from \'ajv\'\n'
+output += 'import { ' + types.join(', ') + ' } from \'./schema.js\'\n'
+output += 'import { Ajv } from \'ajv\'\n'
 output += 'const ajv = new Ajv()\n'
 output += '\n'
 output += 'const definitions = ' + JSON.stringify(definitions, null, 2) + '\n\n'
@@ -166,11 +170,11 @@ function getUsedDefinitions(schema) {
       }
     }
 
-    each(obj, (value, name) => {
+    for (const [name, value] of Object.entries(obj)) {
       if (name !== 'definitions') {
         handleUsedDefinitions(value)
       }
-    })
+    }
   }
 
   handleUsedDefinitions(schema)
@@ -205,7 +209,7 @@ function addDefinitionTitles(schema) {
     definitions: {}
   }
 
-  each(schema.definitions, (definition, title) => {
+  Object.entries(schema.definitions).forEach(([title, definition]) => {
     result.definitions[title] = {
       ...definition,
       title
