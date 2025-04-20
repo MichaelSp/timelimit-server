@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateEnableActivityLevelBlockingAction } from "../../../../action"
-import { Cache } from "../cache"
-import { MissingDeviceException } from "../exception/missing-item"
+import { UpdateEnableActivityLevelBlockingAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { MissingDeviceException } from "../exception/missing-item.js"
 
 export async function dispatchUpdateEnableActivityLevelBlocking({
   action,

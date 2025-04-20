@@ -18,59 +18,59 @@
 import {
   AddInstalledAppsAction,
   SerializedAddInstalledAppsAction,
-} from "../addinstalledapps"
-import { AddUsedTimeAction, SerializedAddUsedTimeAction } from "../addusedtime"
+} from "../addinstalledapps.js"
+import { AddUsedTimeAction, SerializedAddUsedTimeAction } from "../addusedtime.js"
 import {
   AddUsedTimeActionVersion2,
   SerializedAddUsedTimeActionVersion2,
-} from "../addusedtime2"
-import { AppLogicAction } from "../basetypes"
+} from "../addusedtime2.js"
+import { AppLogicAction } from "../basetypes.js"
 import {
   FinishKeyRequestAction,
   SerializedFinishKeyRequestAction,
-} from "../finishkeyrequest"
-import { ForceSyncAction, SerializedForceSyncAction } from "../forcesync"
+} from "../finishkeyrequest.js"
+import { ForceSyncAction, SerializedForceSyncAction } from "../forcesync.js"
 import {
   MarkTaskPendingAction,
   SerializedMarkTaskPendingAction,
-} from "../marktaskpendingaction"
-import { UnknownActionTypeException } from "../meta/exception"
+} from "../marktaskpendingaction.js"
+import { UnknownActionTypeException } from "../meta/exception.js"
 import {
   RemoveInstalledAppsAction,
   SerializedRemoveInstalledAppsAction,
-} from "../removeinstalledapps"
+} from "../removeinstalledapps.js"
 import {
   ReplyToKeyRequestAction,
   SerializedReplyToKeyRequestAction,
-} from "../replytokeyrequest"
+} from "../replytokeyrequest.js"
 import {
   SendKeyRequestAction,
   SerializedSendKeyRequestAction,
-} from "../sendkeyrequest"
+} from "../sendkeyrequest.js"
 import {
   SerializedSignOutAtDeviceAction,
   SignOutAtDeviceAction,
-} from "../signoutatdevice"
+} from "../signoutatdevice.js"
 import {
   SerialiezdTriedDisablingDeviceAdminAction,
   TriedDisablingDeviceAdminAction,
-} from "../trieddisablingdeviceadmin"
+} from "../trieddisablingdeviceadmin.js"
 import {
   SerializedUpdateAppActivitiesAction,
   UpdateAppActivitiesAction,
-} from "../updateappactivities"
+} from "../updateappactivities.js"
 import {
   SerializedUpdateDeviceStatusAction,
   UpdateDeviceStatusAction,
-} from "../updatedevicestatus"
+} from "../updatedevicestatus.js"
 import {
   SerializedUpdateInstalledAppsAction,
   UpdateInstalledAppsAction,
-} from "../updateinstalledapps"
+} from "../updateinstalledapps.js"
 import {
   SerializedUploadDevicePublicKeyAction,
   UploadDevicePublicKeyAction,
-} from "../uploaddevicepublickey"
+} from "../uploaddevicepublickey.js"
 
 export type SerializedAppLogicAction =
   | SerializedAddInstalledAppsAction

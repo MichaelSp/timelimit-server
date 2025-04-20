@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { NewDeviceInfo } from "../../api/schema"
-import { DeviceAttributes } from "../../database/device"
-import { generateVersionId } from "../../util/token"
+import { NewDeviceInfo } from "../../api/schema.js"
+import { DeviceAttributes } from "../../database/device.js"
+import { generateVersionId } from "../../util/token.js"
 
 export const prepareDeviceEntry = ({
   familyId,

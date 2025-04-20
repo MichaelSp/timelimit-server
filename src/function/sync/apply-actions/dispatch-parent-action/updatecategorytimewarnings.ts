@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateCategoryTimeWarningsAction } from "../../../../action"
-import { Cache } from "../cache"
-import { MissingCategoryException } from "../exception/missing-item"
+import { UpdateCategoryTimeWarningsAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { MissingCategoryException } from "../exception/missing-item.js"
 
 export async function dispatchUpdateCategoryTimeWarnings({
   action,

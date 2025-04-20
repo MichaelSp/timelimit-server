@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AddParentU2fKeyAction } from "../../../../action"
-import { getU2fKeyId } from "../../../../database/u2fkey"
-import { Cache } from "../cache"
-import { LimitReachedException } from "../exception/limit"
+import { AddParentU2fKeyAction } from "../../../../action/index.js"
+import { getU2fKeyId } from "../../../../database/u2fkey.js"
+import { Cache } from "../cache.js"
+import { LimitReachedException } from "../exception/limit.js"
 
 export async function dispatchAddU2f({
   action,

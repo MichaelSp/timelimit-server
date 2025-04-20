@@ -16,8 +16,8 @@
  */
 
 import { Transaction } from "sequelize"
-import { Migration } from "../../main"
-import { attributesVersion2 as limitLoginCategoryAttributes } from "../../userlimitlogincategory"
+import { Migration } from "../../main.js"
+import { attributesVersion2 as limitLoginCategoryAttributes } from "../../userlimitlogincategory.js"
 
 export const up: Migration = async ({ context }) => {
   const queryInterface = context.getQueryInterface()

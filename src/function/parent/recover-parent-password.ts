@@ -19,13 +19,13 @@ import { Conflict } from "http-errors"
 import {
   PlaintextParentPassword,
   assertPlaintextParentPasswordValid,
-} from "../../api/schema"
-import { Database } from "../../database"
-import { sendPasswordRecoveryUsedMail } from "../../util/mail"
-import { generateVersionId } from "../../util/token"
-import { WebsocketApi } from "../../websocket"
-import { requireMailAndLocaleByAuthToken } from "../authentication"
-import { notifyClientsAboutChangesDelayed } from "../websocket"
+} from "../../api/schema.js"
+import { Database } from "../../database/index.js"
+import { sendPasswordRecoveryUsedMail } from "../../util/mail.js"
+import { generateVersionId } from "../../util/token.js"
+import { WebsocketApi } from "../../websocket/index.js"
+import { requireMailAndLocaleByAuthToken } from "../authentication/index.js"
+import { notifyClientsAboutChangesDelayed } from "../websocket/index.js"
 
 export const recoverParentPassword = async ({
   database,

@@ -16,12 +16,12 @@
  */
 
 import * as Sequelize from 'sequelize'
-import { AddUsedTimeActionVersion2 } from '../../../../action'
-import { EventHandler } from '../../../../monitoring/eventhandler'
-import { MinuteOfDay } from '../../../../util/minuteofday'
-import { Cache } from '../cache'
-import { IllegalStateException, SourceDeviceNotFoundException } from '../exception/illegal-state'
-import { getRoundedTimestamp as getRoundedTimestampForUsedTime } from './addusedtime'
+import { AddUsedTimeActionVersion2 } from '../../../../action/index.js'
+import { EventHandler } from '../../../../monitoring/eventhandler.js'
+import { MinuteOfDay } from '../../../../util/minuteofday.js'
+import { Cache } from '../cache.js'
+import { IllegalStateException, SourceDeviceNotFoundException } from '../exception/illegal-state.js'
+import { getRoundedTimestamp as getRoundedTimestampForUsedTime } from './addusedtime.js'
 
 const tolerance = 5 * 1000  // 5 seconds
 

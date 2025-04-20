@@ -17,7 +17,7 @@
 
 import { difference } from "lodash"
 import * as Sequelize from "sequelize"
-import { Database, Transaction } from "../../database"
+import { Database, Transaction } from "../../database/index.js"
 
 export async function deleteFamilies({
   database,

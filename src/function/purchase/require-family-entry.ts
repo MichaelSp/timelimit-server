@@ -16,7 +16,7 @@
  */
 
 import { InternalServerError, Unauthorized } from "http-errors"
-import { Database, Transaction } from "../../database"
+import { Database, Transaction } from "../../database/index.js"
 
 export const requireFamilyEntry = async ({
   database,

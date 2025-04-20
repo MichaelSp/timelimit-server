@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Database, Transaction } from "../../database"
-import { randomWords } from "../../util/random-words"
-import { generateIdWithinFamily } from "../../util/token"
+import { Database, Transaction } from "../../database/index.js"
+import { randomWords } from "../../util/random-words.js"
+import { generateIdWithinFamily } from "../../util/token.js"
 
 export const createAddDeviceToken = async ({
   familyId,

@@ -15,18 +15,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SetParentCategoryAction } from "../../../../action"
+import { SetParentCategoryAction } from "../../../../action/index.js"
 import {
   getCategoryWithParentCategories,
   GetParentCategoriesException,
-} from "../../../../util/category"
-import { Cache } from "../cache"
-import { ApplyActionException } from "../exception/index"
-import { MissingCategoryException } from "../exception/missing-item"
+} from "../../../../util/category.js"
+import { Cache } from "../cache.js"
+import { ApplyActionException } from "../exception/index.js"
+import { MissingCategoryException } from "../exception/missing-item.js"
 import {
   CanNotModifyOtherUsersBySelfLimitationException,
   SelfLimitationException,
-} from "../exception/self-limit"
+} from "../exception/self-limit.js"
 
 export async function dispatchSetParentCategory({
   action,

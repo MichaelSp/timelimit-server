@@ -17,8 +17,8 @@
 
 import { difference } from "lodash"
 import * as Sequelize from "sequelize"
-import { Database } from "../../database"
-import { deleteFamilies } from "./delete-families"
+import { Database } from "../../database/index.js"
+import { deleteFamilies } from "./delete-families.js"
 
 export async function deleteOldFamilies(database: Database) {
   const oldFamilyIds = await findOldFamilyIds(database)

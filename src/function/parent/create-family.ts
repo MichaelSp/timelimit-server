@@ -20,21 +20,21 @@ import {
   NewDeviceInfo,
   PlaintextParentPassword,
   assertPlaintextParentPasswordValid,
-} from "../../api/schema"
-import { Database } from "../../database"
-import { maxMailNotificationFlags } from "../../database/user"
-import { EventHandler } from "../../monitoring/eventhandler"
-import { createEmptyClientDataStatus } from "../../object/clientdatastatus"
-import { ServerDataStatus } from "../../object/serverdatastatus"
+} from "../../api/schema.js"
+import { Database } from "../../database/index.js"
+import { maxMailNotificationFlags } from "../../database/user.js"
+import { EventHandler } from "../../monitoring/eventhandler.js"
+import { createEmptyClientDataStatus } from "../../object/clientdatastatus.js"
+import { ServerDataStatus } from "../../object/serverdatastatus.js"
 import {
   generateAuthToken,
   generateFamilyId,
   generateIdWithinFamily,
   generateVersionId,
-} from "../../util/token"
-import { requireMailAndLocaleByAuthToken } from "../authentication"
-import { prepareDeviceEntry } from "../device/prepare-device-entry"
-import { generateServerDataStatus } from "../sync/get-server-data-status"
+} from "../../util/token.js"
+import { requireMailAndLocaleByAuthToken } from "../authentication/index.js"
+import { prepareDeviceEntry } from "../device/prepare-device-entry.js"
+import { generateServerDataStatus } from "../sync/get-server-data-status/index.js"
 
 export async function createFamily({
   database,

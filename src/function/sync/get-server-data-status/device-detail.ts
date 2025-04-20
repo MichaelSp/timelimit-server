@@ -16,14 +16,14 @@
  */
 
 import * as Sequelize from "sequelize"
-import { Database } from "../../../database"
-import { types } from "../../../database/encryptedapplist"
-import { ClientDataStatusDevicesExtended } from "../../../object/clientdatastatus"
+import { Database } from "../../../database/index.js"
+import { types } from "../../../database/encryptedapplist.js"
+import { ClientDataStatusDevicesExtended } from "../../../object/clientdatastatus.js"
 import {
   ServerCryptContainer,
   ServerExtendedDeviceData,
-} from "../../../object/serverdatastatus"
-import { FamilyEntry } from "./family-entry"
+} from "../../../object/serverdatastatus.js"
+import { FamilyEntry } from "./family-entry.js"
 
 export async function getDeviceDetailList({
   database,

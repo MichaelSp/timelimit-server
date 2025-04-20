@@ -16,10 +16,10 @@
  */
 
 import * as Sequelize from 'sequelize'
-import { Database, Transaction } from '../../../../database'
-import { ServerUpdatedTimeLimitRules } from '../../../../object/serverdatastatus'
-import { FamilyEntry } from '../family-entry'
-import { ServerCategoryVersions } from './diff'
+import { Database, Transaction } from '../../../../database/index.js'
+import { ServerUpdatedTimeLimitRules } from '../../../../object/serverdatastatus.js'
+import { FamilyEntry } from '../family-entry.js'
+import { ServerCategoryVersions } from './diff.js'
 
 export async function getRules ({ database, transaction, categoryIdsToSyncRules, familyEntry, serverCategoriesVersions }: {
   database: Database

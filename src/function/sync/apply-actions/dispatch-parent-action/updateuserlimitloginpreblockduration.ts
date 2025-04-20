@@ -15,13 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateUserLimitLoginPreBlockDuration } from "../../../../action"
-import { Cache } from "../cache"
-import { ApplyActionException } from "../exception/index"
+import { UpdateUserLimitLoginPreBlockDuration } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { ApplyActionException } from "../exception/index.js"
 import {
   MissingItemException,
   MissingUserException,
-} from "../exception/missing-item"
+} from "../exception/missing-item.js"
 
 export async function dispatchUpdateUserLimitPreBlockDuration({
   action,

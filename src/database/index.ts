@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export { Transaction, Database, defaultDatabase, defaultUmzug } from "./main"
-export { assertNestedTransactionsAreWorking } from "./utils/nested-transactions"
+export { Transaction, Database, defaultDatabase, defaultUmzug } from "./main.js"
+export { assertNestedTransactionsAreWorking } from "./utils/nested-transactions.js"
 export {
   assertSerializeableTransactionsAreWorking,
   shouldRetryWithException,
-} from "./utils/serialized"
+} from "./utils/serialized.js"

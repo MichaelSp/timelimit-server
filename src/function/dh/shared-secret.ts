@@ -17,9 +17,9 @@
 
 import { createPrivateKey, createPublicKey, diffieHellman } from "crypto"
 import * as Sequelize from "sequelize"
-import { Database } from "../../database"
-import { calculateExpireTime } from "../../database/devicedhkey"
-import { isVersionId } from "../../util/token"
+import { Database } from "../../database/index.js"
+import { calculateExpireTime } from "../../database/devicedhkey.js"
+import { isVersionId } from "../../util/token.js"
 
 export async function getSharedSecret({
   database,

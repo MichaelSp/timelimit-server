@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ChildAction } from "./basetypes"
+import { ChildAction } from "./basetypes.js"
 
 export class ChildSignInAction extends ChildAction {
   static instance = new ChildSignInAction()

@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ChildChangePasswordAction } from "../../../../action"
-import { decryptParentPassword } from "../../../dh"
-import { Cache } from "../cache"
-import { SourceUserNotFoundException } from "../exception/illegal-state"
+import { ChildChangePasswordAction } from "../../../../action/index.js"
+import { decryptParentPassword } from "../../../dh/index.js"
+import { Cache } from "../cache.js"
+import { SourceUserNotFoundException } from "../exception/illegal-state.js"
 
 export const dispatchChildChangePassword = async ({
   action,

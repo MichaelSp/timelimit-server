@@ -16,11 +16,11 @@
  */
 
 import { Conflict, InternalServerError, Unauthorized } from "http-errors"
-import { config } from "../../config"
-import { Database } from "../../database"
-import { generateVersionId } from "../../util/token"
-import { WebsocketApi } from "../../websocket"
-import { notifyClientsAboutChangesDelayed } from "../websocket"
+import { config } from "../../config.js"
+import { Database } from "../../database/index.js"
+import { generateVersionId } from "../../util/token.js"
+import { WebsocketApi } from "../../websocket/index.js"
+import { notifyClientsAboutChangesDelayed } from "../websocket/index.js"
 
 export const setPrimaryDevice = async ({
   database,

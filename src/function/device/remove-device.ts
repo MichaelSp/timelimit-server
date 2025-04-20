@@ -16,10 +16,10 @@
  */
 
 import { Conflict } from "http-errors"
-import { Database, Transaction } from "../../database"
-import { generateVersionId } from "../../util/token"
-import { WebsocketApi } from "../../websocket"
-import { notifyClientsAboutChangesDelayed } from "../websocket"
+import { Database, Transaction } from "../../database/index.js"
+import { generateVersionId } from "../../util/token.js"
+import { WebsocketApi } from "../../websocket/index.js"
+import { notifyClientsAboutChangesDelayed } from "../websocket/index.js"
 
 export async function removeDevice({
   database,

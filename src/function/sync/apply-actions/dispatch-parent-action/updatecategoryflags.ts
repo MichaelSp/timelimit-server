@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateCategoryFlagsAction } from "../../../../action"
-import { Cache } from "../cache"
-import { IllegalStateException } from "../exception/illegal-state"
-import { MissingCategoryException } from "../exception/missing-item"
+import { UpdateCategoryFlagsAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { IllegalStateException } from "../exception/illegal-state.js"
+import { MissingCategoryException } from "../exception/missing-item.js"
 
 export async function dispatchUpdateCategoryFlagsAction({
   action,

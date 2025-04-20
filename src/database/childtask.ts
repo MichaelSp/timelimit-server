@@ -20,8 +20,8 @@ import {
   familyIdColumn,
   idWithinFamilyColumn,
   timestampColumn,
-} from "./columns"
-import { SequelizeAttributes } from "./types"
+} from "./columns.js"
+import { SequelizeAttributes } from "./types.js"
 
 export interface ChildTaskAttributes {
   familyId: string

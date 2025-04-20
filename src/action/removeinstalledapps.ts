@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AppLogicAction } from "./basetypes"
-import { assertNonEmptyListWithoutDuplicates } from "./meta/util"
+import { AppLogicAction } from "./basetypes.js"
+import { assertNonEmptyListWithoutDuplicates } from "./meta/util.js"
 
 const actionType = "RemoveInstalledAppsAction"
 

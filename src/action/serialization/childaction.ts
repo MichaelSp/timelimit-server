@@ -18,9 +18,9 @@
 import {
   ChildChangePasswordAction,
   SerializedChildChangePasswordAction,
-} from "../childchangepassword"
-import { ChildSignInAction, SerializedChildSignInAction } from "../childsignin"
-import { UnknownActionTypeException } from "../meta/exception"
+} from "../childchangepassword.js"
+import { ChildSignInAction, SerializedChildSignInAction } from "../childsignin.js"
+import { UnknownActionTypeException } from "../meta/exception.js"
 
 export type SerializedChildAction =
   | SerializedChildChangePasswordAction

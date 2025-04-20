@@ -16,9 +16,9 @@
  */
 
 import { SignJWT, jwtVerify } from "jose"
-import { IdentityTokenCreatePayload, IdentityTokenPayload } from "../api/schema"
-import { isIdentityTokenPayload } from "../api/validator"
-import { config } from "../config"
+import { IdentityTokenCreatePayload, IdentityTokenPayload } from "../api/schema.js"
+import { isIdentityTokenPayload } from "../api/validator.js"
+import { config } from "../config.js"
 
 export async function createIdentityToken({
   purpose,

@@ -19,16 +19,16 @@ import { json } from "body-parser"
 import { Router } from "express"
 import { BadRequest, Conflict } from "http-errors"
 import * as Sequelize from "sequelize"
-import { Database } from "../database"
-import { addPurchase, canDoNextPurchase } from "../function/purchase"
-import { getStatusMessage, setStatusMessage } from "../function/statusmessage"
-import { EventHandler } from "../monitoring/eventhandler"
+import { Database } from "../database/index.js"
+import { addPurchase, canDoNextPurchase } from "../function/purchase/index.js"
+import { getStatusMessage, setStatusMessage } from "../function/statusmessage/index.js"
+import { EventHandler } from "../monitoring/eventhandler.js"
 import {
   TokenValidationException,
   verifyIdentitifyToken,
-} from "../util/identity-token"
-import { generatePurchaseId } from "../util/token"
-import { WebsocketApi } from "../websocket"
+} from "../util/identity-token.js"
+import { generatePurchaseId } from "../util/token.js"
+import { WebsocketApi } from "../websocket/index.js"
 
 export const createAdminRouter = ({
   database,

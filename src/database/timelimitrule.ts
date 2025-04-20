@@ -16,10 +16,10 @@
  */
 
 import * as Sequelize from 'sequelize'
-import { ValidationException } from '../exception'
-import { MinuteOfDay } from '../util/minuteofday'
-import { booleanColumn, familyIdColumn, idWithinFamilyColumn } from './columns'
-import { SequelizeAttributes } from './types'
+import { ValidationException } from '../exception/index.js'
+import { MinuteOfDay } from '../util/minuteofday.js'
+import { booleanColumn, familyIdColumn, idWithinFamilyColumn } from './columns.js'
+import { SequelizeAttributes } from './types.js'
 
 interface TimelimitRuleAttributesVersion1 {
   familyId: string

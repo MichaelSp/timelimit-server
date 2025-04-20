@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { IgnoreManipulationAction } from "../../../../action"
-import { Cache } from "../cache"
-import { SourceDeviceNotFoundException } from "../exception/illegal-state"
+import { IgnoreManipulationAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { SourceDeviceNotFoundException } from "../exception/illegal-state.js"
 
 export async function dispatchIgnoreManipulation({
   action,

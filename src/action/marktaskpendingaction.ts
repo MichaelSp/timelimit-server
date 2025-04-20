@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AppLogicAction } from "./basetypes"
-import { assertIdWithinFamily } from "./meta/util"
+import { AppLogicAction } from "./basetypes.js"
+import { assertIdWithinFamily } from "./meta/util.js"
 
 const actionType = "MarkTaskPendingAction"
 

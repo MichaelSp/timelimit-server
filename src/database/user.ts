@@ -16,9 +16,9 @@
  */
 
 import * as Sequelize from "sequelize"
-import { UserFlags } from "../model/userflags"
-import { serializedBitmaskRegex } from "../util/bitmask"
-import { optionalPasswordRegex, optionalSaltRegex } from "../util/password"
+import { UserFlags } from "../model/userflags.js"
+import { serializedBitmaskRegex } from "../util/bitmask.js"
+import { optionalPasswordRegex, optionalSaltRegex } from "../util/password.js"
 import {
   booleanColumn,
   createEnumColumn,
@@ -27,8 +27,8 @@ import {
   labelColumn,
   optionalIdWithinFamilyColumn,
   timestampColumn,
-} from "./columns"
-import { SequelizeAttributes } from "./types"
+} from "./columns.js"
+import { SequelizeAttributes } from "./types.js"
 
 export const maxMailNotificationFlags = 1 | 2
 

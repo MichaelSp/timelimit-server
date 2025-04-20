@@ -19,52 +19,52 @@ import * as Sequelize from "sequelize"
 import {
   AddDeviceTokenModelStatic,
   createAddDeviceTokenModel,
-} from "./adddevicetoken"
-import { AuthTokenModelStatic, createAuthtokenModel } from "./authtoken"
-import { CategoryModelStatic, createCategoryModel } from "./category"
-import { CategoryAppModelStatic, createCategoryAppModel } from "./categoryapp"
+} from "./adddevicetoken.js"
+import { AuthTokenModelStatic, createAuthtokenModel } from "./authtoken.js"
+import { CategoryModelStatic, createCategoryModel } from "./category.js"
+import { CategoryAppModelStatic, createCategoryAppModel } from "./categoryapp.js"
 import {
   CategoryNetworkIdModelStatic,
   createCategoryNetworkIdModel,
-} from "./categorynetworkid"
+} from "./categorynetworkid.js"
 import {
   CategoryTimeWarningModelStatic,
   createCategoryTimeWarningModel,
-} from "./categorytimewarning"
-import { ChildTaskModelStatic, createChildTaskModel } from "./childtask"
-import { ConfigModelStatic, createConfigModel } from "./config"
-import { createDeviceModel, DeviceModelStatic } from "./device"
-import { createDeviceDhKey, DeviceDhKeyModelStatic } from "./devicedhkey"
+} from "./categorytimewarning.js"
+import { ChildTaskModelStatic, createChildTaskModel } from "./childtask.js"
+import { ConfigModelStatic, createConfigModel } from "./config.js"
+import { createDeviceModel, DeviceModelStatic } from "./device.js"
+import { createDeviceDhKey, DeviceDhKeyModelStatic } from "./devicedhkey.js"
 import {
   createEncryptedAppListModel,
   EncryptedAppListModelStatic,
-} from "./encryptedapplist"
-import { createFamilyModel, FamilyModelStatic } from "./family"
-import { createKeyRequestModel, KeyRequestModelStatic } from "./keyrequest"
-import { createKeyResponseModel, KeyResponseModelStatic } from "./keyresponse"
+} from "./encryptedapplist.js"
+import { createFamilyModel, FamilyModelStatic } from "./family.js"
+import { createKeyRequestModel, KeyRequestModelStatic } from "./keyrequest.js"
+import { createKeyResponseModel, KeyResponseModelStatic } from "./keyresponse.js"
 import {
   createMailLoginTokenModel,
   MailLoginTokenModelStatic,
-} from "./maillogintoken"
-import { createUmzug } from "./migration/umzug"
-import { createOldDeviceModel, OldDeviceModelStatic } from "./olddevice"
-import { createPurchaseModel, PurchaseModelStatic } from "./purchase"
+} from "./maillogintoken.js"
+import { createUmzug } from "./migration/umzug.js"
+import { createOldDeviceModel, OldDeviceModelStatic } from "./olddevice.js"
+import { createPurchaseModel, PurchaseModelStatic } from "./purchase.js"
 import {
   createSessionDurationModel,
   SessionDurationModelStatic,
-} from "./sessionduration"
+} from "./sessionduration.js"
 import {
   createTimelimitRuleModel,
   TimelimitRuleModelStatic,
-} from "./timelimitrule"
-import { createU2fKeyModel, U2fKeyModelStatic } from "./u2fkey"
-import { createUsedTimeModel, UsedTimeModelStatic } from "./usedtime"
-import { createUserModel, UserModelStatic } from "./user"
+} from "./timelimitrule.js"
+import { createU2fKeyModel, U2fKeyModelStatic } from "./u2fkey.js"
+import { createUsedTimeModel, UsedTimeModelStatic } from "./usedtime.js"
+import { createUserModel, UserModelStatic } from "./user.js"
 import {
   createUserLimitLoginCategoryModel,
   UserLimitLoginCategoryModelStatic,
-} from "./userlimitlogincategory"
-import { shouldRetryWithException } from "./utils/serialized"
+} from "./userlimitlogincategory.js"
+import { shouldRetryWithException } from "./utils/serialized.js"
 
 export type Transaction = Sequelize.Transaction
 

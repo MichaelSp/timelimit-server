@@ -16,22 +16,22 @@
  */
 
 import { Conflict } from "http-errors"
-import { NewDeviceInfo } from "../../api/schema"
-import { Database } from "../../database"
-import { EventHandler } from "../../monitoring/eventhandler"
-import { createEmptyClientDataStatus } from "../../object/clientdatastatus"
-import { ServerDataStatus } from "../../object/serverdatastatus"
-import { sendDeviceLinkedMail } from "../../util/mail"
+import { NewDeviceInfo } from "../../api/schema.js"
+import { Database } from "../../database/index.js"
+import { EventHandler } from "../../monitoring/eventhandler.js"
+import { createEmptyClientDataStatus } from "../../object/clientdatastatus.js"
+import { ServerDataStatus } from "../../object/serverdatastatus.js"
+import { sendDeviceLinkedMail } from "../../util/mail.js"
 import {
   generateAuthToken,
   generateIdWithinFamily,
   generateVersionId,
-} from "../../util/token"
-import { WebsocketApi } from "../../websocket"
-import { requireMailAndLocaleByAuthToken } from "../authentication"
-import { prepareDeviceEntry } from "../device/prepare-device-entry"
-import { generateServerDataStatus } from "../sync/get-server-data-status"
-import { notifyClientsAboutChangesDelayed } from "../websocket"
+} from "../../util/token.js"
+import { WebsocketApi } from "../../websocket/index.js"
+import { requireMailAndLocaleByAuthToken } from "../authentication/index.js"
+import { prepareDeviceEntry } from "../device/prepare-device-entry.js"
+import { generateServerDataStatus } from "../sync/get-server-data-status/index.js"
+import { notifyClientsAboutChangesDelayed } from "../websocket/index.js"
 
 export const signInIntoFamily = async ({
   database,

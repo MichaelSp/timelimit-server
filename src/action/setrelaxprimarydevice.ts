@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ParentAction } from "./basetypes"
-import { assertIdWithinFamily } from "./meta/util"
+import { ParentAction } from "./basetypes.js"
+import { assertIdWithinFamily } from "./meta/util.js"
 
 const actionType = "SetRelaxPrimaryDeviceAction"
 

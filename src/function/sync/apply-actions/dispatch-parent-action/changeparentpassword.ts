@@ -18,10 +18,10 @@
 import {
   ChangeParentPasswordAction,
   InvalidChangeParentPasswordIntegrityException,
-} from "../../../../action/changeparentpassword"
-import { Cache } from "../cache"
-import { ApplyActionException } from "../exception/index"
-import { MissingUserException } from "../exception/missing-item"
+} from "../../../../action/changeparentpassword.js"
+import { Cache } from "../cache.js"
+import { ApplyActionException } from "../exception/index.js"
+import { MissingUserException } from "../exception/missing-item.js"
 
 export async function dispatchChangeParentPassword({
   action,

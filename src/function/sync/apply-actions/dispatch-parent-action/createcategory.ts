@@ -15,11 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { CreateCategoryAction } from "../../../../action"
-import { generateVersionId } from "../../../../util/token"
-import { Cache } from "../cache"
-import { MissingUserException } from "../exception/missing-item"
-import { CanNotModifyOtherUsersBySelfLimitationException } from "../exception/self-limit"
+import { CreateCategoryAction } from "../../../../action/index.js"
+import { generateVersionId } from "../../../../util/token.js"
+import { Cache } from "../cache.js"
+import { MissingUserException } from "../exception/missing-item.js"
+import { CanNotModifyOtherUsersBySelfLimitationException } from "../exception/self-limit.js"
 
 export async function dispatchCreateCategory({
   action,

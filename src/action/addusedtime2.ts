@@ -15,15 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { MinuteOfDay } from "../util/minuteofday"
-import { AppLogicAction } from "./basetypes"
-import { InvalidActionParameterException } from "./meta/exception"
+import { MinuteOfDay } from "../util/minuteofday.js"
+import { AppLogicAction } from "./basetypes.js"
+import { InvalidActionParameterException } from "./meta/exception.js"
 import {
   assertIdWithinFamily,
   assertListWithoutDuplicates,
   assertSafeInteger,
   throwOutOfRange,
-} from "./meta/util"
+} from "./meta/util.js"
 
 const actionType = "AddUsedTimeActionVersion2"
 

@@ -15,13 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateChildTaskAction } from "../../../../action"
-import { Cache } from "../cache"
-import { IllegalStateException } from "../exception/illegal-state"
+import { UpdateChildTaskAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { IllegalStateException } from "../exception/illegal-state.js"
 import {
   MissingCategoryException,
   MissingTaskException,
-} from "../exception/missing-item"
+} from "../exception/missing-item.js"
 
 export async function dispatchUpdateChildTaskAction({
   action,

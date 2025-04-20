@@ -17,13 +17,13 @@
 
 import { createHash } from "crypto"
 import * as Sequelize from "sequelize"
-import { intToBuffer } from "../util/binary-number"
+import { intToBuffer } from "../util/binary-number.js"
 import {
   familyIdColumn,
   idWithinFamilyColumn,
   timestampColumn,
-} from "./columns"
-import { SequelizeAttributes } from "./types"
+} from "./columns.js"
+import { SequelizeAttributes } from "./types.js"
 
 export function getU2fKeyId({
   keyHandle,

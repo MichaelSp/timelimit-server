@@ -16,8 +16,8 @@
  */
 
 import { Unauthorized } from "http-errors"
-import { Database, Transaction } from "../../../database"
-import { SourceFamilyNotFoundException } from "./exception/illegal-state"
+import { Database, Transaction } from "../../../database/index.js"
+import { SourceFamilyNotFoundException } from "./exception/illegal-state.js"
 
 export interface ApplyActionBaseInfo {
   familyId: string

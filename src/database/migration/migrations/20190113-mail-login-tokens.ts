@@ -16,8 +16,8 @@
  */
 
 import { Transaction } from "sequelize"
-import { attributesVersion1 as mailLoginTokenAttributes } from "../../maillogintoken"
-import { Migration } from "../../main"
+import { attributesVersion1 as mailLoginTokenAttributes } from "../../maillogintoken.js"
+import { Migration } from "../../main.js"
 
 export const up: Migration = async ({ context }) => {
   const queryInterface = context.getQueryInterface()

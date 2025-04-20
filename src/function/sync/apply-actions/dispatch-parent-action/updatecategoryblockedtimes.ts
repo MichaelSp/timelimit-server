@@ -18,14 +18,14 @@
 import {
   blockedTimesBitmaskLength,
   UpdateCategoryBlockedTimesAction,
-} from "../../../../action/updatecategoryblockedtimes"
-import { validateAndParseBitmask } from "../../../../util/bitmask"
-import { Cache } from "../cache"
-import { MissingCategoryException } from "../exception/missing-item"
+} from "../../../../action/updatecategoryblockedtimes.js"
+import { validateAndParseBitmask } from "../../../../util/bitmask.js"
+import { Cache } from "../cache.js"
+import { MissingCategoryException } from "../exception/missing-item.js"
 import {
   CanNotModifyOtherUsersBySelfLimitationException,
   SelfLimitationException,
-} from "../exception/self-limit"
+} from "../exception/self-limit.js"
 
 export async function dispatchUpdateCategoryBlockedTimes({
   action,

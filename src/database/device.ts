@@ -19,12 +19,12 @@ import * as Sequelize from "sequelize"
 import {
   NewPermissionStatus,
   newPermissionStatusValues,
-} from "../model/newpermissionstatus"
-import { ProtectionLevel, protetionLevels } from "../model/protectionlevel"
+} from "../model/newpermissionstatus.js"
+import { ProtectionLevel, protetionLevels } from "../model/protectionlevel.js"
 import {
   RuntimePermissionStatus,
   runtimePermissionStatusValues,
-} from "../model/runtimepermissionstatus"
+} from "../model/runtimepermissionstatus.js"
 import {
   authTokenColumn,
   booleanColumn,
@@ -35,8 +35,8 @@ import {
   optionalIdWithinFamilyColumn,
   timestampColumn,
   versionColumn,
-} from "./columns"
-import { SequelizeAttributes } from "./types"
+} from "./columns.js"
+import { SequelizeAttributes } from "./types.js"
 
 export const DeviceHadManipulationFlags = {
   ProtectionLevel: 1,

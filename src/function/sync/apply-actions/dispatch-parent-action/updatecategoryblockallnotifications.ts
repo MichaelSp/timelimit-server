@@ -15,13 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateCategoryBlockAllNotificationsAction } from "../../../../action"
-import { Cache } from "../cache"
-import { MissingCategoryException } from "../exception/missing-item"
+import { UpdateCategoryBlockAllNotificationsAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { MissingCategoryException } from "../exception/missing-item.js"
 import {
   CanNotModifyOtherUsersBySelfLimitationException,
   SelfLimitationException,
-} from "../exception/self-limit"
+} from "../exception/self-limit.js"
 
 export async function dispatchUpdateCategoryBlockAllNotifications({
   action,

@@ -16,18 +16,18 @@
  */
 
 import { createHash, createHmac, timingSafeEqual } from "crypto"
-import { ClientPushChangesRequestAction } from "../../../api/schema"
-import { intToBuffer, longToBuffer } from "../../../util/binary-number"
-import { U2fValidationError, validateU2fIntegrity } from "../../u2f"
-import { Cache } from "./cache"
-import { ActionObjectTypeNotHandledException } from "./exception/illegal-state"
+import { ClientPushChangesRequestAction } from "../../../api/schema.js"
+import { intToBuffer, longToBuffer } from "../../../util/binary-number.js"
+import { U2fValidationError, validateU2fIntegrity } from "../../u2f/index.js"
+import { Cache } from "./cache.js"
+import { ActionObjectTypeNotHandledException } from "./exception/illegal-state.js"
 import {
   InvalidChildActionIntegrityValue,
   InvalidParentActionIntegrityValue,
   InvalidU2fIntegrityValue,
   ParentDeviceActionWithoutParentDeviceException,
-} from "./exception/integrity"
-import { AuthenticationMethod } from "./types"
+} from "./exception/integrity.js"
+import { AuthenticationMethod } from "./types.js"
 
 export async function assertActionIntegrity({
   action,

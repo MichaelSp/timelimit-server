@@ -16,8 +16,8 @@
  */
 
 import * as Sequelize from "sequelize"
-import { authTokenColumn } from "./columns"
-import { SequelizeAttributes } from "./types"
+import { authTokenColumn } from "./columns.js"
+import { SequelizeAttributes } from "./types.js"
 
 export interface OldDeviceAttributes {
   deviceAuthToken: string

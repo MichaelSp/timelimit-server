@@ -32,22 +32,22 @@ import {
   UpdateDeviceStatusAction,
   UpdateInstalledAppsAction,
   UploadDevicePublicKeyAction,
-} from "../../../../action"
-import { EventHandler } from "../../../../monitoring/eventhandler"
-import { Cache } from "../cache"
-import { ActionObjectTypeNotHandledException } from "../exception/illegal-state"
-import { dispatchAddUsedTime } from "./addusedtime"
-import { dispatchAddUsedTimeVersion2 } from "./addusedtime2"
-import { dispatchFinishKeyRequestAction } from "./finishkeyrequest"
-import { dispatchForceSyncAction } from "./forcesync"
-import { dispatchMarkTaskPendingAction } from "./marktaskpendingaction"
-import { dispatchReplyToKeyRequestAction } from "./replytokeyrequest"
-import { dispatchSendKeyRequestAction } from "./sendkeyrequest"
-import { dispatchSignOutAtDevice } from "./signoutatdevice"
-import { dispatchTriedDisablingDeviceAdmin } from "./trieddisablingdeviceadmin"
-import { dispatchUpdateDeviceStatus } from "./updatedevicestatus"
-import { dispatchUpdateInstalledApps } from "./updateinstalledapps"
-import { dispatchUploadDevicePublicKeyAction } from "./uploaddevicepublickey"
+} from "../../../../action/index.js"
+import { EventHandler } from "../../../../monitoring/eventhandler.js"
+import { Cache } from "../cache.js"
+import { ActionObjectTypeNotHandledException } from "../exception/illegal-state.js"
+import { dispatchAddUsedTime } from "./addusedtime.js"
+import { dispatchAddUsedTimeVersion2 } from "./addusedtime2.js"
+import { dispatchFinishKeyRequestAction } from "./finishkeyrequest.js"
+import { dispatchForceSyncAction } from "./forcesync.js"
+import { dispatchMarkTaskPendingAction } from "./marktaskpendingaction.js"
+import { dispatchReplyToKeyRequestAction } from "./replytokeyrequest.js"
+import { dispatchSendKeyRequestAction } from "./sendkeyrequest.js"
+import { dispatchSignOutAtDevice } from "./signoutatdevice.js"
+import { dispatchTriedDisablingDeviceAdmin } from "./trieddisablingdeviceadmin.js"
+import { dispatchUpdateDeviceStatus } from "./updatedevicestatus.js"
+import { dispatchUpdateInstalledApps } from "./updateinstalledapps.js"
+import { dispatchUploadDevicePublicKeyAction } from "./uploaddevicepublickey.js"
 
 export const dispatchAppLogicAction = async ({
   action,

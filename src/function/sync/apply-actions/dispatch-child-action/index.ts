@@ -19,11 +19,11 @@ import {
   ChildAction,
   ChildChangePasswordAction,
   ChildSignInAction,
-} from "../../../../action"
-import { Cache } from "../cache"
-import { ActionObjectTypeNotHandledException } from "../exception/illegal-state"
-import { dispatchChildChangePassword } from "./childchangepassword"
-import { dispatchChildSignIn } from "./childsignin"
+} from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { ActionObjectTypeNotHandledException } from "../exception/illegal-state.js"
+import { dispatchChildChangePassword } from "./childchangepassword.js"
+import { dispatchChildSignIn } from "./childsignin.js"
 
 export const dispatchChildAction = async ({
   action,

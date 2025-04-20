@@ -22,8 +22,8 @@ import {
   optionalLabelColumn,
   timestampColumn,
   versionColumn,
-} from "./columns"
-import { SequelizeAttributes } from "./types"
+} from "./columns.js"
+import { SequelizeAttributes } from "./types.js"
 
 export interface FamilyAttributesVersion1 {
   familyId: string

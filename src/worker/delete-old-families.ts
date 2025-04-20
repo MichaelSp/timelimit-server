@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Database } from "../database"
-import { deleteOldFamilies } from "../function/cleanup/delete-old-families"
+import { Database } from "../database/index.js"
+import { deleteOldFamilies } from "../function/cleanup/delete-old-families.js"
 
 export function initDeleteOldFamiliesWorker({
   database,

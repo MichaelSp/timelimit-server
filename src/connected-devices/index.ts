@@ -16,7 +16,7 @@
  */
 
 import { EventEmitter } from "events"
-import { Database } from "../database"
+import { Database } from "../database/index.js"
 
 export class ConnectedDevicesManager {
   private deviceConnectionCounters = new Map<string, number>()

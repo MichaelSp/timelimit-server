@@ -16,23 +16,23 @@
  */
 
 import { BadRequest } from "http-errors"
-import { ClientPushChangesRequest } from "../../../api/schema"
-import { VisibleConnectedDevicesManager } from "../../../connected-devices"
-import { Database, shouldRetryWithException } from "../../../database"
-import { EventHandler } from "../../../monitoring/eventhandler"
-import { WebsocketApi } from "../../../websocket"
-import { notifyClientsAboutChangesDelayed } from "../../websocket"
-import { getApplyActionBaseInfo } from "./baseinfo"
-import { Cache } from "./cache"
+import { ClientPushChangesRequest } from "../../../api/schema.js"
+import { VisibleConnectedDevicesManager } from "../../../connected-devices/index.js"
+import { Database, shouldRetryWithException } from "../../../database/index.js"
+import { EventHandler } from "../../../monitoring/eventhandler.js"
+import { WebsocketApi } from "../../../websocket/index.js"
+import { notifyClientsAboutChangesDelayed } from "../../websocket/index.js"
+import { getApplyActionBaseInfo } from "./baseinfo.js"
+import { Cache } from "./cache.js"
 import {
   dispatchAppLogicAction,
   dispatchChildAction,
   dispatchParentAction,
-} from "./dispatch-helper"
-import { ApplyActionException } from "./exception"
-import { IllegalStateException } from "./exception/illegal-state"
-import { SequenceNumberRepeatedException } from "./exception/sequence"
-import { assertActionIntegrity } from "./integrity"
+} from "./dispatch-helper/index.js"
+import { ApplyActionException } from "./exception/index.js"
+import { IllegalStateException } from "./exception/illegal-state.js"
+import { SequenceNumberRepeatedException } from "./exception/sequence.js"
+import { assertActionIntegrity } from "./integrity.js"
 
 export const applyActionsFromDevice = async ({
   database,

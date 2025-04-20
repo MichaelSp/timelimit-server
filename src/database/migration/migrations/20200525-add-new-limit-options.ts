@@ -16,15 +16,15 @@
  */
 
 import { Transaction } from "sequelize"
-import { MinuteOfDay } from "../../../util/minuteofday"
-import { Migration } from "../../main"
-import { attributesVersion1 as sessionDurationAttributes } from "../../sessionduration"
-import { attributesVersion2 as timelimitRuleAttributes } from "../../timelimitrule"
+import { MinuteOfDay } from "../../../util/minuteofday.js"
+import { Migration } from "../../main.js"
+import { attributesVersion1 as sessionDurationAttributes } from "../../sessionduration.js"
+import { attributesVersion2 as timelimitRuleAttributes } from "../../timelimitrule.js"
 import {
   attributesVersion1 as usedTimeAttributesVersion1,
   attributesVersion2 as usedTimeAttributesVersion2,
   attributesVersion3 as usedTimeAttributesVersion3,
-} from "../../usedtime"
+} from "../../usedtime.js"
 
 export const up: Migration = async ({ context }) => {
   const queryInterface = context.getQueryInterface()

@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Database, Transaction } from "../../database"
-import { WebsocketApi } from "../../websocket"
+import { Database, Transaction } from "../../database/index.js"
+import { WebsocketApi } from "../../websocket/index.js"
 
 export const notifyClientsAboutChangesDelayed = async ({
   familyId,

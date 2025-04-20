@@ -16,13 +16,13 @@
  */
 
 import * as Sequelize from "sequelize"
-import { Database } from "../../../database"
-import { calculateExpireTime, config } from "../../../database/devicedhkey"
-import { generateDhKeypair } from "../../../function/dh"
-import { EventHandler } from "../../../monitoring/eventhandler"
-import { ServerDhKey } from "../../../object/serverdatastatus"
-import { generateVersionId } from "../../../util/token"
-import { FamilyEntry } from "./family-entry"
+import { Database } from "../../../database/index.js"
+import { calculateExpireTime, config } from "../../../database/devicedhkey.js"
+import { generateDhKeypair } from "../../../function/dh/index.js"
+import { EventHandler } from "../../../monitoring/eventhandler.js"
+import { ServerDhKey } from "../../../object/serverdatastatus.js"
+import { generateVersionId } from "../../../util/token.js"
+import { FamilyEntry } from "./family-entry.js"
 
 export async function getDeviceDhKeys({
   database,

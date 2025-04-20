@@ -15,13 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { maxMailNotificationFlags } from "../database/user"
-import { ParentAction } from "./basetypes"
+import { maxMailNotificationFlags } from "../database/user.js"
+import { ParentAction } from "./basetypes.js"
 import {
   assertIdWithinFamily,
   assertSafeInteger,
   throwOutOfRange,
-} from "./meta/util"
+} from "./meta/util.js"
 
 const actionType = "UpdateParentNotificationFlagsAction"
 

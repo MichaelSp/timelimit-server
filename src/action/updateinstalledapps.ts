@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AppLogicAction } from "./basetypes"
-import { InvalidActionParameterException } from "./meta/exception"
+import { AppLogicAction } from "./basetypes.js"
+import { InvalidActionParameterException } from "./meta/exception.js"
 
 const actionType = "UpdateInstalledAppsAction"
 const SIZE_LIMIT = 1024 * 512

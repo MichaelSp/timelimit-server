@@ -17,13 +17,13 @@
 
 import { memoize } from "lodash"
 import * as Sequelize from "sequelize"
-import { config } from "../../../config"
-import { VisibleConnectedDevicesManager } from "../../../connected-devices"
-import { Database } from "../../../database"
-import { setToList } from "../../../util/list"
-import { generateVersionId } from "../../../util/token"
-import { SourceUserNotFoundException } from "./exception/illegal-state"
-import { InvalidChildActionIntegrityValue } from "./exception/integrity"
+import { config } from "../../../config.js"
+import { VisibleConnectedDevicesManager } from "../../../connected-devices/index.js"
+import { Database } from "../../../database/index.js"
+import { setToList } from "../../../util/list.js"
+import { generateVersionId } from "../../../util/token.js"
+import { SourceUserNotFoundException } from "./exception/illegal-state.js"
+import { InvalidChildActionIntegrityValue } from "./exception/integrity.js"
 
 export class Cache {
   readonly familyId: string

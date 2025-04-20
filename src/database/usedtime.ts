@@ -16,14 +16,14 @@
  */
 
 import * as Sequelize from "sequelize"
-import { ValidationException } from "../exception"
-import { MinuteOfDay } from "../util/minuteofday"
+import { ValidationException } from "../exception/index.js"
+import { MinuteOfDay } from "../util/minuteofday.js"
 import {
   familyIdColumn,
   idWithinFamilyColumn,
   timestampColumn,
-} from "./columns"
-import { SequelizeAttributes } from "./types"
+} from "./columns.js"
+import { SequelizeAttributes } from "./types.js"
 
 export interface UsedTimeAttributesVersion1 {
   familyId: string

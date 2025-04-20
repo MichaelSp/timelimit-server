@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { defaultDatabase } from "../database"
+import { defaultDatabase } from "../database/index.js"
 
 const database = defaultDatabase
 

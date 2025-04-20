@@ -15,14 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SetDeviceUserAction, SignOutAtDeviceAction } from "../../../../action"
-import { Cache } from "../cache"
-import { dispatchSetDeviceUser } from "../dispatch-parent-action/setdeviceuser"
+import { SetDeviceUserAction, SignOutAtDeviceAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { dispatchSetDeviceUser } from "../dispatch-parent-action/setdeviceuser.js"
 import {
   IllegalStateException,
   SourceDeviceNotFoundException,
-} from "../exception/illegal-state"
-import { PremiumVersionMissingException } from "../exception/premium"
+} from "../exception/illegal-state.js"
+import { PremiumVersionMissingException } from "../exception/premium.js"
 
 export async function dispatchSignOutAtDevice({
   deviceId,

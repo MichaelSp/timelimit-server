@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AppRecommendation } from "./apprecommendation"
+import { AppRecommendation } from "./apprecommendation.js"
 
 export class InstalledApp {
   readonly packageName: string

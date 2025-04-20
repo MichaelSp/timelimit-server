@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { SetChildPasswordAction } from "../../../../action"
-import { decryptParentPassword } from "../../../dh"
-import { Cache } from "../cache"
-import { MissingUserException } from "../exception/missing-item"
+import { SetChildPasswordAction } from "../../../../action/index.js"
+import { decryptParentPassword } from "../../../dh/index.js"
+import { Cache } from "../cache.js"
+import { MissingUserException } from "../exception/missing-item.js"
 
 export async function dispatchSetChildPassword({
   action,

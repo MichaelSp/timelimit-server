@@ -19,23 +19,23 @@ import { json } from "body-parser"
 import { createHmac } from "crypto"
 import { Router } from "express"
 import { BadRequest, Forbidden, Unauthorized } from "http-errors"
-import { config } from "../config"
-import { Database, Transaction } from "../database"
-import { deleteAccount } from "../function/cleanup/account-deletion"
-import { removeDevice } from "../function/device/remove-device"
-import { createAddDeviceToken } from "../function/parent/create-add-device-token"
-import { createFamily } from "../function/parent/create-family"
-import { getStatusByMailToken } from "../function/parent/get-status-by-mail-address"
-import { linkMailAddress } from "../function/parent/link-mail-address"
-import { recoverParentPassword } from "../function/parent/recover-parent-password"
-import { signInIntoFamily } from "../function/parent/sign-in-into-family"
-import { U2fValidationError, validateU2fIntegrity } from "../function/u2f"
-import { EventHandler } from "../monitoring/eventhandler"
+import { config } from "../config.js"
+import { Database, Transaction } from "../database/index.js"
+import { deleteAccount } from "../function/cleanup/account-deletion.js"
+import { removeDevice } from "../function/device/remove-device.js"
+import { createAddDeviceToken } from "../function/parent/create-add-device-token.js"
+import { createFamily } from "../function/parent/create-family.js"
+import { getStatusByMailToken } from "../function/parent/get-status-by-mail-address.js"
+import { linkMailAddress } from "../function/parent/link-mail-address.js"
+import { recoverParentPassword } from "../function/parent/recover-parent-password.js"
+import { signInIntoFamily } from "../function/parent/sign-in-into-family.js"
+import { U2fValidationError, validateU2fIntegrity } from "../function/u2f/index.js"
+import { EventHandler } from "../monitoring/eventhandler.js"
 import {
   createIdentityToken,
   MissingSignSecretException,
-} from "../util/identity-token"
-import { WebsocketApi } from "../websocket"
+} from "../util/identity-token.js"
+import { WebsocketApi } from "../websocket/index.js"
 import {
   isCreateFamilyByMailTokenRequest,
   isCreateRegisterDeviceTokenRequest,
@@ -46,7 +46,7 @@ import {
   isRemoveDeviceRequest,
   isRequestIdentityTokenRequest,
   isSignIntoFamilyRequest,
-} from "./validator"
+} from "./validator.js"
 
 export const createParentRouter = ({
   database,

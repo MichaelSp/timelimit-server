@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { maxCategoryFlags } from "../database/category"
-import { ParentAction } from "./basetypes"
-import { InvalidActionParameterException } from "./meta/exception"
-import { assertIdWithinFamily, assertSafeInteger } from "./meta/util"
+import { maxCategoryFlags } from "../database/category.js"
+import { ParentAction } from "./basetypes.js"
+import { InvalidActionParameterException } from "./meta/exception.js"
+import { assertIdWithinFamily, assertSafeInteger } from "./meta/util.js"
 
 const actionType = "UpdateCategoryFlagsAction"
 

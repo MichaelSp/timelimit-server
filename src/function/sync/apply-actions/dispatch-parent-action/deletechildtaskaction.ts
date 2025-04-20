@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { DeleteChildTaskAction } from "../../../../action"
-import { Cache } from "../cache"
-import { MissingTaskException } from "../exception/missing-item"
+import { DeleteChildTaskAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { MissingTaskException } from "../exception/missing-item.js"
 
 export async function dispatchDeleteChildTaskAction({
   action,

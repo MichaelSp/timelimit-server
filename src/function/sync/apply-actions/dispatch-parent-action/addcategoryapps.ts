@@ -16,19 +16,19 @@
  */
 
 import * as Sequelize from "sequelize"
-import { AddCategoryAppsAction } from "../../../../action"
-import { CategoryAppAttributes } from "../../../../database/categoryapp"
+import { AddCategoryAppsAction } from "../../../../action/index.js"
+import { CategoryAppAttributes } from "../../../../database/categoryapp.js"
 import {
   getCategoryWithParentCategories,
   GetParentCategoriesException,
-} from "../../../../util/category"
-import { Cache } from "../cache"
-import { SourceUserNotFoundException } from "../exception/illegal-state"
-import { MissingCategoryException } from "../exception/missing-item"
+} from "../../../../util/category.js"
+import { Cache } from "../cache.js"
+import { SourceUserNotFoundException } from "../exception/illegal-state.js"
+import { MissingCategoryException } from "../exception/missing-item.js"
 import {
   CanNotModifyOtherUsersBySelfLimitationException,
   SelfLimitationException,
-} from "../exception/self-limit"
+} from "../exception/self-limit.js"
 
 export async function dispatchAddCategoryApps({
   action,

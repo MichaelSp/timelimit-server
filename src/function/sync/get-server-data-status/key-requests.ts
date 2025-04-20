@@ -16,9 +16,9 @@
  */
 
 import * as Sequelize from "sequelize"
-import { Database } from "../../../database"
-import { ServerKeyRequest } from "../../../object/serverdatastatus"
-import { FamilyEntry } from "./family-entry"
+import { Database } from "../../../database/index.js"
+import { ServerKeyRequest } from "../../../object/serverdatastatus.js"
+import { FamilyEntry } from "./family-entry.js"
 
 export async function getKeyRequests({
   database,

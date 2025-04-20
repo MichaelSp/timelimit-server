@@ -16,8 +16,8 @@
  */
 
 import * as Sequelize from "sequelize"
-import { familyIdColumn, idWithinFamilyColumn } from "./columns"
-import { SequelizeAttributes } from "./types"
+import { familyIdColumn, idWithinFamilyColumn } from "./columns.js"
+import { SequelizeAttributes } from "./types.js"
 
 export interface KeyRequestAttributes {
   familyId: string

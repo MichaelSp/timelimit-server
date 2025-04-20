@@ -15,12 +15,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateTimelimitRuleAction } from '../../../../action'
-import { Cache } from '../cache'
-import { MissingRuleException, MissingCategoryException } from '../exception/missing-item'
+import { UpdateTimelimitRuleAction } from '../../../../action/index.js'
+import { Cache } from '../cache.js'
+import { MissingRuleException, MissingCategoryException } from '../exception/missing-item.js'
 import {
   CanNotModifyOtherUsersBySelfLimitationException, CanNotRelaxRestrictionsSelfLimitException
-} from '../exception/self-limit'
+} from '../exception/self-limit.js'
 
 export async function dispatchUpdateTimelimitRule ({
   action, cache, fromChildSelfLimitAddChildUserId

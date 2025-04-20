@@ -20,10 +20,10 @@ import {
   EncryptableParentPassword,
   ParentPasswordValidationException,
   PlaintextParentPassword,
-} from "../../api/schema"
-import { Cache } from "../sync/apply-actions/cache"
-import { ApplyActionException } from "../sync/apply-actions/exception"
-import { decrypt, DecryptException } from "./decrypt"
+} from "../../api/schema.js"
+import { Cache } from "../sync/apply-actions/cache.js"
+import { ApplyActionException } from "../sync/apply-actions/exception/index.js"
+import { decrypt, DecryptException } from "./decrypt.js"
 
 export async function decryptParentPassword({
   cache,

@@ -16,18 +16,18 @@
  */
 
 import { Transaction } from "sequelize"
-import { attributes as addDeviceTokenAttributes } from "../../adddevicetoken"
-import { attributes as appAttributes } from "../../app"
-import { attributesVersion1 as authTokenAttributes } from "../../authtoken"
-import { attributesVersion1 as categoryAttributes } from "../../category"
-import { attributes as categoryAppAttributes } from "../../categoryapp"
-import { attributesVersion1 as deviceAttributes } from "../../device"
-import { attributesVersion1 as familyAttributes } from "../../family"
-import { Migration } from "../../main"
-import { attributes as purchaseAttributes } from "../../purchase"
-import { attributesVersion1 as timelimitruleAttributes } from "../../timelimitrule"
-import { attributesVersion1 as usedTimeAttribute } from "../../usedtime"
-import { attributesVersion1 as userAttributes } from "../../user"
+import { attributes as addDeviceTokenAttributes } from "../../adddevicetoken.js"
+import { attributes as appAttributes } from "../../app.js"
+import { attributesVersion1 as authTokenAttributes } from "../../authtoken.js"
+import { attributesVersion1 as categoryAttributes } from "../../category.js"
+import { attributes as categoryAppAttributes } from "../../categoryapp.js"
+import { attributesVersion1 as deviceAttributes } from "../../device.js"
+import { attributesVersion1 as familyAttributes } from "../../family.js"
+import { Migration } from "../../main.js"
+import { attributes as purchaseAttributes } from "../../purchase.js"
+import { attributesVersion1 as timelimitruleAttributes } from "../../timelimitrule.js"
+import { attributesVersion1 as usedTimeAttribute } from "../../usedtime.js"
+import { attributesVersion1 as userAttributes } from "../../user.js"
 
 export const up: Migration = async ({ context }) => {
   const queryInterface = context.getQueryInterface()

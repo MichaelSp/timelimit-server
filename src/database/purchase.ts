@@ -16,8 +16,8 @@
  */
 
 import * as Sequelize from "sequelize"
-import { createEnumColumn, familyIdColumn, timestampColumn } from "./columns"
-import { SequelizeAttributes } from "./types"
+import { createEnumColumn, familyIdColumn, timestampColumn } from "./columns.js"
+import { SequelizeAttributes } from "./types.js"
 
 export interface PurchaseAttributes {
   familyId: string

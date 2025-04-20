@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Database, Transaction } from "../../database"
-import { mailNotificationFlags } from "../../database/user"
-import { sendManipulationWarningMail } from "../../util/mail"
-import { canSendWarningMail } from "../../util/ratelimit-warningmail"
+import { Database, Transaction } from "../../database/index.js"
+import { mailNotificationFlags } from "../../database/user.js"
+import { sendManipulationWarningMail } from "../../util/mail.js"
+import { canSendWarningMail } from "../../util/ratelimit-warningmail.js"
 
 export const sendManipulationWarnings = async ({
   database,

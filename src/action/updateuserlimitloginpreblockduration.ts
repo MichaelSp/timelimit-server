@@ -15,13 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { maxPreBlockDuration } from "../database/userlimitlogincategory"
-import { ParentAction } from "./basetypes"
+import { maxPreBlockDuration } from "../database/userlimitlogincategory.js"
+import { ParentAction } from "./basetypes.js"
 import {
   assertIdWithinFamily,
   assertSafeInteger,
   throwOutOfRange,
-} from "./meta/util"
+} from "./meta/util.js"
 
 const actionType = "UpdateUserLimitLoginPreBlockDuration"
 

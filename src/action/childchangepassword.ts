@@ -19,9 +19,9 @@ import {
   assertParentPasswordValid,
   EncryptableParentPassword,
   ParentPasswordValidationException,
-} from "../api/schema"
-import { ChildAction } from "./basetypes"
-import { InvalidActionParameterException } from "./meta/exception"
+} from "../api/schema.js"
+import { ChildAction } from "./basetypes.js"
+import { InvalidActionParameterException } from "./meta/exception.js"
 
 const actionType = "ChildChangePasswordAction"
 

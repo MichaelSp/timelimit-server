@@ -18,196 +18,196 @@
 import {
   AddCategoryAppsAction,
   SerializedAddCategoryAppsAction,
-} from "../addcategoryapps"
+} from "../addcategoryapps.js"
 import {
   AddCategoryNetworkIdAction,
   SerializedAddCategoryNetworkIdAction,
-} from "../addcategorynetworkid"
+} from "../addcategorynetworkid.js"
 import {
   AddParentU2fKeyAction,
   SerializedAddParentU2fKeyAction,
-} from "../addu2fkey"
-import { AddUserAction, SerializedAddUserAction } from "../adduser"
-import { ParentAction } from "../basetypes"
+} from "../addu2fkey.js"
+import { AddUserAction, SerializedAddUserAction } from "../adduser.js"
+import { ParentAction } from "../basetypes.js"
 import {
   ChangeParentPasswordAction,
   SerializedChangeParentPasswordAction,
-} from "../changeparentpassword"
+} from "../changeparentpassword.js"
 import {
   CreateCategoryAction,
   SerializedCreateCategoryAction,
-} from "../createcategory"
+} from "../createcategory.js"
 import {
   CreateTimeLimitRuleAction,
   SerializedCreateTimelimtRuleAction,
-} from "../createtimelimitrule"
+} from "../createtimelimitrule.js"
 import {
   DeleteCategoryAction,
   SerializedDeleteCategoryAction,
-} from "../deletecategory"
+} from "../deletecategory.js"
 import {
   DeleteChildTaskAction,
   SerializedDeleteChildTaskAction,
-} from "../deletechildtaskaction"
+} from "../deletechildtaskaction.js"
 import {
   DeleteTimeLimitRuleAction,
   SerializedDeleteTimeLimitRuleAction,
-} from "../deletetimelimitrule"
+} from "../deletetimelimitrule.js"
 import {
   IgnoreManipulationAction,
   SerializedIgnoreManipulationAction,
-} from "../ignoremanipulation"
+} from "../ignoremanipulation.js"
 import {
   IncrementCategoryExtraTimeAction,
   SerializedIncrementCategoryExtraTimeAction,
-} from "../incrementcategoryextratime"
-import { UnknownActionTypeException } from "../meta/exception"
+} from "../incrementcategoryextratime.js"
+import { UnknownActionTypeException } from "../meta/exception.js"
 import {
   RemoveCategoryAppsAction,
   SerializedRemoveCategoryAppsAction,
-} from "../removecategoryapps"
+} from "../removecategoryapps.js"
 import {
   RemoveParentU2fKeyAction,
   SerializedRemoveParentU2fKeyAction,
-} from "../removeu2fkey"
-import { RemoveUserAction, SerializedRemoveUserAction } from "../removeuser"
-import { RenameChildAction, SerializedRenameChildAction } from "../renamechild"
+} from "../removeu2fkey.js"
+import { RemoveUserAction, SerializedRemoveUserAction } from "../removeuser.js"
+import { RenameChildAction, SerializedRenameChildAction } from "../renamechild.js"
 import {
   ReportU2fLoginAction,
   SerializedReportU2fLoginAction,
-} from "../reportu2flogin"
+} from "../reportu2flogin.js"
 import {
   ResetCategoryNetworkIdsAction,
   SerializeResetCategoryNetworkIdsAction,
-} from "../resetcategorynetworkids"
+} from "../resetcategorynetworkids.js"
 import {
   ReviewChildTaskAction,
   SerializedReviewChildTaskAction,
-} from "../reviewchildtaskaction"
+} from "../reviewchildtaskaction.js"
 import {
   SerializedSetCategoryExtraTimeAction,
   SetCategoryExtraTimeAction,
-} from "../setcategoryextratime"
+} from "../setcategoryextratime.js"
 import {
   SerializedSetCategoryForUnassignedAppsAction,
   SetCategoryForUnassignedAppsAction,
-} from "../setcategoryforunassignedapps"
+} from "../setcategoryforunassignedapps.js"
 import {
   SerializedSetChildPasswordAction,
   SetChildPasswordAction,
-} from "../setchildpassword"
+} from "../setchildpassword.js"
 import {
   SerializedSetConsiderRebootManipulationAction,
   SetConsiderRebootManipulationAction,
-} from "../setconsiderrebootmanipulation"
+} from "../setconsiderrebootmanipulation.js"
 import {
   SerializedSetDeviceDefaultUserAction,
   SetDeviceDefaultUserAction,
-} from "../setdevicedefaultuser"
+} from "../setdevicedefaultuser.js"
 import {
   SerializedSetDeviceDefaultUserTimeoutAction,
   SetDeviceDefaultUserTimeoutAction,
-} from "../setdevicedefaultusertimeout"
+} from "../setdevicedefaultusertimeout.js"
 import {
   SerializedSetDeviceUserAction,
   SetDeviceUserAction,
-} from "../setdeviceuser"
+} from "../setdeviceuser.js"
 import {
   SerializedSetKeepSignedInAction,
   SetKeepSignedInAction,
-} from "../setkeepsignedin"
+} from "../setkeepsignedin.js"
 import {
   SerializedSetParentCategoryAction,
   SetParentCategoryAction,
-} from "../setparentcategory"
+} from "../setparentcategory.js"
 import {
   SerializedSetRelaxPrimaryDeviceAction,
   SetRelaxPrimaryDeviceAction,
-} from "../setrelaxprimarydevice"
+} from "../setrelaxprimarydevice.js"
 import {
   SerializedSetSendDeviceConnected,
   SetSendDeviceConnected,
-} from "../setsenddeviceconnected"
+} from "../setsenddeviceconnected.js"
 import {
   SerializedSetUserDisableLimitsUntilAction,
   SetUserDisableLimitsUntilAction,
-} from "../setuserdisablelimitsuntil"
+} from "../setuserdisablelimitsuntil.js"
 import {
   SerializedSetUserTimezoneAction,
   SetUserTimezoneAction,
-} from "../setusertimezone"
+} from "../setusertimezone.js"
 import {
   SerializedUpdateCategoryBatteryLimitAction,
   UpdateCategoryBatteryLimitAction,
-} from "../updatecategorybatterylimit"
+} from "../updatecategorybatterylimit.js"
 import {
   SerializedUpdateCategoryBlockAllNotificationsAction,
   UpdateCategoryBlockAllNotificationsAction,
-} from "../updatecategoryblockallnotifications"
+} from "../updatecategoryblockallnotifications.js"
 import {
   SerializedUpdateCategoryBlockedTimesAction,
   UpdateCategoryBlockedTimesAction,
-} from "../updatecategoryblockedtimes"
+} from "../updatecategoryblockedtimes.js"
 import {
   SerializedUpdatCategoryDisableLimitsAction,
   UpdateCategoryDisableLimitsAction,
-} from "../updatecategorydisablelimits"
+} from "../updatecategorydisablelimits.js"
 import {
   SerializedUpdateCategoryFlagsAction,
   UpdateCategoryFlagsAction,
-} from "../updatecategoryflags"
+} from "../updatecategoryflags.js"
 import {
   SerializedUpdateCategorySortingAction,
   UpdateCategorySortingAction,
-} from "../updatecategorysorting"
+} from "../updatecategorysorting.js"
 import {
   SerializedUpdateCategoryTemporarilyBlockedAction,
   UpdateCategoryTemporarilyBlockedAction,
-} from "../updatecategorytemporarilyblocked"
+} from "../updatecategorytemporarilyblocked.js"
 import {
   SerializedUpdateCategoryTimeWarningsAction,
   UpdateCategoryTimeWarningsAction,
-} from "../updatecategorytimewarnings"
+} from "../updatecategorytimewarnings.js"
 import {
   SerializedUpdateCategoryTitleAction,
   UpdateCategoryTitleAction,
-} from "../updatecategorytitle"
+} from "../updatecategorytitle.js"
 import {
   SerializedUpdateChildTaskAction,
   UpdateChildTaskAction,
-} from "../updatechildtaskaction"
+} from "../updatechildtaskaction.js"
 import {
   SerializedUpdateDeviceNameAction,
   UpdateDeviceNameAction,
-} from "../updatedevicename"
+} from "../updatedevicename.js"
 import {
   SerializedUpdateEnableActivityLevelBlockingAction,
   UpdateEnableActivityLevelBlockingAction,
-} from "../updateenableactivitylevelblocking"
+} from "../updateenableactivitylevelblocking.js"
 import {
   SerialiizedUpdateNetworkTimeVerificationAction,
   UpdateNetworkTimeVerificationAction,
-} from "../updatenetworktimeverification"
+} from "../updatenetworktimeverification.js"
 import {
   SerializedUpdateParentNotificationFlagsAction,
   UpdateParentNotificationFlagsAction,
-} from "../updateparentnotificationflags"
+} from "../updateparentnotificationflags.js"
 import {
   SerializedUpdateTimelimitRuleAction,
   UpdateTimelimitRuleAction,
-} from "../updatetimelimitrule"
+} from "../updatetimelimitrule.js"
 import {
   SerializedUpdateUserFlagsAction,
   UpdateUserFlagsAction,
-} from "../updateuserflags"
+} from "../updateuserflags.js"
 import {
   SerializedUpdateUserLimitLoginCategory,
   UpdateUserLimitLoginCategory,
-} from "../updateuserlimitlogincategory"
+} from "../updateuserlimitlogincategory.js"
 import {
   SerializedUpdateUserLimitLoginPreBlockDuration,
   UpdateUserLimitLoginPreBlockDuration,
-} from "../updateuserlimitloginpreblockduration"
+} from "../updateuserlimitloginpreblockduration.js"
 
 export type SerializedParentAction =
   | SerializedAddCategoryAppsAction

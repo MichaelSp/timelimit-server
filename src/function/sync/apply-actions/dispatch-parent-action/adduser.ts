@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AddUserAction } from "../../../../action"
-import { decryptParentPassword } from "../../../dh"
-import { Cache } from "../cache"
+import { AddUserAction } from "../../../../action/index.js"
+import { decryptParentPassword } from "../../../dh/index.js"
+import { Cache } from "../cache.js"
 
 export async function dispatchAddUser({
   action,

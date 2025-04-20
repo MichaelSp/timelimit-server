@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { checkIfHexString } from "../../util/hexstring"
-import { hasDuplicates } from "../../util/list"
-import { isIdWithinFamily } from "../../util/token"
-import { InvalidActionParameterException } from "./exception"
+import { checkIfHexString } from "../../util/hexstring.js"
+import { hasDuplicates } from "../../util/list.js"
+import { isIdWithinFamily } from "../../util/token.js"
+import { InvalidActionParameterException } from "./exception.js"
 
 export const assertIdWithinFamily = ({
   value,

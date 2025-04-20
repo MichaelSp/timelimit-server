@@ -20,12 +20,12 @@ import {
   maxPlatformTypeLength,
   minPlatformLevel,
   minPlatformTypeLength,
-} from "../database/device"
-import { NewPermissionStatus } from "../model/newpermissionstatus"
-import { ProtectionLevel } from "../model/protectionlevel"
-import { RuntimePermissionStatus } from "../model/runtimepermissionstatus"
-import { AppLogicAction } from "./basetypes"
-import { assertSafeInteger, throwOutOfRange } from "./meta/util"
+} from "../database/device.js"
+import { NewPermissionStatus } from "../model/newpermissionstatus.js"
+import { ProtectionLevel } from "../model/protectionlevel.js"
+import { RuntimePermissionStatus } from "../model/runtimepermissionstatus.js"
+import { AppLogicAction } from "./basetypes.js"
+import { assertSafeInteger, throwOutOfRange } from "./meta/util.js"
 
 const actionType = "UpdateDeviceStatusAction"
 

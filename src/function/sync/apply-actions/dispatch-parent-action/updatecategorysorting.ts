@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { UpdateCategorySortingAction } from "../../../../action"
-import { Cache } from "../cache"
+import { UpdateCategorySortingAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
 
 export async function dispatchUpdateCategorySorting({
   action,

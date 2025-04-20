@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { AppLogicAction } from "./basetypes"
-import { assertSafeInteger } from "./meta/util"
+import { AppLogicAction } from "./basetypes.js"
+import { assertSafeInteger } from "./meta/util.js"
 
 const actionType = "FinishKeyRequestAction"
 

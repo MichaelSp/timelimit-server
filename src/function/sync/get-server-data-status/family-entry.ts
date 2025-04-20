@@ -16,8 +16,8 @@
  */
 
 import * as Sequelize from "sequelize"
-import { Database } from "../../../database"
-import { GetServerDataStatusIllegalStateException } from "./exception"
+import { Database } from "../../../database/index.js"
+import { GetServerDataStatusIllegalStateException } from "./exception.js"
 
 export interface FamilyEntry {
   familyId: string

@@ -18,7 +18,7 @@
 import { json } from "body-parser"
 import { Router } from "express"
 import { BadRequest, Conflict, Unauthorized } from "http-errors"
-import { Database } from "../database"
+import { Database } from "../database/index.js"
 import {
   addPurchase,
   areGooglePlayPaymentsPossible,
@@ -26,12 +26,12 @@ import {
   googlePlayPublicKey,
   isGooglePlayPurchaseSignatureValid,
   requireFamilyEntry,
-} from "../function/purchase"
-import { WebsocketApi } from "../websocket"
+} from "../function/purchase/index.js"
+import { WebsocketApi } from "../websocket/index.js"
 import {
   isCanDoPurchaseRequest,
   isFinishPurchaseByGooglePlayRequest,
-} from "./validator"
+} from "./validator.js"
 
 export const createPurchaseRouter = ({
   database,

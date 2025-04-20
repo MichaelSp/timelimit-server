@@ -15,11 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { ChildSignInAction, SetDeviceUserAction } from "../../../../action"
-import { Cache } from "../cache"
-import { dispatchSetDeviceUser } from "../dispatch-parent-action/setdeviceuser"
-import { SourceUserNotFoundException } from "../exception/illegal-state"
-import { PremiumVersionMissingException } from "../exception/premium"
+import { ChildSignInAction, SetDeviceUserAction } from "../../../../action/index.js"
+import { Cache } from "../cache.js"
+import { dispatchSetDeviceUser } from "../dispatch-parent-action/setdeviceuser.js"
+import { SourceUserNotFoundException } from "../exception/illegal-state.js"
+import { PremiumVersionMissingException } from "../exception/premium.js"
 
 export const dispatchChildSignIn = async ({
   deviceId,
