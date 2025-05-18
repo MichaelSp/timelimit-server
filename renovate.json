@@ -23,7 +23,7 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": ["^custom-dependencies\\.json$"],
+      "managerFilePatterns": ["/^custom-dependencies\\.json$/"],
       "matchStrings": ["\"(?<depName>.*?)\":\\s*\"(?<currentValue>.*?)\""],
       "datasourceTemplate": "git-refs",
       "versioningTemplate": "git"
