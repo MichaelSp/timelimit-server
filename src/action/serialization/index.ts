@@ -15,6 +15,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-export { parseAppLogicAction, SerializedAppLogicAction } from "./applogicaction.js"
-export { parseChildAction, SerializedChildAction } from "./childaction.js"
-export { parseParentAction, SerializedParentAction } from "./parentaction.js"
+export { parseAppLogicAction, type SerializedAppLogicAction } from "./applogicaction.js"
+export { parseChildAction, type SerializedChildAction } from "./childaction.js"
+export { parseParentAction, type SerializedParentAction } from "./parentaction.js"
