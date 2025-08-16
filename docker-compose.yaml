@@ -20,7 +20,7 @@ services:
     links:
       - database
   database:
-    image: "mariadb:11"
+    image: "mariadb:12"
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
       MYSQL_DATABASE: timelimit
