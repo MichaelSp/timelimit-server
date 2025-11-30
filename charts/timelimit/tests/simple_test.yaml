@@ -14,3 +14,9 @@ tests:
         enabled: true
     asserts:
       - matchSnapshot: {}
+  - it: Supports mariadb.enabled true
+    set:
+      mariadb:
+        enabled: true
+    asserts:
+      - matchSnapshot: {}
