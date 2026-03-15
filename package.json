@@ -60,7 +60,7 @@
     "jose": "^6.0.0",
     "lodash": "^4.17.21",
     "mariadb": "^3.4.0",
-    "nodemailer": "^7.0.0",
+    "nodemailer": "^8.0.0",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
     "pkijs": "^3.2.4",
