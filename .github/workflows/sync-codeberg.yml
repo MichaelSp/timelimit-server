@@ -1,0 +1,94 @@
+name: Sync from Codeberg
+
+on:
+  schedule:
+    - cron: '0 2 * * *' # daily at 02:00 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    name: Sync Codeberg upstream
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Add Codeberg upstream and fetch
+        run: |
+          git remote add upstream https://codeberg.org/timelimit/timelimit-server.git || true
+          git fetch upstream --tags --prune
+
+      - name: Determine upstream default branch
+        id: upstream
+        run: |
+          upstream_branch=main
+          if git ls-remote --exit-code --heads upstream main >/dev/null 2>&1; then
+            upstream_branch=main
+          elif git ls-remote --exit-code --heads upstream master >/dev/null 2>&1; then
+            upstream_branch=master
+          else
+            ref=$(git ls-remote --symref upstream HEAD | sed -n 's@^ref: refs/heads/\([^ ]*\).*@\1@p')
+            if [ -n "$ref" ]; then upstream_branch=$ref; fi
+          fi
+          echo "upstream_branch=$upstream_branch" >> $GITHUB_OUTPUT
+
+      - name: Prepare sync branch and merge upstream
+        id: merge
+        run: |
+          set -e
+          BRANCH=sync/codeberg
+          echo "Using branch: $BRANCH"
+
+          git fetch origin +refs/heads/$BRANCH:refs/remotes/origin/$BRANCH || true
+
+          if git rev-parse --verify origin/$BRANCH >/dev/null 2>&1; then
+            git checkout -B $BRANCH origin/$BRANCH
+          else
+            git checkout -B $BRANCH
+          fi
+
+          BEFORE=$(git rev-parse --verify HEAD)
+
+          # Merge upstream default branch, prefer upstream changes on conflicts
+          git merge --no-edit -s recursive -X theirs upstream/${{ steps.upstream.outputs.upstream_branch }} || true
+
+          AFTER=$(git rev-parse --verify HEAD)
+          echo "before=$BEFORE" >> $GITHUB_OUTPUT
+          echo "after=$AFTER" >> $GITHUB_OUTPUT
+
+      - name: Push branch if changed
+        if: steps.merge.outputs.before != steps.merge.outputs.after
+        run: |
+          BRANCH=sync/codeberg
+          git push origin HEAD:$BRANCH
+
+      - name: Create or update Pull Request
+        if: steps.merge.outputs.before != steps.merge.outputs.after
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore(sync): update from Codeberg timelimit-server"
+          branch: sync/codeberg
+          title: 'chore(sync): sync with Codeberg timelimit-server'
+          body: |
+            This pull request updates the repository with upstream changes from:
+
+            https://codeberg.org/timelimit/timelimit-server
+
+            This workflow runs daily and updates this PR automatically.
+          base: main
+
+      - name: No changes to sync
+        if: steps.merge.outputs.before == steps.merge.outputs.after
+        run: echo 'No upstream changes detected; nothing to push.'
