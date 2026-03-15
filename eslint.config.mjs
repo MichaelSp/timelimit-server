@@ -1,24 +1,18 @@
 // @ts-check
 
-import eslint from "@eslint/js"
-import eslintConfigPrettier from "eslint-config-prettier"
-import tseslint from "typescript-eslint"
+import eslint from '@eslint/js';
+import { defineConfig } from 'eslint/config';
+import tseslint from 'typescript-eslint';
 
-const customRules = {
-  rules: {
-    "@typescript-eslint/no-unused-vars": "off",
-    "@typescript-eslint/no-unused-expressions": "off",
+export default defineConfig(
+  eslint.configs.recommended,
+  tseslint.configs.recommended,
+  {
+    ignores: ['build', 'scripts']
   },
-}
-
-export default [
-  ...tseslint.config(
-    eslint.configs.recommended,
-    ...tseslint.configs.recommended,
-    {
-      ignores: ["build/**", "scripts/**"],
-    },
-  ),
-  eslintConfigPrettier,
-  customRules,
-]
+  {
+    rules: {
+      '@typescript-eslint/no-unused-vars': ['warn', { caughtErrors: 'none' }]
+    }
+  }
+)

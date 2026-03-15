@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2023 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -214,10 +214,10 @@ export async function dispatchAddUsedTimeVersion2 ({ deviceId, action, cache, ev
 
         const fittingDurationItemsLastUsageFiltered =
           hasTrustedTimestamp ?
-          fittingDurationItems.filter((it) => {
+          fittingDurationItems.filter((it) => (
             action.trustedTimestamp - item.timeToAdd <=
             parseInt(it.lastUsage, 10) + it.sessionPauseDuration - tolerance
-          }) : fittingDurationItems
+          )) : fittingDurationItems
 
         return fittingDurationItemsLastUsageFiltered
           .map((it) => it.lastSessionDuration)

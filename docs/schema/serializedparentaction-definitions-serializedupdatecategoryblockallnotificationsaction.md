@@ -21,7 +21,7 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategor
 | [type](#type)             | `string`  | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryblockallnotificationsaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryBlockAllNotificationsAction/properties/type")             |
 | [categoryId](#categoryid) | `string`  | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryblockallnotificationsaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryBlockAllNotificationsAction/properties/categoryId") |
 | [blocked](#blocked)       | `boolean` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryblockallnotificationsaction-properties-blocked.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryBlockAllNotificationsAction/properties/blocked")       |
-| [blockDelay](#blockdelay) | `number`  | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryblockallnotificationsaction-properties-blockdelay.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryBlockAllNotificationsAction/properties/blockDelay") |
+| [blockDelay](#blockdelay) | `number`  | Optional | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedupdatecategoryblockallnotificationsaction-properties-blockdelay.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategoryBlockAllNotificationsAction/properties/blockDelay") |
 
 ## type
 
@@ -43,11 +43,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategor
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"UPDATE_CATEGORY_BLOCK_ALL_NOTIFICATIONS"
-```
+| Value                                       | Explanation |
+| :------------------------------------------ | :---------- |
+| `"UPDATE_CATEGORY_BLOCK_ALL_NOTIFICATIONS"` |             |
 
 ## categoryId
 
@@ -91,7 +91,7 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateCategor
 
 `blockDelay`
 
-* is required
+* is optional
 
 * Type: `number`
 

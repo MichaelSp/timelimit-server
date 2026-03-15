@@ -15,47 +15,40 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { json } from "body-parser"
-import { Router } from "express"
-import { BadRequest, Conflict } from "http-errors"
-import * as Sequelize from "sequelize"
-import { Database } from "../database/index.js"
-import { addPurchase, canDoNextPurchase } from "../function/purchase/index.js"
-import { getStatusMessage, setStatusMessage } from "../function/statusmessage/index.js"
-import { EventHandler } from "../monitoring/eventhandler.js"
-import {
-  TokenValidationException,
-  verifyIdentitifyToken,
-} from "../util/identity-token.js"
-import { generatePurchaseId } from "../util/token.js"
-import { WebsocketApi } from "../websocket/index.js"
+import { json } from 'body-parser'
+import { Router } from 'express'
+import { BadRequest, Conflict } from 'http-errors'
+import * as Sequelize from 'sequelize'
+import { Database } from '../database'
+import { addPurchase, canDoNextPurchase } from '../function/purchase'
+import { getStatusMessage, setStatusMessage } from '../function/statusmessage'
+import { EventHandler } from '../monitoring/eventhandler'
+import { generatePurchaseId } from '../util/token'
+import { verifyIdentitifyToken, TokenValidationException } from '../util/identity-token'
+import { WebsocketApi } from '../websocket'
 
-export const createAdminRouter = ({
-  database,
-  websocket,
-  eventHandler,
-}: {
+export const createAdminRouter = ({ database, websocket, eventHandler }: {
   database: Database
   websocket: WebsocketApi
   eventHandler: EventHandler
 }) => {
   const router = Router()
 
-  router.get("/status", async (_, res, next) => {
+  router.get('/status', async (_, res, next) => {
     try {
       const { counters, maxValues } = await eventHandler.getValues()
 
       res.json({
         websocketClients: websocket.countConnections(),
         counters,
-        maxValues,
+        maxValues
       })
     } catch (ex) {
       next(ex)
     }
   })
 
-  router.post("/reset-counters", async (_, res, next) => {
+  router.post('/reset-counters', async (_, res, next) => {
     try {
       await eventHandler.reset()
 
@@ -65,24 +58,21 @@ export const createAdminRouter = ({
     }
   })
 
-  router.get("/status-message", async (_, res, next) => {
+  router.get('/status-message', async (_, res, next) => {
     try {
       const currentStatusMessage = await getStatusMessage({ database })
 
       res.json({
-        statusMessage: currentStatusMessage,
+        statusMessage: currentStatusMessage
       })
     } catch (ex) {
       next(ex)
     }
   })
 
-  router.post("/status-message", json(), async (req, res, next) => {
+  router.post('/status-message', json(), async (req, res, next) => {
     try {
-      if (
-        typeof req.body !== "object" ||
-        typeof req.body.message !== "string"
-      ) {
+      if (typeof req.body !== 'object' || typeof req.body.message !== 'string') {
         throw new BadRequest()
       }
 
@@ -98,48 +88,44 @@ export const createAdminRouter = ({
     }
   })
 
-  router.post("/unlock-premium", json(), async (req, res, next) => {
+  router.post('/unlock-premium', json(), async (req, res, next) => {
     try {
-      if (
-        typeof req.body !== "object" ||
-        typeof req.body.mail !== "string" ||
-        typeof req.body.duration !== "string"
-      ) {
+      if (typeof req.body !== 'object' || typeof req.body.mail !== 'string' || typeof req.body.duration !== 'string') {
         throw new BadRequest()
       }
 
       const mail: string = req.body.mail
       const type: string = req.body.duration
 
-      if ((type !== "month" && type !== "year") || mail === "") {
+      if (type !== 'month' && type !== 'year' || mail === '') {
         throw new BadRequest()
       }
 
       await database.transaction(async (transaction) => {
         const userEntryUnsafe = await database.user.findOne({
           where: {
-            mail,
+            mail
           },
-          attributes: ["familyId"],
-          transaction,
+          attributes: ['familyId'],
+          transaction
         })
 
         if (!userEntryUnsafe) {
-          throw new Conflict("no user with specified mail address")
+          throw new Conflict('no user with specified mail address')
         }
 
         const userEntry = {
-          familyId: userEntryUnsafe.familyId,
+          familyId: userEntryUnsafe.familyId
         }
 
         await addPurchase({
           database,
           familyId: userEntry.familyId,
           type,
-          service: "directpurchase",
-          transactionId: "legacyunlock-" + type + "-" + generatePurchaseId(),
+          service: 'directpurchase',
+          transactionId: 'legacyunlock-' + type + '-' + generatePurchaseId(),
           websocket,
-          transaction,
+          transaction
         })
       })
 
@@ -149,27 +135,25 @@ export const createAdminRouter = ({
     }
   })
 
-  router.post("/unlock-premium-v2", json(), async (req, res, next) => {
+  router.post('/unlock-premium-v2', json(), async (req, res, next) => {
     try {
       if (
-        typeof req.body !== "object" ||
-        typeof req.body.purchaseToken !== "string" ||
-        typeof req.body.purchaseId !== "string"
+        typeof req.body !== 'object' ||
+        typeof req.body.purchaseToken !== 'string' ||
+        typeof req.body.purchaseId !== 'string' ||
+        typeof req.body.dryRun !== 'boolean'
       ) {
         throw new BadRequest()
       }
 
       const purchaseToken: string = req.body.purchaseToken
       const purchaseId: string = req.body.purchaseId
+      const dryRun: boolean = req.body.dryRun
 
       const tokenContent = await verifyIdentitifyToken(purchaseToken)
 
-      if (tokenContent.purpose !== "purchase") {
-        res.json({
-          ok: false,
-          error: "token invalid",
-          detail: "wrong purpose",
-        })
+      if (tokenContent.purpose !== 'purchase') {
+        res.json({ ok: false, error: 'token invalid', detail: 'wrong purpose' })
 
         return
       }
@@ -180,39 +164,37 @@ export const createAdminRouter = ({
             familyId: tokenContent.familyId,
             userId: tokenContent.userId,
             mail: tokenContent.mail,
-            type: "parent",
+            type: 'parent'
           },
-          transaction,
+          transaction
         })
 
-        if (!userValid)
-          return {
-            ok: false,
-            error: "token invalid",
-            detail: "user not found",
-          }
+        if (!userValid) return {
+          ok: false,
+          error: 'token invalid',
+          detail: 'user not found'
+        }
 
         let mailToReturn: string
 
-        if (tokenContent.mail !== "") mailToReturn = tokenContent.mail
+        if (tokenContent.mail !== '') mailToReturn = tokenContent.mail
         else {
           const userEntryWithMail = await database.user.findOne({
             where: {
               familyId: tokenContent.familyId,
               mail: {
-                [Sequelize.Op.ne]: "",
+                [Sequelize.Op.ne]: ''
               },
-              type: "parent",
+              type: 'parent'
             },
-            transaction,
+            transaction
           })
 
-          if (!userEntryWithMail)
-            return {
-              ok: false,
-              error: "illegal state",
-              detail: "no user with mail found",
-            }
+          if (!userEntryWithMail) return {
+            ok: false,
+            error: 'illegal state',
+            detail: 'no user with mail found'
+          }
 
           mailToReturn = userEntryWithMail.mail
         }
@@ -221,90 +203,82 @@ export const createAdminRouter = ({
 
         const oldPurchaseByPurchaseId = await database.purchase.findOne({
           where: {
-            service: "directpurchase",
-            transactionId: purchaseId,
-          },
+            service: 'directpurchase',
+            transactionId: purchaseId
+          }
         })
 
         if (oldPurchaseByPurchaseId === null) wasAlreadyExecuted = false
-        else if (oldPurchaseByPurchaseId.familyId === tokenContent.familyId)
-          wasAlreadyExecuted = true
-        else
-          return {
-            ok: false,
-            error: "purchase id already used",
-          }
+        else if (oldPurchaseByPurchaseId.familyId === tokenContent.familyId) wasAlreadyExecuted = true
+        else return {
+          ok: false,
+          error: 'purchase id already used'
+        }
 
         if (!wasAlreadyExecuted) {
           const familyEntry = await database.family.findOne({
             where: {
-              familyId: tokenContent.familyId,
+              familyId: tokenContent.familyId
             },
-            transaction,
+            transaction
           })
 
-          if (!familyEntry)
-            return {
-              ok: false,
-              error: "family not found",
-            }
+          if (!familyEntry) return {
+            ok: false,
+            error: 'family not found'
+          }
 
-          const canDoPurchase = canDoNextPurchase({
-            fullVersionUntil: parseInt(familyEntry.fullVersionUntil),
-          })
+          const canDoPurchase = canDoNextPurchase({ fullVersionUntil: parseInt(familyEntry.fullVersionUntil) })
 
           if (!canDoPurchase) {
             const lastPurchase = await database.purchase.findOne({
               where: {
-                familyId: tokenContent.familyId,
+                familyId: tokenContent.familyId
               },
               transaction,
-              order: [["loggedAt", "DESC"]],
-              limit: 1,
+              order: [['loggedAt', 'DESC']],
+              limit: 1
             })
 
             return {
               ok: false,
-              error: "can not renew now",
-              lastPurchase: lastPurchase
-                ? {
-                    service: lastPurchase.service,
-                    transactionId: lastPurchase.transactionId,
-                    timestamp: parseInt(lastPurchase.loggedAt),
-                    timestring: new Date(
-                      parseInt(lastPurchase.loggedAt),
-                    ).toISOString(),
-                  }
-                : undefined,
+              error: 'can not renew now',
+              lastPurchase: lastPurchase ? {
+                service: lastPurchase.service,
+                transactionId: lastPurchase.transactionId,
+                timestamp: parseInt(lastPurchase.loggedAt),
+                timestring: new Date(parseInt(lastPurchase.loggedAt)).toISOString()
+              } : undefined
             }
           }
 
-          await addPurchase({
-            database,
-            familyId: tokenContent.familyId,
-            type: "year",
-            service: "directpurchase",
-            transactionId: purchaseId,
-            websocket,
-            transaction,
-          })
+          if (!dryRun) {
+            await addPurchase({
+              database,
+              familyId: tokenContent.familyId,
+              type: 'year',
+              service: 'directpurchase',
+              transactionId: purchaseId,
+              websocket,
+              transaction
+            })
+          }
         }
 
         return {
           ok: true,
           mail: mailToReturn,
-          wasAlreadyExecuted,
+          wasAlreadyExecuted
         }
       })
 
       res.json(response)
     } catch (ex) {
-      if (ex instanceof TokenValidationException)
-        res.json({
-          ok: false,
-          error: "token invalid",
-          detail: ex.message,
-        })
+      if (ex instanceof TokenValidationException) res.json({
+        ok: false,
+        error: 'token invalid',
+        detail: ex.message
+      })
       else next(ex)
     }
   })

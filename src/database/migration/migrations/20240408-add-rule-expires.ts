@@ -16,7 +16,7 @@
  */
 
 import { QueryInterface, Sequelize, Transaction } from 'sequelize'
-import { attributesVersion4 as ruleAttributes } from '../../timelimitrule.js'
+import { attributesVersion4 as ruleAttributes } from '../../timelimitrule'
 
 export async function up (queryInterface: QueryInterface, sequelize: Sequelize) {
   await sequelize.transaction({
