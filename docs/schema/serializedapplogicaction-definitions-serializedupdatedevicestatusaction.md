@@ -51,11 +51,11 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedUpdateDevic
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"UPDATE_DEVICE_STATUS"
-```
+| Value                    | Explanation |
+| :----------------------- | :---------- |
+| `"UPDATE_DEVICE_STATUS"` |             |
 
 ## protectionLevel
 

@@ -52,11 +52,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedIgnoreManipul
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"IGNORE_MANIPULATION"
-```
+| Value                   | Explanation |
+| :---------------------- | :---------- |
+| `"IGNORE_MANIPULATION"` |             |
 
 ## deviceId
 

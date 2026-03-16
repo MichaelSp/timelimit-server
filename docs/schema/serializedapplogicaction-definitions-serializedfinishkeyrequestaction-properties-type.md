@@ -16,8 +16,8 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedFinishKeyRe
 
 ## type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"FINISH_KEY_REQUEST"
-```
+| Value                  | Explanation |
+| :--------------------- | :---------- |
+| `"FINISH_KEY_REQUEST"` |             |

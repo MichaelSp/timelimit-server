@@ -13,7 +13,9 @@
       "properties": {
         "type": {
           "type": "string",
-          "const": "CHILD_CHANGE_PASSWORD"
+          "enum": [
+            "CHILD_CHANGE_PASSWORD"
+          ]
         },
         "password": {
           "$ref": "#/definitions/EncryptableParentPassword"
@@ -55,7 +57,9 @@
       "properties": {
         "type": {
           "type": "string",
-          "const": "CHILD_SIGN_IN"
+          "enum": [
+            "CHILD_SIGN_IN"
+          ]
         }
       },
       "additionalProperties": false,

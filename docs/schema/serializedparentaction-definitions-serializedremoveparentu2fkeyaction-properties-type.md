@@ -16,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveParentU
 
 ## type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"REMOVE_PARENT_U2F"
-```
+| Value                 | Explanation |
+| :-------------------- | :---------- |
+| `"REMOVE_PARENT_U2F"` |             |

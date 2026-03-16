@@ -55,11 +55,11 @@ Reference this group by using
 
 #### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"CHILD_CHANGE_PASSWORD"
-```
+| Value                     | Explanation |
+| :------------------------ | :---------- |
+| `"CHILD_CHANGE_PASSWORD"` |             |
 
 ### password
 
@@ -198,8 +198,8 @@ Reference this group by using
 
 #### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"CHILD_SIGN_IN"
-```
+| Value             | Explanation |
+| :---------------- | :---------- |
+| `"CHILD_SIGN_IN"` |             |

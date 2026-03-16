@@ -41,11 +41,11 @@ https://timelimit.io/SerializedChildAction#/definitions/SerializedChildChangePas
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"CHILD_CHANGE_PASSWORD"
-```
+| Value                     | Explanation |
+| :------------------------ | :---------- |
+| `"CHILD_CHANGE_PASSWORD"` |             |
 
 ## password
 

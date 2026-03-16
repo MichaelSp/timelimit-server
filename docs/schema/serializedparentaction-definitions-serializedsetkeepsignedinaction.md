@@ -42,11 +42,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetKeepSigned
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"SET_KEEP_SIGNED_IN"
-```
+| Value                  | Explanation |
+| :--------------------- | :---------- |
+| `"SET_KEEP_SIGNED_IN"` |             |
 
 ## deviceId
 

@@ -16,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedDeleteChildTa
 
 ## type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"DELETE_CHILD_TASK"
-```
+| Value                 | Explanation |
+| :-------------------- | :---------- |
+| `"DELETE_CHILD_TASK"` |             |

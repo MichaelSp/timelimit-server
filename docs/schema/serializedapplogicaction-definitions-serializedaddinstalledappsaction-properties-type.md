@@ -16,8 +16,8 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddInstalle
 
 ## type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"ADD_INSTALLED_APPS"
-```
+| Value                  | Explanation |
+| :--------------------- | :---------- |
+| `"ADD_INSTALLED_APPS"` |             |

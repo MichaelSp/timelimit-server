@@ -8,7 +8,7 @@ https://timelimit.io/FinishPurchaseByGooglePlayRequest
 
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                                            |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :-------------------------------------------------------------------------------------------------------------------- |
-| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [FinishPurchaseByGooglePlayRequest.schema.json](FinishPurchaseByGooglePlayRequest.schema.json "open original schema") |
+| Can be instantiated | Yes        | Unknown status | No           | Forbidden         | Forbidden             | none                | [FinishPurchaseByGooglePlayRequest.schema.json](FinishPurchaseByGooglePlayRequest.schema.json "open original schema") |
 
 ## FinishPurchaseByGooglePlayRequest Type
 
@@ -75,3 +75,5 @@ https://timelimit.io/FinishPurchaseByGooglePlayRequest
 ### signature Type
 
 `string`
+
+# FinishPurchaseByGooglePlayRequest Definitions
