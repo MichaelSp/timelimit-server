@@ -8,7 +8,7 @@ https://timelimit.io/RequestIdentityTokenRequest
 
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                                |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :-------------------------------------------------------------------------------------------------------- |
-| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [RequestIdentityTokenRequest.schema.json](RequestIdentityTokenRequest.schema.json "open original schema") |
+| Can be instantiated | Yes        | Unknown status | No           | Forbidden         | Forbidden             | none                | [RequestIdentityTokenRequest.schema.json](RequestIdentityTokenRequest.schema.json "open original schema") |
 
 ## RequestIdentityTokenRequest Type
 
@@ -97,8 +97,10 @@ https://timelimit.io/RequestIdentityTokenRequest
 
 ### purpose Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"purchase"
-```
+| Value        | Explanation |
+| :----------- | :---------- |
+| `"purchase"` |             |
+
+# RequestIdentityTokenRequest Definitions

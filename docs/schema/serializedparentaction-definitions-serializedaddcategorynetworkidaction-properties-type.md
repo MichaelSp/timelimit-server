@@ -16,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedAddCategoryNe
 
 ## type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"ADD_CATEGORY_NETWORK_ID"
-```
+| Value                       | Explanation |
+| :-------------------------- | :---------- |
+| `"ADD_CATEGORY_NETWORK_ID"` |             |

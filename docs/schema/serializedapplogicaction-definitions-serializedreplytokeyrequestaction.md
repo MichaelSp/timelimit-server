@@ -44,11 +44,11 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedReplyToKeyR
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"REPLY_TO_KEY_REQUEST"
-```
+| Value                    | Explanation |
+| :----------------------- | :---------- |
+| `"REPLY_TO_KEY_REQUEST"` |             |
 
 ## rsn
 

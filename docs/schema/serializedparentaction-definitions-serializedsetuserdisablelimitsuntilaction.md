@@ -42,11 +42,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetUserDisabl
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"SET_USER_DISABLE_LIMITS_UNTIL"
-```
+| Value                             | Explanation |
+| :-------------------------------- | :---------- |
+| `"SET_USER_DISABLE_LIMITS_UNTIL"` |             |
 
 ## childId
 

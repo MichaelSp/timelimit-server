@@ -42,11 +42,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedSetSendDevice
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"SET_SEND_DEVICE_CONNECTED"
-```
+| Value                         | Explanation |
+| :---------------------------- | :---------- |
+| `"SET_SEND_DEVICE_CONNECTED"` |             |
 
 ## deviceId
 

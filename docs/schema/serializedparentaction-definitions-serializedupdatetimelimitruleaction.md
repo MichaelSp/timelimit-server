@@ -50,11 +50,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateTimelim
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"UPDATE_TIMELIMIT_RULE"
-```
+| Value                     | Explanation |
+| :------------------------ | :---------- |
+| `"UPDATE_TIMELIMIT_RULE"` |             |
 
 ## ruleId
 

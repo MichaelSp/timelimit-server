@@ -8,7 +8,7 @@ https://timelimit.io/CreateRegisterDeviceTokenRequest
 
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                                          |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------------------------ |
-| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [CreateRegisterDeviceTokenRequest.schema.json](CreateRegisterDeviceTokenRequest.schema.json "open original schema") |
+| Can be instantiated | Yes        | Unknown status | No           | Forbidden         | Forbidden             | none                | [CreateRegisterDeviceTokenRequest.schema.json](CreateRegisterDeviceTokenRequest.schema.json "open original schema") |
 
 ## CreateRegisterDeviceTokenRequest Type
 
@@ -75,3 +75,5 @@ https://timelimit.io/CreateRegisterDeviceTokenRequest
 ### parentPasswordSecondHash Type
 
 `string`
+
+# CreateRegisterDeviceTokenRequest Definitions

@@ -40,8 +40,6 @@ any of
 
 * [SerializedIncrementCategoryExtraTimeAction](serializedparentaction-definitions-serializedincrementcategoryextratimeaction.md "check type definition")
 
-* [SerializedReportU2fLoginAction](serializedparentaction-definitions-serializedreportu2floginaction.md "check type definition")
-
 * [SerializedRemoveCategoryAppsAction](serializedparentaction-definitions-serializedremovecategoryappsaction.md "check type definition")
 
 * [SerializedRemoveParentU2fKeyAction](serializedparentaction-definitions-serializedremoveparentu2fkeyaction.md "check type definition")
@@ -49,6 +47,8 @@ any of
 * [SerializedRemoveUserAction](serializedparentaction-definitions-serializedremoveuseraction.md "check type definition")
 
 * [SerializedRenameChildAction](serializedparentaction-definitions-serializedrenamechildaction.md "check type definition")
+
+* [SerializedReportU2fLoginAction](serializedparentaction-definitions-serializedreportu2floginaction.md "check type definition")
 
 * [SerializeResetCategoryNetworkIdsAction](serializedparentaction-definitions-serializeresetcategorynetworkidsaction.md "check type definition")
 
@@ -1631,44 +1631,6 @@ Reference this group by using
 
 `number`
 
-## Definitions group SerializedReportU2fLoginAction
-
-Reference this group by using
-
-```json
-{"$ref":"https://timelimit.io/SerializedParentAction#/definitions/SerializedReportU2fLoginAction"}
-```
-
-| Property         | Type     | Required | Nullable       | Defined by                                                                                                                                                                                                               |
-| :--------------- | :------- | :------- | :------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [type](#type-12) | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedreportu2floginaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedReportU2fLoginAction/properties/type") |
-
-### type
-
-
-
-`type`
-
-* is required
-
-* Type: `string`
-
-* cannot be null
-
-* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedreportu2floginaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedReportU2fLoginAction/properties/type")
-
-#### type Type
-
-`string`
-
-#### type Constraints
-
-**enum**: the value of this property must be equal to one of the following values:
-
-| Value                | Explanation |
-| :------------------- | :---------- |
-| `"REPORT_U2F_LOGIN"` |             |
-
 ## Definitions group SerializedRemoveCategoryAppsAction
 
 Reference this group by using
@@ -1679,7 +1641,7 @@ Reference this group by using
 
 | Property                        | Type     | Required | Nullable       | Defined by                                                                                                                                                                                                                                       |
 | :------------------------------ | :------- | :------- | :------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [type](#type-13)                | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedremovecategoryappsaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveCategoryAppsAction/properties/type")                 |
+| [type](#type-12)                | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedremovecategoryappsaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveCategoryAppsAction/properties/type")                 |
 | [categoryId](#categoryid-6)     | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedremovecategoryappsaction-properties-categoryid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveCategoryAppsAction/properties/categoryId")     |
 | [packageNames](#packagenames-1) | `array`  | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedremovecategoryappsaction-properties-packagenames.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveCategoryAppsAction/properties/packageNames") |
 
@@ -1755,7 +1717,7 @@ Reference this group by using
 
 | Property                  | Type     | Required | Nullable       | Defined by                                                                                                                                                                                                                                 |
 | :------------------------ | :------- | :------- | :------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [type](#type-14)          | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedremoveparentu2fkeyaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveParentU2fKeyAction/properties/type")           |
+| [type](#type-13)          | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedremoveparentu2fkeyaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveParentU2fKeyAction/properties/type")           |
 | [keyHandle](#keyhandle-1) | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedremoveparentu2fkeyaction-properties-keyhandle.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveParentU2fKeyAction/properties/keyHandle") |
 | [publicKey](#publickey-1) | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedremoveparentu2fkeyaction-properties-publickey.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveParentU2fKeyAction/properties/publicKey") |
 
@@ -1831,7 +1793,7 @@ Reference this group by using
 
 | Property                          | Type     | Required | Nullable       | Defined by                                                                                                                                                                                                                           |
 | :-------------------------------- | :------- | :------- | :------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [type](#type-15)                  | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedremoveuseraction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveUserAction/properties/type")                     |
+| [type](#type-14)                  | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedremoveuseraction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveUserAction/properties/type")                     |
 | [userId](#userid-2)               | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedremoveuseraction-properties-userid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveUserAction/properties/userId")                 |
 | [authentication](#authentication) | `string` | Optional | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedremoveuseraction-properties-authentication.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveUserAction/properties/authentication") |
 
@@ -1907,7 +1869,7 @@ Reference this group by using
 
 | Property              | Type     | Required | Nullable       | Defined by                                                                                                                                                                                                               |
 | :-------------------- | :------- | :------- | :------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [type](#type-16)      | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedrenamechildaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRenameChildAction/properties/type")       |
+| [type](#type-15)      | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedrenamechildaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRenameChildAction/properties/type")       |
 | [childId](#childid-1) | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedrenamechildaction-properties-childid.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRenameChildAction/properties/childId") |
 | [newName](#newname)   | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedrenamechildaction-properties-newname.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedRenameChildAction/properties/newName") |
 
@@ -1972,6 +1934,44 @@ Reference this group by using
 #### newName Type
 
 `string`
+
+## Definitions group SerializedReportU2fLoginAction
+
+Reference this group by using
+
+```json
+{"$ref":"https://timelimit.io/SerializedParentAction#/definitions/SerializedReportU2fLoginAction"}
+```
+
+| Property         | Type     | Required | Nullable       | Defined by                                                                                                                                                                                                               |
+| :--------------- | :------- | :------- | :------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [type](#type-16) | `string` | Required | cannot be null | [SerializedParentAction](serializedparentaction-definitions-serializedreportu2floginaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedReportU2fLoginAction/properties/type") |
+
+### type
+
+
+
+`type`
+
+* is required
+
+* Type: `string`
+
+* cannot be null
+
+* defined in: [SerializedParentAction](serializedparentaction-definitions-serializedreportu2floginaction-properties-type.md "https://timelimit.io/SerializedParentAction#/definitions/SerializedReportU2fLoginAction/properties/type")
+
+#### type Type
+
+`string`
+
+#### type Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value                | Explanation |
+| :------------------- | :---------- |
+| `"REPORT_U2F_LOGIN"` |             |
 
 ## Definitions group SerializeResetCategoryNetworkIdsAction
 

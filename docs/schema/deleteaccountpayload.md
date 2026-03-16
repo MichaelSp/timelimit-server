@@ -8,7 +8,7 @@ https://timelimit.io/DeleteAccountPayload
 
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                  |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------ |
-| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [DeleteAccountPayload.schema.json](DeleteAccountPayload.schema.json "open original schema") |
+| Can be instantiated | Yes        | Unknown status | No           | Forbidden         | Forbidden             | none                | [DeleteAccountPayload.schema.json](DeleteAccountPayload.schema.json "open original schema") |
 
 ## DeleteAccountPayload Type
 
@@ -56,3 +56,5 @@ https://timelimit.io/DeleteAccountPayload
 ### mailAuthTokens Type
 
 `string[]`
+
+# DeleteAccountPayload Definitions

@@ -8,7 +8,7 @@ https://timelimit.io/SignInByMailCodeRequest
 
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                        |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :------------------------------------------------------------------------------------------------ |
-| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SignInByMailCodeRequest.schema.json](SignInByMailCodeRequest.schema.json "open original schema") |
+| Can be instantiated | Yes        | Unknown status | No           | Forbidden         | Forbidden             | none                | [SignInByMailCodeRequest.schema.json](SignInByMailCodeRequest.schema.json "open original schema") |
 
 ## SignInByMailCodeRequest Type
 
@@ -56,3 +56,5 @@ https://timelimit.io/SignInByMailCodeRequest
 ### receivedCode Type
 
 `string`
+
+# SignInByMailCodeRequest Definitions

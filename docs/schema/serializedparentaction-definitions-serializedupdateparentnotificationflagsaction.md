@@ -43,11 +43,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateParentN
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"UPDATE_PARENT_NOTIFICATION_FLAGS"
-```
+| Value                                | Explanation |
+| :----------------------------------- | :---------- |
+| `"UPDATE_PARENT_NOTIFICATION_FLAGS"` |             |
 
 ## parentId
 

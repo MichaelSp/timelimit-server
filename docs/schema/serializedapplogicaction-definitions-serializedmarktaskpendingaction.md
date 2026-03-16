@@ -41,11 +41,11 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedMarkTaskPen
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"MARK_TASK_PENDING"
-```
+| Value                 | Explanation |
+| :-------------------- | :---------- |
+| `"MARK_TASK_PENDING"` |             |
 
 ## taskId
 

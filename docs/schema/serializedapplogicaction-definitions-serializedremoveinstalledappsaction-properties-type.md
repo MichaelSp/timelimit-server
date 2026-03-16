@@ -16,8 +16,8 @@ https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedRemoveInsta
 
 ## type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"REMOVE_INSTALLED_APPS"
-```
+| Value                     | Explanation |
+| :------------------------ | :---------- |
+| `"REMOVE_INSTALLED_APPS"` |             |

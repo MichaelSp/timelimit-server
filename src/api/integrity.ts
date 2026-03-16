@@ -1,7 +1,7 @@
 import { X509Certificate } from 'crypto'
 import { Request } from 'express'
 import { fromBER, Sequence, Integer, OctetString, Set } from 'asn1js'
-import { Certificate } from 'pkijs'
+import { Certificate, type Extension } from 'pkijs'
 
 export interface CertInfo {
   applicationCerts: Array<string>
@@ -27,7 +27,7 @@ export function analyze(req: Request): CertInfo | null {
     if (cert1.offset === -1) return null
 
     const cert2 = new Certificate({ schema: cert1.result })
-    const androidExtension = (cert2.extensions || []).find((item) => item.extnID === '1.3.6.1.4.1.11129.2.1.17')?.extnValue?.valueBlock?.valueHexView
+    const androidExtension = (cert2.extensions || []).find((item: Extension) => item.extnID === '1.3.6.1.4.1.11129.2.1.17')?.extnValue?.valueBlock?.valueHexView
 
     if (!androidExtension) return null
 

@@ -45,11 +45,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateChildTa
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"UPDATE_CHILD_TASK"
-```
+| Value                 | Explanation |
+| :-------------------- | :---------- |
+| `"UPDATE_CHILD_TASK"` |             |
 
 ## isNew
 

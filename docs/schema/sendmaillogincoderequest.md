@@ -8,7 +8,7 @@ https://timelimit.io/SendMailLoginCodeRequest
 
 | Abstract            | Extensible | Status         | Identifiable | Custom Properties | Additional Properties | Access Restrictions | Defined In                                                                                          |
 | :------------------ | :--------- | :------------- | :----------- | :---------------- | :-------------------- | :------------------ | :-------------------------------------------------------------------------------------------------- |
-| Can be instantiated | No         | Unknown status | No           | Forbidden         | Forbidden             | none                | [SendMailLoginCodeRequest.schema.json](SendMailLoginCodeRequest.schema.json "open original schema") |
+| Can be instantiated | Yes        | Unknown status | No           | Forbidden         | Forbidden             | none                | [SendMailLoginCodeRequest.schema.json](SendMailLoginCodeRequest.schema.json "open original schema") |
 
 ## SendMailLoginCodeRequest Type
 
@@ -75,3 +75,5 @@ https://timelimit.io/SendMailLoginCodeRequest
 ### deviceAuthToken Type
 
 `string`
+
+# SendMailLoginCodeRequest Definitions

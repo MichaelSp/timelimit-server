@@ -16,8 +16,8 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedReportU2fLogi
 
 ## type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"REPORT_U2F_LOGIN"
-```
+| Value                | Explanation |
+| :------------------- | :---------- |
+| `"REPORT_U2F_LOGIN"` |             |

@@ -42,11 +42,11 @@ https://timelimit.io/SerializedParentAction#/definitions/SerializedUpdateUserLim
 
 ### type Constraints
 
-**constant**: the value of this property must be equal to:
+**enum**: the value of this property must be equal to one of the following values:
 
-```json
-"UPDATE_USER_LIMIT_LOGIN_PRE_BLOCK_DURATION"
-```
+| Value                                          | Explanation |
+| :--------------------------------------------- | :---------- |
+| `"UPDATE_USER_LIMIT_LOGIN_PRE_BLOCK_DURATION"` |             |
 
 ## userId
 
