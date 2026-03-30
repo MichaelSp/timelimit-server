@@ -55,8 +55,8 @@
     "http-errors": "^2.0.0",
     "jose": "^4.9.3",
     "lodash": "^4.17.21",
-    "mariadb": "^3.0.0",
-    "nodemailer": "^8.0.0",
+    "mariadb": "^2.5.2",
+    "nodemailer": "^8.0.4",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
     "pkijs": "^3.3.3",
@@ -66,6 +66,6 @@
     "umzug": "^3.8.1"
   },
   "optionalDependencies": {
-    "sqlite3": "^6.0.0"
+    "sqlite3": "npm:@vscode/sqlite3@^5.1.12-vscode"
   }
 }
