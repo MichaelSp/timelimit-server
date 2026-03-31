@@ -1780,6 +1780,107 @@ const definitions = {
       "type"
     ]
   },
+  "SerializedMarkTaskPendingAction": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": [
+          "MARK_TASK_PENDING"
+        ]
+      },
+      "taskId": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "taskId",
+      "type"
+    ]
+  },
+  "SerializedPingAction": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": [
+          "PING"
+        ]
+      },
+      "deviceId": {
+        "type": "string"
+      },
+      "event": {
+        "$ref": "#/definitions/PingEvent"
+      },
+      "token": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "deviceId",
+      "event",
+      "token",
+      "type"
+    ]
+  },
+  "PingEvent": {
+    "enum": [
+      "clear",
+      "ping",
+      "pong"
+    ],
+    "type": "string"
+  },
+  "SerializedUpdateInstalledAppsAction": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": [
+          "UPDATE_INSTALLED_APPS"
+        ]
+      },
+      "b": {
+        "type": "string"
+      },
+      "d": {
+        "type": "string"
+      },
+      "w": {
+        "type": "boolean"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "type",
+      "w"
+    ]
+  },
+  "SerializedRemoveInstalledAppsAction": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": [
+          "REMOVE_INSTALLED_APPS"
+        ]
+      },
+      "packageNames": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "packageNames",
+      "type"
+    ]
+  },
   "SerializedSendKeyRequestAction": {
     "type": "object",
     "properties": {
@@ -2814,6 +2915,30 @@ const definitions = {
       "tempKey"
     ]
   },
+  "ServerPing": {
+    "type": "object",
+    "properties": {
+      "deviceId": {
+        "type": "string"
+      },
+      "token": {
+        "type": "string"
+      },
+      "type": {
+        "enum": [
+          "ping",
+          "pong"
+        ],
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "deviceId",
+      "token",
+      "type"
+    ]
+  },
   "ServerDhKey": {
     "type": "object",
     "properties": {
@@ -3210,7 +3335,10 @@ export const isSerializedAppLogicAction: (value: unknown) => value is Serialized
       "$ref": "#/definitions/SerializedMarkTaskPendingAction"
     },
     {
-      "$ref": "#/definitions/SerializedRemoveInstalledAppsAction"
+      "$ref": "#/definitions/SerializedPingAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedUpdateInstalledAppsAction"
     },
     {
       "$ref": "#/definitions/SerializedReplyToKeyRequestAction"

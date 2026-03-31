@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,56 +15,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from "sequelize"
-import {
-  AddDeviceTokenModelStatic,
-  createAddDeviceTokenModel,
-} from "./adddevicetoken.js"
-import { AuthTokenModelStatic, createAuthtokenModel } from "./authtoken.js"
-import { CategoryModelStatic, createCategoryModel } from "./category.js"
-import { CategoryAppModelStatic, createCategoryAppModel } from "./categoryapp.js"
-import {
-  CategoryNetworkIdModelStatic,
-  createCategoryNetworkIdModel,
-} from "./categorynetworkid.js"
-import {
-  CategoryTimeWarningModelStatic,
-  createCategoryTimeWarningModel,
-} from "./categorytimewarning.js"
-import { ChildTaskModelStatic, createChildTaskModel } from "./childtask.js"
-import { ConfigModelStatic, createConfigModel } from "./config.js"
-import { createDeviceModel, DeviceModelStatic } from "./device.js"
-import { createDeviceDhKey, DeviceDhKeyModelStatic } from "./devicedhkey.js"
-import {
-  createEncryptedAppListModel,
-  EncryptedAppListModelStatic,
-} from "./encryptedapplist.js"
-import { createFamilyModel, FamilyModelStatic } from "./family.js"
-import { createKeyRequestModel, KeyRequestModelStatic } from "./keyrequest.js"
-import { createKeyResponseModel, KeyResponseModelStatic } from "./keyresponse.js"
-import {
-  createMailLoginTokenModel,
-  MailLoginTokenModelStatic,
-} from "./maillogintoken.js"
-import { createUmzug } from "./migration/umzug.js"
-import { createOldDeviceModel, OldDeviceModelStatic } from "./olddevice.js"
-import { createPurchaseModel, PurchaseModelStatic } from "./purchase.js"
-import {
-  createSessionDurationModel,
-  SessionDurationModelStatic,
-} from "./sessionduration.js"
-import {
-  createTimelimitRuleModel,
-  TimelimitRuleModelStatic,
-} from "./timelimitrule.js"
-import { createU2fKeyModel, U2fKeyModelStatic } from "./u2fkey.js"
-import { createUsedTimeModel, UsedTimeModelStatic } from "./usedtime.js"
-import { createUserModel, UserModelStatic } from "./user.js"
-import {
-  createUserLimitLoginCategoryModel,
-  UserLimitLoginCategoryModelStatic,
-} from "./userlimitlogincategory.js"
-import { shouldRetryWithException } from "./utils/serialized.js"
+import * as Sequelize from 'sequelize'
+import { AddDeviceTokenModelStatic, createAddDeviceTokenModel } from './adddevicetoken'
+import { AuthTokenModelStatic, createAuthtokenModel } from './authtoken'
+import { CategoryModelStatic, createCategoryModel } from './category'
+import { CategoryAppModelStatic, createCategoryAppModel } from './categoryapp'
+import { CategoryNetworkIdModelStatic, createCategoryNetworkIdModel } from './categorynetworkid'
+import { CategoryTimeWarningModelStatic, createCategoryTimeWarningModel } from './categorytimewarning'
+import { ChildTaskModelStatic, createChildTaskModel } from './childtask'
+import { ConfigModelStatic, createConfigModel } from './config'
+import { createDeviceModel, DeviceModelStatic } from './device'
+import { createDeviceDhKey, DeviceDhKeyModelStatic } from './devicedhkey'
+import { createEncryptedAppListModel, EncryptedAppListModelStatic } from './encryptedapplist'
+import { createFamilyModel, FamilyModelStatic } from './family'
+import { createKeyRequestModel, KeyRequestModelStatic } from './keyrequest'
+import { createKeyResponseModel, KeyResponseModelStatic } from './keyresponse'
+import { createMailLoginTokenModel, MailLoginTokenModelStatic } from './maillogintoken'
+import { createUmzug } from './migration/umzug'
+import { createOldDeviceModel, OldDeviceModelStatic } from './olddevice'
+import { createPingModel, PingModelStatic } from './ping'
+import { createPurchaseModel, PurchaseModelStatic } from './purchase'
+import { createSessionDurationModel, SessionDurationModelStatic } from './sessionduration'
+import { createTimelimitRuleModel, TimelimitRuleModelStatic } from './timelimitrule'
+import { createU2fKeyModel, U2fKeyModelStatic } from './u2fkey'
+import { createUsedTimeModel, UsedTimeModelStatic } from './usedtime'
+import { createUserModel, UserModelStatic } from './user'
+import { createUserLimitLoginCategoryModel, UserLimitLoginCategoryModelStatic } from './userlimitlogincategory'
+import { shouldRetryWithException } from './utils/serialized'
 
 export type Transaction = Sequelize.Transaction
 
@@ -85,6 +62,7 @@ export interface Database {
   keyResponse: KeyResponseModelStatic
   mailLoginToken: MailLoginTokenModelStatic
   oldDevice: OldDeviceModelStatic
+  ping: PingModelStatic
   purchase: PurchaseModelStatic
   sessionDuration: SessionDurationModelStatic
   timelimitRule: TimelimitRuleModelStatic
@@ -121,6 +99,7 @@ const createDatabase = (sequelize: Sequelize.Sequelize): Database => ({
   keyResponse: createKeyResponseModel(sequelize),
   mailLoginToken: createMailLoginTokenModel(sequelize),
   oldDevice: createOldDeviceModel(sequelize),
+  ping: createPingModel(sequelize),
   purchase: createPurchaseModel(sequelize),
   sessionDuration: createSessionDurationModel(sequelize),
   timelimitRule: createTimelimitRuleModel(sequelize),

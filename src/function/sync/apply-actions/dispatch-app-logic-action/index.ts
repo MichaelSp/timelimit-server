@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -23,6 +23,8 @@ import {
   FinishKeyRequestAction,
   ForceSyncAction,
   MarkTaskPendingAction,
+  PingAction,
+  ReplyToKeyRequestAction,
   RemoveInstalledAppsAction,
   ReplyToKeyRequestAction,
   SendKeyRequestAction,
@@ -31,23 +33,24 @@ import {
   UpdateAppActivitiesAction,
   UpdateDeviceStatusAction,
   UpdateInstalledAppsAction,
-  UploadDevicePublicKeyAction,
-} from "../../../../action/index.js"
-import { EventHandler } from "../../../../monitoring/eventhandler.js"
-import { Cache } from "../cache.js"
-import { ActionObjectTypeNotHandledException } from "../exception/illegal-state.js"
-import { dispatchAddUsedTime } from "./addusedtime.js"
-import { dispatchAddUsedTimeVersion2 } from "./addusedtime2.js"
-import { dispatchFinishKeyRequestAction } from "./finishkeyrequest.js"
-import { dispatchForceSyncAction } from "./forcesync.js"
-import { dispatchMarkTaskPendingAction } from "./marktaskpendingaction.js"
-import { dispatchReplyToKeyRequestAction } from "./replytokeyrequest.js"
-import { dispatchSendKeyRequestAction } from "./sendkeyrequest.js"
-import { dispatchSignOutAtDevice } from "./signoutatdevice.js"
-import { dispatchTriedDisablingDeviceAdmin } from "./trieddisablingdeviceadmin.js"
-import { dispatchUpdateDeviceStatus } from "./updatedevicestatus.js"
-import { dispatchUpdateInstalledApps } from "./updateinstalledapps.js"
-import { dispatchUploadDevicePublicKeyAction } from "./uploaddevicepublickey.js"
+  UploadDevicePublicKeyAction
+} from '../../../../action'
+import { EventHandler } from '../../../../monitoring/eventhandler'
+import { Cache } from '../cache'
+import { ActionObjectTypeNotHandledException } from '../exception/illegal-state'
+import { dispatchAddUsedTime } from './addusedtime'
+import { dispatchAddUsedTimeVersion2 } from './addusedtime2'
+import { dispatchFinishKeyRequestAction } from './finishkeyrequest'
+import { dispatchForceSyncAction } from './forcesync'
+import { dispatchMarkTaskPendingAction } from './marktaskpendingaction'
+import { dispatchPingAction } from './ping'
+import { dispatchReplyToKeyRequestAction } from './replytokeyrequest'
+import { dispatchSendKeyRequestAction } from './sendkeyrequest'
+import { dispatchSignOutAtDevice } from './signoutatdevice'
+import { dispatchTriedDisablingDeviceAdmin } from './trieddisablingdeviceadmin'
+import { dispatchUpdateDeviceStatus } from './updatedevicestatus'
+import { dispatchUpdateInstalledApps } from './updateinstalledapps'
+import { dispatchUploadDevicePublicKeyAction } from './uploaddevicepublickey'
 
 export const dispatchAppLogicAction = async ({
   action,
@@ -77,6 +80,8 @@ export const dispatchAppLogicAction = async ({
     await dispatchForceSyncAction({ deviceId, action, cache })
   } else if (action instanceof MarkTaskPendingAction) {
     await dispatchMarkTaskPendingAction({ deviceId, action, cache })
+  } else if (action instanceof PingAction) {
+    await dispatchPingAction({ deviceId, action, cache })
   } else if (action instanceof ReplyToKeyRequestAction) {
     await dispatchReplyToKeyRequestAction({
       deviceId,

@@ -77,12 +77,8 @@ async function startPostgres() {
   const username = generateShortToken()
   const password = generateToken() // this database accepts anything
 
-  await spawnAsync("createuser", ["-h", socketDir, username], {
-    stdio: "inherit",
-  })
-  await spawnAsync("createdb", ["-h", socketDir, database], {
-    stdio: "inherit",
-  })
+  await spawnAsync('createuser', ['-h', socketDir, username], { stdio: 'inherit' })
+  await spawnAsync('createdb', ['-h', socketDir, '--owner', username, database], { stdio: 'inherit' })
 
   return {
     shutdown: () => task.kill("SIGINT"),

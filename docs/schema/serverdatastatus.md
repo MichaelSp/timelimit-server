@@ -30,6 +30,7 @@ https://timelimit.io/ServerDataStatus
 | [users](#users)               | `object` | Optional | cannot be null | [ServerDataStatus](serverdatastatus-definitions-serveruserlist.md "https://timelimit.io/ServerDataStatus#/properties/users")     |
 | [krq](#krq)                   | `array`  | Optional | cannot be null | [ServerDataStatus](serverdatastatus-properties-krq.md "https://timelimit.io/ServerDataStatus#/properties/krq")                   |
 | [kr](#kr)                     | `array`  | Optional | cannot be null | [ServerDataStatus](serverdatastatus-properties-kr.md "https://timelimit.io/ServerDataStatus#/properties/kr")                     |
+| [pings](#pings)               | `array`  | Optional | cannot be null | [ServerDataStatus](serverdatastatus-properties-pings.md "https://timelimit.io/ServerDataStatus#/properties/pings")               |
 | [dh](#dh)                     | `object` | Optional | cannot be null | [ServerDataStatus](serverdatastatus-definitions-serverdhkey.md "https://timelimit.io/ServerDataStatus#/properties/dh")           |
 | [u2f](#u2f)                   | `object` | Optional | cannot be null | [ServerDataStatus](serverdatastatus-definitions-u2fdata.md "https://timelimit.io/ServerDataStatus#/properties/u2f")              |
 | [fullVersion](#fullversion)   | `number` | Required | cannot be null | [ServerDataStatus](serverdatastatus-properties-fullversion.md "https://timelimit.io/ServerDataStatus#/properties/fullVersion")   |
@@ -251,6 +252,24 @@ https://timelimit.io/ServerDataStatus
 ### kr Type
 
 `object[]` ([ServerKeyResponse](serverdatastatus-definitions-serverkeyresponse.md))
+
+## pings
+
+
+
+`pings`
+
+* is optional
+
+* Type: `object[]` ([ServerPing](serverdatastatus-definitions-serverping.md))
+
+* cannot be null
+
+* defined in: [ServerDataStatus](serverdatastatus-properties-pings.md "https://timelimit.io/ServerDataStatus#/properties/pings")
+
+### pings Type
+
+`object[]` ([ServerPing](serverdatastatus-definitions-serverping.md))
 
 ## dh
 
@@ -3448,6 +3467,83 @@ Reference this group by using
 #### signature Type
 
 `string`
+
+## Definitions group ServerPing
+
+Reference this group by using
+
+```json
+{"$ref":"https://timelimit.io/ServerDataStatus#/definitions/ServerPing"}
+```
+
+| Property                | Type     | Required | Nullable       | Defined by                                                                                                                                                             |
+| :---------------------- | :------- | :------- | :------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [deviceId](#deviceid-4) | `string` | Required | cannot be null | [ServerDataStatus](serverdatastatus-definitions-serverping-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerPing/properties/deviceId") |
+| [token](#token)         | `string` | Required | cannot be null | [ServerDataStatus](serverdatastatus-definitions-serverping-properties-token.md "https://timelimit.io/ServerDataStatus#/definitions/ServerPing/properties/token")       |
+| [type](#type-2)         | `string` | Required | cannot be null | [ServerDataStatus](serverdatastatus-definitions-serverping-properties-type.md "https://timelimit.io/ServerDataStatus#/definitions/ServerPing/properties/type")         |
+
+### deviceId
+
+
+
+`deviceId`
+
+* is required
+
+* Type: `string`
+
+* cannot be null
+
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverping-properties-deviceid.md "https://timelimit.io/ServerDataStatus#/definitions/ServerPing/properties/deviceId")
+
+#### deviceId Type
+
+`string`
+
+### token
+
+
+
+`token`
+
+* is required
+
+* Type: `string`
+
+* cannot be null
+
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverping-properties-token.md "https://timelimit.io/ServerDataStatus#/definitions/ServerPing/properties/token")
+
+#### token Type
+
+`string`
+
+### type
+
+
+
+`type`
+
+* is required
+
+* Type: `string`
+
+* cannot be null
+
+* defined in: [ServerDataStatus](serverdatastatus-definitions-serverping-properties-type.md "https://timelimit.io/ServerDataStatus#/definitions/ServerPing/properties/type")
+
+#### type Type
+
+`string`
+
+#### type Constraints
+
+**enum**: the value of this property must be equal to one of the following values:
+
+| Value    | Explanation |
+| :------- | :---------- |
+| `"ping"` |             |
+| `"pong"` |             |
 
 ## Definitions group ServerDhKey
 

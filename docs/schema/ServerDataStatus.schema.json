@@ -67,6 +67,12 @@
         "$ref": "#/definitions/ServerKeyResponse"
       }
     },
+    "pings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ServerPing"
+      }
+    },
     "dh": {
       "$ref": "#/definitions/ServerDhKey"
     },
@@ -926,6 +932,31 @@
         "tempKey"
       ],
       "title": "ServerKeyResponse"
+    },
+    "ServerPing": {
+      "type": "object",
+      "properties": {
+        "deviceId": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "ping",
+            "pong"
+          ],
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "deviceId",
+        "token",
+        "type"
+      ],
+      "title": "ServerPing"
     },
     "ServerDhKey": {
       "type": "object",
