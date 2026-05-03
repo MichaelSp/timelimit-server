@@ -53,7 +53,7 @@
     "email-addresses": "^5.0.0",
     "express": "^5.0.0",
     "http-errors": "^2.0.0",
-    "jose": "^4.9.3",
+    "jose": "^6.0.0",
     "lodash": "^4.17.21",
     "mariadb": "^3.0.0",
     "nodemailer": "^8.0.0",
