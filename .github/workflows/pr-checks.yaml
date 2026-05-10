@@ -46,7 +46,6 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
         run: |
           helm dependency update charts/*
-          helm repo add cloudpirates oci://registry-1.docker.io/cloudpirates
           helm plugin install https://github.com/helm-unittest/helm-unittest.git
 
       - name: Run chart-testing (lint)
