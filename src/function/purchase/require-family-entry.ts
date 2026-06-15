@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2020 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -47,8 +47,8 @@ export const requireFamilyEntry = async ({
     where: {
       familyId: deviceEntry.familyId,
     },
-    attributes: ["fullVersionUntil"],
-    transaction,
+    attributes: ['fullVersionUntil', 'fullVersionDebts'],
+    transaction
   })
 
   if (!familyEntryUnsafe) {
@@ -57,6 +57,7 @@ export const requireFamilyEntry = async ({
 
   const familyEntry = {
     fullVersionUntil: familyEntryUnsafe.fullVersionUntil,
+    fullVersionDebts: familyEntryUnsafe.fullVersionDebts,
   }
 
   return familyEntry

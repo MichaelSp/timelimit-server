@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -65,30 +65,33 @@ export const addPurchase = async ({
   }
 
   const previousFullVersionEndTime = familyEntry.fullVersionUntil
+  const previousFullVersionDebts = parseInt(familyEntry.fullVersionDebts, 10)
 
-  const newFullVersionUntil =
-    Math.max(parseInt(familyEntry.fullVersionUntil, 10), Date.now()) +
-    (type === "year" ? year : month)
+  const typeDuration = type === 'year' ? year : month
 
-  familyEntry.fullVersionUntil = newFullVersionUntil.toString(10)
-  familyEntry.hasFullVersion = true
+  if (typeDuration > previousFullVersionDebts) {
+    const newFullVersionUntil = Math.max(parseInt(familyEntry.fullVersionUntil, 10), Date.now()) + typeDuration - previousFullVersionDebts
+
+    familyEntry.fullVersionUntil = newFullVersionUntil.toString(10)
+    familyEntry.fullVersionDebts = '0'
+    familyEntry.hasFullVersion = true
+  } else {
+    familyEntry.fullVersionDebts = (previousFullVersionDebts - typeDuration).toString(10)
+  }
 
   await familyEntry.save({ transaction })
 
-  await database.purchase.create(
-    {
-      familyId,
-      service,
-      transactionId,
-      type,
-      loggedAt: Date.now().toString(10),
-      previousFullVersionEndTime,
-      newFullVersionEndTime: newFullVersionUntil.toString(10),
-    },
-    {
-      transaction,
-    },
-  )
+  await database.purchase.create({
+    familyId,
+    service,
+    transactionId,
+    type,
+    loggedAt: Date.now().toString(10),
+    previousFullVersionEndTime,
+    newFullVersionEndTime: familyEntry.fullVersionUntil
+  }, {
+    transaction
+  })
 
   await notifyClientsAboutChangesDelayed({
     familyId,
