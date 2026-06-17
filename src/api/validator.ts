@@ -3418,8 +3418,7 @@ export const isCanDoPurchaseRequest: (value: unknown) => value is CanDoPurchaseR
   },
   "additionalProperties": false,
   "required": [
-    "deviceAuthToken",
-    "type"
+    "deviceAuthToken"
   ],
   "definitions": definitions,
   "$schema": "http://json-schema.org/draft-07/schema#"
