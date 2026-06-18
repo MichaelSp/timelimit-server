@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -23,7 +23,7 @@ export interface PurchaseAttributes {
   familyId: string
   service: "googleplay" | "directpurchase"
   transactionId: string
-  type: "month" | "year"
+  type: 'month' | 'year' | 'unpaid14'
   loggedAt: string
   previousFullVersionEndTime: string
   newFullVersionEndTime: string
@@ -45,7 +45,7 @@ export const attributes: SequelizeAttributes<PurchaseAttributes> = {
     type: Sequelize.STRING,
     primaryKey: true,
   },
-  type: createEnumColumn(["month", "year"]),
+  type: createEnumColumn(['month', 'year', 'unpaid14']),
   loggedAt: { ...timestampColumn },
   previousFullVersionEndTime: { ...timestampColumn },
   newFullVersionEndTime: { ...timestampColumn },

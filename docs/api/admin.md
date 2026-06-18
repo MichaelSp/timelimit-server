@@ -100,7 +100,10 @@ request properties: ``purchaseToken``, ``purchaseId`` and ``dryRun``
 
 - ``purchasetoken`` is a string which the client shows at the purchase screen
 - ``purchaseId`` is the ID that is used at the bill
-- ``dryRun`` is a boolean; setting true will skip the actual unlocking
+- ``dryRun`` is a boolean
+  - setting true will skip the actual unlocking
+  - false will add a four week tolerance to the token expiry to permit checking now and unlocking later
+- ``type`` is a string and must be ``year``, ``month`` or ``unpaid14``
 
 ### response
 

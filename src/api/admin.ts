@@ -141,7 +141,8 @@ export const createAdminRouter = ({ database, websocket, eventHandler }: {
         typeof req.body !== 'object' ||
         typeof req.body.purchaseToken !== 'string' ||
         typeof req.body.purchaseId !== 'string' ||
-        typeof req.body.dryRun !== 'boolean'
+        typeof req.body.dryRun !== 'boolean' ||
+        typeof req.body.type !== 'string'
       ) {
         throw new BadRequest()
       }
@@ -149,8 +150,13 @@ export const createAdminRouter = ({ database, websocket, eventHandler }: {
       const purchaseToken: string = req.body.purchaseToken
       const purchaseId: string = req.body.purchaseId
       const dryRun: boolean = req.body.dryRun
+      const type: string = req.body.type
 
-      const tokenContent = await verifyIdentitifyToken(purchaseToken)
+      if (type !== 'month' && type !== 'year' && type !== 'unpaid14') {
+        throw new BadRequest()
+      }
+
+      const tokenContent = await verifyIdentitifyToken(purchaseToken, dryRun)
 
       if (tokenContent.purpose !== 'purchase') {
         res.json({ ok: false, error: 'token invalid', detail: 'wrong purpose' })
@@ -259,7 +265,7 @@ export const createAdminRouter = ({ database, websocket, eventHandler }: {
             await addPurchase({
               database,
               familyId: tokenContent.familyId,
-              type: 'year',
+              type,
               service: 'directpurchase',
               transactionId: purchaseId,
               websocket,

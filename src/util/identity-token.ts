@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -38,14 +38,15 @@ export async function createIdentityToken({
     .join("\n")
 }
 
-export async function verifyIdentitifyToken(
-  token: string,
-): Promise<IdentityTokenPayload> {
+export async function verifyIdentitifyToken(token: string, dryRun: boolean): Promise<IdentityTokenPayload> {
   try {
     const { payload } = await jwtVerify(
       Buffer.from(token, "base64").toString("ascii"),
       getSignSecret(),
-      { algorithms: ["HS512"] },
+      {
+        algorithms: ['HS512'],
+        clockTolerance: dryRun ? 0 : '4w',
+      }
     )
 
     if (!isIdentityTokenPayload(payload)) throw new BadPayloadException()
