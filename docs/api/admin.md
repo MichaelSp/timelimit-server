@@ -124,6 +124,7 @@ The response contains the following properties:
   - optional object
   - should be shown to the support
 - ``wasAlreadyExecuted`` (boolean, set if and only if ``ok`` is true)
+- ``mail`` (string, set if and only if ``ok`` is true)
 
 If the request was malformed: HTTP status code 400 Bad Request
 

@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2024 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -67,6 +67,9 @@ export async function dispatchUpdateTimelimitRule ({
     const wasSessionDurationLimitationEnabled =
       ruleEntry.sessionPauseMilliseconds > 0 && ruleEntry.sessionDurationMilliseconds > 0
 
+    const isSessionDurationLimitationEnabled =
+      action.sessionPauseMilliseconds > 0 && action.sessionDurationMilliseconds > 0
+
     const countOldAffectedDays = Array(7)
       .fill(0)
       .reduce((sum, _, index) => sum + ((ruleEntry.dayMaskAsBitmask >> index) & 1), 0)
@@ -78,6 +81,7 @@ export async function dispatchUpdateTimelimitRule ({
       action.start <= ruleEntry.startMinuteOfDay &&
       action.end >= ruleEntry.endMinuteOfDay &&
       (!wasSessionDurationLimitationEnabled || (
+          isSessionDurationLimitationEnabled &&
           action.sessionDurationMilliseconds <= ruleEntry.sessionDurationMilliseconds &&
           action.sessionPauseMilliseconds >= ruleEntry.sessionPauseMilliseconds
       )) &&
