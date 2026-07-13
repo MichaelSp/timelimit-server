@@ -37,14 +37,14 @@ export const createPurchaseRouter = ({ database, websocket }: {
   const router = Router()
 
   router.post('/can-do-purchase', json(), async (req, res, next) => {
-    if (!areGooglePlayPaymentsPossible) {
-      res.json({ canDoPurchase: 'no because not supported by the server' })
-      return
-    }
-
     try {
       if (!isCanDoPurchaseRequest(req.body)) {
         throw new BadRequest()
+      }
+
+      if (req.body.type === 'googleplay' && !areGooglePlayPaymentsPossible) {
+        res.json({ canDoPurchase: 'no because not supported by the server' })
+        return
       }
 
       const result: boolean = await database.transaction(async (transaction) => {
