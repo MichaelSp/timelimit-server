@@ -23,8 +23,7 @@ On a invalid request body: HTTP status code 400 Bad request
 
 On a invalid auth token: HTTP status code 401 Unauthorized
 
-On success: a JSON object with the property ``canDoPurchase`` (string), ``googlePlayPublicKey`` (string, base64)
-and ``permitDebts`` (boolean, optional, default false).
+On success: a JSON object with the property ``canDoPurchase`` (string) and ``googlePlayPublicKey`` (string, base64)
 
 possible values of ``canDoPurchase``:
 
@@ -33,26 +32,6 @@ possible values of ``canDoPurchase``:
 - ``no because not supported by the server``
 
 The ``googlePlayPublicKey`` is the key by which purchases using google play should be signed.
-
-## POST /purchase/finish-purchase-by-debts
-
-Use this to unlock without payment. Limitations apply.
-
-### request
-
-see [this JSON schema](../schema/candopurchaserequest.md)
-
-Note that ``type`` is not used at all.
-
-### response
-
-On a invalid request body: HTTP status code 400 Bad request
-
-On a invalid auth token: HTTP status code 401 Unauthorized
-
-If not granted: HTTP status code 409 Conflict
-
-On success: HTTP status code 200
 
 ## POST /purchase/finish-purchase-by-google-play
 
