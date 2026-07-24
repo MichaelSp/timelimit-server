@@ -42,24 +42,23 @@ export const createPurchaseRouter = ({
 }) => {
   const router = Router()
 
-  router.post("/can-do-purchase", json(), async (req, res, next) => {
-    if (!areGooglePlayPaymentsPossible) {
-      res.json({ canDoPurchase: "no because not supported by the server" })
-      return
-    }
-
+  router.post('/can-do-purchase', json(), async (req, res, next) => {
     try {
       if (!isCanDoPurchaseRequest(req.body)) {
         throw new BadRequest()
       }
 
-      const result: boolean = await database.transaction(
-        async (transaction) => {
-          const familyEntry = await requireFamilyEntry({
-            database,
-            deviceAuthToken: req.body.deviceAuthToken,
-            transaction,
-          })
+      if (req.body.type === 'googleplay' && !areGooglePlayPaymentsPossible) {
+        res.json({ canDoPurchase: 'no because not supported by the server' })
+        return
+      }
+
+      const result: boolean = await database.transaction(async (transaction) => {
+        const familyEntry = await requireFamilyEntry({
+          database,
+          deviceAuthToken: req.body.deviceAuthToken,
+          transaction
+        })
 
         return canDoNextPurchase({
           fullVersionUntil: parseInt(familyEntry.fullVersionUntil, 10),
