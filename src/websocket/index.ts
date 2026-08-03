@@ -18,12 +18,12 @@
 import { EventEmitter } from 'events'
 import { Server } from 'socket.io'
 import { ConnectedDevicesManager, VisibleConnectedDevicesManager } from '../connected-devices'
-import { Database } from '../database'
+import { SimpleDatabase } from '../database/simple'
 import { deviceByAuthTokenRoom } from './rooms'
 
 export const createWebsocketHandler = ({ connectedDevicesManager, database }: {
   connectedDevicesManager: VisibleConnectedDevicesManager
-  database: Database
+  database: SimpleDatabase
 }): {
   websocketServer: Server
   websocketApi: WebsocketApi
@@ -64,7 +64,7 @@ export const createWebsocketHandler = ({ connectedDevicesManager, database }: {
       socket.on('disconnect', () => events.removeListener(eventTriggerImportantSyncForAll, importantSyncForAllListener))
 
       ;(async () => {
-        const deviceEntryUnsafe = await database.device.findOne({
+        const deviceEntryUnsafe = await database.legacy.device.findOne({
           where: {
             deviceAuthToken
           },

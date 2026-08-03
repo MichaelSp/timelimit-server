@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2020 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,17 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { Database } from '../../../database'
+import { SimpleDatabaseTransaction } from '../../../database/simple'
 import { ServerUserList } from '../../../object/serverdatastatus'
 import { FamilyEntry } from './family-entry'
 
-export async function getUserList ({ database, transaction, familyEntry }: {
-  database: Database
-  transaction: Sequelize.Transaction
+export async function getUserList ({ transaction, familyEntry }: {
+  transaction: SimpleDatabaseTransaction
   familyEntry: FamilyEntry
 }): Promise<ServerUserList> {
-  const users = (await database.user.findAll({
+  const users = (await transaction.legacy.database.user.findAll({
     where: {
       familyId: familyEntry.familyId
     },
@@ -44,7 +42,7 @@ export async function getUserList ({ database, transaction, familyEntry }: {
       'mailNotificationFlags',
       'flags'
     ],
-    transaction
+    transaction: transaction.legacy.transaction
   })).map((item) => ({
     userId: item.userId,
     name: item.name,
@@ -61,7 +59,7 @@ export async function getUserList ({ database, transaction, familyEntry }: {
     flags: item.flags
   }))
 
-  const limitLoginCategories = (await database.userLimitLoginCategory.findAll({
+  const limitLoginCategories = (await transaction.legacy.database.userLimitLoginCategory.findAll({
     where: {
       familyId: familyEntry.familyId
     },
@@ -70,7 +68,7 @@ export async function getUserList ({ database, transaction, familyEntry }: {
       'categoryId',
       'preBlockDuration'
     ],
-    transaction
+    transaction: transaction.legacy.transaction
   })).map((item) => ({
     userId: item.userId,
     categoryId: item.categoryId,

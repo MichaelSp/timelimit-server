@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -29,12 +29,12 @@ export async function dispatchReviewChildTaskAction ({ action, cache }: {
     throw new PremiumVersionMissingException()
   }
 
-  const taskInfo = await cache.database.childTask.findOne({
+  const taskInfo = await cache.transaction.legacy.database.childTask.findOne({
     where: {
       familyId: cache.familyId,
       taskId: action.taskId
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (taskInfo === null) throw new MissingTaskException()
@@ -42,13 +42,13 @@ export async function dispatchReviewChildTaskAction ({ action, cache }: {
   if (taskInfo.pendingRequest === 0) throw new IllegalStateException({ staticMessage: 'no task review pending' })
 
   if (action.ok) {
-    const categoryInfoUnsafe = await cache.database.category.findOne({
+    const categoryInfoUnsafe = await cache.transaction.legacy.database.category.findOne({
       where: {
         familyId: cache.familyId,
         categoryId: taskInfo.categoryId
       },
       attributes: ['extraTimeInMillis', 'extraTimeDay'],
-      transaction: cache.transaction
+      transaction: cache.transaction.legacy.transaction
     })
 
     if (categoryInfoUnsafe === null) {
@@ -64,7 +64,7 @@ export async function dispatchReviewChildTaskAction ({ action, cache }: {
       action.day !== undefined && categoryInfo.extraTimeDay !== action.day
 
     if (resetDayBoundExtraTime) {
-      await cache.database.category.update({
+      await cache.transaction.legacy.database.category.update({
         extraTimeInMillis: taskInfo.extraTimeDuration,
         extraTimeDay: -1
       }, {
@@ -72,23 +72,23 @@ export async function dispatchReviewChildTaskAction ({ action, cache }: {
           familyId: cache.familyId,
           categoryId: taskInfo.categoryId
         },
-        transaction: cache.transaction
+        transaction: cache.transaction.legacy.transaction
       })
     } else {
-      await cache.database.category.update({
+      await cache.transaction.legacy.database.category.update({
         extraTimeInMillis: categoryInfo.extraTimeInMillis + taskInfo.extraTimeDuration
       }, {
         where: {
           familyId: cache.familyId,
           categoryId: taskInfo.categoryId
         },
-        transaction: cache.transaction
+        transaction: cache.transaction.legacy.transaction
       })
     }
 
     cache.categoriesWithModifiedBaseData.add(taskInfo.categoryId)
 
-    await cache.database.childTask.update({
+    await cache.transaction.legacy.database.childTask.update({
       pendingRequest: 0,
       lastGrantTimestamp: action.time.toString(10)
     }, {
@@ -96,19 +96,19 @@ export async function dispatchReviewChildTaskAction ({ action, cache }: {
         familyId: cache.familyId,
         taskId: action.taskId
       },
-      transaction: cache.transaction
+      transaction: cache.transaction.legacy.transaction
     })
 
     cache.incrementTriggeredSyncLevel(2)
   } else {
-    await cache.database.childTask.update({
+    await cache.transaction.legacy.database.childTask.update({
       pendingRequest: 0
     }, {
       where: {
         familyId: cache.familyId,
         taskId: action.taskId
       },
-      transaction: cache.transaction
+      transaction: cache.transaction.legacy.transaction
     })
   }
 

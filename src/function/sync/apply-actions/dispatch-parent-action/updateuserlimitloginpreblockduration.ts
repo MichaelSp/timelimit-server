@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -25,13 +25,13 @@ export async function dispatchUpdateUserLimitPreBlockDuration ({ action, cache, 
   cache: Cache
   parentUserId: string
 }) {
-  const userEntry = await cache.database.user.findOne({
+  const userEntry = await cache.transaction.legacy.database.user.findOne({
     where: {
       familyId: cache.familyId,
       userId: action.userId,
       type: 'parent'
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!userEntry) {
@@ -44,8 +44,8 @@ export async function dispatchUpdateUserLimitPreBlockDuration ({ action, cache, 
     })
   }
 
-  const preBlockItem = await cache.database.userLimitLoginCategory.findOne({
-    transaction: cache.transaction,
+  const preBlockItem = await cache.transaction.legacy.database.userLimitLoginCategory.findOne({
+    transaction: cache.transaction.legacy.transaction,
     where: {
       familyId: cache.familyId,
       userId: action.userId
@@ -58,10 +58,10 @@ export async function dispatchUpdateUserLimitPreBlockDuration ({ action, cache, 
     })
   }
 
-  await cache.database.userLimitLoginCategory.update({
+  await cache.transaction.legacy.database.userLimitLoginCategory.update({
     preBlockDuration: action.preBlockDuration
   }, {
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction,
     where: {
       familyId: cache.familyId,
       userId: action.userId

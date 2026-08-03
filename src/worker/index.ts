@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Database } from '../database'
+import { SimpleDatabase } from '../database/simple'
 import { WebsocketApi } from '../websocket'
 import { initDeleteDeprecatedPurchasesWorker } from './delete-deprecated-purchases'
 import { initDeleteOldFamiliesWorker } from './delete-old-families'
@@ -23,7 +23,7 @@ import { initDeleteOldTokensWorker } from './delete-old-tokens'
 import { initDeleteOldUsedTimesWorker } from './delete-old-used-times'
 
 export function initWorkers ({ database, websocket }: {
-  database: Database
+  database: SimpleDatabase
   websocket: WebsocketApi
 }) {
   initDeleteDeprecatedPurchasesWorker({ database, websocket })

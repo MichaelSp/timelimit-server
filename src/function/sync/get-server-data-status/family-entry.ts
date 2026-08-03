@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,8 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { Database } from '../../../database'
+import { SimpleDatabaseTransaction } from '../../../database/simple'
 import { GetServerDataStatusIllegalStateException } from './exception'
 
 export interface FamilyEntry {
@@ -28,12 +27,11 @@ export interface FamilyEntry {
   u2fKeysVersion: string
 }
 
-export async function getFamilyEntry ({ database, familyId, transaction }: {
-  database: Database
+export async function getFamilyEntry ({ transaction, familyId }: {
+  transaction: SimpleDatabaseTransaction
   familyId: string
-  transaction: Sequelize.Transaction
 }): Promise<FamilyEntry> {
-  const familyEntryUnsafe = await database.family.findOne({
+  const familyEntryUnsafe = await transaction.legacy.database.family.findOne({
     where: {
       familyId
     },
@@ -44,7 +42,7 @@ export async function getFamilyEntry ({ database, familyId, transaction }: {
       'fullVersionUntil',
       'u2fKeysVersion'
     ],
-    transaction
+    transaction: transaction.legacy.transaction
   })
 
   if (!familyEntryUnsafe) {

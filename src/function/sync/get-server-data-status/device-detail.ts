@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -16,24 +16,23 @@
  */
 
 import * as Sequelize from 'sequelize'
-import { Database } from '../../../database'
+import { SimpleDatabaseTransaction } from '../../../database/simple'
 import { ClientDataStatusDevicesExtended } from '../../../object/clientdatastatus'
 import { ServerExtendedDeviceData, ServerCryptContainer } from '../../../object/serverdatastatus'
 import { FamilyEntry } from './family-entry'
 import { types } from '../../../database/encryptedapplist'
 
-export async function getDeviceDetailList ({ database, transaction, familyEntry, devicesDetail }: {
-  database: Database
-  transaction: Sequelize.Transaction
+export async function getDeviceDetailList ({ transaction, familyEntry, devicesDetail }: {
+  transaction: SimpleDatabaseTransaction
   familyEntry: FamilyEntry
   devicesDetail: ClientDataStatusDevicesExtended
 }): Promise<Array<ServerExtendedDeviceData> | null> {
-  const serverEncryptedAppsVersions = (await database.encryptedAppList.findAll({
+  const serverEncryptedAppsVersions = (await transaction.legacy.database.encryptedAppList.findAll({
     where: {
       familyId: familyEntry.familyId,
     },
     attributes: ['deviceId', 'type', 'version'],
-    transaction
+    transaction: transaction.legacy.transaction
   })).map((item) => ({
     deviceId: item.deviceId,
     type: item.type,
@@ -59,7 +58,7 @@ export async function getDeviceDetailList ({ database, transaction, familyEntry,
 
   if (updatedDeviceIds.length === 0) return null
 
-  const updatedBaseApps = devicesWithChangedBaseApps.length === 0 ? [] : (await database.encryptedAppList.findAll({
+  const updatedBaseApps = devicesWithChangedBaseApps.length === 0 ? [] : (await transaction.legacy.database.encryptedAppList.findAll({
     where: {
       familyId: familyEntry.familyId,
       deviceId: {
@@ -72,14 +71,14 @@ export async function getDeviceDetailList ({ database, transaction, familyEntry,
       'version',
       'data'
     ],
-    transaction
+    transaction: transaction.legacy.transaction
   })).map((item) => ({
     deviceId: item.deviceId,
     version: item.version,
     data: item.data
   }))
 
-  const updatedDiffApps = devicesWithChangedDiffApps.length === 0 ? [] : (await database.encryptedAppList.findAll({
+  const updatedDiffApps = devicesWithChangedDiffApps.length === 0 ? [] : (await transaction.legacy.database.encryptedAppList.findAll({
     where: {
       familyId: familyEntry.familyId,
       deviceId: {
@@ -92,7 +91,7 @@ export async function getDeviceDetailList ({ database, transaction, familyEntry,
       'version',
       'data'
     ],
-    transaction
+    transaction: transaction.legacy.transaction
   })).map((item) => ({
     deviceId: item.deviceId,
     version: item.version,

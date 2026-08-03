@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,7 +18,8 @@
 import { BadRequest } from 'http-errors'
 import { ClientPushChangesRequest } from '../../../api/schema'
 import { VisibleConnectedDevicesManager } from '../../../connected-devices'
-import { Database, shouldRetryWithException } from '../../../database'
+import { SimpleDatabase } from '../../../database/simple'
+import { shouldRetryWithException } from '../../../database'
 import { EventHandler } from '../../../monitoring/eventhandler'
 import { WebsocketApi } from '../../../websocket'
 import { notifyClientsAboutChangesDelayed } from '../../websocket'
@@ -31,7 +32,7 @@ import { SequenceNumberRepeatedException } from './exception/sequence'
 import { assertActionIntegrity } from './integrity'
 
 export const applyActionsFromDevice = async ({ database, request, websocket, connectedDevicesManager, eventHandler }: {
-  database: Database
+  database: SimpleDatabase
   websocket: WebsocketApi
   request: ClientPushChangesRequest
   connectedDevicesManager: VisibleConnectedDevicesManager
@@ -47,12 +48,11 @@ export const applyActionsFromDevice = async ({ database, request, websocket, con
   }
 
   return database.transaction(async (transaction) => {
-    const baseInfo = await getApplyActionBaseInfo({ database, transaction, deviceAuthToken: request.deviceAuthToken })
+    const baseInfo = await getApplyActionBaseInfo({ transaction, deviceAuthToken: request.deviceAuthToken })
 
     const cache = new Cache({
-      database,
-      hasFullVersion: baseInfo.hasFullVersion,
       transaction,
+      hasFullVersion: baseInfo.hasFullVersion,
       familyId: baseInfo.familyId,
       deviceId: baseInfo.deviceId,
       connectedDevicesManager
@@ -112,7 +112,7 @@ export const applyActionsFromDevice = async ({ database, request, websocket, con
           }
         })
       } catch (ex) {
-        if (shouldRetryWithException(database, ex)) {
+        if (shouldRetryWithException(transaction.legacy.database, ex)) {
           eventHandler.countEvent('applyActionsFromDevice got exception which should cause retry')
 
           throw ex
@@ -132,14 +132,14 @@ export const applyActionsFromDevice = async ({ database, request, websocket, con
     if (nextSequenceNumber !== baseInfo.nextSequenceNumber) {
       eventHandler.countEvent('applyActionsFromDevice updateSequenceNumber')
 
-      await database.device.update({
+      await transaction.legacy.database.device.update({
         nextSequenceNumber
       }, {
         where: {
           familyId: baseInfo.familyId,
           deviceId: baseInfo.deviceId
         },
-        transaction
+        transaction: transaction.legacy.transaction
       })
     }
 
@@ -149,18 +149,17 @@ export const applyActionsFromDevice = async ({ database, request, websocket, con
       familyId: baseInfo.familyId,
       sourceDeviceId: baseInfo.deviceId,
       websocket,
-      database,
       transaction,
       generalLevel: cache.triggeredSyncLevel,
       targetedLevels: cache.targetedTriggeredSyncLevels
     })
 
     if (cache.triggeredSyncLevel === 2) {
-      transaction.afterCommit(() => {
+      transaction.enqueueAfterCommit(() => {
         eventHandler.countEvent('applyActionsFromDevice areChangesImportant')
       })
     } else if ([...cache.targetedTriggeredSyncLevels.entries()].some((entry) => entry[1] === 2)) {
-      transaction.afterCommit(() => {
+      transaction.enqueueAfterCommit(() => {
         eventHandler.countEvent('applyActionsFromDevice areChangesImportantTargeted')
       })
     }

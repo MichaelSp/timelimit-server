@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -25,12 +25,12 @@ export async function dispatchAddCategoryNetworkId ({ action, cache }: {
   action: AddCategoryNetworkIdAction
   cache: Cache
 }) {
-  const categoryEntryUnsafe = await cache.database.category.findOne({
+  const categoryEntryUnsafe = await cache.transaction.legacy.database.category.findOne({
     where: {
       familyId: cache.familyId,
       categoryId: action.categoryId
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction,
     attributes: ['childId']
   })
 
@@ -38,12 +38,12 @@ export async function dispatchAddCategoryNetworkId ({ action, cache }: {
     throw new MissingCategoryException()
   }
 
-  const count = await cache.database.categoryNetworkId.count({
+  const count = await cache.transaction.legacy.database.categoryNetworkId.count({
     where: {
       familyId: cache.familyId,
       categoryId: action.categoryId
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (count + 1 > maxNetworkIdsPerCategory) {
@@ -52,13 +52,13 @@ export async function dispatchAddCategoryNetworkId ({ action, cache }: {
     })
   }
 
-  const hasOldItem = (await cache.database.categoryNetworkId.count({
+  const hasOldItem = (await cache.transaction.legacy.database.categoryNetworkId.count({
     where: {
       familyId: cache.familyId,
       categoryId: action.categoryId,
       networkItemId: action.itemId
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })) !== 0
 
   if (hasOldItem) {
@@ -67,12 +67,12 @@ export async function dispatchAddCategoryNetworkId ({ action, cache }: {
     })
   }
 
-  await cache.database.categoryNetworkId.create({
+  await cache.transaction.legacy.database.categoryNetworkId.create({
     familyId: cache.familyId,
     categoryId: action.categoryId,
     networkItemId: action.itemId,
     hashedNetworkId: action.hashedNetworkId
-  }, { transaction: cache.transaction })
+  }, { transaction: cache.transaction.legacy.transaction })
 
   cache.categoriesWithModifiedBaseData.add(action.categoryId)
   cache.incrementTriggeredSyncLevel(2)

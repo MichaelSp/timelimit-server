@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -29,12 +29,12 @@ export async function dispatchAddCategoryApps ({ action, cache, fromChildSelfLim
   cache: Cache
   fromChildSelfLimitAddChildUserId: string | null
 }) {
-  const categoryEntryUnsafe = await cache.database.category.findOne({
+  const categoryEntryUnsafe = await cache.transaction.legacy.database.category.findOne({
     where: {
       familyId: cache.familyId,
       categoryId: action.categoryId
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction,
     attributes: ['childId']
   })
 
@@ -50,13 +50,13 @@ export async function dispatchAddCategoryApps ({ action, cache, fromChildSelfLim
     }
   }
 
-  const categoriesOfSameChild = (await cache.database.category.findAll({
+  const categoriesOfSameChild = (await cache.transaction.legacy.database.category.findAll({
     where: {
       familyId: cache.familyId,
       childId
     },
     attributes: ['categoryId', 'parentCategoryId'],
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })).map((item) => ({
     categoryId: item.categoryId,
     parentCategoryId: item.parentCategoryId
@@ -64,7 +64,7 @@ export async function dispatchAddCategoryApps ({ action, cache, fromChildSelfLim
 
   const userCategoryIds = categoriesOfSameChild.map((item) => item.categoryId)
 
-  const oldCategories = (await cache.database.categoryApp.findAll({
+  const oldCategories = (await cache.transaction.legacy.database.categoryApp.findAll({
     attributes: [ 'categoryId' ],
     group: [ 'categoryId' ],
     where: {
@@ -76,7 +76,7 @@ export async function dispatchAddCategoryApps ({ action, cache, fromChildSelfLim
         [Sequelize.Op.in]: action.packageNames
       }
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })).map((item) => item.categoryId)
 
   if (fromChildSelfLimitAddChildUserId !== null) {
@@ -92,13 +92,13 @@ export async function dispatchAddCategoryApps ({ action, cache, fromChildSelfLim
 
     try {
       const parentCategoriesOfTargetCategory = getCategoryWithParentCategories(categoriesOfSameChild, action.categoryId)
-      const userEntryUnsafe = await cache.database.user.findOne({
+      const userEntryUnsafe = await cache.transaction.legacy.database.user.findOne({
         attributes: [ 'categoryForNotAssignedApps' ],
         where: {
           familyId: cache.familyId,
           userId: fromChildSelfLimitAddChildUserId
         },
-        transaction: cache.transaction
+        transaction: cache.transaction.legacy.transaction
       })
 
       if (!userEntryUnsafe) {
@@ -111,7 +111,7 @@ export async function dispatchAddCategoryApps ({ action, cache, fromChildSelfLim
         parentCategoriesOfTargetCategory.indexOf(validatedDefaultCategoryId) !== -1
 
       const assertCanAddApp = async (packageName: string, isApp: boolean) => {
-        const categoryAppEntryUnsafe = await cache.database.categoryApp.findOne({
+        const categoryAppEntryUnsafe = await cache.transaction.legacy.database.categoryApp.findOne({
           attributes: [ 'categoryId' ],
           where: {
             familyId: cache.familyId,
@@ -120,7 +120,7 @@ export async function dispatchAddCategoryApps ({ action, cache, fromChildSelfLim
             },
             packageName: packageName
           },
-          transaction: cache.transaction
+          transaction: cache.transaction.legacy.transaction
         })
 
         const categoryAppEntry = categoryAppEntryUnsafe ? { categoryId: categoryAppEntryUnsafe.categoryId } : null
@@ -162,7 +162,7 @@ export async function dispatchAddCategoryApps ({ action, cache, fromChildSelfLim
   }
 
   if (oldCategories.length > 0) {
-    await cache.database.categoryApp.destroy({
+    await cache.transaction.legacy.database.categoryApp.destroy({
       where: {
         familyId: cache.familyId,
         categoryId: {
@@ -172,18 +172,18 @@ export async function dispatchAddCategoryApps ({ action, cache, fromChildSelfLim
           [Sequelize.Op.in]: action.packageNames
         }
       },
-      transaction: cache.transaction
+      transaction: cache.transaction.legacy.transaction
     })
   }
 
-  await cache.database.categoryApp.bulkCreate(
+  await cache.transaction.legacy.database.categoryApp.bulkCreate(
     action.packageNames.map((packageName): CategoryAppAttributes => ({
       familyId: cache.familyId,
       categoryId: action.categoryId,
       packageName
     })),
     {
-      transaction: cache.transaction
+      transaction: cache.transaction.legacy.transaction
     }
   )
 

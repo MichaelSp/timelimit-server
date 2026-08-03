@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2020 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -16,7 +16,7 @@
  */
 
 import { Unauthorized } from 'http-errors'
-import { Database, Transaction } from '../../../database'
+import { SimpleDatabaseTransaction } from '../../../database/simple'
 import { SourceFamilyNotFoundException } from './exception/illegal-state'
 
 export interface ApplyActionBaseInfo {
@@ -26,15 +26,14 @@ export interface ApplyActionBaseInfo {
   hasFullVersion: boolean
 }
 
-export async function getApplyActionBaseInfo ({ database, transaction, deviceAuthToken }: {
-  database: Database
-  transaction: Transaction
+export async function getApplyActionBaseInfo ({ transaction, deviceAuthToken }: {
+  transaction: SimpleDatabaseTransaction
   deviceAuthToken: string
 }): Promise<ApplyActionBaseInfo> {
-  const deviceEntryUnsafe = await database.device.findOne({
+  const deviceEntryUnsafe = await transaction.legacy.database.device.findOne({
     where: { deviceAuthToken },
     attributes: ['familyId', 'deviceId', 'nextSequenceNumber'],
-    transaction
+    transaction: transaction.legacy.transaction
   })
 
   if (!deviceEntryUnsafe) {
@@ -47,11 +46,11 @@ export async function getApplyActionBaseInfo ({ database, transaction, deviceAut
     nextSequenceNumber: deviceEntryUnsafe.nextSequenceNumber
   }
 
-  const familyEntryUnsafe = await database.family.findOne({
+  const familyEntryUnsafe = await transaction.legacy.database.family.findOne({
     where: {
       familyId: deviceEntry.familyId
     },
-    transaction,
+    transaction: transaction.legacy.transaction,
     attributes: ['hasFullVersion']
   })
 

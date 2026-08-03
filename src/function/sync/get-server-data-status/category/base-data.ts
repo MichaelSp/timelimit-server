@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -16,19 +16,18 @@
  */
 
 import * as Sequelize from 'sequelize'
-import { Database, Transaction } from '../../../../database'
+import { SimpleDatabaseTransaction } from '../../../../database/simple'
 import { ServerUpdatedCategoryBaseData } from '../../../../object/serverdatastatus'
 import { FamilyEntry } from '../family-entry'
 
 export async function getCategoryBaseDatas ({
-  database, transaction, categoryIdsToSyncBaseData, familyEntry
+  transaction, categoryIdsToSyncBaseData, familyEntry
 }: {
-  database: Database
-  transaction: Transaction
+  transaction: SimpleDatabaseTransaction
   categoryIdsToSyncBaseData: Array<string>
   familyEntry: FamilyEntry
 }): Promise<Array<ServerUpdatedCategoryBaseData>> {
-  const dataForSyncing = (await database.category.findAll({
+  const dataForSyncing = (await transaction.legacy.database.category.findAll({
     where: {
       familyId: familyEntry.familyId,
       categoryId: {
@@ -55,7 +54,7 @@ export async function getCategoryBaseDatas ({
       'flags',
       'blockNotificationDelay'
     ],
-    transaction
+    transaction: transaction.legacy.transaction
   })).map((item) => ({
     categoryId: item.categoryId,
     childId: item.childId,
@@ -77,7 +76,7 @@ export async function getCategoryBaseDatas ({
     blockNotificationDelay: item.blockNotificationDelay
   }))
 
-  const networkIdsForSyncing = (await database.categoryNetworkId.findAll({
+  const networkIdsForSyncing = (await transaction.legacy.database.categoryNetworkId.findAll({
     where: {
       familyId: familyEntry.familyId,
       categoryId: {
@@ -89,14 +88,14 @@ export async function getCategoryBaseDatas ({
       'networkItemId',
       'hashedNetworkId'
     ],
-    transaction
+    transaction: transaction.legacy.transaction
   })).map((item) => ({
     categoryId: item.categoryId,
     networkItemId: item.networkItemId,
     hashedNetworkId: item.hashedNetworkId
   }))
 
-  const additionalTimeWarningsForSyncing = (await database.categoryTimeWarning.findAll({
+  const additionalTimeWarningsForSyncing = (await transaction.legacy.database.categoryTimeWarning.findAll({
     where: {
       familyId: familyEntry.familyId,
       categoryId: {
@@ -107,7 +106,7 @@ export async function getCategoryBaseDatas ({
       'categoryId',
       'minutes'
     ],
-    transaction
+    transaction: transaction.legacy.transaction
   })).map((item) => ({
     categoryId: item.categoryId,
     minutes: item.minutes

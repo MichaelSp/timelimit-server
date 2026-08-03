@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,33 +15,32 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Database, Transaction } from '../../database'
+import { SimpleDatabaseTransaction } from '../../database/simple'
 import { WebsocketApi } from '../../websocket'
 
 export const notifyClientsAboutChangesDelayed = async ({
-  familyId, sourceDeviceId, database,
+  familyId, sourceDeviceId,
   websocket, transaction, generalLevel, targetedLevels
 }: {
   familyId: string
   sourceDeviceId: string | null  // this device will not get an push
-  database: Database
+  transaction: SimpleDatabaseTransaction
   websocket: WebsocketApi
-  transaction: Transaction
   generalLevel: 0 | 1 | 2
   targetedLevels: Map<string, 0 | 1 | 2>
 }) => {
-  const relatedDeviceEntries = (await database.device.findAll({
+  const relatedDeviceEntries = (await transaction.legacy.database.device.findAll({
     where: {
       familyId
     },
     attributes: ['deviceId', 'deviceAuthToken'],
-    transaction
+    transaction: transaction.legacy.transaction
   })).map((item) => ({
     deviceId: item.deviceId,
     deviceAuthToken: item.deviceAuthToken
   }))
 
-  transaction.afterCommit(() => {
+  transaction.enqueueAfterCommit(() => {
     for (const deviceEntry of relatedDeviceEntries) {
       if (deviceEntry.deviceId === sourceDeviceId) continue
 

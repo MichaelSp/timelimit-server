@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -16,9 +16,10 @@
  */
 
 import { defaultDatabase } from '../database'
+import { fromLegacy as createSimpleDatabase } from '../database/simple'
 import { deleteOldFamilies } from '../function/cleanup/delete-old-families'
 
-const database = defaultDatabase
+const database = createSimpleDatabase(defaultDatabase)
 
 deleteOldFamilies(database)
   .then(() => console.log('done'))

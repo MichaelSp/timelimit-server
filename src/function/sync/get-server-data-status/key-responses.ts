@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -16,19 +16,18 @@
  */
 
 import * as Sequelize from 'sequelize'
-import { Database } from '../../../database'
+import { SimpleDatabaseTransaction } from '../../../database/simple'
 import { ServerKeyResponse } from '../../../object/serverdatastatus'
 import { FamilyEntry } from './family-entry'
 
-export async function getKeyResponses ({ database, transaction, familyEntry, lastSeenRequestIndex, deviceId }: {
-  database: Database
-  transaction: Sequelize.Transaction
+export async function getKeyResponses ({ transaction, familyEntry, lastSeenRequestIndex, deviceId }: {
+  transaction: SimpleDatabaseTransaction
   familyEntry: FamilyEntry
   lastSeenRequestIndex: number | null
   deviceId: string
 }): Promise<Array<ServerKeyResponse> | null> {
   if (lastSeenRequestIndex !== null) {
-    await database.keyResponse.destroy({
+    await transaction.legacy.database.keyResponse.destroy({
       where: {
         familyId: familyEntry.familyId,
         receiverDeviceId: deviceId,
@@ -36,17 +35,17 @@ export async function getKeyResponses ({ database, transaction, familyEntry, las
           [Sequelize.Op.lte]: lastSeenRequestIndex.toString(10)
         }
       },
-      transaction
+      transaction: transaction.legacy.transaction
     })
   }
 
-  const data = await database.keyResponse.findAll({
+  const data = await transaction.legacy.database.keyResponse.findAll({
     where: {
       familyId: familyEntry.familyId,
       receiverDeviceId: deviceId,
     },
     order: [['replyServerSequenceNumber', 'ASC']],
-    transaction,
+    transaction: transaction.legacy.transaction,
     limit: 32
   })
 

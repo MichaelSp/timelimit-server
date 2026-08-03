@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -24,13 +24,13 @@ export async function dispatchSetCategoryForUnassignedApps ({ action, cache }: {
   action: SetCategoryForUnassignedAppsAction
   cache: Cache
 }) {
-  const oldUserEntry = await cache.database.user.findOne({
+  const oldUserEntry = await cache.transaction.legacy.database.user.findOne({
     where: {
       familyId: cache.familyId,
       userId: action.childId,
       type: 'child'
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!oldUserEntry) {
@@ -40,13 +40,13 @@ export async function dispatchSetCategoryForUnassignedApps ({ action, cache }: {
   if (action.categoryId === '') {
     // nothing to check
   } else {
-    const categoryEntryUnsafe = await cache.database.category.findOne({
+    const categoryEntryUnsafe = await cache.transaction.legacy.database.category.findOne({
       attributes: ['childId'],
       where: {
         familyId: cache.familyId,
         categoryId: action.categoryId
       },
-      transaction: cache.transaction
+      transaction: cache.transaction.legacy.transaction
     })
 
     if (!categoryEntryUnsafe) {
@@ -66,7 +66,7 @@ export async function dispatchSetCategoryForUnassignedApps ({ action, cache }: {
     }
   }
 
-  await cache.database.user.update({
+  await cache.transaction.legacy.database.user.update({
     categoryForNotAssignedApps: action.categoryId
   }, {
     where: {
@@ -74,7 +74,7 @@ export async function dispatchSetCategoryForUnassignedApps ({ action, cache }: {
       userId: action.childId,
       type: 'child'
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   cache.invalidiateUserList = true

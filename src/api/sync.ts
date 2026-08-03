@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,7 +19,7 @@ import { json } from 'body-parser'
 import { Router } from 'express'
 import { BadRequest, Unauthorized } from 'http-errors'
 import { VisibleConnectedDevicesManager } from '../connected-devices'
-import { Database } from '../database'
+import { SimpleDatabase } from '../database/simple'
 import { reportDeviceRemoved } from '../function/device/report-device-removed'
 import { applyActionsFromDevice } from '../function/sync/apply-actions'
 import { generateServerDataStatus } from '../function/sync/get-server-data-status'
@@ -34,7 +34,7 @@ const getRoundedTimestampForLastConnectivity = () => {
 }
 
 export const createSyncRouter = ({ database, websocket, connectedDevicesManager, eventHandler }: {
-  database: Database
+  database: SimpleDatabase
   websocket: WebsocketApi
   connectedDevicesManager: VisibleConnectedDevicesManager
   eventHandler: EventHandler
@@ -86,12 +86,12 @@ export const createSyncRouter = ({ database, websocket, connectedDevicesManager,
       }
 
       const serverStatus = await database.transaction(async (transaction) => {
-        const deviceEntryUnsafe = await database.device.findOne({
+        const deviceEntryUnsafe = await transaction.legacy.database.device.findOne({
           where: {
             deviceAuthToken: body.deviceAuthToken
           },
           attributes: ['familyId', 'deviceId', 'lastConnectivity'],
-          transaction
+          transaction: transaction.legacy.transaction
         })
 
         if (!deviceEntryUnsafe) {
@@ -102,22 +102,21 @@ export const createSyncRouter = ({ database, websocket, connectedDevicesManager,
         const now = getRoundedTimestampForLastConnectivity()
 
         if (parseInt(lastConnectivity, 10) !== now) {
-          await database.device.update({
+          await transaction.legacy.database.device.update({
             lastConnectivity: now.toString(10)
           }, {
             where: {
               deviceAuthToken: body.deviceAuthToken
             },
-            transaction
+            transaction: transaction.legacy.transaction
           })
         }
 
         return generateServerDataStatus({
-          database,
+          transaction,
           familyId,
           deviceId,
           clientStatus: body.status,
-          transaction,
           eventHandler
         })
       })
@@ -165,11 +164,11 @@ export const createSyncRouter = ({ database, websocket, connectedDevicesManager,
       }
 
       const isDeviceRemoved: boolean = await database.transaction(async (transaction) => {
-        const removedEntry = await database.oldDevice.findOne({
+        const removedEntry = await transaction.legacy.database.oldDevice.findOne({
           where: {
             deviceAuthToken: req.body.deviceAuthToken
           },
-          transaction
+          transaction: transaction.legacy.transaction
         })
 
         return !!removedEntry

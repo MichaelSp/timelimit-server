@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2020 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -16,21 +16,20 @@
  */
 
 import * as Sequelize from 'sequelize'
-import { Database, Transaction } from '../../../../database'
+import { SimpleDatabaseTransaction } from '../../../../database/simple'
 import { ServerUpdatedCategoryAssignedApps } from '../../../../object/serverdatastatus'
 import { FamilyEntry } from '../family-entry'
 import { ServerCategoryVersions } from './diff'
 
 export async function getCategoryAssignedApps ({
-  database, transaction, categoryIdsToSyncAssignedApps, familyEntry, serverCategoriesVersions
+  transaction, categoryIdsToSyncAssignedApps, familyEntry, serverCategoriesVersions
 }: {
-  database: Database
-  transaction: Transaction
+  transaction: SimpleDatabaseTransaction
   categoryIdsToSyncAssignedApps: Array<string>
   familyEntry: FamilyEntry
   serverCategoriesVersions: ServerCategoryVersions
 }): Promise<Array<ServerUpdatedCategoryAssignedApps>> {
-  const dataForSyncing = (await database.categoryApp.findAll({
+  const dataForSyncing = (await transaction.legacy.database.categoryApp.findAll({
     where: {
       familyId: familyEntry.familyId,
       categoryId: {
@@ -38,7 +37,7 @@ export async function getCategoryAssignedApps ({
       }
     },
     attributes: ['categoryId', 'packageName'],
-    transaction
+    transaction: transaction.legacy.transaction
   })).map((item) => ({
     categoryId: item.categoryId,
     packageName: item.packageName

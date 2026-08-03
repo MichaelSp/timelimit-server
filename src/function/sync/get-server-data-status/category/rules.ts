@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2024 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -16,19 +16,18 @@
  */
 
 import * as Sequelize from 'sequelize'
-import { Database, Transaction } from '../../../../database'
+import { SimpleDatabaseTransaction } from '../../../../database/simple'
 import { ServerUpdatedTimeLimitRules } from '../../../../object/serverdatastatus'
 import { FamilyEntry } from '../family-entry'
 import { ServerCategoryVersions } from './diff'
 
-export async function getRules ({ database, transaction, categoryIdsToSyncRules, familyEntry, serverCategoriesVersions }: {
-  database: Database
-  transaction: Transaction
+export async function getRules ({ transaction, categoryIdsToSyncRules, familyEntry, serverCategoriesVersions }: {
+  transaction: SimpleDatabaseTransaction
   categoryIdsToSyncRules: Array<string>
   familyEntry: FamilyEntry
   serverCategoriesVersions: ServerCategoryVersions
 }): Promise<Array<ServerUpdatedTimeLimitRules>> {
-  const dataForSyncing = (await database.timelimitRule.findAll({
+  const dataForSyncing = (await transaction.legacy.database.timelimitRule.findAll({
     where: {
       familyId: familyEntry.familyId,
       categoryId: {
@@ -48,7 +47,7 @@ export async function getRules ({ database, transaction, categoryIdsToSyncRules,
       'perDay',
       'expiresAt'
     ],
-    transaction
+    transaction: transaction.legacy.transaction
   })).map((item) => ({
     ruleId: item.ruleId,
     categoryId: item.categoryId,

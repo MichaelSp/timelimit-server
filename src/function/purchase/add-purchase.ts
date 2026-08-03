@@ -16,7 +16,7 @@
  */
 
 import { Conflict } from 'http-errors'
-import { Database, Transaction } from '../../database'
+import { SimpleDatabaseTransaction } from '../../database/simple'
 import { notifyClientsAboutChangesDelayed } from '../../function/websocket'
 import { WebsocketApi } from '../../websocket'
 
@@ -25,32 +25,31 @@ const week = day * 7
 const month = day * 31
 const year = day * 366
 
-export const addPurchase = async ({ database, familyId, type, service, transactionId, websocket, transaction }: {
-  database: Database
+export const addPurchase = async ({ familyId, type, service, transactionId, websocket, transaction }: {
+  transaction: SimpleDatabaseTransaction
   familyId: string
   type: 'month' | 'year' | 'unpaid14'
   service: 'googleplay' | 'directpurchase'
   transactionId: string
   websocket: WebsocketApi
-  transaction: Transaction
 }) => {
-  const oldPurchaseEntry = await database.purchase.findOne({
+  const oldPurchaseEntry = await transaction.legacy.database.purchase.findOne({
     where: {
       service,
       transactionId
     },
-    transaction
+    transaction: transaction.legacy.transaction
   })
 
   if (oldPurchaseEntry) {
     return
   }
 
-  const familyEntry = await database.family.findOne({
+  const familyEntry = await transaction.legacy.database.family.findOne({
     where: {
       familyId
     },
-    transaction
+    transaction: transaction.legacy.transaction
   })
 
   if (!familyEntry) {
@@ -95,9 +94,9 @@ export const addPurchase = async ({ database, familyId, type, service, transacti
     throw new Error()
   }
 
-  await familyEntry.save({ transaction })
+  await familyEntry.save({ transaction: transaction.legacy.transaction })
 
-  await database.purchase.create({
+  await transaction.legacy.database.purchase.create({
     familyId,
     service,
     transactionId,
@@ -106,16 +105,15 @@ export const addPurchase = async ({ database, familyId, type, service, transacti
     previousFullVersionEndTime,
     newFullVersionEndTime: familyEntry.fullVersionUntil
   }, {
-    transaction
+    transaction: transaction.legacy.transaction
   })
 
   await notifyClientsAboutChangesDelayed({
     familyId,
     sourceDeviceId: null,
-    database,
+    transaction,
     websocket,
     generalLevel: 2,
-    targetedLevels: new Map(),
-    transaction
+    targetedLevels: new Map()
   })
 }

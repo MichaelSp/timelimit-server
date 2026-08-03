@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -26,12 +26,12 @@ export async function dispatchMarkTaskPendingAction ({ action, cache, deviceId }
   action: MarkTaskPendingAction
   cache: Cache
 }) {
-  const taskInfoUnsafe = await cache.database.childTask.findOne({
+  const taskInfoUnsafe = await cache.transaction.legacy.database.childTask.findOne({
     where: {
       familyId: cache.familyId,
       taskId: action.taskId
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction,
     attributes: ['categoryId', 'pendingRequest', 'taskTitle']
   })
 
@@ -45,13 +45,13 @@ export async function dispatchMarkTaskPendingAction ({ action, cache, deviceId }
 
   if (taskInfo.pendingRequest !== 0) return // review already requested
 
-  const categoryInfoUnsafe = await cache.database.category.findOne({
+  const categoryInfoUnsafe = await cache.transaction.legacy.database.category.findOne({
     where: {
       familyId: cache.familyId,
       categoryId: taskInfo.categoryId
     },
     attributes: ['childId'],
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (categoryInfoUnsafe === null) {
@@ -60,13 +60,13 @@ export async function dispatchMarkTaskPendingAction ({ action, cache, deviceId }
 
   const categoryInfo = { childId: categoryInfoUnsafe.childId }
 
-  const deviceInfoUnsafe = await cache.database.device.findOne({
+  const deviceInfoUnsafe = await cache.transaction.legacy.database.device.findOne({
     where: {
       familyId: cache.familyId,
       deviceId
     },
     attributes: ['currentUserId'],
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (deviceInfoUnsafe === null) throw new SourceDeviceNotFoundException()
@@ -77,33 +77,33 @@ export async function dispatchMarkTaskPendingAction ({ action, cache, deviceId }
     throw new IllegalStateException({ staticMessage: 'Can not mark task pending for other user than the current user' })
   }
 
-  const childInfoUnsafe = await cache.database.user.findOne({
+  const childInfoUnsafe = await cache.transaction.legacy.database.user.findOne({
     where: {
       familyId: cache.familyId,
       userId: categoryInfo.childId
     },
     attributes: ['name'],
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (childInfoUnsafe === null) throw new SourceUserNotFoundException()
 
   const childInfo = { name: childInfoUnsafe.name }
 
-  await cache.database.childTask.update({ pendingRequest: 1 }, {
+  await cache.transaction.legacy.database.childTask.update({ pendingRequest: 1 }, {
     where: {
       familyId: cache.familyId,
       taskId: action.taskId
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   cache.categoriesWithModifiedTasks.add(taskInfo.categoryId)
   cache.incrementTriggeredSyncLevel(1) // parents are not faster reachable
 
   await sendTaskDoneMails({
-    database: cache.database,
-    transaction: cache.transaction,
+    database: cache.transaction.legacy.database,
+    transaction: cache.transaction.legacy.transaction,
     familyId: cache.familyId,
     childName: childInfo.name,
     taskTitle: taskInfo.taskTitle

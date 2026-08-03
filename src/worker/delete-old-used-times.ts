@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2021 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -17,11 +17,11 @@
 
 import { uniqBy } from 'lodash'
 import * as Sequelize from 'sequelize'
-import { Database } from '../database'
+import { SimpleDatabase } from '../database/simple'
 import { generateVersionId } from '../util/token'
 
 export function initDeleteOldUsedTimesWorker ({ database }: {
-  database: Database
+  database: SimpleDatabase
 }) {
   function doWorkSafe () {
     console.log('deleting old used times now')
@@ -43,14 +43,14 @@ export function initDeleteOldUsedTimesWorker ({ database }: {
 }
 
 async function deleteOldUsedTimes ({ database }: {
-  database: Database
+  database: SimpleDatabase
 }) {
   const now = Date.now()
 
   await database.transaction(async (transaction) => {
     // get matching categories
-    const categoriesToCleanUpOne = (await database.usedTime.findAll({
-      transaction,
+    const categoriesToCleanUpOne = (await transaction.legacy.database.usedTime.findAll({
+      transaction: transaction.legacy.transaction,
       where: {
         lastUpdate: {
           [Sequelize.Op.lt]: (now - 1000 * 60 * 60 * 24 * 10 /* 10 days */).toString()
@@ -67,8 +67,8 @@ async function deleteOldUsedTimes ({ database }: {
       categoryId: item.categoryId
     }))
 
-    const categoriesToCleanUpTwo = (await database.sessionDuration.findAll({
-      transaction,
+    const categoriesToCleanUpTwo = (await transaction.legacy.database.sessionDuration.findAll({
+      transaction: transaction.legacy.transaction,
       where: {
         roundedLastUpdate: {
           [Sequelize.Op.lt]: (now - 1000 * 60 * 60 * 24 * 3 /* 3 days */).toString()
@@ -91,8 +91,8 @@ async function deleteOldUsedTimes ({ database }: {
 
     if (distinctCategoriesToCleanUp.length > 0) {
       // delete old items of matching categories
-      await database.usedTime.destroy({
-        transaction,
+      await transaction.legacy.database.usedTime.destroy({
+        transaction: transaction.legacy.transaction,
         where: {
           [Sequelize.Op.or]: (
             distinctCategoriesToCleanUp
@@ -103,8 +103,8 @@ async function deleteOldUsedTimes ({ database }: {
         }
       })
 
-      await database.sessionDuration.destroy({
-        transaction,
+      await transaction.legacy.database.sessionDuration.destroy({
+        transaction: transaction.legacy.transaction,
         where: {
           [Sequelize.Op.or]: (
             distinctCategoriesToCleanUp
@@ -116,10 +116,10 @@ async function deleteOldUsedTimes ({ database }: {
       })
 
       // invalidiate categories
-      await database.category.update({
+      await transaction.legacy.database.category.update({
         usedTimesVersion: generateVersionId()
       }, {
-        transaction,
+        transaction: transaction.legacy.transaction,
         where: {
           [Sequelize.Op.or]: (
             distinctCategoriesToCleanUp

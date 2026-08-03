@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,7 +18,7 @@
 import { json } from 'body-parser'
 import { Router } from 'express'
 import { BadRequest } from 'http-errors'
-import { Database } from '../database'
+import { SimpleDatabase } from '../database/simple'
 import { addChildDevice } from '../function/child/add-device'
 import { logoutAtPrimaryDevice } from '../function/child/logout-at-primary-device'
 import { setPrimaryDevice } from '../function/child/set-primary-device'
@@ -27,7 +27,7 @@ import { isRegisterChildDeviceRequest, isRequestWithAuthToken, isUpdatePrimaryDe
 import { EventHandler } from '../monitoring/eventhandler'
 
 export const createChildRouter = ({ database, websocket, eventHandler }: {
-  database: Database
+  database: SimpleDatabase
   websocket: WebsocketApi
   eventHandler: EventHandler
 }) => {

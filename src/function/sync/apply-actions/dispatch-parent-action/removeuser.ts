@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -30,12 +30,12 @@ export async function dispatchRemoveUser ({ action, cache, parentUserId }: {
   cache: Cache
   parentUserId: string
 }) {
-  const user = await cache.database.user.findOne({
+  const user = await cache.transaction.legacy.database.user.findOne({
     where: {
       familyId: cache.familyId,
       userId: action.userId
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!user) {
@@ -60,8 +60,8 @@ export async function dispatchRemoveUser ({ action, cache, parentUserId }: {
     }
 
     if (user.mail !== '') {
-      const usersWithLinkedMail = await cache.database.user.count({
-        transaction: cache.transaction,
+      const usersWithLinkedMail = await cache.transaction.legacy.database.user.count({
+        transaction: cache.transaction.legacy.transaction,
         where: {
           familyId: cache.familyId,
           type: 'parent',
@@ -76,16 +76,16 @@ export async function dispatchRemoveUser ({ action, cache, parentUserId }: {
       }
     }
 
-    const usersWithLimitLoginCategories = (await cache.database.userLimitLoginCategory.findAll({
-      transaction: cache.transaction,
+    const usersWithLimitLoginCategories = (await cache.transaction.legacy.database.userLimitLoginCategory.findAll({
+      transaction: cache.transaction.legacy.transaction,
       where: {
         familyId: cache.familyId
       },
       attributes: ['userId']
     })).map((item) => item.userId)
 
-    const allParentUserIds = (await cache.database.user.findAll({
-      transaction: cache.transaction,
+    const allParentUserIds = (await cache.transaction.legacy.database.user.findAll({
+      transaction: cache.transaction.legacy.transaction,
       where: {
         familyId: cache.familyId,
         type: 'parent'
@@ -101,56 +101,56 @@ export async function dispatchRemoveUser ({ action, cache, parentUserId }: {
   }
 
   if (user.type === 'child') {
-    const categories = await cache.database.category.findAll({
+    const categories = await cache.transaction.legacy.database.category.findAll({
       where: {
         familyId: cache.familyId,
         childId: action.userId
       },
-      transaction: cache.transaction
+      transaction: cache.transaction.legacy.transaction
     })
 
-    await cache.database.categoryApp.destroy({
+    await cache.transaction.legacy.database.categoryApp.destroy({
       where: {
         familyId: cache.familyId,
         categoryId: {
           [Sequelize.Op.in]: categories.map((category) => category.categoryId)
         }
       },
-      transaction: cache.transaction
+      transaction: cache.transaction.legacy.transaction
     })
 
-    await cache.database.timelimitRule.destroy({
+    await cache.transaction.legacy.database.timelimitRule.destroy({
       where: {
         familyId: cache.familyId,
         categoryId: {
           [Sequelize.Op.in]: categories.map((category) => category.categoryId)
         }
       },
-      transaction: cache.transaction
+      transaction: cache.transaction.legacy.transaction
     })
 
-    await cache.database.usedTime.destroy({
+    await cache.transaction.legacy.database.usedTime.destroy({
       where: {
         familyId: cache.familyId,
         categoryId: {
           [Sequelize.Op.in]: categories.map((category) => category.categoryId)
         }
       },
-      transaction: cache.transaction
+      transaction: cache.transaction.legacy.transaction
     })
 
-    await cache.database.category.destroy({
+    await cache.transaction.legacy.database.category.destroy({
       where: {
         familyId: cache.familyId,
         categoryId: {
           [Sequelize.Op.in]: categories.map((category) => category.categoryId)
         }
       },
-      transaction: cache.transaction
+      transaction: cache.transaction.legacy.transaction
     })
   }
 
-  const [updatedDevices1] = await cache.database.device.update({
+  const [updatedDevices1] = await cache.transaction.legacy.database.device.update({
     currentUserId: '',
     isUserKeptSignedIn: false
   }, {
@@ -158,24 +158,24 @@ export async function dispatchRemoveUser ({ action, cache, parentUserId }: {
       familyId: cache.familyId,
       currentUserId: action.userId
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
-  const [updatedDevices2] = await cache.database.device.update({
+  const [updatedDevices2] = await cache.transaction.legacy.database.device.update({
     defaultUserId: ''
   }, {
     where: {
       familyId: cache.familyId,
       defaultUserId: action.userId
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (updatedDevices1 > 0 || updatedDevices2 > 0) {
     cache.invalidiateDeviceList = true
   }
 
-  await user.destroy({ transaction: cache.transaction })
+  await user.destroy({ transaction: cache.transaction.legacy.transaction })
 
   cache.invalidiateUserList = true
   cache.incrementTriggeredSyncLevel(2)

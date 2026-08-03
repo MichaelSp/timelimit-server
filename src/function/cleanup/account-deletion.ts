@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2023 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -17,7 +17,7 @@
 
 import { Unauthorized } from 'http-errors'
 import { DeleteAccountPayload } from '../../api/schema'
-import { Database } from '../../database'
+import { SimpleDatabase } from '../../database/simple'
 import { sendAccountDeletedMail } from '../../util/mail'
 import { WebsocketApi } from '../../websocket'
 import { requireMailAndLocaleByAuthToken } from '../authentication'
@@ -25,14 +25,14 @@ import { deleteFamilies } from './delete-families'
 
 export async function deleteAccount({ request, database, websocket }: {
   request: DeleteAccountPayload
-  database: Database
+  database: SimpleDatabase
   websocket: WebsocketApi
 }) {
   await database.transaction(async (transaction) => {
-    const deviceEntryUnsafe = await database.device.findOne({
+    const deviceEntryUnsafe = await transaction.legacy.database.device.findOne({
       where: { deviceAuthToken: request.deviceAuthToken },
       attributes: ['familyId'],
-      transaction
+      transaction: transaction.legacy.transaction
     })
 
     if (!deviceEntryUnsafe) {
@@ -43,13 +43,13 @@ export async function deleteAccount({ request, database, websocket }: {
       familyId: deviceEntryUnsafe.familyId
     }
 
-    const userEntries = (await database.user.findAll({
+    const userEntries = (await transaction.legacy.database.user.findAll({
       where: {
         familyId: deviceEntry.familyId,
         type: 'parent'
       },
       attributes: ['mail'],
-      transaction
+      transaction: transaction.legacy.transaction
     })).map((item) => ({ mail: item.mail }))
 
     const registeredMailAddresses = new Set<string>()
@@ -63,7 +63,6 @@ export async function deleteAccount({ request, database, websocket }: {
     for (const mailAuthToken of request.mailAuthTokens) {
       const info = await requireMailAndLocaleByAuthToken({
         mailAuthToken,
-        database,
         transaction,
         invalidate: true
       })
@@ -79,17 +78,17 @@ export async function deleteAccount({ request, database, websocket }: {
       if (!authenticatedMailAddresses.has(mail)) throw new Unauthorized()
     })
 
-    const deviceEntries = (await database.device.findAll({
+    const deviceEntries = (await transaction.legacy.database.device.findAll({
       where: {
         familyId: deviceEntry.familyId
       },
-      transaction,
+      transaction: transaction.legacy.transaction,
       attributes: ['deviceAuthToken']
     })).map((item) => ({ deviceAuthToken: item.deviceAuthToken }))
 
-    await deleteFamilies({ database, transaction, familiyIds: [deviceEntry.familyId] })
+    await deleteFamilies({ transaction, familiyIds: [deviceEntry.familyId] })
 
-    transaction.afterCommit(() => {
+    transaction.enqueueAfterCommit(() => {
       for (const device of deviceEntries) {
         websocket.triggerSyncByDeviceAuthToken({
           deviceAuthToken: device.deviceAuthToken,

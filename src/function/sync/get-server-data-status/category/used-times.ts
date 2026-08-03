@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2020 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -16,24 +16,23 @@
  */
 
 import * as Sequelize from 'sequelize'
-import { Database, Transaction } from '../../../../database'
+import { SimpleDatabaseTransaction } from '../../../../database/simple'
 import { ServerUpdatedCategoryUsedTimes } from '../../../../object/serverdatastatus'
 import { MinuteOfDay } from '../../../../util/minuteofday'
 import { FamilyEntry } from '../family-entry'
 import { ServerCategoryVersions } from './diff'
 
 export async function getUsedTimes ({
-  database, transaction, categoryIdsToSyncUsedTimes, familyEntry,
+  transaction, categoryIdsToSyncUsedTimes, familyEntry,
   serverCategoriesVersions, clientLevel
 }: {
-  database: Database
-  transaction: Transaction
+  transaction: SimpleDatabaseTransaction
   categoryIdsToSyncUsedTimes: Array<string>
   familyEntry: FamilyEntry
   serverCategoriesVersions: ServerCategoryVersions
   clientLevel: number | null
 }): Promise<Array<ServerUpdatedCategoryUsedTimes>> {
-  const usedTimesForSyncing = (await database.usedTime.findAll({
+  const usedTimesForSyncing = (await transaction.legacy.database.usedTime.findAll({
     where: {
       familyId: familyEntry.familyId,
       categoryId: {
@@ -47,7 +46,7 @@ export async function getUsedTimes ({
     attributes: [
       'categoryId', 'dayOfEpoch', 'usedTime', 'startMinuteOfDay', 'endMinuteOfDay'
     ],
-    transaction
+    transaction: transaction.legacy.transaction
   })).map((item) => ({
     categoryId: item.categoryId,
     dayOfEpoch: item.dayOfEpoch,
@@ -56,7 +55,7 @@ export async function getUsedTimes ({
     endMinuteOfDay: item.endMinuteOfDay
   }))
 
-  const sessionDurationsForSyncing = (await database.sessionDuration.findAll({
+  const sessionDurationsForSyncing = (await transaction.legacy.database.sessionDuration.findAll({
     where: {
       familyId: familyEntry.familyId,
       categoryId: {
@@ -72,7 +71,7 @@ export async function getUsedTimes ({
       'lastUsage',
       'lastSessionDuration'
     ],
-    transaction
+    transaction: transaction.legacy.transaction
   })).map((item) => ({
     categoryId: item.categoryId,
     maxSessionDuration: item.maxSessionDuration,

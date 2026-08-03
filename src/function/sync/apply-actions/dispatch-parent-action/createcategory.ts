@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -33,21 +33,21 @@ export async function dispatchCreateCategory ({ action, cache, fromChildSelfLimi
   }
 
   // check that the child exists
-  const childEntry = await cache.database.user.findOne({
+  const childEntry = await cache.transaction.legacy.database.user.findOne({
     where: {
       familyId: cache.familyId,
       userId: action.childId,
       type: 'child'
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!childEntry) {
     throw new MissingUserException()
   }
 
-  const oldMaxSort: number = await cache.database.category.max('sort', {
-    transaction: cache.transaction,
+  const oldMaxSort: number = await cache.transaction.legacy.database.category.max('sort', {
+    transaction: cache.transaction.legacy.transaction,
     where: {
       familyId: cache.familyId,
       childId: action.childId
@@ -58,7 +58,7 @@ export async function dispatchCreateCategory ({ action, cache, fromChildSelfLimi
   const sort = Number.isSafeInteger(oldMaxSort + 1) ? (oldMaxSort + 1) : 0
 
   // no version number needs to be updated
-  await cache.database.category.create({
+  await cache.transaction.legacy.database.category.create({
     familyId: cache.familyId,
     categoryId: action.categoryId,
     childId: action.childId,
@@ -82,7 +82,7 @@ export async function dispatchCreateCategory ({ action, cache, fromChildSelfLimi
     minBatteryMobile: 0,
     flags: '0',
     blockNotificationDelay: '0'
-  }, { transaction: cache.transaction })
+  }, { transaction: cache.transaction.legacy.transaction })
 
   // update the cache
   cache.doesCategoryExist.cache.set(action.categoryId, true)

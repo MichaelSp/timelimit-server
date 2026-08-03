@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -17,7 +17,7 @@
 
 import { Unauthorized } from 'http-errors'
 import { RegisterChildDeviceRequest } from '../../api/schema'
-import { Database } from '../../database'
+import { SimpleDatabase } from '../../database/simple'
 import { generateAuthToken, generateVersionId } from '../../util/token'
 import { WebsocketApi } from '../../websocket'
 import { prepareDeviceEntry } from '../device/prepare-device-entry'
@@ -28,7 +28,7 @@ import { ServerDataStatus } from '../../object/serverdatastatus'
 import { createEmptyClientDataStatus } from '../../object/clientdatastatus'
 
 export const addChildDevice = async ({ database, eventHandler, websocket, request }: {
-  database: Database
+  database: SimpleDatabase
   eventHandler: EventHandler
   websocket: WebsocketApi
   request: RegisterChildDeviceRequest
@@ -39,23 +39,23 @@ export const addChildDevice = async ({ database, eventHandler, websocket, reques
   data: ServerDataStatus
 }> => {
   return database.transaction(async (transaction) => {
-    const entry = await database.addDeviceToken.findOne({
+    const entry = await transaction.legacy.database.addDeviceToken.findOne({
       where: {
         token: request.registerToken.toLowerCase()
       },
-      transaction
+      transaction: transaction.legacy.transaction
     })
 
     if (!entry) {
       throw new Unauthorized()
     }
 
-    await entry.destroy({ transaction })
+    await entry.destroy({ transaction: transaction.legacy.transaction })
 
     const { deviceId, familyId } = entry
     const deviceAuthToken = generateAuthToken()
 
-    await database.device.create(prepareDeviceEntry({
+    await transaction.legacy.database.device.create(prepareDeviceEntry({
       familyId,
       deviceId,
       deviceAuthToken,
@@ -63,33 +63,31 @@ export const addChildDevice = async ({ database, eventHandler, websocket, reques
       newDeviceInfo: request.childDevice,
       userId: '',
       isUserKeptSignedIn: false
-    }), { transaction })
+    }), { transaction: transaction.legacy.transaction })
 
-    await database.family.update({
+    await transaction.legacy.database.family.update({
       deviceListVersion: generateVersionId()
     }, {
       where: {
         familyId
       },
-      transaction
+      transaction: transaction.legacy.transaction
     })
 
     await notifyClientsAboutChangesDelayed({
       familyId,
       websocket,
-      database,
+      transaction,
       generalLevel: 1,
       targetedLevels: new Map(),
-      sourceDeviceId: deviceId,
-      transaction
+      sourceDeviceId: deviceId
     })
 
     const data = await generateServerDataStatus({
-      database,
+      transaction,
       clientStatus: createEmptyClientDataStatus({ clientLevel: request.clientLevel || null }),
       familyId: entry.familyId,
       deviceId,
-      transaction,
       eventHandler
     })
 

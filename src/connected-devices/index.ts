@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -16,7 +16,7 @@
  */
 
 import { EventEmitter } from 'events'
-import { Database } from '../database'
+import { SimpleDatabase } from '../database/simple'
 
 export class ConnectedDevicesManager {
   private deviceConnectionCounters = new Map<string, number>()
@@ -59,10 +59,10 @@ export class ConnectedDevicesManager {
 
 export class VisibleConnectedDevicesManager {
   connectedDevicesManager = new ConnectedDevicesManager()
-  private database: Database
+  private database: SimpleDatabase
 
   constructor ({ database }: {
-    database: Database
+    database: SimpleDatabase
   }) {
     this.database = database
   }
@@ -174,19 +174,24 @@ export class VisibleConnectedDevicesManager {
 
     // add all current devices
     ;(async () => {
-      const devicesUnsafe = await this.database.device.findAll({
-        where: {
-          familyId
-        },
-        attributes: [
-          'deviceId',
-          'showDeviceConnected'
-        ]
-      })
+      const devices = await this.database.transaction(async (transaction) => {
+        const devicesUnsafe = await transaction.legacy.database.device.findAll({
+          where: {
+            familyId
+          },
+          attributes: [
+            'deviceId',
+            'showDeviceConnected'
+          ],
+          transaction: transaction.legacy.transaction
+        })
 
-      const devices = devicesUnsafe.map(({ deviceId, showDeviceConnected }) => ({
-        deviceId, showDeviceConnected
-      }))
+        const devices = devicesUnsafe.map(({ deviceId, showDeviceConnected }) => ({
+          deviceId, showDeviceConnected
+        }))
+
+        return devices
+      })
 
       devices.forEach(({ deviceId, showDeviceConnected }) => {
         addDevice({ deviceId, showDeviceConnected })

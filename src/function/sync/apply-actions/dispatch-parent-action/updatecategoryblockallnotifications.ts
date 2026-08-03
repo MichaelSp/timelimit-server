@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -25,12 +25,12 @@ export async function dispatchUpdateCategoryBlockAllNotifications ({ action, cac
   cache: Cache
   fromChildSelfLimitAddChildUserId: string | null
 }) {
-  const categoryEntryUnsafe = await cache.database.category.findOne({
+  const categoryEntryUnsafe = await cache.transaction.legacy.database.category.findOne({
     where: {
       familyId: cache.familyId,
       categoryId: action.categoryId
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction,
     attributes: ['childId', 'blockAllNotifications']
   })
 
@@ -57,7 +57,7 @@ export async function dispatchUpdateCategoryBlockAllNotifications ({ action, cac
     }
   }
 
-  const [affectedRows] = await cache.database.category.update(action.blockDelay === undefined ? {
+  const [affectedRows] = await cache.transaction.legacy.database.category.update(action.blockDelay === undefined ? {
     blockAllNotifications: action.blocked
   } : {
     blockAllNotifications: action.blocked,
@@ -67,7 +67,7 @@ export async function dispatchUpdateCategoryBlockAllNotifications ({ action, cac
       familyId: cache.familyId,
       categoryId: action.categoryId
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (affectedRows !== 0) {

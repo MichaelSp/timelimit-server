@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -16,18 +16,17 @@
  */
 
 import * as Sequelize from 'sequelize'
-import { Database } from '../../../database'
+import { SimpleDatabaseTransaction } from '../../../database/simple'
 import { ServerKeyRequest } from '../../../object/serverdatastatus'
 import { FamilyEntry } from './family-entry'
 
-export async function getKeyRequests ({ database, transaction, familyEntry, lastSeenRequestIndex, deviceId }: {
-  database: Database
-  transaction: Sequelize.Transaction
+export async function getKeyRequests ({ transaction, familyEntry, lastSeenRequestIndex, deviceId }: {
+  transaction: SimpleDatabaseTransaction
   familyEntry: FamilyEntry
   lastSeenRequestIndex: number | null
   deviceId: string
 }): Promise<Array<ServerKeyRequest> | null> {
-  const data = await database.keyRequest.findAll({
+  const data = await transaction.legacy.database.keyRequest.findAll({
     where: {
       familyId: familyEntry.familyId,
       senderDeviceId: {
@@ -39,7 +38,7 @@ export async function getKeyRequests ({ database, transaction, familyEntry, last
         }
       })
     },
-    transaction,
+    transaction: transaction.legacy.transaction,
     limit: 32
   })
 

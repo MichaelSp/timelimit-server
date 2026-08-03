@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2020 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,31 +15,30 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Database, Transaction } from '../../database'
+import { SimpleDatabaseTransaction } from '../../database/simple'
 import { randomWords } from '../../util/random-words'
 import { generateIdWithinFamily } from '../../util/token'
 
-export const createAddDeviceToken = async ({ familyId, database, transaction }: {
+export const createAddDeviceToken = async ({ familyId, transaction }: {
   familyId: string
-  database: Database
-  transaction: Transaction
+  transaction: SimpleDatabaseTransaction
 }) => {
   const token = randomWords(5)
   const deviceId = generateIdWithinFamily()
 
-  await database.addDeviceToken.destroy({
+  await transaction.legacy.database.addDeviceToken.destroy({
     where: {
       familyId
     },
-    transaction
+    transaction: transaction.legacy.transaction
   })
 
-  await database.addDeviceToken.create({
+  await transaction.legacy.database.addDeviceToken.create({
     familyId,
     token: token.toLowerCase(),
     deviceId,
     createdAt: Date.now().toString()
-  }, { transaction })
+  }, { transaction: transaction.legacy.transaction })
 
   return { token, deviceId }
 }

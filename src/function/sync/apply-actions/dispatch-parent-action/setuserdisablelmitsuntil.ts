@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -30,20 +30,20 @@ export async function dispatchUserSetDisableLimitsUntil ({ action, cache }: {
     }
   }
 
-  const oldUser = await cache.database.user.findOne({
+  const oldUser = await cache.transaction.legacy.database.user.findOne({
     where: {
       familyId: cache.familyId,
       userId: action.childId,
       type: 'child'
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!oldUser) {
     throw new MissingUserException()
   }
 
-  await cache.database.user.update({
+  await cache.transaction.legacy.database.user.update({
     disableTimelimitsUntil: action.timestamp.toString(10)
   }, {
     where: {
@@ -51,7 +51,7 @@ export async function dispatchUserSetDisableLimitsUntil ({ action, cache }: {
       userId: action.childId,
       type: 'child'
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   cache.invalidiateUserList = true

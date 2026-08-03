@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -17,7 +17,7 @@
 
 import { Conflict } from 'http-errors'
 import { PlaintextParentPassword, assertPlaintextParentPasswordValid } from '../../api/schema'
-import { Database } from '../../database'
+import { SimpleDatabase } from '../../database/simple'
 import { sendPasswordRecoveryUsedMail } from '../../util/mail'
 import { generateVersionId } from '../../util/token'
 import { WebsocketApi } from '../../websocket'
@@ -25,7 +25,7 @@ import { requireMailAndLocaleByAuthToken } from '../authentication'
 import { notifyClientsAboutChangesDelayed } from '../websocket'
 
 export const recoverParentPassword = async ({ database, websocket, password, mailAuthToken }: {
-  database: Database
+  database: SimpleDatabase
   websocket: WebsocketApi
   password: PlaintextParentPassword
   mailAuthToken: string
@@ -34,14 +34,14 @@ export const recoverParentPassword = async ({ database, websocket, password, mai
   assertPlaintextParentPasswordValid(password)
 
   await database.transaction(async (transaction) => {
-    const mailInfo = await requireMailAndLocaleByAuthToken({ mailAuthToken, database, transaction, invalidate: true })
+    const mailInfo = await requireMailAndLocaleByAuthToken({ mailAuthToken, transaction, invalidate: true })
 
     // update the user entry
-    const userEntry = await database.user.findOne({
+    const userEntry = await transaction.legacy.database.user.findOne({
       where: {
         mail: mailInfo.mail
       },
-      transaction
+      transaction: transaction.legacy.transaction
     })
 
     if (!userEntry) {
@@ -52,29 +52,28 @@ export const recoverParentPassword = async ({ database, websocket, password, mai
     userEntry.secondPasswordHash = password.secondHash
     userEntry.secondPasswordSalt = password.secondSalt
 
-    await userEntry.save({ transaction })
+    await userEntry.save({ transaction: transaction.legacy.transaction })
 
     // invalidate the user list
-    await database.family.update({
+    await transaction.legacy.database.family.update({
       userListVersion: generateVersionId()
     }, {
       where: {
         familyId: userEntry.familyId
       },
-      transaction
+      transaction: transaction.legacy.transaction
     })
 
     await notifyClientsAboutChangesDelayed({
-      database,
+      transaction,
       familyId: userEntry.familyId,
       websocket,
       generalLevel: 2,
       targetedLevels: new Map(),
-      sourceDeviceId: null,
-      transaction
+      sourceDeviceId: null
     })
 
-    transaction.afterCommit(async () => {
+    transaction.enqueueAfterCommit(async () => {
       await sendPasswordRecoveryUsedMail({
         receiver: mailInfo.mail,
         locale: mailInfo.locale

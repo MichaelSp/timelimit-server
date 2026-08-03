@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -16,12 +16,12 @@
  */
 
 import * as Sequelize from 'sequelize'
-import { Database } from '../database'
+import { SimpleDatabase } from '../database/simple'
 import { notifyClientsAboutChangesDelayed } from '../function/websocket'
 import { WebsocketApi } from '../websocket'
 
 export function initDeleteDeprecatedPurchasesWorker ({ database, websocket }: {
-  database: Database
+  database: SimpleDatabase
   websocket: WebsocketApi
 }) {
   function doWorkSafe () {
@@ -44,11 +44,11 @@ export function initDeleteDeprecatedPurchasesWorker ({ database, websocket }: {
 }
 
 async function deleteDeprecatedPurchases ({ database, websocket }: {
-  database: Database
+  database: SimpleDatabase
   websocket: WebsocketApi
 }) {
   await database.transaction(async (transaction) => {
-    const affectedFamilyIds = (await database.family.findAll({
+    const affectedFamilyIds = (await transaction.legacy.database.family.findAll({
       where: {
         hasFullVersion: true,
         fullVersionUntil: {
@@ -56,11 +56,11 @@ async function deleteDeprecatedPurchases ({ database, websocket }: {
         }
       },
       attributes: ['familyId'],
-      transaction,
+      transaction: transaction.legacy.transaction,
       limit: 100
     })).map((item) => item.familyId)
 
-    await database.family.update({
+    await transaction.legacy.database.family.update({
       hasFullVersion: false
     }, {
       where: {
@@ -68,14 +68,13 @@ async function deleteDeprecatedPurchases ({ database, websocket }: {
           [Sequelize.Op.in]: affectedFamilyIds
         }
       },
-      transaction
+      transaction: transaction.legacy.transaction
     })
 
     for (const familyId of affectedFamilyIds) {
       await notifyClientsAboutChangesDelayed({
         familyId,
         sourceDeviceId: null,
-        database,
         websocket,
         generalLevel: 2,
         targetedLevels: new Map(),

@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,21 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { Database } from '../../../database'
+import { SimpleDatabaseTransaction } from '../../../database/simple'
 import { ServerDeviceList } from '../../../object/serverdatastatus'
 import { FamilyEntry } from './family-entry'
 
-export async function getDeviceList ({ database, transaction, familyEntry }: {
-  database: Database
-  transaction: Sequelize.Transaction
+export async function getDeviceList ({ transaction, familyEntry }: {
+  transaction: SimpleDatabaseTransaction
   familyEntry: FamilyEntry
 }): Promise<ServerDeviceList> {
-  const devices = (await database.device.findAll({
+  const devices = (await transaction.legacy.database.device.findAll({
     where: {
       familyId: familyEntry.familyId
     },
-    transaction
+    transaction: transaction.legacy.transaction
   }))
 
   return {

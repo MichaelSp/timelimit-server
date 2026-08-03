@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -25,16 +25,16 @@ export async function dispatchAddU2f ({ action, cache, parentUserId }: {
   cache: Cache
   parentUserId: string
 }) {
-  const counter = await cache.database.u2fKey.count({
+  const counter = await cache.transaction.legacy.database.u2fKey.count({
     where: {
       familyId: cache.familyId
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (counter >= 16) throw new LimitReachedException({ type: 'u2f keys' })
 
-  await cache.database.u2fKey.create({
+  await cache.transaction.legacy.database.u2fKey.create({
     familyId: cache.familyId,
     keyId: getU2fKeyId({ keyHandle: action.keyHandle, publicKey: action.publicKey }),
     userId: parentUserId,
@@ -42,7 +42,7 @@ export async function dispatchAddU2f ({ action, cache, parentUserId }: {
     keyHandle: action.keyHandle,
     publicKey: action.publicKey,
     nextCounter: '0'
-  }, { transaction: cache.transaction })
+  }, { transaction: cache.transaction.legacy.transaction })
 
   cache.invalidateU2fList = true
   cache.incrementTriggeredSyncLevel(1)

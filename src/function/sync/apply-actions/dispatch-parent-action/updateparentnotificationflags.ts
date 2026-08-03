@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -23,13 +23,13 @@ export async function dispatchUpdateParentNotificationFlags ({ action, cache }: 
   action: UpdateParentNotificationFlagsAction
   cache: Cache
 }) {
-  const parentEntry = await cache.database.user.findOne({
+  const parentEntry = await cache.transaction.legacy.database.user.findOne({
     where: {
       familyId: cache.familyId,
       userId: action.parentId,
       type: 'parent'
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!parentEntry) {
@@ -42,7 +42,7 @@ export async function dispatchUpdateParentNotificationFlags ({ action, cache }: 
     parentEntry.mailNotificationFlags &= ~action.flags
   }
 
-  await parentEntry.save({ transaction: cache.transaction })
+  await parentEntry.save({ transaction: cache.transaction.legacy.transaction })
 
   cache.invalidiateUserList = true
   cache.incrementTriggeredSyncLevel(1)

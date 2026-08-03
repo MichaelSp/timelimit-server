@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -23,8 +23,8 @@ export async function dispatchSetRelaxPrimaryDevice ({ action, cache }: {
   action: SetRelaxPrimaryDeviceAction
   cache: Cache
 }) {
-  const oldUser = cache.database.user.findOne({
-    transaction: cache.transaction,
+  const oldUser = cache.transaction.legacy.database.user.findOne({
+    transaction: cache.transaction.legacy.transaction,
     where: {
       familyId: cache.familyId,
       userId: action.userId,
@@ -36,10 +36,10 @@ export async function dispatchSetRelaxPrimaryDevice ({ action, cache }: {
     throw new MissingUserException()
   }
 
-  await cache.database.user.update({
+  await cache.transaction.legacy.database.user.update({
     relaxPrimaryDeviceRule: action.relax
   }, {
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction,
     where: {
       familyId: cache.familyId,
       userId: action.userId,

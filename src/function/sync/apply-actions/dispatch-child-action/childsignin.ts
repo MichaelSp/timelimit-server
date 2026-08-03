@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -39,13 +39,13 @@ export const dispatchChildSignIn = async ({ deviceId, childUserId, cache }: {
     cache
   })
 
-  const userEntryUnsafe = await cache.database.user.findOne({
+  const userEntryUnsafe = await cache.transaction.legacy.database.user.findOne({
     where: {
       familyId: cache.familyId,
       type: 'child',
       userId: childUserId
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction,
     attributes: [
       'currentDevice'
     ]
@@ -58,7 +58,7 @@ export const dispatchChildSignIn = async ({ deviceId, childUserId, cache }: {
   if (userEntryUnsafe.currentDevice === deviceId) {
     // unassign to prevent way aroundprimary device rule
 
-    await cache.database.user.update({
+    await cache.transaction.legacy.database.user.update({
       currentDevice: ''
     }, {
       where: {
@@ -66,7 +66,7 @@ export const dispatchChildSignIn = async ({ deviceId, childUserId, cache }: {
         type: 'child',
         userId: childUserId
       },
-      transaction: cache.transaction
+      transaction: cache.transaction.legacy.transaction
     })
 
     cache.invalidiateUserList = true

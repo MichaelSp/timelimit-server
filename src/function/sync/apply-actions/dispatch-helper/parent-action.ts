@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -45,14 +45,14 @@ export async function dispatchParentAction ({
     parser: parseParentAction,
     applier: async (parsedAction) => {
       if (isChildLimitAdding) {
-        const deviceEntryUnsafe = await cache.database.device.findOne({
+        const deviceEntryUnsafe = await cache.transaction.legacy.database.device.findOne({
           attributes: ['currentUserId'],
           where: {
             familyId: cache.familyId,
             deviceId,
             currentUserId: action.userId
           },
-          transaction: cache.transaction
+          transaction: cache.transaction.legacy.transaction
         })
 
         if (!deviceEntryUnsafe) {
@@ -67,14 +67,14 @@ export async function dispatchParentAction ({
           })
         }
 
-        const deviceUserEntryUnsafe = await cache.database.user.findOne({
+        const deviceUserEntryUnsafe = await cache.transaction.legacy.database.user.findOne({
           attributes: ['flags'],
           where: {
             familyId: cache.familyId,
             userId: deviceUserId,
             type: 'child'
           },
-          transaction: cache.transaction
+          transaction: cache.transaction.legacy.transaction
         })
 
         if (!deviceUserEntryUnsafe) {

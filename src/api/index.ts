@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -18,7 +18,7 @@
 import * as basicAuth from 'basic-auth'
 import * as express from 'express'
 import { VisibleConnectedDevicesManager } from '../connected-devices'
-import { Database } from '../database'
+import { SimpleDatabase } from '../database/simple'
 import { EventHandler } from '../monitoring/eventhandler'
 import { WebsocketApi } from '../websocket'
 import { createAdminRouter } from './admin'
@@ -31,7 +31,7 @@ import { createSyncRouter } from './sync'
 const adminToken = process.env.ADMIN_TOKEN || ''
 
 export const createApi = ({ database, websocket, connectedDevicesManager, eventHandler }: {
-  database: Database
+  database: SimpleDatabase
   websocket: WebsocketApi
   connectedDevicesManager: VisibleConnectedDevicesManager
   eventHandler: EventHandler

@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -23,12 +23,12 @@ export async function dispatchDeleteChildTaskAction ({ action, cache }: {
   action: DeleteChildTaskAction
   cache: Cache
 }) {
-  const taskInfoUnsafe = await cache.database.childTask.findOne({
+  const taskInfoUnsafe = await cache.transaction.legacy.database.childTask.findOne({
     where: {
       familyId: cache.familyId,
       taskId: action.taskId
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction,
     attributes: ['categoryId']
   })
 
@@ -36,12 +36,12 @@ export async function dispatchDeleteChildTaskAction ({ action, cache }: {
 
   const taskInfo = { categoryId: taskInfoUnsafe.categoryId }
 
-  await cache.database.childTask.destroy({
+  await cache.transaction.legacy.database.childTask.destroy({
     where: {
       familyId: cache.familyId,
       taskId: action.taskId
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   cache.categoriesWithModifiedTasks.add(taskInfo.categoryId)

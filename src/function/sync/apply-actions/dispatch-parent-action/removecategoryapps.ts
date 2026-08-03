@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -24,7 +24,7 @@ export async function dispatchRemoveCategoryApps ({ action, cache }: {
   action: RemoveCategoryAppsAction
   cache: Cache
 }) {
-  const affectedRows = await cache.database.categoryApp.destroy({
+  const affectedRows = await cache.transaction.legacy.database.categoryApp.destroy({
     where: {
       familyId: cache.familyId,
       categoryId: action.categoryId,
@@ -32,7 +32,7 @@ export async function dispatchRemoveCategoryApps ({ action, cache }: {
         [Sequelize.Op.in]: action.packageNames
       }
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (affectedRows !== action.packageNames.length) {

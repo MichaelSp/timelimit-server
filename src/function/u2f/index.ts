@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -16,9 +16,8 @@
  */
 
 import { createHash, timingSafeEqual } from 'crypto'
-import * as Sequelize from 'sequelize'
 import { getSharedSecret, SharedSecretException } from '../dh'
-import { Database } from '../../database'
+import { SimpleDatabaseTransaction} from '../../database/simple'
 import { intToBuffer } from '../../util/binary-number'
 import { isU2fSignatureValid, calculateApplicationId } from '../../util/u2fsignature'
 
@@ -35,7 +34,6 @@ export async function validateU2fIntegrity({
   hasFullVersion,
   familyId,
   deviceId,
-  database,
   transaction,
   calculateHmac
 }: {
@@ -43,8 +41,7 @@ export async function validateU2fIntegrity({
   hasFullVersion: boolean
   familyId: string
   deviceId: string
-  database: Database
-  transaction: Sequelize.Transaction
+  transaction: SimpleDatabaseTransaction
   calculateHmac: (secret: Buffer) => Buffer
 }) {
   if (!integrity.startsWith('u2f:')) throw new IntegrityMalformedException()
@@ -69,7 +66,6 @@ export async function validateU2fIntegrity({
   const sharedSecret = await (async () => {
     try {
       return await getSharedSecret({
-        database,
         transaction,
         familyId,
         deviceId,
@@ -88,12 +84,12 @@ export async function validateU2fIntegrity({
     throw new HmacMismatchException()
   }
 
-  const keyDescriptorUnsafe = await database.u2fKey.findOne({
+  const keyDescriptorUnsafe = await transaction.legacy.database.u2fKey.findOne({
     where: {
       familyId,
       keyId: u2fKeyId
     },
-    transaction,
+    transaction: transaction.legacy.transaction,
     attributes: ['publicKey', 'userId']
   })
 
@@ -132,14 +128,14 @@ export async function validateU2fIntegrity({
   // values; if this becomes necassary in the future, then it does not
   // require any client modification to add it
 
-  await database.u2fKey.update({
+  await transaction.legacy.database.u2fKey.update({
     nextCounter: (u2fCounter + 1).toString(10)
   }, {
     where: {
       familyId,
       keyId: u2fKeyId
     },
-    transaction
+    transaction: transaction.legacy.transaction
   })
 
   return {

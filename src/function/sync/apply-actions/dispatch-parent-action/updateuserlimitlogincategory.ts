@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -25,13 +25,13 @@ export async function dispatchUpdateUserLimitLoginCategoryAction ({ action, cach
   cache: Cache
   parentUserId: string
 }) {
-  const userEntry = await cache.database.user.findOne({
+  const userEntry = await cache.transaction.legacy.database.user.findOne({
     where: {
       familyId: cache.familyId,
       userId: action.userId,
       type: 'parent'
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!userEntry) {
@@ -44,34 +44,34 @@ export async function dispatchUpdateUserLimitLoginCategoryAction ({ action, cach
     })
   }
 
-  await cache.database.userLimitLoginCategory.destroy({
+  await cache.transaction.legacy.database.userLimitLoginCategory.destroy({
     where: {
       familyId: cache.familyId,
       userId: action.userId
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (action.categoryId !== undefined) {
-    const categoryEntry = await cache.database.category.findOne({
+    const categoryEntry = await cache.transaction.legacy.database.category.findOne({
       where: {
         familyId: cache.familyId,
         categoryId: action.categoryId
       },
-      transaction: cache.transaction
+      transaction: cache.transaction.legacy.transaction
     })
 
     if (!categoryEntry) {
       throw new MissingCategoryException()
     }
 
-    await cache.database.userLimitLoginCategory.create({
+    await cache.transaction.legacy.database.userLimitLoginCategory.create({
       familyId: cache.familyId,
       userId: action.userId,
       categoryId: action.categoryId,
       preBlockDuration: 0
     }, {
-      transaction: cache.transaction
+      transaction: cache.transaction.legacy.transaction
     })
   }
 

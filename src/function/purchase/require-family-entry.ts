@@ -16,19 +16,18 @@
  */
 
 import { InternalServerError, Unauthorized } from 'http-errors'
-import { Database, Transaction } from '../../database'
+import { SimpleDatabaseTransaction } from '../../database/simple'
 
-export const requireFamilyEntry = async ({ database, deviceAuthToken, transaction }: {
-  database: Database
+export const requireFamilyEntry = async ({ transaction, deviceAuthToken }: {
+  transaction: SimpleDatabaseTransaction
   deviceAuthToken: string
-  transaction: Transaction
 }) => {
-  const deviceEntryUnsafe = await database.device.findOne({
+  const deviceEntryUnsafe = await transaction.legacy.database.device.findOne({
     where: {
       deviceAuthToken
     },
     attributes: ['familyId'],
-    transaction
+    transaction: transaction.legacy.transaction
   })
 
   if (!deviceEntryUnsafe) {
@@ -39,12 +38,12 @@ export const requireFamilyEntry = async ({ database, deviceAuthToken, transactio
     familyId: deviceEntryUnsafe.familyId
   }
 
-  const familyEntryUnsafe = await database.family.findOne({
+  const familyEntryUnsafe = await transaction.legacy.database.family.findOne({
     where: {
       familyId: deviceEntry.familyId
     },
     attributes: ['fullVersionUntil', 'fullVersionDebts'],
-    transaction
+    transaction: transaction.legacy.transaction
   })
 
   if (!familyEntryUnsafe) {

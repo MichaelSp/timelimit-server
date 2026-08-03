@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -26,12 +26,12 @@ export async function dispatchTriedDisablingDeviceAdmin ({ deviceId, cache }: {
   action: TriedDisablingDeviceAdminAction
   cache: Cache
 }) {
-  const deviceEntry = await cache.database.device.findOne({
+  const deviceEntry = await cache.transaction.legacy.database.device.findOne({
     where: {
       familyId: cache.familyId,
       deviceId
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (deviceEntry === null) {
@@ -43,7 +43,7 @@ export async function dispatchTriedDisablingDeviceAdmin ({ deviceId, cache }: {
   if (!deviceEntry.triedDisablingDeviceAdmin) {
     deviceEntry.triedDisablingDeviceAdmin = true
 
-    await deviceEntry.save({ transaction: cache.transaction })
+    await deviceEntry.save({ transaction: cache.transaction.legacy.transaction })
 
     cache.invalidiateDeviceList = true
     cache.incrementTriggeredSyncLevel(1)
@@ -51,7 +51,6 @@ export async function dispatchTriedDisablingDeviceAdmin ({ deviceId, cache }: {
 
   if (!hadManipulationBefore) {
     await sendManipulationWarnings({
-      database: cache.database,
       transaction: cache.transaction,
       deviceName: deviceEntry.name,
       familyId: cache.familyId

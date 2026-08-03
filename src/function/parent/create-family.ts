@@ -18,7 +18,7 @@
 import { Conflict } from 'http-errors'
 import { generateServerDataStatus } from '../sync/get-server-data-status'
 import { NewDeviceInfo, PlaintextParentPassword, assertPlaintextParentPasswordValid } from '../../api/schema'
-import { Database } from '../../database'
+import { SimpleDatabase } from '../../database/simple'
 import { maxMailNotificationFlags } from '../../database/user'
 import { EventHandler } from '../../monitoring/eventhandler'
 import { ServerDataStatus } from '../../object/serverdatastatus'
@@ -33,7 +33,7 @@ export async function createFamily ({
   database, eventHandler, mailAuthToken, firstParentDevice,
   password, timeZone, parentName, deviceName, clientLevel
 }: {
-  database: Database
+  database: SimpleDatabase
   eventHandler: EventHandler
   mailAuthToken: string
   firstParentDevice: NewDeviceInfo
@@ -52,14 +52,14 @@ export async function createFamily ({
 
   return database.transaction(async (transaction) => {
     const now = Date.now().toString(10)
-    const mailInfo = await requireMailAndLocaleByAuthToken({ database, mailAuthToken, transaction, invalidate: true })
+    const mailInfo = await requireMailAndLocaleByAuthToken({ transaction, mailAuthToken, invalidate: true })
 
     // ensure that no family was created for this mail yet
-    const existingUserEntry = await database.user.findOne({
+    const existingUserEntry = await transaction.legacy.database.user.findOne({
       where: {
         mail: mailInfo.mail
       },
-      transaction
+      transaction: transaction.legacy.transaction
     })
 
     if (existingUserEntry) {
@@ -72,7 +72,7 @@ export async function createFamily ({
     const deviceAuthToken = generateAuthToken()
 
     // create family
-    await database.family.create({
+    await transaction.legacy.database.family.create({
       familyId,
       name: '',
       createdAt: now,
@@ -84,10 +84,10 @@ export async function createFamily ({
       nextServerKeyRequestSeq: '1',
       u2fKeysVersion: generateVersionId(),
       fullVersionDebts: '0'
-    }, { transaction })
+    }, { transaction: transaction.legacy.transaction })
 
     // create parent user
-    await database.user.create({
+    await transaction.legacy.database.user.create({
       familyId,
       userId,
       name: parentName,
@@ -104,10 +104,10 @@ export async function createFamily ({
       mailNotificationFlags: maxMailNotificationFlags,
       blockedTimes: '',
       flags: '0'
-    }, { transaction })
+    }, { transaction: transaction.legacy.transaction })
 
     // add parent device
-    await database.device.create(prepareDeviceEntry({
+    await transaction.legacy.database.device.create(prepareDeviceEntry({
       familyId,
       deviceId,
       deviceName,
@@ -115,14 +115,13 @@ export async function createFamily ({
       userId,
       deviceAuthToken,
       isUserKeptSignedIn: true
-    }), { transaction })
+    }), { transaction: transaction.legacy.transaction })
 
     const data = await generateServerDataStatus({
-      database,
+      transaction,
       clientStatus: createEmptyClientDataStatus({ clientLevel }),
       familyId,
       deviceId,
-      transaction,
       eventHandler
     })
 

@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2020 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -16,21 +16,21 @@
  */
 
 import { Conflict, Unauthorized } from 'http-errors'
-import { Database } from '../../database'
+import { SimpleDatabase } from '../../database/simple'
 import { WebsocketApi } from '../../websocket'
 
 export const logoutAtPrimaryDevice = async ({ deviceAuthToken, database, websocket }: {
   deviceAuthToken: string
-  database: Database
+  database: SimpleDatabase
   websocket: WebsocketApi
   // no transaction here because this is directly called from an API endpoint
 }) => {
   await database.transaction(async (transaction) => {
-    const ownDeviceEntryUnsafe = await database.device.findOne({
+    const ownDeviceEntryUnsafe = await transaction.legacy.database.device.findOne({
       where: {
         deviceAuthToken
       },
-      transaction,
+      transaction: transaction.legacy.transaction,
       attributes: ['familyId', 'currentUserId', 'deviceId']
     })
 
@@ -43,14 +43,14 @@ export const logoutAtPrimaryDevice = async ({ deviceAuthToken, database, websock
       currentUserId: ownDeviceEntryUnsafe.currentUserId
     }
 
-    const deviceUserEntryUnsafe = await database.user.findOne({
+    const deviceUserEntryUnsafe = await transaction.legacy.database.user.findOne({
       where: {
         familyId: ownDeviceEntry.familyId,
         userId: ownDeviceEntry.currentUserId,
         type: 'child'
       },
       attributes: ['currentDevice'],
-      transaction
+      transaction: transaction.legacy.transaction
     })
 
     if (!deviceUserEntryUnsafe) {
@@ -61,14 +61,14 @@ export const logoutAtPrimaryDevice = async ({ deviceAuthToken, database, websock
       currentDevice: deviceUserEntryUnsafe.currentDevice
     }
 
-    const otherDeviceEntryUnsafe = await database.device.findOne({
+    const otherDeviceEntryUnsafe = await transaction.legacy.database.device.findOne({
       where: {
         familyId: ownDeviceEntry.familyId,
         deviceId: deviceUserEntry.currentDevice,
         currentUserId: ownDeviceEntry.currentUserId
       },
       attributes: ['deviceAuthToken'],
-      transaction
+      transaction: transaction.legacy.transaction
     })
 
     if (!otherDeviceEntryUnsafe) {

@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,7 +19,7 @@ import { memoize } from 'lodash'
 import * as Sequelize from 'sequelize'
 import { config } from '../../../config'
 import { VisibleConnectedDevicesManager } from '../../../connected-devices'
-import { Database } from '../../../database'
+import { SimpleDatabaseTransaction } from '../../../database/simple'
 import { setToList } from '../../../util/list'
 import { generateVersionId } from '../../../util/token'
 import { SourceUserNotFoundException } from './exception/illegal-state'
@@ -29,8 +29,7 @@ export class Cache {
   readonly familyId: string
   readonly deviceId: string
   readonly hasFullVersion: boolean
-  transaction: Sequelize.Transaction
-  readonly database: Database
+  transaction: SimpleDatabaseTransaction
   readonly connectedDevicesManager: VisibleConnectedDevicesManager
   private requireSenderDoFullSync = false
 
@@ -48,18 +47,16 @@ export class Cache {
   triggeredSyncLevel: 0 | 1 | 2 = 0 // 0 = no, 1 = unimportant, 2 = important
   targetedTriggeredSyncLevels = new Map<string, 0 | 1 | 2>()
 
-  constructor ({ familyId, deviceId, hasFullVersion, database, transaction, connectedDevicesManager }: {
+  constructor ({ familyId, deviceId, hasFullVersion, transaction, connectedDevicesManager }: {
     familyId: string
     deviceId: string
     hasFullVersion: boolean
-    database: Database
-    transaction: Sequelize.Transaction
+    transaction: SimpleDatabaseTransaction
     connectedDevicesManager: VisibleConnectedDevicesManager
   }) {
     this.familyId = familyId
     this.deviceId = deviceId
     this.hasFullVersion = hasFullVersion || config.alwaysPro
-    this.database = database
     this.transaction = transaction
     this.connectedDevicesManager = connectedDevicesManager
   }
@@ -77,7 +74,7 @@ export class Cache {
   async subtransaction<T> (callback: () => Promise<T>): Promise<T> {
     const oldTransaction = this.transaction
 
-    return this.database.transaction(async (newTransaction) => {
+    return this.transaction.transaction(async (newTransaction) => {
       try {
         this.transaction = newTransaction
 
@@ -87,18 +84,18 @@ export class Cache {
       } finally {
         this.transaction = oldTransaction
       }
-    }, { transaction: oldTransaction })
+    })
   }
 
   getSecondPasswordHashOfParent = memoize(async (parentId: string) => {
-    const userEntryUnsafe = await this.database.user.findOne({
+    const userEntryUnsafe = await this.transaction.legacy.database.user.findOne({
       where: {
         familyId: this.familyId,
         userId: parentId,
         type: 'parent'
       },
       attributes: ['secondPasswordHash'],
-      transaction: this.transaction
+      transaction: this.transaction.legacy.transaction
     })
 
     if (!userEntryUnsafe) {
@@ -109,14 +106,14 @@ export class Cache {
   })
 
   getSecondPasswordHashOfChild = memoize(async (childId: string) => {
-    const userEntryUnsafe = await this.database.user.findOne({
+    const userEntryUnsafe = await this.transaction.legacy.database.user.findOne({
       where: {
         familyId: this.familyId,
         userId: childId,
         type: 'child'
       },
       attributes: ['secondPasswordHash'],
-      transaction: this.transaction
+      transaction: this.transaction.legacy.transaction
     })
 
     if (!userEntryUnsafe) {
@@ -131,24 +128,24 @@ export class Cache {
   })
 
   doesCategoryExist = memoize(async (categoryId: string) => {
-    const categoryEntry = await this.database.category.findOne({
+    const categoryEntry = await this.transaction.legacy.database.category.findOne({
       where: {
         familyId: this.familyId,
         categoryId
       },
-      transaction: this.transaction
+      transaction: this.transaction.legacy.transaction
     })
 
     return !!categoryEntry
   })
 
   doesUserExist = memoize(async (userId: string) => {
-    const userEntry = await this.database.user.findOne({
+    const userEntry = await this.transaction.legacy.database.user.findOne({
       where: {
         familyId: this.familyId,
         userId
       },
-      transaction: this.transaction
+      transaction: this.transaction.legacy.transaction
     })
 
     return !!userEntry
@@ -158,10 +155,10 @@ export class Cache {
   requireSenderFullSync: () => void = () => this.requireSenderDoFullSync = true
 
   async saveModifiedVersionNumbers () {
-    const { database, transaction, familyId } = this
+    const { familyId } = this
 
     if (this.categoriesWithModifiedApps.size > 0) {
-      await database.category.update({
+      await this.transaction.legacy.database.category.update({
         assignedAppsVersion: generateVersionId()
       }, {
         where: {
@@ -170,14 +167,14 @@ export class Cache {
             [Sequelize.Op.in]: setToList(this.categoriesWithModifiedApps)
           }
         },
-        transaction
+        transaction: this.transaction.legacy.transaction
       })
 
       this.categoriesWithModifiedApps.clear()
     }
 
     if (this.categoriesWithModifiedBaseData.size > 0) {
-      await database.category.update({
+      await this.transaction.legacy.database.category.update({
         baseVersion: generateVersionId()
       }, {
         where: {
@@ -186,14 +183,14 @@ export class Cache {
             [Sequelize.Op.in]: setToList(this.categoriesWithModifiedBaseData)
           }
         },
-        transaction
+        transaction: this.transaction.legacy.transaction
       })
 
       this.categoriesWithModifiedBaseData.clear()
     }
 
     if (this.categoriesWithModifiedTimeLimitRules.size > 0) {
-      await database.category.update({
+      await this.transaction.legacy.database.category.update({
         timeLimitRulesVersion: generateVersionId()
       }, {
         where: {
@@ -202,14 +199,14 @@ export class Cache {
             [Sequelize.Op.in]: setToList(this.categoriesWithModifiedTimeLimitRules)
           }
         },
-        transaction
+        transaction: this.transaction.legacy.transaction
       })
 
       this.categoriesWithModifiedTimeLimitRules.clear()
     }
 
     if (this.categoriesWithModifiedUsedTimes.size > 0) {
-      await database.category.update({
+      await this.transaction.legacy.database.category.update({
         usedTimesVersion: generateVersionId()
       }, {
         where: {
@@ -218,14 +215,14 @@ export class Cache {
             [Sequelize.Op.in]: setToList(this.categoriesWithModifiedUsedTimes)
           }
         },
-        transaction
+        transaction: this.transaction.legacy.transaction
       })
 
       this.categoriesWithModifiedUsedTimes.clear()
     }
 
     if (this.categoriesWithModifiedTasks.size > 0) {
-      await database.category.update({
+      await this.transaction.legacy.database.category.update({
         taskListVersion: generateVersionId()
       }, {
         where: {
@@ -234,46 +231,46 @@ export class Cache {
             [Sequelize.Op.in]: setToList(this.categoriesWithModifiedTasks)
           }
         },
-        transaction
+        transaction: this.transaction.legacy.transaction
       })
 
       this.categoriesWithModifiedUsedTimes.clear()
     }
 
     if (this.invalidiateUserList) {
-      await database.family.update({
+      await this.transaction.legacy.database.family.update({
         userListVersion: generateVersionId()
       }, {
         where: {
           familyId: this.familyId
         },
-        transaction
+        transaction: this.transaction.legacy.transaction
       })
 
       this.invalidiateUserList = false
     }
 
     if (this.invalidiateDeviceList) {
-      await database.family.update({
+      await this.transaction.legacy.database.family.update({
         deviceListVersion: generateVersionId()
       }, {
         where: {
           familyId: this.familyId
         },
-        transaction
+        transaction: this.transaction.legacy.transaction
       })
 
       this.invalidiateDeviceList = false
     }
 
     if (this.invalidateU2fList) {
-      await database.family.update({
+      await this.transaction.legacy.database.family.update({
         u2fKeysVersion: generateVersionId()
       }, {
         where: {
           familyId: this.familyId
         },
-        transaction
+        transaction: this.transaction.legacy.transaction
       })
 
       this.invalidateU2fList = false

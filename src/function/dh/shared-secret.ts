@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,17 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
 import { createPrivateKey, createPublicKey, diffieHellman } from 'crypto'
-import { Database } from '../../database'
+import { SimpleDatabaseTransaction } from '../../database/simple'
 import { calculateExpireTime } from '../../database/devicedhkey'
 import { isVersionId } from '../../util/token'
 
 export async function getSharedSecret({
-  database, transaction, familyId, deviceId, keyId, otherPublicKey
+  transaction, familyId, deviceId, keyId, otherPublicKey
 }: {
-  database: Database
-  transaction: Sequelize.Transaction
+  transaction: SimpleDatabaseTransaction
   familyId: string
   deviceId: string
   keyId: string
@@ -33,20 +31,20 @@ export async function getSharedSecret({
 }) {
   if (!isVersionId(keyId)) throw new KeyNotFoundException('invalid key id')
 
-  const databaseKeyEntry = await database.deviceDhKey.findOne({
+  const databaseKeyEntry = await transaction.legacy.database.deviceDhKey.findOne({
     where: {
       familyId,
       deviceId,
       version: keyId
     },
-    transaction
+    transaction: transaction.legacy.transaction
   })
 
   if (!databaseKeyEntry) throw new KeyNotFoundException('private key not found')
 
   if (databaseKeyEntry.expireAt === null) {
     databaseKeyEntry.expireAt = calculateExpireTime(BigInt(Date.now())).toString(10)
-    await databaseKeyEntry.save({ transaction })
+    await databaseKeyEntry.save({ transaction: transaction.legacy.transaction })
   } else {
     if (BigInt(databaseKeyEntry.expireAt) < BigInt(Date.now())) throw new KeyExpiredException()
   }

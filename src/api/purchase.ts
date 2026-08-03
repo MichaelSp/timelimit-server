@@ -18,7 +18,7 @@
 import { json } from 'body-parser'
 import { Router } from 'express'
 import { BadRequest, Conflict, Unauthorized } from 'http-errors'
-import { Database } from '../database'
+import { SimpleDatabase } from '../database/simple'
 import {
   addPurchase,
   areGooglePlayPaymentsPossible,
@@ -31,7 +31,7 @@ import { WebsocketApi } from '../websocket'
 import { isCanDoPurchaseRequest, isFinishPurchaseByGooglePlayRequest } from './validator'
 
 export const createPurchaseRouter = ({ database, websocket }: {
-  database: Database
+  database: SimpleDatabase
   websocket: WebsocketApi
 }) => {
   const router = Router()
@@ -49,9 +49,8 @@ export const createPurchaseRouter = ({ database, websocket }: {
 
       const result: boolean = await database.transaction(async (transaction) => {
         const familyEntry = await requireFamilyEntry({
-          database,
+          transaction,
           deviceAuthToken: req.body.deviceAuthToken,
-          transaction
         })
 
         return canDoNextPurchase({
@@ -76,12 +75,12 @@ export const createPurchaseRouter = ({ database, websocket }: {
       }
 
       await database.transaction(async (transaction) => {
-        const deviceEntryUnsafe = await database.device.findOne({
+        const deviceEntryUnsafe = await transaction.legacy.database.device.findOne({
           where: {
             deviceAuthToken: req.body.deviceAuthToken
           },
           attributes: ['familyId'],
-          transaction
+          transaction: transaction.legacy.transaction
         })
 
         if (!deviceEntryUnsafe) {
@@ -122,13 +121,12 @@ export const createPurchaseRouter = ({ database, websocket }: {
         }
 
         await addPurchase({
-          database,
+          transaction,
           familyId: deviceEntry.familyId,
           type,
           service: 'googleplay',
           transactionId: orderId,
-          websocket,
-          transaction
+          websocket
         })
       })
 

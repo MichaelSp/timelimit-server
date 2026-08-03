@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -17,13 +17,13 @@
 
 import { Conflict, InternalServerError, Unauthorized } from 'http-errors'
 import { config } from '../../config'
-import { Database } from '../../database'
+import { SimpleDatabase } from '../../database/simple'
 import { generateVersionId } from '../../util/token'
 import { WebsocketApi } from '../../websocket'
 import { notifyClientsAboutChangesDelayed } from '../websocket'
 
 export const setPrimaryDevice = async ({ database, websocket, deviceAuthToken, currentUserId, action }: {
-  database: Database
+  database: SimpleDatabase
   websocket: WebsocketApi
   deviceAuthToken: string
   currentUserId: string
@@ -31,11 +31,11 @@ export const setPrimaryDevice = async ({ database, websocket, deviceAuthToken, c
   // no transaction here because this is directly called from an API endpoint
 }): Promise<'assigned to other device' | 'requires full version' | 'success'> => {
   return database.transaction(async (transaction): Promise<'assigned to other device' | 'requires full version' | 'success'> => {
-    const deviceEntryUnsafe = await database.device.findOne({
+    const deviceEntryUnsafe = await transaction.legacy.database.device.findOne({
       where: {
         deviceAuthToken
       },
-      transaction,
+      transaction: transaction.legacy.transaction,
       attributes: ['familyId', 'currentUserId', 'deviceId']
     })
 
@@ -53,12 +53,12 @@ export const setPrimaryDevice = async ({ database, websocket, deviceAuthToken, c
       throw new Conflict()
     }
 
-    const userEntryUnsafe = await database.user.findOne({
+    const userEntryUnsafe = await transaction.legacy.database.user.findOne({
       where: {
         familyId: deviceEntry.familyId,
         userId: deviceEntry.currentUserId
       },
-      transaction,
+      transaction: transaction.legacy.transaction,
       attributes: ['currentDevice']
     })
 
@@ -70,12 +70,12 @@ export const setPrimaryDevice = async ({ database, websocket, deviceAuthToken, c
       currentDevice: userEntryUnsafe.currentDevice
     }
 
-    const userDeviceEntriesUnsafe = await database.device.findAll({
+    const userDeviceEntriesUnsafe = await transaction.legacy.database.device.findAll({
       where: {
         familyId: deviceEntry.familyId,
         currentUserId
       },
-      transaction,
+      transaction: transaction.legacy.transaction,
       attributes: ['deviceId']
     })
 
@@ -84,11 +84,11 @@ export const setPrimaryDevice = async ({ database, websocket, deviceAuthToken, c
     }))
 
     if (userDeviceEntries.length >= 2) {
-      const familyEntryUnsafe = await database.family.findOne({
+      const familyEntryUnsafe = await transaction.legacy.database.family.findOne({
         where: {
           familyId: deviceEntry.familyId
         },
-        transaction,
+        transaction: transaction.legacy.transaction,
         attributes: ['hasFullVersion']
       })
 
@@ -112,14 +112,14 @@ export const setPrimaryDevice = async ({ database, websocket, deviceAuthToken, c
       }
 
       // update
-      const [affectedRows] = await database.user.update({
+      const [affectedRows] = await transaction.legacy.database.user.update({
         currentDevice: deviceEntry.deviceId
       }, {
         where: {
           familyId: deviceEntry.familyId,
           userId: currentUserId
         },
-        transaction
+        transaction: transaction.legacy.transaction
       })
 
       if (affectedRows !== 1) {
@@ -131,14 +131,14 @@ export const setPrimaryDevice = async ({ database, websocket, deviceAuthToken, c
       }
 
       // update
-      const [affectedRows] = await database.user.update({
+      const [affectedRows] = await transaction.legacy.database.user.update({
         currentDevice: ''
       }, {
         where: {
           familyId: deviceEntry.familyId,
           userId: currentUserId
         },
-        transaction
+        transaction: transaction.legacy.transaction
       })
 
       if (affectedRows !== 1) {
@@ -149,10 +149,10 @@ export const setPrimaryDevice = async ({ database, websocket, deviceAuthToken, c
     }
 
     // invalidiate user list
-    await database.family.update({
+    await transaction.legacy.database.family.update({
       userListVersion: generateVersionId()
     }, {
-      transaction,
+      transaction: transaction.legacy.transaction,
       where: {
         familyId: deviceEntry.familyId
       }
@@ -163,10 +163,9 @@ export const setPrimaryDevice = async ({ database, websocket, deviceAuthToken, c
       familyId: deviceEntry.familyId,
       sourceDeviceId: deviceEntry.deviceId,
       websocket,
-      database,
+      transaction,
       generalLevel: 1,  // the source device knows it already
       targetedLevels: new Map(),
-      transaction
     })
 
     return 'success'

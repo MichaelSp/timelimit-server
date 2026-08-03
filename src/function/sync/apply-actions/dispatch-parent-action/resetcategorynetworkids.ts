@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -23,12 +23,12 @@ export async function dispatchResetCategoryNetworkIds ({ action, cache }: {
   action: ResetCategoryNetworkIdsAction
   cache: Cache
 }) {
-  const categoryEntryUnsafe = await cache.database.category.findOne({
+  const categoryEntryUnsafe = await cache.transaction.legacy.database.category.findOne({
     where: {
       familyId: cache.familyId,
       categoryId: action.categoryId
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction,
     attributes: ['childId']
   })
 
@@ -36,12 +36,12 @@ export async function dispatchResetCategoryNetworkIds ({ action, cache }: {
     throw new MissingCategoryException()
   }
 
-  await cache.database.categoryNetworkId.destroy({
+  await cache.transaction.legacy.database.categoryNetworkId.destroy({
     where: {
       familyId: cache.familyId,
       categoryId: action.categoryId
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   cache.categoriesWithModifiedBaseData.add(action.categoryId)

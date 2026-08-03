@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -30,10 +30,10 @@ export async function dispatchSetSendDeviceConnected ({ action, cache, sourceDev
     })
   }
 
-  await cache.database.device.update({
+  await cache.transaction.legacy.database.device.update({
     showDeviceConnected: action.enable
   }, {
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction,
     where: {
       familyId: cache.familyId,
       deviceId: action.deviceId

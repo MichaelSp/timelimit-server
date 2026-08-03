@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2020 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -16,19 +16,17 @@
  */
 
 import { difference, intersection } from 'lodash'
-import * as Sequelize from 'sequelize'
-import { Database } from '../../../../database'
+import { SimpleDatabaseTransaction } from '../../../../database/simple'
 import { ClientDataStatusCategories } from '../../../../object/clientdatastatus'
 import { GetServerDataStatusIllegalStateException } from '../exception'
 import { FamilyEntry } from '../family-entry'
 
-export async function getCategoryDataToSync ({ database, transaction, familyEntry, categoriesStatus }: {
-  database: Database
-  transaction: Sequelize.Transaction
+export async function getCategoryDataToSync ({ transaction, familyEntry, categoriesStatus }: {
+  transaction: SimpleDatabaseTransaction
   familyEntry: FamilyEntry
   categoriesStatus: ClientDataStatusCategories
 }): Promise<GetCategoryDataToSyncResult> {
-  const serverCategoriesVersions: Array<ServerCategoryVersion> = (await database.category.findAll({
+  const serverCategoriesVersions: Array<ServerCategoryVersion> = (await transaction.legacy.database.category.findAll({
     where: {
       familyId: familyEntry.familyId
     },
@@ -40,7 +38,7 @@ export async function getCategoryDataToSync ({ database, transaction, familyEntr
       'usedTimesVersion',
       'taskListVersion'
     ],
-    transaction
+    transaction: transaction.legacy.transaction
   })).map((item) => ({
     categoryId: item.categoryId,
     baseVersion: item.baseVersion,

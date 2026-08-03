@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2020 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,37 +15,39 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { Database } from '../../database'
+import { SimpleDatabase, SimpleDatabaseTransaction } from '../../database/simple'
 import { configItemIds } from '../../database/config'
 
-export const getStatusMessage = async ({ database, transaction }: {
-  database: Database
-  transaction?: Sequelize.Transaction
+export const getStatusMessage = async ({ transaction }: {
+  transaction: SimpleDatabaseTransaction
 }) => {
-  const currentStatusMessageItem = await database.config.findByPk(configItemIds.statusMessage, { transaction })
+  const currentStatusMessageItem = await transaction.legacy.database.config.findByPk(
+    configItemIds.statusMessage,
+    { transaction: transaction.legacy.transaction }
+  )
+
   const currentStatusMessage = (currentStatusMessageItem ? currentStatusMessageItem.value : null) || ''
 
   return currentStatusMessage
 }
 
 export const setStatusMessage = async ({ database, newStatusMessage }: {
-  database: Database
+  database: SimpleDatabase
   newStatusMessage: string
 }) => {
   await database.transaction(async (transaction) => {
     if (newStatusMessage === '') {
-      await database.config.destroy({
+      await transaction.legacy.database.config.destroy({
         where: {
           id: configItemIds.statusMessage
         },
-        transaction
+        transaction: transaction.legacy.transaction
       })
     } else {
-      await database.config.upsert({
+      await transaction.legacy.database.config.upsert({
         id: configItemIds.statusMessage,
         value: newStatusMessage
-      }, { transaction })
+      }, { transaction: transaction.legacy.transaction })
     }
   })
 }
