@@ -55,7 +55,7 @@
     "jose": "^4.9.3",
     "lodash": "^4.17.21",
     "mariadb": "^2.5.2",
-    "nodemailer": "^8.0.4",
+    "nodemailer": "^9.0.4",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
     "rate-limiter-flexible": "^2.1.15",
