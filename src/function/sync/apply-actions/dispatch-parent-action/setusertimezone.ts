@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -26,30 +26,27 @@ export async function dispatchSetUserTimezone({
   action: SetUserTimezoneAction
   cache: Cache
 }) {
-  const oldUser = await cache.database.user.findOne({
+  const oldUser = await cache.transaction.legacy.database.user.findOne({
     where: {
       familyId: cache.familyId,
       userId: action.userId,
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!oldUser) {
     throw new MissingUserException()
   }
 
-  await cache.database.user.update(
-    {
-      timeZone: action.timezone,
-    },
-    {
-      transaction: cache.transaction,
-      where: {
-        familyId: cache.familyId,
-        userId: action.userId,
-      },
-    },
-  )
+  await cache.transaction.legacy.database.user.update({
+    timeZone: action.timezone
+  }, {
+    transaction: cache.transaction.legacy.transaction,
+    where: {
+      familyId: cache.familyId,
+      userId: action.userId
+    }
+  })
 
   cache.invalidiateUserList = true
   cache.incrementTriggeredSyncLevel(2)

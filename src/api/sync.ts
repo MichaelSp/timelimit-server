@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,21 +15,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { json } from "body-parser"
-import { Router } from "express"
-import { BadRequest, Unauthorized } from "http-errors"
-import { VisibleConnectedDevicesManager } from "../connected-devices/index.js"
-import { Database } from "../database/index.js"
-import { reportDeviceRemoved } from "../function/device/report-device-removed.js"
-import { applyActionsFromDevice } from "../function/sync/apply-actions/index.js"
-import { generateServerDataStatus } from "../function/sync/get-server-data-status/index.js"
-import { EventHandler } from "../monitoring/eventhandler.js"
-import { WebsocketApi } from "../websocket/index.js"
-import {
-  isClientPullChangesRequest,
-  isClientPushChangesRequest,
-  isRequestWithAuthToken,
-} from "./validator.js"
+import { json } from 'body-parser'
+import { Router } from 'express'
+import { BadRequest, Unauthorized } from 'http-errors'
+import { VisibleConnectedDevicesManager } from '../connected-devices'
+import { SimpleDatabase } from '../database/simple'
+import { reportDeviceRemoved } from '../function/device/report-device-removed'
+import { applyActionsFromDevice } from '../function/sync/apply-actions'
+import { generateServerDataStatus } from '../function/sync/get-server-data-status'
+import { EventHandler } from '../monitoring/eventhandler'
+import { WebsocketApi } from '../websocket'
+import { isClientPullChangesRequest, isClientPushChangesRequest, isRequestWithAuthToken } from './validator'
 
 const getRoundedTimestampForLastConnectivity = () => {
   const now = Date.now()
@@ -37,13 +33,8 @@ const getRoundedTimestampForLastConnectivity = () => {
   return now - (now % (1000 * 60 * 60 * 12)) /* 12 hours */
 }
 
-export const createSyncRouter = ({
-  database,
-  websocket,
-  connectedDevicesManager,
-  eventHandler,
-}: {
-  database: Database
+export const createSyncRouter = ({ database, websocket, connectedDevicesManager, eventHandler }: {
+  database: SimpleDatabase
   websocket: WebsocketApi
   connectedDevicesManager: VisibleConnectedDevicesManager
   eventHandler: EventHandler
@@ -99,12 +90,12 @@ export const createSyncRouter = ({
       }
 
       const serverStatus = await database.transaction(async (transaction) => {
-        const deviceEntryUnsafe = await database.device.findOne({
+        const deviceEntryUnsafe = await transaction.legacy.database.device.findOne({
           where: {
             deviceAuthToken: body.deviceAuthToken,
           },
-          attributes: ["familyId", "deviceId", "lastConnectivity"],
-          transaction,
+          attributes: ['familyId', 'deviceId', 'lastConnectivity'],
+          transaction: transaction.legacy.transaction
         })
 
         if (!deviceEntryUnsafe) {
@@ -115,26 +106,22 @@ export const createSyncRouter = ({
         const now = getRoundedTimestampForLastConnectivity()
 
         if (parseInt(lastConnectivity, 10) !== now) {
-          await database.device.update(
-            {
-              lastConnectivity: now.toString(10),
+          await transaction.legacy.database.device.update({
+            lastConnectivity: now.toString(10)
+          }, {
+            where: {
+              deviceAuthToken: body.deviceAuthToken
             },
-            {
-              where: {
-                deviceAuthToken: body.deviceAuthToken,
-              },
-              transaction,
-            },
-          )
+            transaction: transaction.legacy.transaction
+          })
         }
 
         return generateServerDataStatus({
-          database,
+          transaction,
           familyId,
           deviceId,
           clientStatus: body.status,
-          transaction,
-          eventHandler,
+          eventHandler
         })
       })
 
@@ -202,14 +189,13 @@ export const createSyncRouter = ({
         throw new BadRequest()
       }
 
-      const isDeviceRemoved: boolean = await database.transaction(
-        async (transaction) => {
-          const removedEntry = await database.oldDevice.findOne({
-            where: {
-              deviceAuthToken: req.body.deviceAuthToken,
-            },
-            transaction,
-          })
+      const isDeviceRemoved: boolean = await database.transaction(async (transaction) => {
+        const removedEntry = await transaction.legacy.database.oldDevice.findOne({
+          where: {
+            deviceAuthToken: req.body.deviceAuthToken
+          },
+          transaction: transaction.legacy.transaction
+        })
 
           return !!removedEntry
         },

@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { json } from "body-parser"
-import { Router } from "express"
-import { BadRequest, Conflict, Unauthorized } from "http-errors"
-import { Database } from "../database/index.js"
+import { json } from 'body-parser'
+import { Router } from 'express'
+import { BadRequest, Conflict, Unauthorized } from 'http-errors'
+import { SimpleDatabase } from '../database/simple'
 import {
   addPurchase,
   areGooglePlayPaymentsPossible,
@@ -33,11 +33,8 @@ import {
   isFinishPurchaseByGooglePlayRequest,
 } from "./validator.js"
 
-export const createPurchaseRouter = ({
-  database,
-  websocket,
-}: {
-  database: Database
+export const createPurchaseRouter = ({ database, websocket }: {
+  database: SimpleDatabase
   websocket: WebsocketApi
 }) => {
   const router = Router()
@@ -55,9 +52,8 @@ export const createPurchaseRouter = ({
 
       const result: boolean = await database.transaction(async (transaction) => {
         const familyEntry = await requireFamilyEntry({
-          database,
+          transaction,
           deviceAuthToken: req.body.deviceAuthToken,
-          transaction
         })
 
         return canDoNextPurchase({
@@ -147,8 +143,68 @@ export const createPurchaseRouter = ({
       } catch (ex) {
         next(ex)
       }
-    },
-  )
+
+      await database.transaction(async (transaction) => {
+        const deviceEntryUnsafe = await transaction.legacy.database.device.findOne({
+          where: {
+            deviceAuthToken: req.body.deviceAuthToken
+          },
+          attributes: ['familyId'],
+          transaction: transaction.legacy.transaction
+        })
+
+        if (!deviceEntryUnsafe) {
+          throw new Unauthorized()
+        }
+
+        const deviceEntry = {
+          familyId: deviceEntryUnsafe.familyId
+        }
+
+        if (!isGooglePlayPurchaseSignatureValid({
+          receipt: req.body.receipt,
+          signature: req.body.signature
+        })) {
+          throw new Conflict()
+        }
+
+        const receipt = JSON.parse(req.body.receipt)
+
+        if (typeof receipt !== 'object') {
+          throw new Conflict()
+        }
+
+        let type: 'month' | 'year'
+
+        if (receipt.productId === 'premium_year_2018') {
+          type = 'year'
+        } else if (receipt.productId === 'premium_month_2018') {
+          type = 'month'
+        } else {
+          throw new Conflict()
+        }
+
+        const orderId = receipt.orderId
+
+        if (typeof orderId !== 'string') {
+          throw new Conflict()
+        }
+
+        await addPurchase({
+          transaction,
+          familyId: deviceEntry.familyId,
+          type,
+          service: 'googleplay',
+          transactionId: orderId,
+          websocket
+        })
+      })
+
+      res.json({ ok: true })
+    } catch (ex) {
+      next(ex)
+    }
+  })
 
   return router
 }

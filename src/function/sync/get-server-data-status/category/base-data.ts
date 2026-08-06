@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,53 +15,47 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from "sequelize"
-import { Database, Transaction } from "../../../../database/index.js"
-import { ServerUpdatedCategoryBaseData } from "../../../../object/serverdatastatus.js"
-import { FamilyEntry } from "../family-entry.js"
+import * as Sequelize from 'sequelize'
+import { SimpleDatabaseTransaction } from '../../../../database/simple'
+import { ServerUpdatedCategoryBaseData } from '../../../../object/serverdatastatus'
+import { FamilyEntry } from '../family-entry'
 
-export async function getCategoryBaseDatas({
-  database,
-  transaction,
-  categoryIdsToSyncBaseData,
-  familyEntry,
+export async function getCategoryBaseDatas ({
+  transaction, categoryIdsToSyncBaseData, familyEntry
 }: {
-  database: Database
-  transaction: Transaction
+  transaction: SimpleDatabaseTransaction
   categoryIdsToSyncBaseData: Array<string>
   familyEntry: FamilyEntry
 }): Promise<Array<ServerUpdatedCategoryBaseData>> {
-  const dataForSyncing = (
-    await database.category.findAll({
-      where: {
-        familyId: familyEntry.familyId,
-        categoryId: {
-          [Sequelize.Op.in]: categoryIdsToSyncBaseData,
-        },
-      },
-      attributes: [
-        "categoryId",
-        "childId",
-        "title",
-        "blockedMinutesInWeek",
-        "extraTimeInMillis",
-        "extraTimeDay",
-        "temporarilyBlocked",
-        "baseVersion",
-        "parentCategoryId",
-        "blockAllNotifications",
-        "timeWarningFlags",
-        "minBatteryCharging",
-        "minBatteryMobile",
-        "temporarilyBlockedEndTime",
-        "sort",
-        "disableLimitsUntil",
-        "flags",
-        "blockNotificationDelay",
-      ],
-      transaction,
-    })
-  ).map((item) => ({
+  const dataForSyncing = (await transaction.legacy.database.category.findAll({
+    where: {
+      familyId: familyEntry.familyId,
+      categoryId: {
+        [Sequelize.Op.in]: categoryIdsToSyncBaseData
+      }
+    },
+    attributes: [
+      'categoryId',
+      'childId',
+      'title',
+      'blockedMinutesInWeek',
+      'extraTimeInMillis',
+      'extraTimeDay',
+      'temporarilyBlocked',
+      'baseVersion',
+      'parentCategoryId',
+      'blockAllNotifications',
+      'timeWarningFlags',
+      'minBatteryCharging',
+      'minBatteryMobile',
+      'temporarilyBlockedEndTime',
+      'sort',
+      'disableLimitsUntil',
+      'flags',
+      'blockNotificationDelay'
+    ],
+    transaction: transaction.legacy.transaction
+  })).map((item) => ({
     categoryId: item.categoryId,
     childId: item.childId,
     title: item.title,
@@ -82,35 +76,38 @@ export async function getCategoryBaseDatas({
     blockNotificationDelay: item.blockNotificationDelay,
   }))
 
-  const networkIdsForSyncing = (
-    await database.categoryNetworkId.findAll({
-      where: {
-        familyId: familyEntry.familyId,
-        categoryId: {
-          [Sequelize.Op.in]: categoryIdsToSyncBaseData,
-        },
-      },
-      attributes: ["categoryId", "networkItemId", "hashedNetworkId"],
-      transaction,
-    })
-  ).map((item) => ({
+  const networkIdsForSyncing = (await transaction.legacy.database.categoryNetworkId.findAll({
+    where: {
+      familyId: familyEntry.familyId,
+      categoryId: {
+        [Sequelize.Op.in]: categoryIdsToSyncBaseData
+      }
+    },
+    attributes: [
+      'categoryId',
+      'networkItemId',
+      'hashedNetworkId'
+    ],
+    transaction: transaction.legacy.transaction
+  })).map((item) => ({
     categoryId: item.categoryId,
     networkItemId: item.networkItemId,
     hashedNetworkId: item.hashedNetworkId,
   }))
 
-  const additionalTimeWarningsForSyncing = (
-    await database.categoryTimeWarning.findAll({
-      where: {
-        familyId: familyEntry.familyId,
-        categoryId: {
-          [Sequelize.Op.in]: categoryIdsToSyncBaseData,
-        },
-      },
-      attributes: ["categoryId", "minutes"],
-      transaction,
-    })
-  ).map((item) => ({
+  const additionalTimeWarningsForSyncing = (await transaction.legacy.database.categoryTimeWarning.findAll({
+    where: {
+      familyId: familyEntry.familyId,
+      categoryId: {
+        [Sequelize.Op.in]: categoryIdsToSyncBaseData
+      }
+    },
+    attributes: [
+      'categoryId',
+      'minutes'
+    ],
+    transaction: transaction.legacy.transaction
+  })).map((item) => ({
     categoryId: item.categoryId,
     minutes: item.minutes,
   }))

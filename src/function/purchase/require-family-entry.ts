@@ -15,24 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { InternalServerError, Unauthorized } from "http-errors"
-import { Database, Transaction } from "../../database/index.js"
+import { InternalServerError, Unauthorized } from 'http-errors'
+import { SimpleDatabaseTransaction } from '../../database/simple'
 
-export const requireFamilyEntry = async ({
-  database,
-  deviceAuthToken,
-  transaction,
-}: {
-  database: Database
+export const requireFamilyEntry = async ({ transaction, deviceAuthToken }: {
+  transaction: SimpleDatabaseTransaction
   deviceAuthToken: string
-  transaction: Transaction
 }) => {
-  const deviceEntryUnsafe = await database.device.findOne({
+  const deviceEntryUnsafe = await transaction.legacy.database.device.findOne({
     where: {
       deviceAuthToken,
     },
-    attributes: ["familyId"],
-    transaction,
+    attributes: ['familyId'],
+    transaction: transaction.legacy.transaction
   })
 
   if (!deviceEntryUnsafe) {
@@ -43,12 +38,12 @@ export const requireFamilyEntry = async ({
     familyId: deviceEntryUnsafe.familyId,
   }
 
-  const familyEntryUnsafe = await database.family.findOne({
+  const familyEntryUnsafe = await transaction.legacy.database.family.findOne({
     where: {
       familyId: deviceEntry.familyId,
     },
     attributes: ['fullVersionUntil', 'fullVersionDebts'],
-    transaction
+    transaction: transaction.legacy.transaction
   })
 
   if (!familyEntryUnsafe) {

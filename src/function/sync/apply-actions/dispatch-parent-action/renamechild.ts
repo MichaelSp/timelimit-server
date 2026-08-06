@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -26,32 +26,29 @@ export async function dispatchRenameChild({
   action: RenameChildAction
   cache: Cache
 }) {
-  const oldItem = await cache.database.user.findOne({
+  const oldItem = await cache.transaction.legacy.database.user.findOne({
     where: {
       familyId: cache.familyId,
       userId: action.childId,
       type: "child",
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!oldItem) {
     throw new MissingUserException()
   }
 
-  await cache.database.user.update(
-    {
-      name: action.newName,
+  await cache.transaction.legacy.database.user.update({
+    name: action.newName
+  }, {
+    where: {
+      familyId: cache.familyId,
+      userId: action.childId,
+      type: 'child'
     },
-    {
-      where: {
-        familyId: cache.familyId,
-        userId: action.childId,
-        type: "child",
-      },
-      transaction: cache.transaction,
-    },
-  )
+    transaction: cache.transaction.legacy.transaction
+  })
 
   cache.invalidiateUserList = true
   cache.doesUserExist.cache.set(action.childId, false)

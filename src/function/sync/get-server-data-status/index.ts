@@ -15,9 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
 import { config } from '../../../config'
-import { Database } from '../../../database'
+import { SimpleDatabaseTransaction } from '../../../database/simple'
 import { getStatusMessage } from '../../../function/statusmessage'
 import { ClientDataStatus } from '../../../object/clientdatastatus'
 import { ServerDataStatus } from '../../../object/serverdatastatus'
@@ -38,18 +37,17 @@ import { getKeyResponses } from './key-responses'
 import { getU2f } from './u2f'
 
 export const generateServerDataStatus = async ({
-  database, clientStatus, familyId, deviceId, transaction, eventHandler
+  transaction, clientStatus, familyId, deviceId, eventHandler
 }: {
-  database: Database
+  transaction: SimpleDatabaseTransaction
   clientStatus: ClientDataStatus
   familyId: string
   deviceId: string
-  transaction: Sequelize.Transaction
   eventHandler: EventHandler
 }): Promise<ServerDataStatus> => {
   const clientLevel = clientStatus.clientLevel || 0
 
-  const familyEntry = await getFamilyEntry({ database, familyId, transaction })
+  const familyEntry = await getFamilyEntry({ familyId, transaction })
   const doesClientSupportTasks = clientLevel >= 3
   const doesClientSupportCryptoApps = clientLevel >= 4
   const doesClientSupportDh = clientLevel >= 5
@@ -58,7 +56,7 @@ export const generateServerDataStatus = async ({
   const isClient750OrNewer = clientLevel >= 8 // first release in the post gplay time
 
   const message: string | undefined =
-    await getStatusMessage({ database, transaction }) ||
+    await getStatusMessage({ transaction }) ||
     getCampaign({ familyId, isClient750OrNewer }) ||
     undefined
 
@@ -71,14 +69,14 @@ export const generateServerDataStatus = async ({
   }
 
   if (familyEntry.deviceListVersion !== clientStatus.devices) {
-    result.devices = await getDeviceList({ database, transaction, familyEntry })
+    result.devices = await getDeviceList({ transaction, familyEntry })
   }
 
   if (familyEntry.userListVersion !== clientStatus.users) {
-    result.users = await getUserList({ database, transaction, familyEntry })
+    result.users = await getUserList({ transaction, familyEntry })
   }
 
-  const categoryDataToSync = await getCategoryDataToSync({ database, transaction, familyEntry, categoriesStatus: clientStatus.categories })
+  const categoryDataToSync = await getCategoryDataToSync({ transaction, familyEntry, categoriesStatus: clientStatus.categories })
 
   if (categoryDataToSync.removedCategoryIds.length > 0) {
     result.rmCategories = categoryDataToSync.removedCategoryIds
@@ -86,14 +84,14 @@ export const generateServerDataStatus = async ({
 
   if (categoryDataToSync.categoryIdsToSyncBaseData.length > 0) {
     result.categoryBase = await getCategoryBaseDatas({
-      database, transaction, familyEntry,
+      transaction, familyEntry,
       categoryIdsToSyncBaseData: categoryDataToSync.categoryIdsToSyncBaseData
     })
   }
 
   if (categoryDataToSync.categoryIdsToSyncAssignedApps.length > 0) {
     result.categoryApp = await getCategoryAssignedApps({
-      database, transaction, familyEntry,
+      transaction, familyEntry,
       serverCategoriesVersions: categoryDataToSync.serverCategoriesVersions,
       categoryIdsToSyncAssignedApps: categoryDataToSync.categoryIdsToSyncAssignedApps
     })
@@ -101,7 +99,7 @@ export const generateServerDataStatus = async ({
 
   if (categoryDataToSync.categoryIdsToSyncRules.length > 0) {
     result.rules = await getRules({
-      database, transaction, familyEntry,
+      transaction, familyEntry,
       serverCategoriesVersions: categoryDataToSync.serverCategoriesVersions,
       categoryIdsToSyncRules: categoryDataToSync.categoryIdsToSyncRules
     })
@@ -109,7 +107,7 @@ export const generateServerDataStatus = async ({
 
   if (categoryDataToSync.categoryIdsToSyncUsedTimes.length > 0) {
     result.usedTimes = await getUsedTimes({
-      database, transaction, familyEntry,
+      transaction, familyEntry,
       serverCategoriesVersions: categoryDataToSync.serverCategoriesVersions,
       categoryIdsToSyncUsedTimes: categoryDataToSync.categoryIdsToSyncUsedTimes,
       clientLevel: clientStatus.clientLevel || null
@@ -118,7 +116,7 @@ export const generateServerDataStatus = async ({
 
   if (categoryDataToSync.categoryIdsToSyncTasks.length > 0 && doesClientSupportTasks) {
     result.tasks = await getTasks({
-      database, transaction, familyEntry,
+      transaction, familyEntry,
       serverCategoriesVersions: categoryDataToSync.serverCategoriesVersions,
       categoryIdsToSyncTasks: categoryDataToSync.categoryIdsToSyncTasks
     })
@@ -126,14 +124,12 @@ export const generateServerDataStatus = async ({
 
   if (doesClientSupportCryptoApps) {
     result.devices2 = await getDeviceDetailList({
-      database,
       transaction,
       familyEntry,
       devicesDetail: clientStatus.devicesDetail || {}
     }) || undefined
 
     result.krq = await getKeyRequests({
-      database,
       transaction,
       familyEntry,
       deviceId,
@@ -141,7 +137,6 @@ export const generateServerDataStatus = async ({
     }) || undefined
 
     result.kr = await getKeyResponses({
-      database,
       transaction,
       familyEntry,
       deviceId,
@@ -151,7 +146,6 @@ export const generateServerDataStatus = async ({
 
   if (doesClientSupportDh) {
     result.dh = await getDeviceDhKeys({
-      database,
       transaction,
       familyEntry,
       deviceId,
@@ -162,7 +156,6 @@ export const generateServerDataStatus = async ({
 
   if (doesClientSupportU2f) {
     result.u2f = await getU2f({
-      database,
       transaction,
       familyEntry,
       lastVersionId: clientStatus.u2f || null
@@ -171,7 +164,6 @@ export const generateServerDataStatus = async ({
 
   if (doesClientSupportPing) {
     result.pings = await getPings({
-      database,
       transaction,
       familyEntry,
       deviceId

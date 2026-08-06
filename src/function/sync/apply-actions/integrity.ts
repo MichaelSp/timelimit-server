@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -41,17 +41,17 @@ export async function assertActionIntegrity({
   isChildLimitAdding: boolean
   authentication: AuthenticationMethod
 }> {
-  if (action.type === "parent") {
-    if (action.integrity === "device") {
-      const deviceEntryUnsafe = await cache.database.device.findOne({
-        attributes: ["currentUserId"],
+  if (action.type === 'parent') {
+    if (action.integrity === 'device') {
+      const deviceEntryUnsafe = await cache.transaction.legacy.database.device.findOne({
+        attributes: ['currentUserId'],
         where: {
           familyId: cache.familyId,
           deviceId,
           currentUserId: action.userId,
           isUserKeptSignedIn: true,
         },
-        transaction: cache.transaction,
+        transaction: cache.transaction.legacy.transaction
       })
 
       if (!deviceEntryUnsafe) {
@@ -80,7 +80,6 @@ export async function assertActionIntegrity({
           hasFullVersion: cache.hasFullVersion,
           familyId: cache.familyId,
           deviceId,
-          database: cache.database,
           transaction: cache.transaction,
           calculateHmac: (secret) =>
             calculateActionHmac({

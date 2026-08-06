@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -26,30 +26,27 @@ export async function dispatchUpdateDeviceName({
   action: UpdateDeviceNameAction
   cache: Cache
 }) {
-  const oldDevice = await cache.database.device.findOne({
+  const oldDevice = await cache.transaction.legacy.database.device.findOne({
     where: {
       familyId: cache.familyId,
       deviceId: action.deviceId,
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!oldDevice) {
     throw new MissingDeviceException()
   }
 
-  const [affectedRows] = await cache.database.device.update(
-    {
-      name: action.name,
+  const [affectedRows] = await cache.transaction.legacy.database.device.update({
+    name: action.name
+  }, {
+    where: {
+      familyId: cache.familyId,
+      deviceId: action.deviceId
     },
-    {
-      where: {
-        familyId: cache.familyId,
-        deviceId: action.deviceId,
-      },
-      transaction: cache.transaction,
-    },
-  )
+    transaction: cache.transaction.legacy.transaction
+  })
 
   if (affectedRows !== 0) {
     cache.invalidiateDeviceList = true

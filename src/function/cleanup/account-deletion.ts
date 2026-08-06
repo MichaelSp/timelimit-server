@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2023 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,13 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Unauthorized } from "http-errors"
-import { DeleteAccountPayload } from "../../api/schema.js"
-import { Database } from "../../database/index.js"
-import { sendAccountDeletedMail } from "../../util/mail.js"
-import { WebsocketApi } from "../../websocket/index.js"
-import { requireMailAndLocaleByAuthToken } from "../authentication/index.js"
-import { deleteFamilies } from "./delete-families.js"
+import { Unauthorized } from 'http-errors'
+import { DeleteAccountPayload } from '../../api/schema'
+import { SimpleDatabase } from '../../database/simple'
+import { sendAccountDeletedMail } from '../../util/mail'
+import { WebsocketApi } from '../../websocket'
+import { requireMailAndLocaleByAuthToken } from '../authentication'
+import { deleteFamilies } from './delete-families'
 
 export async function deleteAccount({
   request,
@@ -29,14 +29,14 @@ export async function deleteAccount({
   websocket,
 }: {
   request: DeleteAccountPayload
-  database: Database
+  database: SimpleDatabase
   websocket: WebsocketApi
 }) {
   await database.transaction(async (transaction) => {
-    const deviceEntryUnsafe = await database.device.findOne({
+    const deviceEntryUnsafe = await transaction.legacy.database.device.findOne({
       where: { deviceAuthToken: request.deviceAuthToken },
-      attributes: ["familyId"],
-      transaction,
+      attributes: ['familyId'],
+      transaction: transaction.legacy.transaction
     })
 
     if (!deviceEntryUnsafe) {
@@ -47,16 +47,14 @@ export async function deleteAccount({
       familyId: deviceEntryUnsafe.familyId,
     }
 
-    const userEntries = (
-      await database.user.findAll({
-        where: {
-          familyId: deviceEntry.familyId,
-          type: "parent",
-        },
-        attributes: ["mail"],
-        transaction,
-      })
-    ).map((item) => ({ mail: item.mail }))
+    const userEntries = (await transaction.legacy.database.user.findAll({
+      where: {
+        familyId: deviceEntry.familyId,
+        type: 'parent'
+      },
+      attributes: ['mail'],
+      transaction: transaction.legacy.transaction
+    })).map((item) => ({ mail: item.mail }))
 
     const registeredMailAddresses = new Set<string>()
 
@@ -69,7 +67,6 @@ export async function deleteAccount({
     for (const mailAuthToken of request.mailAuthTokens) {
       const info = await requireMailAndLocaleByAuthToken({
         mailAuthToken,
-        database,
         transaction,
         invalidate: true,
       })
@@ -86,23 +83,17 @@ export async function deleteAccount({
       if (!authenticatedMailAddresses.has(mail)) throw new Unauthorized()
     })
 
-    const deviceEntries = (
-      await database.device.findAll({
-        where: {
-          familyId: deviceEntry.familyId,
-        },
-        transaction,
-        attributes: ["deviceAuthToken"],
-      })
-    ).map((item) => ({ deviceAuthToken: item.deviceAuthToken }))
+    const deviceEntries = (await transaction.legacy.database.device.findAll({
+      where: {
+        familyId: deviceEntry.familyId
+      },
+      transaction: transaction.legacy.transaction,
+      attributes: ['deviceAuthToken']
+    })).map((item) => ({ deviceAuthToken: item.deviceAuthToken }))
 
-    await deleteFamilies({
-      database,
-      transaction,
-      familiyIds: [deviceEntry.familyId],
-    })
+    await deleteFamilies({ transaction, familiyIds: [deviceEntry.familyId] })
 
-    transaction.afterCommit(() => {
+    transaction.enqueueAfterCommit(() => {
       for (const device of deviceEntries) {
         websocket.triggerSyncByDeviceAuthToken({
           deviceAuthToken: device.deviceAuthToken,

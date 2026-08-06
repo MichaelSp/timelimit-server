@@ -15,27 +15,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from 'sequelize'
-import { Database } from '../../../database'
+import { SimpleDatabaseTransaction } from '../../../database/simple'
 import { types as pingTypes } from '../../../database/ping'
 import { ServerPing } from '../../../object/serverdatastatus'
 import { FamilyEntry } from './family-entry'
 
 export async function getPings ({
-  database, transaction, familyEntry, deviceId
+  transaction, familyEntry, deviceId
 }: {
-  database: Database
-  transaction: Sequelize.Transaction
+  transaction: SimpleDatabaseTransaction
   familyEntry: FamilyEntry
   deviceId: string
 }): Promise<Array<ServerPing>> {
-  const savedData = await database.ping.findAll({
+  const savedData = await transaction.legacy.database.ping.findAll({
     where: {
       familyId: familyEntry.familyId,
       receiverDeviceId: deviceId,
     },
     attributes: ['senderDeviceId', 'type', 'token'],
-    transaction
+    transaction: transaction.legacy.transaction
   })
 
   return savedData.map((row) => ({

@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -37,12 +37,12 @@ export async function dispatchSetParentCategory({
   cache: Cache
   fromChildSelfLimitAddChildUserId: string | null
 }) {
-  const categoryEntry = await cache.database.category.findOne({
+  const categoryEntry = await cache.transaction.legacy.database.category.findOne({
     where: {
       familyId: cache.familyId,
       categoryId: action.categoryId,
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!categoryEntry) {
@@ -55,17 +55,15 @@ export async function dispatchSetParentCategory({
     }
   }
 
-  if (action.parentCategory !== "") {
-    const categoriesByUserId = (
-      await cache.database.category.findAll({
-        where: {
-          familyId: cache.familyId,
-          childId: categoryEntry.childId,
-        },
-        attributes: ["categoryId", "parentCategoryId"],
-        transaction: cache.transaction,
-      })
-    ).map((item) => ({
+  if (action.parentCategory !== '') {
+    const categoriesByUserId = (await cache.transaction.legacy.database.category.findAll({
+      where: {
+        familyId: cache.familyId,
+        childId: categoryEntry.childId
+      },
+      attributes: ['categoryId', 'parentCategoryId'],
+      transaction: cache.transaction.legacy.transaction
+    })).map((item) => ({
       categoryId: item.categoryId,
       parentCategoryId: item.parentCategoryId,
     }))
@@ -136,18 +134,15 @@ export async function dispatchSetParentCategory({
     }
   }
 
-  await cache.database.category.update(
-    {
-      parentCategoryId: action.parentCategory,
+  await cache.transaction.legacy.database.category.update({
+    parentCategoryId: action.parentCategory
+  }, {
+    where: {
+      familyId: cache.familyId,
+      categoryId: action.categoryId
     },
-    {
-      where: {
-        familyId: cache.familyId,
-        categoryId: action.categoryId,
-      },
-      transaction: cache.transaction,
-    },
-  )
+    transaction: cache.transaction.legacy.transaction
+  })
 
   cache.categoriesWithModifiedBaseData.add(action.categoryId)
   cache.incrementTriggeredSyncLevel(2)

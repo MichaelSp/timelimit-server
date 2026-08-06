@@ -29,12 +29,12 @@ export async function dispatchUpdateTimelimitRule ({
   cache: Cache
   fromChildSelfLimitAddChildUserId: string | null
 }) {
-  const ruleEntry = await cache.database.timelimitRule.findOne({
+  const ruleEntry = await cache.transaction.legacy.database.timelimitRule.findOne({
     where: {
       familyId: cache.familyId,
       ruleId: action.ruleId
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!ruleEntry) {
@@ -42,12 +42,12 @@ export async function dispatchUpdateTimelimitRule ({
   }
 
   if (fromChildSelfLimitAddChildUserId != null) {
-    const categoryEntryUnsafe = await cache.database.category.findOne({
+    const categoryEntryUnsafe = await cache.transaction.legacy.database.category.findOne({
       where: {
         familyId: cache.familyId,
         categoryId: ruleEntry.categoryId
       },
-      transaction: cache.transaction,
+      transaction: cache.transaction.legacy.transaction,
       attributes: ['childId']
     })
 
@@ -103,7 +103,7 @@ export async function dispatchUpdateTimelimitRule ({
   ruleEntry.perDay = action.perDay ? 1 : 0
   ruleEntry.expiresAt = action.expiresAt ? action.expiresAt.toString() : null
 
-  await ruleEntry.save({ transaction: cache.transaction })
+  await ruleEntry.save({ transaction: cache.transaction.legacy.transaction })
 
   cache.categoriesWithModifiedTimeLimitRules.add(ruleEntry.categoryId)
   cache.incrementTriggeredSyncLevel(2)

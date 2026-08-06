@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -26,8 +26,8 @@ export async function dispatchUpdateEnableActivityLevelBlocking({
   action: UpdateEnableActivityLevelBlockingAction
   cache: Cache
 }) {
-  const oldDevice = await cache.database.device.findOne({
-    transaction: cache.transaction,
+  const oldDevice = await cache.transaction.legacy.database.device.findOne({
+    transaction: cache.transaction.legacy.transaction,
     where: {
       familyId: cache.familyId,
       deviceId: action.deviceId,
@@ -38,18 +38,15 @@ export async function dispatchUpdateEnableActivityLevelBlocking({
     throw new MissingDeviceException()
   }
 
-  await cache.database.device.update(
-    {
-      activityLevelBlocking: action.enable,
-    },
-    {
-      transaction: cache.transaction,
-      where: {
-        familyId: cache.familyId,
-        deviceId: action.deviceId,
-      },
-    },
-  )
+  await cache.transaction.legacy.database.device.update({
+    activityLevelBlocking: action.enable
+  }, {
+    transaction: cache.transaction.legacy.transaction,
+    where: {
+      familyId: cache.familyId,
+      deviceId: action.deviceId
+    }
+  })
 
   cache.invalidiateDeviceList = true
   cache.incrementTriggeredSyncLevel(1)

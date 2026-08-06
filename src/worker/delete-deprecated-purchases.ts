@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,16 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from "sequelize"
-import { Database } from "../database/index.js"
-import { notifyClientsAboutChangesDelayed } from "../function/websocket/index.js"
-import { WebsocketApi } from "../websocket/index.js"
+import * as Sequelize from 'sequelize'
+import { SimpleDatabase } from '../database/simple'
+import { notifyClientsAboutChangesDelayed } from '../function/websocket'
+import { WebsocketApi } from '../websocket'
 
-export function initDeleteDeprecatedPurchasesWorker({
-  database,
-  websocket,
-}: {
-  database: Database
+export function initDeleteDeprecatedPurchasesWorker ({ database, websocket }: {
+  database: SimpleDatabase
   websocket: WebsocketApi
 }) {
   function doWorkSafe() {
@@ -54,47 +51,38 @@ export function initDeleteDeprecatedPurchasesWorker({
   )
 }
 
-async function deleteDeprecatedPurchases({
-  database,
-  websocket,
-}: {
-  database: Database
+async function deleteDeprecatedPurchases ({ database, websocket }: {
+  database: SimpleDatabase
   websocket: WebsocketApi
 }) {
   await database.transaction(async (transaction) => {
-    const affectedFamilyIds = (
-      await database.family.findAll({
-        where: {
-          hasFullVersion: true,
-          fullVersionUntil: {
-            [Sequelize.Op.lt]: Date.now().toString(10),
-          },
-        },
-        attributes: ["familyId"],
-        transaction,
-        limit: 100,
-      })
-    ).map((item) => item.familyId)
+    const affectedFamilyIds = (await transaction.legacy.database.family.findAll({
+      where: {
+        hasFullVersion: true,
+        fullVersionUntil: {
+          [Sequelize.Op.lt]: Date.now().toString(10)
+        }
+      },
+      attributes: ['familyId'],
+      transaction: transaction.legacy.transaction,
+      limit: 100
+    })).map((item) => item.familyId)
 
-    await database.family.update(
-      {
-        hasFullVersion: false,
+    await transaction.legacy.database.family.update({
+      hasFullVersion: false
+    }, {
+      where: {
+        familyId: {
+          [Sequelize.Op.in]: affectedFamilyIds
+        }
       },
-      {
-        where: {
-          familyId: {
-            [Sequelize.Op.in]: affectedFamilyIds,
-          },
-        },
-        transaction,
-      },
-    )
+      transaction: transaction.legacy.transaction
+    })
 
     for (const familyId of affectedFamilyIds) {
       await notifyClientsAboutChangesDelayed({
         familyId,
         sourceDeviceId: null,
-        database,
         websocket,
         generalLevel: 2,
         targetedLevels: new Map(),

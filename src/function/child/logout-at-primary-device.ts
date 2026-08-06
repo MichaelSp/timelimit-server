@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2020 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Conflict, Unauthorized } from "http-errors"
-import { Database } from "../../database/index.js"
-import { WebsocketApi } from "../../websocket/index.js"
+import { Conflict, Unauthorized } from 'http-errors'
+import { SimpleDatabase } from '../../database/simple'
+import { WebsocketApi } from '../../websocket'
 
 export const logoutAtPrimaryDevice = async ({
   deviceAuthToken,
@@ -25,17 +25,17 @@ export const logoutAtPrimaryDevice = async ({
   websocket,
 }: {
   deviceAuthToken: string
-  database: Database
+  database: SimpleDatabase
   websocket: WebsocketApi
   // no transaction here because this is directly called from an API endpoint
 }) => {
   await database.transaction(async (transaction) => {
-    const ownDeviceEntryUnsafe = await database.device.findOne({
+    const ownDeviceEntryUnsafe = await transaction.legacy.database.device.findOne({
       where: {
         deviceAuthToken,
       },
-      transaction,
-      attributes: ["familyId", "currentUserId", "deviceId"],
+      transaction: transaction.legacy.transaction,
+      attributes: ['familyId', 'currentUserId', 'deviceId']
     })
 
     if (!ownDeviceEntryUnsafe) {
@@ -47,14 +47,14 @@ export const logoutAtPrimaryDevice = async ({
       currentUserId: ownDeviceEntryUnsafe.currentUserId,
     }
 
-    const deviceUserEntryUnsafe = await database.user.findOne({
+    const deviceUserEntryUnsafe = await transaction.legacy.database.user.findOne({
       where: {
         familyId: ownDeviceEntry.familyId,
         userId: ownDeviceEntry.currentUserId,
         type: "child",
       },
-      attributes: ["currentDevice"],
-      transaction,
+      attributes: ['currentDevice'],
+      transaction: transaction.legacy.transaction
     })
 
     if (!deviceUserEntryUnsafe) {
@@ -65,14 +65,14 @@ export const logoutAtPrimaryDevice = async ({
       currentDevice: deviceUserEntryUnsafe.currentDevice,
     }
 
-    const otherDeviceEntryUnsafe = await database.device.findOne({
+    const otherDeviceEntryUnsafe = await transaction.legacy.database.device.findOne({
       where: {
         familyId: ownDeviceEntry.familyId,
         deviceId: deviceUserEntry.currentDevice,
         currentUserId: ownDeviceEntry.currentUserId,
       },
-      attributes: ["deviceAuthToken"],
-      transaction,
+      attributes: ['deviceAuthToken'],
+      transaction: transaction.legacy.transaction
     })
 
     if (!otherDeviceEntryUnsafe) {

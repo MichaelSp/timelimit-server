@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2023 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,27 +15,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { json } from "body-parser"
-import { createHmac } from "crypto"
-import { Router } from "express"
-import { BadRequest, Forbidden, Unauthorized } from "http-errors"
-import { config } from "../config.js"
-import { Database, Transaction } from "../database/index.js"
-import { deleteAccount } from "../function/cleanup/account-deletion.js"
-import { removeDevice } from "../function/device/remove-device.js"
-import { createAddDeviceToken } from "../function/parent/create-add-device-token.js"
-import { createFamily } from "../function/parent/create-family.js"
-import { getStatusByMailToken } from "../function/parent/get-status-by-mail-address.js"
-import { linkMailAddress } from "../function/parent/link-mail-address.js"
-import { recoverParentPassword } from "../function/parent/recover-parent-password.js"
-import { signInIntoFamily } from "../function/parent/sign-in-into-family.js"
-import { U2fValidationError, validateU2fIntegrity } from "../function/u2f/index.js"
-import { EventHandler } from "../monitoring/eventhandler.js"
-import {
-  createIdentityToken,
-  MissingSignSecretException,
-} from "../util/identity-token.js"
-import { WebsocketApi } from "../websocket/index.js"
+import { json } from 'body-parser'
+import { createHmac } from 'crypto'
+import { Router } from 'express'
+import { BadRequest, Forbidden, Unauthorized } from 'http-errors'
+import { config } from '../config'
+import { SimpleDatabase, SimpleDatabaseTransaction } from '../database/simple'
+import { deleteAccount } from '../function/cleanup/account-deletion'
+import { removeDevice } from '../function/device/remove-device'
+import { createAddDeviceToken } from '../function/parent/create-add-device-token'
+import { createFamily } from '../function/parent/create-family'
+import { getStatusByMailToken } from '../function/parent/get-status-by-mail-address'
+import { linkMailAddress } from '../function/parent/link-mail-address'
+import { recoverParentPassword } from '../function/parent/recover-parent-password'
+import { signInIntoFamily } from '../function/parent/sign-in-into-family'
+import { validateU2fIntegrity, U2fValidationError } from '../function/u2f'
+import { createIdentityToken, MissingSignSecretException } from '../util/identity-token'
+import { WebsocketApi } from '../websocket'
+import { EventHandler } from '../monitoring/eventhandler'
 import {
   isCreateFamilyByMailTokenRequest,
   isCreateRegisterDeviceTokenRequest,
@@ -53,7 +50,7 @@ export const createParentRouter = ({
   websocket,
   eventHandler,
 }: {
-  database: Database
+  database: SimpleDatabase
   websocket: WebsocketApi
   eventHandler: EventHandler
 }) => {
@@ -66,11 +63,9 @@ export const createParentRouter = ({
       }
 
       const { mailAuthToken } = req.body
-      const { status, mail } = await database.transaction(
-        async (transaction) => {
-          return getStatusByMailToken({ database, mailAuthToken, transaction })
-        },
-      )
+      const { status, mail } = await database.transaction(async (transaction) => {
+        return getStatusByMailToken({ transaction, mailAuthToken })
+      })
 
       res.json({
         status,
@@ -169,13 +164,13 @@ export const createParentRouter = ({
     deviceAuthToken: string
     parentId: string
     secondPasswordHash: string
-    transaction: Transaction
+    transaction: SimpleDatabaseTransaction
   }) {
-    const deviceEntry = await database.device.findOne({
+    const deviceEntry = await transaction.legacy.database.device.findOne({
       where: {
         deviceAuthToken: deviceAuthToken,
       },
-      transaction,
+      transaction: transaction.legacy.transaction
     })
 
     if (!deviceEntry) {
@@ -187,13 +182,13 @@ export const createParentRouter = ({
         throw new Unauthorized()
       }
 
-      const parentEntry = await database.user.findOne({
+      const parentEntry = await transaction.legacy.database.user.findOne({
         where: {
           familyId: deviceEntry.familyId,
           type: "parent",
           userId: deviceEntry.currentUserId,
         },
-        transaction,
+        transaction: transaction.legacy.transaction
       })
 
       if (!parentEntry) {
@@ -203,12 +198,12 @@ export const createParentRouter = ({
       return { deviceEntry, parentEntry }
     } else if (secondPasswordHash.startsWith("u2f:")) {
       try {
-        const familyEntryUnsafe = await database.family.findOne({
+        const familyEntryUnsafe = await transaction.legacy.database.family.findOne({
           where: {
             familyId: deviceEntry.familyId,
           },
-          transaction,
-          attributes: ["hasFullVersion"],
+          transaction: transaction.legacy.transaction,
+          attributes: ['hasFullVersion']
         })
 
         if (!familyEntryUnsafe) {
@@ -226,7 +221,6 @@ export const createParentRouter = ({
           hasFullVersion,
           familyId: deviceEntry.familyId,
           deviceId: deviceEntry.deviceId,
-          database,
           transaction,
           calculateHmac: (secret) =>
             createHmac("sha256", secret).update("direct action").digest(),
@@ -234,13 +228,13 @@ export const createParentRouter = ({
 
         if (u2fResult.userId !== parentId) throw new Unauthorized()
 
-        const parentEntry = await database.user.findOne({
+        const parentEntry = await transaction.legacy.database.user.findOne({
           where: {
             familyId: deviceEntry.familyId,
             type: "parent",
             userId: u2fResult.userId,
           },
-          transaction,
+          transaction: transaction.legacy.transaction
         })
 
         if (!parentEntry) {
@@ -253,14 +247,14 @@ export const createParentRouter = ({
         else throw ex
       }
     } else {
-      const parentEntry = await database.user.findOne({
+      const parentEntry = await transaction.legacy.database.user.findOne({
         where: {
           familyId: deviceEntry.familyId,
           type: "parent",
           userId: parentId,
           secondPasswordHash: secondPasswordHash,
         },
-        transaction,
+        transaction: transaction.legacy.transaction
       })
 
       if (!parentEntry) {
@@ -286,13 +280,8 @@ export const createParentRouter = ({
             transaction,
           })
 
-          return createAddDeviceToken({
-            familyId: deviceEntry.familyId,
-            database,
-            transaction,
-          })
-        },
-      )
+        return createAddDeviceToken({ familyId: deviceEntry.familyId, transaction })
+      })
 
       res.json({ token, deviceId })
     } catch (ex) {
@@ -336,11 +325,10 @@ export const createParentRouter = ({
         })
 
         await removeDevice({
-          database,
+          transaction,
           familyId: deviceEntry.familyId,
           deviceId: req.body.deviceId,
-          websocket,
-          transaction,
+          websocket
         })
       })
 

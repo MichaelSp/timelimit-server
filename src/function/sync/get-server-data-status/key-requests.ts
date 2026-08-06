@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,25 +15,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from "sequelize"
-import { Database } from "../../../database/index.js"
-import { ServerKeyRequest } from "../../../object/serverdatastatus.js"
-import { FamilyEntry } from "./family-entry.js"
+import * as Sequelize from 'sequelize'
+import { SimpleDatabaseTransaction } from '../../../database/simple'
+import { ServerKeyRequest } from '../../../object/serverdatastatus'
+import { FamilyEntry } from './family-entry'
 
-export async function getKeyRequests({
-  database,
-  transaction,
-  familyEntry,
-  lastSeenRequestIndex,
-  deviceId,
-}: {
-  database: Database
-  transaction: Sequelize.Transaction
+export async function getKeyRequests ({ transaction, familyEntry, lastSeenRequestIndex, deviceId }: {
+  transaction: SimpleDatabaseTransaction
   familyEntry: FamilyEntry
   lastSeenRequestIndex: number | null
   deviceId: string
 }): Promise<Array<ServerKeyRequest> | null> {
-  const data = await database.keyRequest.findAll({
+  const data = await transaction.legacy.database.keyRequest.findAll({
     where: {
       familyId: familyEntry.familyId,
       senderDeviceId: {
@@ -47,8 +40,8 @@ export async function getKeyRequests({
             },
           }),
     },
-    transaction,
-    limit: 32,
+    transaction: transaction.legacy.transaction,
+    limit: 32
   })
 
   if (data.length === 0) return null

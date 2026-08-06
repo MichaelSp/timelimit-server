@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,22 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { createDecipheriv } from "crypto"
-import * as Sequelize from "sequelize"
-import { Database } from "../../database/index.js"
-import { isVersionId } from "../../util/token.js"
-import { getSharedSecret, SharedSecretException } from "./shared-secret.js"
+import { createDecipheriv } from 'crypto'
+import { SimpleDatabaseTransaction } from '../../database/simple'
+import { isVersionId } from '../../util/token'
+import { getSharedSecret, SharedSecretException } from './shared-secret'
 
 export async function decrypt({
-  database,
-  transaction,
-  familyId,
-  deviceId,
-  encryptedData,
-  authData,
+  transaction, familyId, deviceId, encryptedData, authData
 }: {
-  database: Database
-  transaction: Sequelize.Transaction
+  transaction: SimpleDatabaseTransaction
   familyId: string
   deviceId: string
   encryptedData: string
@@ -54,7 +47,6 @@ export async function decrypt({
   const sharedSecret = await (async () => {
     try {
       return getSharedSecret({
-        database,
         transaction,
         familyId,
         deviceId,

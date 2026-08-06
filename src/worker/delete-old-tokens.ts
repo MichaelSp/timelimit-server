@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,13 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from "sequelize"
-import { Database } from "../database/index.js"
+import * as Sequelize from 'sequelize'
+import { SimpleDatabase } from '../database/simple'
 
-export function initDeleteOldTokensWorker({
-  database,
-}: {
-  database: Database
+export function initDeleteOldTokensWorker ({ database }: {
+  database: SimpleDatabase
 }) {
   function doWorkSafe() {
     console.log("deleting old tokens now")
@@ -50,44 +48,47 @@ export function initDeleteOldTokensWorker({
   )
 }
 
-async function deleteOldTokens({ database }: { database: Database }) {
+async function deleteOldTokens ({ database }: {
+  database: SimpleDatabase
+}) {
   await database.transaction(async (transaction) => {
-    await database.authtoken.destroy({
+    await transaction.legacy.database.authtoken.destroy({
       where: {
         createdAt: {
           [Sequelize.Op.lt]: (Date.now() - 1000 * 60 * 60 * 3) /* 3 hours */
             .toString(),
         },
       },
-      transaction,
+      transaction: transaction.legacy.transaction
     })
 
-    await database.addDeviceToken.destroy({
+    await transaction.legacy.database.addDeviceToken.destroy({
       where: {
         createdAt: {
           [Sequelize.Op.lt]: (Date.now() - 1000 * 60 * 60 * 3) /* 3 hours */
             .toString(),
         },
       },
-      transaction,
+      transaction: transaction.legacy.transaction
     })
 
-    await database.mailLoginToken.destroy({
+    await transaction.legacy.database.mailLoginToken.destroy({
       where: {
         createdAt: {
           [Sequelize.Op.lt]: (Date.now() - 1000 * 60 * 60 * 3) /* 3 hours */
             .toString(),
         },
       },
-      transaction,
+      transaction: transaction.legacy.transaction
     })
-  })
 
-  await database.deviceDhKey.destroy({
-    where: {
-      expireAt: {
-        [Sequelize.Op.lt]: Date.now().toString(),
+    await transaction.legacy.database.deviceDhKey.destroy({
+      where: {
+        expireAt: {
+          [Sequelize.Op.lt]: Date.now().toString()
+        }
       },
-    },
+      transaction: transaction.legacy.transaction
+    })
   })
 }
