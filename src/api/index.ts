@@ -15,7 +15,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import basicAuth from 'basic-auth'
 import express from 'express'
 import { VisibleConnectedDevicesManager } from '../connected-devices'
 import { SimpleDatabase } from '../database/simple'
@@ -29,6 +28,7 @@ import { createPurchaseRouter } from './purchase'
 import { createSyncRouter } from './sync'
 
 const adminToken = process.env.ADMIN_TOKEN || ""
+const parseBasicAuth = import('basic-auth').then(({ parse }) => parse)
 
 export const createApi = ({ database, websocket, connectedDevicesManager, eventHandler }: {
   database: SimpleDatabase
@@ -62,7 +62,7 @@ export const createApi = ({ database, websocket, connectedDevicesManager, eventH
 
   app.use(
     "/admin",
-    (req, res, next) => {
+    async (req, res, next) => {
       // required for webbrowser CORS support
       res.header("Access-Control-Allow-Origin", "*")
       res.header(
@@ -78,7 +78,7 @@ export const createApi = ({ database, websocket, connectedDevicesManager, eventH
         return
       }
 
-      const user = basicAuth(req)
+      const user = (await parseBasicAuth)(req.headers.authorization || '')
 
       if (adminToken !== "" && user && user.pass === adminToken) {
         next()
