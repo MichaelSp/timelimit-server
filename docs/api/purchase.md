@@ -15,6 +15,8 @@ Use this before a purchase to check if a purchase is possible.
 
 see [this JSON schema](../schema/candopurchaserequest.md)
 
+Note that ``type`` is not used at all.
+
 ### response
 
 On a invalid request body: HTTP status code 400 Bad request

@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -43,9 +43,13 @@ export interface FamilyAttributesVersion3 {
   u2fKeysVersion: string
 }
 
+export interface FamilyAttributesVersion4 {
+  fullVersionDebts: string
+}
+
 export type FamilyAttributes = FamilyAttributesVersion1 &
-  FamilyAttributesVersion2 &
-  FamilyAttributesVersion3
+  FamilyAttributesVersion2 & FamilyAttributesVersion3 &
+  FamilyAttributesVersion4
 
 export type FamilyModel = Sequelize.Model<FamilyAttributes> & FamilyAttributes
 export type FamilyModelStatic = typeof Sequelize.Model & {
@@ -86,10 +90,22 @@ export const attributesVersion3: SequelizeAttributes<FamilyAttributesVersion3> =
     },
   }
 
+export const attributesVersion4: SequelizeAttributes<FamilyAttributesVersion4> = {
+  fullVersionDebts: {
+    type: Sequelize.BIGINT,
+    allowNull: false,
+    defaultValue: 0,
+    validate: {
+      min: 0
+    }
+  }
+}
+
 export const attributes: SequelizeAttributes<FamilyAttributes> = {
   ...attributesVersion1,
   ...attributesVersion2,
   ...attributesVersion3,
+  ...attributesVersion4
 }
 
 export const createFamilyModel = (

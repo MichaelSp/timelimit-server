@@ -95,13 +95,9 @@ function createMailTemplateSender (templateName: string) {
 const loginMailSender = createMailTemplateSender('login')
 
 export const sendAuthenticationMail = async ({
-  receiver, code, locale, deviceName, info
+  receiver, code, locale, deviceName
 }: {
-  receiver: string
-  code: string
-  locale: string
-  deviceName: string | null
-  info: Buffer
+  receiver: string, code: string, locale: string, deviceName: string | null
 }) => {
   await loginMailSender.sendMail({
     receiver,
@@ -114,8 +110,7 @@ export const sendAuthenticationMail = async ({
       deviceName,
       deviceNameIntro: locale === 'de' ? 'Die Anmeldung wurde am Gerät' : 'The login was attempted at the device',
       deviceNameOutro: locale === 'de' ? 'versucht.' : '.'
-    },
-    info
+    }
   })
 }
 

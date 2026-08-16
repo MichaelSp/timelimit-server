@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2020 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,40 +15,31 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { difference, intersection } from "lodash"
-import * as Sequelize from "sequelize"
-import { Database } from "../../../../database/index.js"
-import { ClientDataStatusCategories } from "../../../../object/clientdatastatus.js"
-import { GetServerDataStatusIllegalStateException } from "../exception.js"
-import { FamilyEntry } from "../family-entry.js"
+import { difference, intersection } from 'lodash'
+import { SimpleDatabaseTransaction } from '../../../../database/simple'
+import { ClientDataStatusCategories } from '../../../../object/clientdatastatus'
+import { GetServerDataStatusIllegalStateException } from '../exception'
+import { FamilyEntry } from '../family-entry'
 
-export async function getCategoryDataToSync({
-  database,
-  transaction,
-  familyEntry,
-  categoriesStatus,
-}: {
-  database: Database
-  transaction: Sequelize.Transaction
+export async function getCategoryDataToSync ({ transaction, familyEntry, categoriesStatus }: {
+  transaction: SimpleDatabaseTransaction
   familyEntry: FamilyEntry
   categoriesStatus: ClientDataStatusCategories
 }): Promise<GetCategoryDataToSyncResult> {
-  const serverCategoriesVersions: Array<ServerCategoryVersion> = (
-    await database.category.findAll({
-      where: {
-        familyId: familyEntry.familyId,
-      },
-      attributes: [
-        "categoryId",
-        "baseVersion",
-        "assignedAppsVersion",
-        "timeLimitRulesVersion",
-        "usedTimesVersion",
-        "taskListVersion",
-      ],
-      transaction,
-    })
-  ).map((item) => ({
+  const serverCategoriesVersions: Array<ServerCategoryVersion> = (await transaction.legacy.database.category.findAll({
+    where: {
+      familyId: familyEntry.familyId
+    },
+    attributes: [
+      'categoryId',
+      'baseVersion',
+      'assignedAppsVersion',
+      'timeLimitRulesVersion',
+      'usedTimesVersion',
+      'taskListVersion'
+    ],
+    transaction: transaction.legacy.transaction
+  })).map((item) => ({
     categoryId: item.categoryId,
     baseVersion: item.baseVersion,
     assignedAppsVersion: item.assignedAppsVersion,

@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -32,12 +32,12 @@ export async function dispatchReviewChildTaskAction({
     throw new PremiumVersionMissingException()
   }
 
-  const taskInfo = await cache.database.childTask.findOne({
+  const taskInfo = await cache.transaction.legacy.database.childTask.findOne({
     where: {
       familyId: cache.familyId,
       taskId: action.taskId,
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (taskInfo === null) throw new MissingTaskException()
@@ -48,13 +48,13 @@ export async function dispatchReviewChildTaskAction({
     })
 
   if (action.ok) {
-    const categoryInfoUnsafe = await cache.database.category.findOne({
+    const categoryInfoUnsafe = await cache.transaction.legacy.database.category.findOne({
       where: {
         familyId: cache.familyId,
         categoryId: taskInfo.categoryId,
       },
-      attributes: ["extraTimeInMillis", "extraTimeDay"],
-      transaction: cache.transaction,
+      attributes: ['extraTimeInMillis', 'extraTimeDay'],
+      transaction: cache.transaction.legacy.transaction
     })
 
     if (categoryInfoUnsafe === null) {
@@ -74,65 +74,52 @@ export async function dispatchReviewChildTaskAction({
       categoryInfo.extraTimeDay !== action.day
 
     if (resetDayBoundExtraTime) {
-      await cache.database.category.update(
-        {
-          extraTimeInMillis: taskInfo.extraTimeDuration,
-          extraTimeDay: -1,
+      await cache.transaction.legacy.database.category.update({
+        extraTimeInMillis: taskInfo.extraTimeDuration,
+        extraTimeDay: -1
+      }, {
+        where: {
+          familyId: cache.familyId,
+          categoryId: taskInfo.categoryId
         },
-        {
-          where: {
-            familyId: cache.familyId,
-            categoryId: taskInfo.categoryId,
-          },
-          transaction: cache.transaction,
-        },
-      )
+        transaction: cache.transaction.legacy.transaction
+      })
     } else {
-      await cache.database.category.update(
-        {
-          extraTimeInMillis:
-            categoryInfo.extraTimeInMillis + taskInfo.extraTimeDuration,
+      await cache.transaction.legacy.database.category.update({
+        extraTimeInMillis: categoryInfo.extraTimeInMillis + taskInfo.extraTimeDuration
+      }, {
+        where: {
+          familyId: cache.familyId,
+          categoryId: taskInfo.categoryId
         },
-        {
-          where: {
-            familyId: cache.familyId,
-            categoryId: taskInfo.categoryId,
-          },
-          transaction: cache.transaction,
-        },
-      )
+        transaction: cache.transaction.legacy.transaction
+      })
     }
 
     cache.categoriesWithModifiedBaseData.add(taskInfo.categoryId)
 
-    await cache.database.childTask.update(
-      {
-        pendingRequest: 0,
-        lastGrantTimestamp: action.time.toString(10),
+    await cache.transaction.legacy.database.childTask.update({
+      pendingRequest: 0,
+      lastGrantTimestamp: action.time.toString(10)
+    }, {
+      where: {
+        familyId: cache.familyId,
+        taskId: action.taskId
       },
-      {
-        where: {
-          familyId: cache.familyId,
-          taskId: action.taskId,
-        },
-        transaction: cache.transaction,
-      },
-    )
+      transaction: cache.transaction.legacy.transaction
+    })
 
     cache.incrementTriggeredSyncLevel(2)
   } else {
-    await cache.database.childTask.update(
-      {
-        pendingRequest: 0,
+    await cache.transaction.legacy.database.childTask.update({
+      pendingRequest: 0
+    }, {
+      where: {
+        familyId: cache.familyId,
+        taskId: action.taskId
       },
-      {
-        where: {
-          familyId: cache.familyId,
-          taskId: action.taskId,
-        },
-        transaction: cache.transaction,
-      },
-    )
+      transaction: cache.transaction.legacy.transaction
+    })
   }
 
   cache.categoriesWithModifiedTasks.add(taskInfo.categoryId)

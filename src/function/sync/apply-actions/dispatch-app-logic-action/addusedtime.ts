@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -40,13 +40,17 @@ export async function dispatchAddUsedTime({
 }) {
   const roundedTimestamp = getRoundedTimestamp().toString(10)
 
-  const categoryEntryUnsafe = await cache.database.category.findOne({
+  const categoryEntryUnsafe = await cache.transaction.legacy.database.category.findOne({
     where: {
       familyId: cache.familyId,
       categoryId: action.categoryId,
     },
-    transaction: cache.transaction,
-    attributes: ["childId", "parentCategoryId", "extraTimeInMillis"],
+    transaction: cache.transaction.legacy.transaction,
+    attributes: [
+      'childId',
+      'parentCategoryId',
+      'extraTimeInMillis'
+    ]
   })
   // verify that the category exists
   if (!categoryEntryUnsafe) {
@@ -67,7 +71,7 @@ export async function dispatchAddUsedTime({
     currentExtraTime: number
   }) => {
     if (action.timeToAdd !== 0) {
-      const oldItem = await cache.database.usedTime.findOne({
+      const oldItem = await cache.transaction.legacy.database.usedTime.findOne({
         where: {
           familyId: cache.familyId,
           categoryId: action.categoryId,
@@ -75,7 +79,7 @@ export async function dispatchAddUsedTime({
           startMinuteOfDay: MinuteOfDay.MIN,
           endMinuteOfDay: MinuteOfDay.MAX,
         },
-        transaction: cache.transaction,
+        transaction: cache.transaction.legacy.transaction
       })
 
       if (oldItem) {
@@ -89,22 +93,19 @@ export async function dispatchAddUsedTime({
         const newLastUpdate = parseInt(roundedTimestamp, 10)
 
         if (oldUsedTime !== newUsedTime || oldLastUpdate !== newLastUpdate) {
-          const [updatedRows] = await cache.database.usedTime.update(
-            {
-              usedTime: newUsedTime,
-              lastUpdate: newLastUpdate.toString(10),
+          const [updatedRows] = await cache.transaction.legacy.database.usedTime.update({
+            usedTime: newUsedTime,
+            lastUpdate: newLastUpdate.toString(10)
+          }, {
+            where: {
+              familyId: cache.familyId,
+              categoryId: action.categoryId,
+              dayOfEpoch: action.dayOfEpoch,
+              startMinuteOfDay: MinuteOfDay.MIN,
+              endMinuteOfDay: MinuteOfDay.MAX
             },
-            {
-              where: {
-                familyId: cache.familyId,
-                categoryId: action.categoryId,
-                dayOfEpoch: action.dayOfEpoch,
-                startMinuteOfDay: MinuteOfDay.MIN,
-                endMinuteOfDay: MinuteOfDay.MAX,
-              },
-              transaction: cache.transaction,
-            },
-          )
+            transaction: cache.transaction.legacy.transaction
+          })
 
           if (updatedRows === 0) {
             throw new IllegalStateException({
@@ -113,39 +114,30 @@ export async function dispatchAddUsedTime({
           }
         }
       } else {
-        await cache.database.usedTime.create(
-          {
-            familyId: cache.familyId,
-            categoryId: action.categoryId,
-            dayOfEpoch: action.dayOfEpoch,
-            usedTime: Math.max(0, Math.min(action.timeToAdd, dayLengthInMs)),
-            lastUpdate: roundedTimestamp,
-            startMinuteOfDay: MinuteOfDay.MIN,
-            endMinuteOfDay: MinuteOfDay.MAX,
-          },
-          {
-            transaction: cache.transaction,
-          },
-        )
+        await cache.transaction.legacy.database.usedTime.create({
+          familyId: cache.familyId,
+          categoryId: action.categoryId,
+          dayOfEpoch: action.dayOfEpoch,
+          usedTime: Math.max(0, Math.min(action.timeToAdd, dayLengthInMs)),
+          lastUpdate: roundedTimestamp,
+          startMinuteOfDay: MinuteOfDay.MIN,
+          endMinuteOfDay: MinuteOfDay.MAX
+        }, {
+          transaction: cache.transaction.legacy.transaction
+        })
       }
     }
 
     if (action.extraTimeToSubtract !== 0) {
-      await cache.database.category.update(
-        {
-          extraTimeInMillis: Math.max(
-            0,
-            currentExtraTime - action.extraTimeToSubtract,
-          ),
+      await cache.transaction.legacy.database.category.update({
+        extraTimeInMillis: Math.max(0, currentExtraTime - action.extraTimeToSubtract)
+      }, {
+        where: {
+          familyId: cache.familyId,
+          categoryId: categoryId
         },
-        {
-          where: {
-            familyId: cache.familyId,
-            categoryId: categoryId,
-          },
-          transaction: cache.transaction,
-        },
-      )
+        transaction: cache.transaction.legacy.transaction
+      })
 
       cache.categoriesWithModifiedBaseData.add(categoryId)
     }
@@ -158,14 +150,14 @@ export async function dispatchAddUsedTime({
     currentExtraTime: categoryEntry.extraTimeInMillis,
   })
 
-  if (categoryEntry.parentCategoryId !== "") {
-    const parentCategoryEntry = await cache.database.category.findOne({
+  if (categoryEntry.parentCategoryId !== '') {
+    const parentCategoryEntry = await cache.transaction.legacy.database.category.findOne({
       where: {
         familyId: cache.familyId,
         categoryId: categoryEntry.parentCategoryId,
         childId: categoryEntry.childId,
       },
-      transaction: cache.transaction,
+      transaction: cache.transaction.legacy.transaction
     })
 
     if (parentCategoryEntry) {

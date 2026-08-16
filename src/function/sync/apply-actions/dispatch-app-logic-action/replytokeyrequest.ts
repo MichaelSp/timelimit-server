@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -31,13 +31,13 @@ export async function dispatchReplyToKeyRequestAction({
   cache: Cache
   eventHandler: EventHandler
 }) {
-  const requestUnsafe = await cache.database.keyRequest.findOne({
+  const requestUnsafe = await cache.transaction.legacy.database.keyRequest.findOne({
     where: {
       familyId: cache.familyId,
       serverSequenceNumber: action.requestServerSequenceNumber.toString(10),
     },
-    attributes: ["senderDeviceId", "senderSequenceNumber"],
-    transaction: cache.transaction,
+    attributes: ['senderDeviceId', 'senderSequenceNumber'],
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!requestUnsafe) {
@@ -53,7 +53,7 @@ export async function dispatchReplyToKeyRequestAction({
     senderSequenceNumber: requestUnsafe.senderSequenceNumber,
   }
 
-  const oldReplyCounter = await cache.database.keyResponse.count({
+  const oldReplyCounter = await cache.transaction.legacy.database.keyResponse.count({
     where: {
       familyId: cache.familyId,
       receiverDeviceId: request.senderDeviceId,
@@ -61,7 +61,7 @@ export async function dispatchReplyToKeyRequestAction({
         action.requestServerSequenceNumber.toString(10),
       senderDeviceId: deviceId,
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (oldReplyCounter !== 0) {
@@ -72,13 +72,13 @@ export async function dispatchReplyToKeyRequestAction({
     return
   }
 
-  const deviceEntryUnsafe = await cache.database.device.findOne({
+  const deviceEntryUnsafe = await cache.transaction.legacy.database.device.findOne({
     where: {
       familyId: cache.familyId,
       deviceId: request.senderDeviceId,
     },
-    transaction: cache.transaction,
-    attributes: ["nextKeyReplySequenceNumber"],
+    transaction: cache.transaction.legacy.transaction,
+    attributes: ['nextKeyReplySequenceNumber']
   })
 
   if (!deviceEntryUnsafe) {
@@ -91,38 +91,29 @@ export async function dispatchReplyToKeyRequestAction({
     nextKeyReplySequenceNumber: deviceEntryUnsafe.nextKeyReplySequenceNumber,
   }
 
-  await cache.database.device.update(
-    {
-      nextKeyReplySequenceNumber: (
-        parseInt(deviceEntry.nextKeyReplySequenceNumber) + 1
-      ).toString(10),
-    },
-    {
-      where: {
-        familyId: cache.familyId,
-        deviceId: request.senderDeviceId,
-      },
-      transaction: cache.transaction,
-    },
-  )
-
-  await cache.database.keyResponse.create(
-    {
+  await cache.transaction.legacy.database.device.update({
+    nextKeyReplySequenceNumber: (parseInt(deviceEntry.nextKeyReplySequenceNumber) + 1).toString(10)
+  }, {
+    where: {
       familyId: cache.familyId,
-      receiverDeviceId: request.senderDeviceId,
-      requestServerSequenceNumber:
-        action.requestServerSequenceNumber.toString(10),
-      senderDeviceId: deviceId,
-      replyServerSequenceNumber: deviceEntry.nextKeyReplySequenceNumber,
-      requestClientSequenceNumber: requestUnsafe.senderSequenceNumber,
-      tempKey: action.tempKey,
-      encryptedKey: action.encryptedKey,
-      signature: action.signature,
+      deviceId: request.senderDeviceId
     },
-    {
-      transaction: cache.transaction,
-    },
-  )
+    transaction: cache.transaction.legacy.transaction
+  })
+
+  await cache.transaction.legacy.database.keyResponse.create({
+    familyId: cache.familyId,
+    receiverDeviceId: request.senderDeviceId,
+    requestServerSequenceNumber: action.requestServerSequenceNumber.toString(10),
+    senderDeviceId: deviceId,
+    replyServerSequenceNumber: deviceEntry.nextKeyReplySequenceNumber,
+    requestClientSequenceNumber: requestUnsafe.senderSequenceNumber,
+    tempKey: action.tempKey,
+    encryptedKey: action.encryptedKey,
+    signature: action.signature
+  }, {
+    transaction: cache.transaction.legacy.transaction
+  })
 
   cache.incrementTargetedTriggeredSyncLevel(request.senderDeviceId, 2)
 }

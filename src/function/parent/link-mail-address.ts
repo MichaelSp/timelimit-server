@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,12 +15,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Conflict, Unauthorized } from "http-errors"
-import { Database } from "../../database/index.js"
-import { generateVersionId } from "../../util/token.js"
-import { WebsocketApi } from "../../websocket/index.js"
-import { requireMailAndLocaleByAuthToken } from "../authentication/index.js"
-import { notifyClientsAboutChangesDelayed } from "../websocket/index.js"
+import { Conflict, Unauthorized } from 'http-errors'
+import { SimpleDatabase } from '../../database/simple'
+import { generateVersionId } from '../../util/token'
+import { WebsocketApi } from '../../websocket'
+import { requireMailAndLocaleByAuthToken } from '../authentication'
+import { notifyClientsAboutChangesDelayed } from '../websocket'
 
 export const linkMailAddress = async ({
   mailAuthToken,
@@ -34,16 +34,16 @@ export const linkMailAddress = async ({
   deviceAuthToken: string
   parentUserId: string
   parentPasswordSecondHash: string
-  database: Database
+  database: SimpleDatabase
   websocket: WebsocketApi
   // no transaction here because this is directly called from an API endpoint
 }) => {
   await database.transaction(async (transaction) => {
-    const deviceEntry = await database.device.findOne({
+    const deviceEntry = await transaction.legacy.database.device.findOne({
       where: {
         deviceAuthToken,
       },
-      transaction,
+      transaction: transaction.legacy.transaction
     })
 
     if (!deviceEntry) {
@@ -52,31 +52,26 @@ export const linkMailAddress = async ({
 
     const familyId = deviceEntry.familyId
 
-    const mailInfo = await requireMailAndLocaleByAuthToken({
-      mailAuthToken,
-      database,
-      transaction,
-      invalidate: true,
-    })
+    const mailInfo = await requireMailAndLocaleByAuthToken({ mailAuthToken, transaction, invalidate: true })
 
-    const exisitingUser = await database.user.findOne({
+    const exisitingUser = await transaction.legacy.database.user.findOne({
       where: {
         mail: mailInfo.mail,
       },
-      transaction,
+      transaction: transaction.legacy.transaction
     })
 
     if (exisitingUser) {
       throw new Conflict()
     }
 
-    const parentEntry = await database.user.findOne({
+    const parentEntry = await transaction.legacy.database.user.findOne({
       where: {
         type: "parent",
         familyId,
         userId: parentUserId,
       },
-      transaction,
+      transaction: transaction.legacy.transaction
     })
 
     if (!parentEntry) {
@@ -97,20 +92,17 @@ export const linkMailAddress = async ({
 
     parentEntry.mail = mailInfo.mail
 
-    await parentEntry.save({ transaction })
+    await parentEntry.save({ transaction: transaction.legacy.transaction })
 
     // invalidiate client caches
-    await database.family.update(
-      {
-        userListVersion: generateVersionId(),
+    await transaction.legacy.database.family.update({
+      userListVersion: generateVersionId()
+    }, {
+      where: {
+        familyId
       },
-      {
-        where: {
-          familyId,
-        },
-        transaction,
-      },
-    )
+      transaction: transaction.legacy.transaction
+    })
 
     // notify
     await notifyClientsAboutChangesDelayed({
@@ -118,9 +110,8 @@ export const linkMailAddress = async ({
       sourceDeviceId: null,
       generalLevel: 1,
       targetedLevels: new Map(),
-      database,
-      websocket,
       transaction,
+      websocket
     })
   })
 }

@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2024 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -17,26 +17,19 @@
 
 import { json } from 'body-parser'
 import { Router } from 'express'
-import { BadRequest, Forbidden } from 'http-errors'
-import { config } from '../config.js'
-import { Database } from '../database/index.js'
-import { sendLoginCode, signInByMailCode } from '../function/authentication/login-by-mail.js'
-import { isMailAddressCoveredByWhitelist, isMailServerBlacklisted, sanitizeMailAddress } from '../util/mail.js'
+import { BadRequest } from 'http-errors'
+import { SimpleDatabase } from '../database/simple'
+import { sendLoginCode, signInByMailCode } from '../function/authentication/login-by-mail'
+import { isMailAddressCoveredByWhitelist, isMailServerBlacklisted, sanitizeMailAddress } from '../util/mail'
 import {
   isSendMailLoginCodeRequest,
   isSignInByMailCodeRequest
 } from './validator.js'
-import { analyze } from './integrity.js'
 
-export const createAuthRouter = (database: Database) => {
+export const createAuthRouter = (database: SimpleDatabase) => {
   const router = Router()
 
   router.post('/send-mail-login-code-v2', json(), async (req, res, next) => {
-    const info = {
-      ua: req.headers['user-agent'],
-      cert: analyze(req),
-    }
-
     try {
       if (!isSendMailLoginCodeRequest(req.body)) {
         throw new BadRequest()
@@ -52,15 +45,12 @@ export const createAuthRouter = (database: Database) => {
         res.json({ mailAddressNotWhitelisted: true })
       } else if (isMailServerBlacklisted(mail)) {
         res.json({ mailServerBlacklisted: true })
-      } else if (config.uaMailBlocklist.indexOf(req.headers['user-agent'] || '') !== -1) {
-        throw new Forbidden()
       } else {
         const { mailLoginToken } = await sendLoginCode({
           mail,
           deviceAuthToken: req.body.deviceAuthToken,
           locale: req.body.locale,
-          database,
-          info: Buffer.from(JSON.stringify(info), 'utf8')
+          database
         })
 
         res.json({ mailLoginToken })

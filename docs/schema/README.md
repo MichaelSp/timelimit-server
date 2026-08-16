@@ -130,6 +130,8 @@
 
 * [SerializedMarkTaskPendingAction](./serializedapplogicaction-definitions-serializedmarktaskpendingaction.md) – `https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedMarkTaskPendingAction`
 
+* [SerializedPingAction](./serializedapplogicaction-definitions-serializedpingaction.md) – `https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedPingAction`
+
 * [SerializedRemoveCategoryAppsAction](./serializedparentaction-definitions-serializedremovecategoryappsaction.md) – `https://timelimit.io/SerializedParentAction#/definitions/SerializedRemoveCategoryAppsAction`
 
 * [SerializedRemoveInstalledAppsAction](./serializedapplogicaction-definitions-serializedremoveinstalledappsaction.md) – `https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedRemoveInstalledAppsAction`
@@ -238,6 +240,8 @@
 
 * [ServerKeyResponse](./serverdatastatus-definitions-serverkeyresponse.md) – `https://timelimit.io/ServerDataStatus#/definitions/ServerKeyResponse`
 
+* [ServerPing](./serverdatastatus-definitions-serverping.md) – `https://timelimit.io/ServerDataStatus#/definitions/ServerPing`
+
 * [ServerSessionDurationItem](./serverdatastatus-definitions-serversessiondurationitem.md) – `https://timelimit.io/ServerDataStatus#/definitions/ServerSessionDurationItem`
 
 * [ServerTimeLimitRule](./serverdatastatus-definitions-servertimelimitrule.md) – `https://timelimit.io/ServerDataStatus#/definitions/ServerTimeLimitRule`
@@ -345,6 +349,8 @@
 * [Untitled array in ServerDataStatus](./serverdatastatus-properties-krq.md) – `https://timelimit.io/ServerDataStatus#/properties/krq`
 
 * [Untitled array in ServerDataStatus](./serverdatastatus-properties-kr.md) – `https://timelimit.io/ServerDataStatus#/properties/kr`
+
+* [Untitled array in ServerDataStatus](./serverdatastatus-properties-pings.md) – `https://timelimit.io/ServerDataStatus#/properties/pings`
 
 * [Untitled array in ServerDataStatus](./serverdatastatus-definitions-u2fdata-properties-d.md) – `https://timelimit.io/ServerDataStatus#/definitions/U2fData/properties/d`
 

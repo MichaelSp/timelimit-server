@@ -29,13 +29,13 @@ export const dispatchChildChangePassword = async ({
   childUserId: string
   cache: Cache
 }) => {
-  const childEntry = await cache.database.user.findOne({
+  const childEntry = await cache.transaction.legacy.database.user.findOne({
     where: {
       familyId: cache.familyId,
       userId: childUserId,
       type: "child",
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!childEntry) {
@@ -51,7 +51,7 @@ export const dispatchChildChangePassword = async ({
   childEntry.secondPasswordSalt = newPassword.secondSalt
   childEntry.secondPasswordHash = newPassword.secondHash
 
-  await childEntry.save({ transaction: cache.transaction })
+  await childEntry.save({ transaction: cache.transaction.legacy.transaction })
 
   {
     const clear = cache.getSecondPasswordHashOfChild.cache.clear

@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -46,13 +46,13 @@ export async function dispatchUpdateCategoryDisableLimits({
     }
   }
 
-  const categoryEntryUnsafe = await cache.database.category.findOne({
+  const categoryEntryUnsafe = await cache.transaction.legacy.database.category.findOne({
     where: {
       familyId: cache.familyId,
       categoryId: action.categoryId,
     },
-    transaction: cache.transaction,
-    attributes: ["childId"],
+    transaction: cache.transaction.legacy.transaction,
+    attributes: ['childId']
   })
 
   if (!categoryEntryUnsafe) {
@@ -69,18 +69,15 @@ export async function dispatchUpdateCategoryDisableLimits({
     }
   }
 
-  const [affectedRows] = await cache.database.category.update(
-    {
-      disableLimitsUntil: action.endTime.toString(10),
+  const [affectedRows] = await cache.transaction.legacy.database.category.update({
+    disableLimitsUntil: action.endTime.toString(10)
+  }, {
+    where: {
+      familyId: cache.familyId,
+      categoryId: action.categoryId
     },
-    {
-      where: {
-        familyId: cache.familyId,
-        categoryId: action.categoryId,
-      },
-      transaction: cache.transaction,
-    },
-  )
+    transaction: cache.transaction.legacy.transaction
+  })
 
   if (affectedRows !== 0) {
     cache.categoriesWithModifiedBaseData.add(action.categoryId)

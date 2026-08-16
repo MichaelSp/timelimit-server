@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -35,19 +35,13 @@ export async function decryptParentPassword({
   if (!password.encrypted) return password
 
   try {
-    const secondHash = (
-      await decrypt({
-        database: cache.database,
-        transaction: cache.transaction,
-        familyId: cache.familyId,
-        deviceId: cache.deviceId,
-        encryptedData: password.secondHash,
-        authData: Buffer.from(
-          `ParentPassword:${password.hash}:${password.secondSalt}`,
-          "ascii",
-        ),
-      })
-    ).toString("ascii")
+    const secondHash = (await decrypt({
+      transaction: cache.transaction,
+      familyId: cache.familyId,
+      deviceId: cache.deviceId,
+      encryptedData: password.secondHash,
+      authData: Buffer.from(`ParentPassword:${password.hash}:${password.secondSalt}`, 'ascii')
+    })).toString('ascii')
 
     const result: PlaintextParentPassword = {
       hash: password.hash,

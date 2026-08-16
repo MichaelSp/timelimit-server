@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -41,18 +41,18 @@ export async function dispatchIncrementCategoryExtraTime({
 
     category.extraTimeDay = action.day
 
-    await category.save({ transaction: cache.transaction })
+    await category.save({ transaction: cache.transaction.legacy.transaction })
 
     cache.categoriesWithModifiedBaseData.add(category.categoryId)
     cache.incrementTriggeredSyncLevel(2)
   }
 
-  const categoryEntry = await cache.database.category.findOne({
+  const categoryEntry = await cache.transaction.legacy.database.category.findOne({
     where: {
       familyId: cache.familyId,
       categoryId: action.categoryId,
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!categoryEntry) {
@@ -61,13 +61,13 @@ export async function dispatchIncrementCategoryExtraTime({
 
   await handleCategory(categoryEntry)
 
-  if (categoryEntry.parentCategoryId !== "") {
-    const parentCategoryEntry = await cache.database.category.findOne({
+  if (categoryEntry.parentCategoryId !== '') {
+    const parentCategoryEntry = await cache.transaction.legacy.database.category.findOne({
       where: {
         familyId: cache.familyId,
         categoryId: categoryEntry.parentCategoryId,
       },
-      transaction: cache.transaction,
+      transaction: cache.transaction.legacy.transaction
     })
 
     if (parentCategoryEntry) {
