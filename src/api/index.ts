@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { parse } from "basic-auth"
+import { parse } from 'basic-auth'
 import express from 'express'
 import { VisibleConnectedDevicesManager } from '../connected-devices'
 import { SimpleDatabase } from '../database/simple'
@@ -62,7 +62,7 @@ export const createApi = ({ database, websocket, connectedDevicesManager, eventH
 
   app.use(
     "/admin",
-    async (req, res, next) => {
+    (req, res, next) => {
       // required for webbrowser CORS support
       res.header("Access-Control-Allow-Origin", "*")
       res.header(
