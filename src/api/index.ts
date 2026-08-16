@@ -15,6 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import { parse } from "basic-auth"
 import express from 'express'
 import { VisibleConnectedDevicesManager } from '../connected-devices'
 import { SimpleDatabase } from '../database/simple'
@@ -28,7 +29,6 @@ import { createPurchaseRouter } from './purchase'
 import { createSyncRouter } from './sync'
 
 const adminToken = process.env.ADMIN_TOKEN || ""
-const parseBasicAuth = import('basic-auth').then(({ parse }) => parse)
 
 export const createApi = ({ database, websocket, connectedDevicesManager, eventHandler }: {
   database: SimpleDatabase
@@ -78,7 +78,7 @@ export const createApi = ({ database, websocket, connectedDevicesManager, eventH
         return
       }
 
-      const user = (await parseBasicAuth)(req.headers.authorization || '')
+      const user = parse(req.headers.authorization || '')
 
       if (adminToken !== "" && user && user.pass === adminToken) {
         next()
