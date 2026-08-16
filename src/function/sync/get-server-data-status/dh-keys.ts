@@ -93,12 +93,7 @@ export async function getDeviceDhKeys ({
       where: {
         familyId: familyEntry.familyId,
         deviceId,
-        version: newVersion,
-        createdAt: newItemCreatedAt.toString(10),
-        createdAtSubsequence: Math.min(newItemCreatedAtSubsequence, 1 << 30),
-        expireAt: null,
-        publicKey: newKeypair.publicKey,
-        privateKey: newKeypair.privateKey,
+        expireAt: null
       },
       transaction: transaction.legacy.transaction
     })

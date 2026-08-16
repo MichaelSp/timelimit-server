@@ -25,17 +25,11 @@ import {
   isSendMailLoginCodeRequest,
   isSignInByMailCodeRequest
 } from './validator.js'
-import { analyze } from './integrity.js'
 
 export const createAuthRouter = (database: SimpleDatabase) => {
   const router = Router()
 
   router.post('/send-mail-login-code-v2', json(), async (req, res, next) => {
-    const info = {
-      ua: req.headers['user-agent'],
-      cert: analyze(req),
-    }
-
     try {
       if (!isSendMailLoginCodeRequest(req.body)) {
         throw new BadRequest()
@@ -51,15 +45,12 @@ export const createAuthRouter = (database: SimpleDatabase) => {
         res.json({ mailAddressNotWhitelisted: true })
       } else if (isMailServerBlacklisted(mail)) {
         res.json({ mailServerBlacklisted: true })
-      } else if (config.uaMailBlocklist.indexOf(req.headers['user-agent'] || '') !== -1) {
-        throw new Forbidden()
       } else {
         const { mailLoginToken } = await sendLoginCode({
           mail,
           deviceAuthToken: req.body.deviceAuthToken,
           locale: req.body.locale,
-          database,
-          info: Buffer.from(JSON.stringify(info), 'utf8')
+          database
         })
 
         res.json({ mailLoginToken })

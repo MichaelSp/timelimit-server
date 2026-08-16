@@ -15,7 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as express from 'express'
+import basicAuth from 'basic-auth'
+import express from 'express'
 import { VisibleConnectedDevicesManager } from '../connected-devices'
 import { SimpleDatabase } from '../database/simple'
 import { EventHandler } from '../monitoring/eventhandler'
@@ -77,7 +78,7 @@ export const createApi = ({ database, websocket, connectedDevicesManager, eventH
         return
       }
 
-      const user = auth(req)
+      const user = basicAuth(req)
 
       if (adminToken !== "" && user && user.pass === adminToken) {
         next()

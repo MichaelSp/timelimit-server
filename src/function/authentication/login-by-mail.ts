@@ -23,7 +23,7 @@ import { checkMailSendLimit } from '../../util/ratelimit-authmail'
 import { generateAuthToken } from '../../util/token'
 import { createAuthTokenByMailAddress } from './index'
 
-export const sendLoginCode = async ({ mail, deviceAuthToken, locale, database, info }: {
+export const sendLoginCode = async ({ mail, deviceAuthToken, locale, database }: {
   mail: string
   deviceAuthToken?: string
   locale: string
@@ -83,7 +83,6 @@ export const sendLoginCode = async ({ mail, deviceAuthToken, locale, database, i
     code,
     locale,
     deviceName,
-    info
   })
 
   await database.transaction(async (transaction) => {

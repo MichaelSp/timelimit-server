@@ -24,24 +24,10 @@ import { EventHandler } from '../../monitoring/eventhandler'
 import { ServerDataStatus } from '../../object/serverdatastatus'
 import { createEmptyClientDataStatus } from '../../object/clientdatastatus'
 import {
-  NewDeviceInfo,
-  PlaintextParentPassword,
-  assertPlaintextParentPasswordValid,
-} from "../../api/schema.js"
-import { maxMailNotificationFlags } from "../../database/user.js"
-import { EventHandler } from "../../monitoring/eventhandler.js"
-import { createEmptyClientDataStatus } from "../../object/clientdatastatus.js"
-import { ServerDataStatus } from "../../object/serverdatastatus.js"
-import {
-  generateAuthToken,
-  generateFamilyId,
-  generateIdWithinFamily,
-  generateVersionId,
-} from "../../util/token.js"
-import { requireMailAndLocaleByAuthToken } from "../authentication/index.js"
-import { prepareDeviceEntry } from "../device/prepare-device-entry.js"
-import { generateServerDataStatus } from "../sync/get-server-data-status/index.js"
-
+  generateAuthToken, generateFamilyId, generateIdWithinFamily, generateVersionId
+} from '../../util/token'
+import { requireMailAndLocaleByAuthToken } from '../authentication'
+import { prepareDeviceEntry } from '../device/prepare-device-entry'
 export async function createFamily({
   database,
   eventHandler,

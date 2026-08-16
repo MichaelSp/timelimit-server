@@ -134,7 +134,6 @@ export async function dispatchAddCategoryApps({
             categoryId: {
               [Sequelize.Op.in]: userCategoryIds
             },
-            transaction: cache.transaction,
           },
           transaction: cache.transaction.legacy.transaction
         })

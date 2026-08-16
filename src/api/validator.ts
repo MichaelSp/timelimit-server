@@ -1708,47 +1708,6 @@ const definitions = {
       "type"
     ]
   },
-  "SerializedMarkTaskPendingAction": {
-    "type": "object",
-    "properties": {
-      "type": {
-        "type": "string",
-        "enum": [
-          "MARK_TASK_PENDING"
-        ]
-      },
-      "taskId": {
-        "type": "string"
-      }
-    },
-    "additionalProperties": false,
-    "required": [
-      "taskId",
-      "type"
-    ]
-  },
-  "SerializedRemoveInstalledAppsAction": {
-    "type": "object",
-    "properties": {
-      "type": {
-        "type": "string",
-        "enum": [
-          "REMOVE_INSTALLED_APPS"
-        ]
-      },
-      "packageNames": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        }
-      }
-    },
-    "additionalProperties": false,
-    "required": [
-      "packageNames",
-      "type"
-    ]
-  },
   "SerializedReplyToKeyRequestAction": {
     "type": "object",
     "properties": {
@@ -2074,31 +2033,6 @@ const definitions = {
     "additionalProperties": false,
     "required": [
       "type"
-    ]
-  },
-  "SerializedUpdateInstalledAppsAction": {
-    "type": "object",
-    "properties": {
-      "type": {
-        "type": "string",
-        "enum": [
-          "UPDATE_INSTALLED_APPS"
-        ]
-      },
-      "b": {
-        "type": "string"
-      },
-      "d": {
-        "type": "string"
-      },
-      "w": {
-        "type": "boolean"
-      }
-    },
-    "additionalProperties": false,
-    "required": [
-      "type",
-      "w"
     ]
   },
   "SerializedUploadDevicePublicKeyAction": {
@@ -3332,6 +3266,9 @@ export const isSerializedAppLogicAction: (value: unknown) => value is Serialized
       "$ref": "#/definitions/SerializedForceSyncAction"
     },
     {
+      "$ref": "#/definitions/SerializedReplyToKeyRequestAction"
+    },
+    {
       "$ref": "#/definitions/SerializedMarkTaskPendingAction"
     },
     {
@@ -3341,7 +3278,7 @@ export const isSerializedAppLogicAction: (value: unknown) => value is Serialized
       "$ref": "#/definitions/SerializedUpdateInstalledAppsAction"
     },
     {
-      "$ref": "#/definitions/SerializedReplyToKeyRequestAction"
+      "$ref": "#/definitions/SerializedRemoveInstalledAppsAction"
     },
     {
       "$ref": "#/definitions/SerializedSendKeyRequestAction"
@@ -3357,9 +3294,6 @@ export const isSerializedAppLogicAction: (value: unknown) => value is Serialized
     },
     {
       "$ref": "#/definitions/SerializedUpdateDeviceStatusAction"
-    },
-    {
-      "$ref": "#/definitions/SerializedUpdateInstalledAppsAction"
     },
     {
       "$ref": "#/definitions/SerializedUploadDevicePublicKeyAction"
