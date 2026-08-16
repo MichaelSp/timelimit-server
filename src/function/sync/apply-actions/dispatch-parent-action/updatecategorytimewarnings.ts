@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -26,12 +26,12 @@ export async function dispatchUpdateCategoryTimeWarnings({
   action: UpdateCategoryTimeWarningsAction
   cache: Cache
 }) {
-  const categoryEntry = await cache.database.category.findOne({
+  const categoryEntry = await cache.transaction.legacy.database.category.findOne({
     where: {
       familyId: cache.familyId,
       categoryId: action.categoryId,
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!categoryEntry) {
@@ -44,29 +44,26 @@ export async function dispatchUpdateCategoryTimeWarnings({
     categoryEntry.timeWarningFlags &= ~action.flags
   }
 
-  await categoryEntry.save({ transaction: cache.transaction })
+  await categoryEntry.save({ transaction: cache.transaction.legacy.transaction })
 
   if (action.minutes !== undefined) {
     if (action.enable) {
-      await cache.database.categoryTimeWarning.create(
-        {
-          familyId: cache.familyId,
-          categoryId: action.categoryId,
-          minutes: action.minutes,
-        },
-        {
-          transaction: cache.transaction,
-          ignoreDuplicates: true,
-        },
-      )
+      await cache.transaction.legacy.database.categoryTimeWarning.create({
+        familyId: cache.familyId,
+        categoryId: action.categoryId,
+        minutes: action.minutes
+      }, {
+        transaction: cache.transaction.legacy.transaction,
+        ignoreDuplicates: true
+      })
     } else {
-      await cache.database.categoryTimeWarning.destroy({
+      await cache.transaction.legacy.database.categoryTimeWarning.destroy({
         where: {
           familyId: cache.familyId,
           categoryId: action.categoryId,
           minutes: action.minutes,
         },
-        transaction: cache.transaction,
+        transaction: cache.transaction.legacy.transaction
       })
     }
   }

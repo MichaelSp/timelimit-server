@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -26,64 +26,61 @@ export async function dispatchDeleteCategory({
   action: DeleteCategoryAction
   cache: Cache
 }) {
-  const { familyId, transaction } = cache
+  const { familyId } = cache
   const { categoryId } = action
 
-  const categoryEntry = await cache.database.category.findOne({
+  const categoryEntry = await cache.transaction.legacy.database.category.findOne({
     where: {
       familyId,
       categoryId,
     },
-    transaction,
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!categoryEntry) {
     throw new MissingCategoryException()
   }
 
-  await cache.database.timelimitRule.destroy({
+  await cache.transaction.legacy.database.timelimitRule.destroy({
     where: {
       familyId,
       categoryId,
     },
-    transaction,
+    transaction: cache.transaction.legacy.transaction
   })
 
-  await cache.database.usedTime.destroy({
+  await cache.transaction.legacy.database.usedTime.destroy({
     where: {
       familyId,
       categoryId,
     },
-    transaction,
+    transaction: cache.transaction.legacy.transaction
   })
 
-  await cache.database.categoryApp.destroy({
+  await cache.transaction.legacy.database.categoryApp.destroy({
     where: {
       familyId,
       categoryId,
     },
-    transaction,
+    transaction: cache.transaction.legacy.transaction
   })
 
-  const [affectedUserRows] = await cache.database.user.update(
-    {
-      categoryForNotAssignedApps: "",
+  const [affectedUserRows] = await cache.transaction.legacy.database.user.update({
+    categoryForNotAssignedApps: ''
+  }, {
+    where: {
+      familyId,
+      categoryForNotAssignedApps: categoryId
     },
-    {
-      where: {
-        familyId,
-        categoryForNotAssignedApps: categoryId,
-      },
-      transaction,
-    },
-  )
+    transaction: cache.transaction.legacy.transaction
+  })
 
-  await cache.database.category.destroy({
+  await cache.transaction.legacy.database.category.destroy({
     where: {
       familyId,
       categoryId,
     },
-    transaction,
+    transaction: cache.transaction.legacy.transaction
   })
 
   // update the cache

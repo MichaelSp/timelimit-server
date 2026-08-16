@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,7 +19,7 @@ import { json } from 'body-parser'
 import { Router } from 'express'
 import { BadRequest, Conflict } from 'http-errors'
 import * as Sequelize from 'sequelize'
-import { Database } from '../database'
+import { SimpleDatabase } from '../database/simple'
 import { addPurchase, canDoNextPurchase } from '../function/purchase'
 import { getStatusMessage, setStatusMessage } from '../function/statusmessage'
 import { EventHandler } from '../monitoring/eventhandler'
@@ -28,7 +28,7 @@ import { verifyIdentitifyToken, TokenValidationException } from '../util/identit
 import { WebsocketApi } from '../websocket'
 
 export const createAdminRouter = ({ database, websocket, eventHandler }: {
-  database: Database
+  database: SimpleDatabase
   websocket: WebsocketApi
   eventHandler: EventHandler
 }) => {
@@ -60,7 +60,9 @@ export const createAdminRouter = ({ database, websocket, eventHandler }: {
 
   router.get('/status-message', async (_, res, next) => {
     try {
-      const currentStatusMessage = await getStatusMessage({ database })
+      const currentStatusMessage = await database.transaction(async (transaction) => {
+        return getStatusMessage({ transaction })
+      })
 
       res.json({
         statusMessage: currentStatusMessage
@@ -102,12 +104,12 @@ export const createAdminRouter = ({ database, websocket, eventHandler }: {
       }
 
       await database.transaction(async (transaction) => {
-        const userEntryUnsafe = await database.user.findOne({
+        const userEntryUnsafe = await transaction.legacy.database.user.findOne({
           where: {
             mail
           },
           attributes: ['familyId'],
-          transaction
+          transaction: transaction.legacy.transaction
         })
 
         if (!userEntryUnsafe) {
@@ -119,13 +121,12 @@ export const createAdminRouter = ({ database, websocket, eventHandler }: {
         }
 
         await addPurchase({
-          database,
+          transaction,
           familyId: userEntry.familyId,
           type,
           service: 'directpurchase',
           transactionId: 'legacyunlock-' + type + '-' + generatePurchaseId(),
-          websocket,
-          transaction
+          websocket
         })
       })
 
@@ -141,7 +142,8 @@ export const createAdminRouter = ({ database, websocket, eventHandler }: {
         typeof req.body !== 'object' ||
         typeof req.body.purchaseToken !== 'string' ||
         typeof req.body.purchaseId !== 'string' ||
-        typeof req.body.dryRun !== 'boolean'
+        typeof req.body.dryRun !== 'boolean' ||
+        typeof req.body.type !== 'string'
       ) {
         throw new BadRequest()
       }
@@ -149,8 +151,13 @@ export const createAdminRouter = ({ database, websocket, eventHandler }: {
       const purchaseToken: string = req.body.purchaseToken
       const purchaseId: string = req.body.purchaseId
       const dryRun: boolean = req.body.dryRun
+      const type: string = req.body.type
 
-      const tokenContent = await verifyIdentitifyToken(purchaseToken)
+      if (type !== 'month' && type !== 'year' && type !== 'unpaid14') {
+        throw new BadRequest()
+      }
+
+      const tokenContent = await verifyIdentitifyToken(purchaseToken, dryRun)
 
       if (tokenContent.purpose !== 'purchase') {
         res.json({ ok: false, error: 'token invalid', detail: 'wrong purpose' })
@@ -159,14 +166,14 @@ export const createAdminRouter = ({ database, websocket, eventHandler }: {
       }
 
       const response = await database.transaction(async (transaction) => {
-        const userValid = await database.user.count({
+        const userValid = await transaction.legacy.database.user.count({
           where: {
             familyId: tokenContent.familyId,
             userId: tokenContent.userId,
             mail: tokenContent.mail,
             type: 'parent'
           },
-          transaction
+          transaction: transaction.legacy.transaction
         })
 
         if (!userValid) return {
@@ -179,7 +186,7 @@ export const createAdminRouter = ({ database, websocket, eventHandler }: {
 
         if (tokenContent.mail !== '') mailToReturn = tokenContent.mail
         else {
-          const userEntryWithMail = await database.user.findOne({
+          const userEntryWithMail = await transaction.legacy.database.user.findOne({
             where: {
               familyId: tokenContent.familyId,
               mail: {
@@ -187,7 +194,7 @@ export const createAdminRouter = ({ database, websocket, eventHandler }: {
               },
               type: 'parent'
             },
-            transaction
+            transaction: transaction.legacy.transaction
           })
 
           if (!userEntryWithMail) return {
@@ -201,11 +208,12 @@ export const createAdminRouter = ({ database, websocket, eventHandler }: {
 
         let wasAlreadyExecuted: boolean
 
-        const oldPurchaseByPurchaseId = await database.purchase.findOne({
+        const oldPurchaseByPurchaseId = await transaction.legacy.database.purchase.findOne({
           where: {
             service: 'directpurchase',
             transactionId: purchaseId
-          }
+          },
+          transaction: transaction.legacy.transaction
         })
 
         if (oldPurchaseByPurchaseId === null) wasAlreadyExecuted = false
@@ -216,11 +224,11 @@ export const createAdminRouter = ({ database, websocket, eventHandler }: {
         }
 
         if (!wasAlreadyExecuted) {
-          const familyEntry = await database.family.findOne({
+          const familyEntry = await transaction.legacy.database.family.findOne({
             where: {
               familyId: tokenContent.familyId
             },
-            transaction
+            transaction: transaction.legacy.transaction
           })
 
           if (!familyEntry) return {
@@ -228,14 +236,17 @@ export const createAdminRouter = ({ database, websocket, eventHandler }: {
             error: 'family not found'
           }
 
-          const canDoPurchase = canDoNextPurchase({ fullVersionUntil: parseInt(familyEntry.fullVersionUntil) })
+          const canDoPurchase = canDoNextPurchase({
+            fullVersionUntil: parseInt(familyEntry.fullVersionUntil),
+            fullVersionDebts: parseInt(familyEntry.fullVersionDebts),
+          })
 
           if (!canDoPurchase) {
-            const lastPurchase = await database.purchase.findOne({
+            const lastPurchase = await transaction.legacy.database.purchase.findOne({
               where: {
                 familyId: tokenContent.familyId
               },
-              transaction,
+              transaction: transaction.legacy.transaction,
               order: [['loggedAt', 'DESC']],
               limit: 1
             })
@@ -254,13 +265,12 @@ export const createAdminRouter = ({ database, websocket, eventHandler }: {
 
           if (!dryRun) {
             await addPurchase({
-              database,
+              transaction,
               familyId: tokenContent.familyId,
-              type: 'year',
+              type,
               service: 'directpurchase',
               transactionId: purchaseId,
               websocket,
-              transaction
             })
           }
         }

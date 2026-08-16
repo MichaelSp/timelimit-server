@@ -18,7 +18,7 @@ https://timelimit.io/CanDoPurchaseRequest
 
 | Property                            | Type     | Required | Nullable       | Defined by                                                                                                                                         |
 | :---------------------------------- | :------- | :------- | :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [type](#type)                       | `string` | Required | cannot be null | [CanDoPurchaseRequest](candopurchaserequest-properties-type.md "https://timelimit.io/CanDoPurchaseRequest#/properties/type")                       |
+| [type](#type)                       | `string` | Optional | cannot be null | [CanDoPurchaseRequest](candopurchaserequest-properties-type.md "https://timelimit.io/CanDoPurchaseRequest#/properties/type")                       |
 | [deviceAuthToken](#deviceauthtoken) | `string` | Required | cannot be null | [CanDoPurchaseRequest](candopurchaserequest-properties-deviceauthtoken.md "https://timelimit.io/CanDoPurchaseRequest#/properties/deviceAuthToken") |
 
 ## type
@@ -27,7 +27,7 @@ https://timelimit.io/CanDoPurchaseRequest
 
 `type`
 
-* is required
+* is optional
 
 * Type: `string`
 

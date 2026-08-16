@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2020 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,52 +15,39 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from "sequelize"
-import { Database, Transaction } from "../../../../database/index.js"
-import { ServerUpdatedCategoryUsedTimes } from "../../../../object/serverdatastatus.js"
-import { MinuteOfDay } from "../../../../util/minuteofday.js"
-import { FamilyEntry } from "../family-entry.js"
-import { ServerCategoryVersions } from "./diff.js"
+import * as Sequelize from 'sequelize'
+import { SimpleDatabaseTransaction } from '../../../../database/simple'
+import { ServerUpdatedCategoryUsedTimes } from '../../../../object/serverdatastatus'
+import { MinuteOfDay } from '../../../../util/minuteofday'
+import { FamilyEntry } from '../family-entry'
+import { ServerCategoryVersions } from './diff'
 
-export async function getUsedTimes({
-  database,
-  transaction,
-  categoryIdsToSyncUsedTimes,
-  familyEntry,
-  serverCategoriesVersions,
-  clientLevel,
+export async function getUsedTimes ({
+  transaction, categoryIdsToSyncUsedTimes, familyEntry,
+  serverCategoriesVersions, clientLevel
 }: {
-  database: Database
-  transaction: Transaction
+  transaction: SimpleDatabaseTransaction
   categoryIdsToSyncUsedTimes: Array<string>
   familyEntry: FamilyEntry
   serverCategoriesVersions: ServerCategoryVersions
   clientLevel: number | null
 }): Promise<Array<ServerUpdatedCategoryUsedTimes>> {
-  const usedTimesForSyncing = (
-    await database.usedTime.findAll({
-      where: {
-        familyId: familyEntry.familyId,
-        categoryId: {
-          [Sequelize.Op.in]: categoryIdsToSyncUsedTimes,
-        },
-        ...(clientLevel === null || clientLevel < 2
-          ? {
-              startMinuteOfDay: MinuteOfDay.MIN,
-              endMinuteOfDay: MinuteOfDay.MAX,
-            }
-          : {}),
+  const usedTimesForSyncing = (await transaction.legacy.database.usedTime.findAll({
+    where: {
+      familyId: familyEntry.familyId,
+      categoryId: {
+        [Sequelize.Op.in]: categoryIdsToSyncUsedTimes
       },
-      attributes: [
-        "categoryId",
-        "dayOfEpoch",
-        "usedTime",
-        "startMinuteOfDay",
-        "endMinuteOfDay",
-      ],
-      transaction,
-    })
-  ).map((item) => ({
+      ...(clientLevel === null || clientLevel < 2) ? {
+        startMinuteOfDay: MinuteOfDay.MIN,
+        endMinuteOfDay: MinuteOfDay.MAX
+      } : {}
+    },
+    attributes: [
+      'categoryId', 'dayOfEpoch', 'usedTime', 'startMinuteOfDay', 'endMinuteOfDay'
+    ],
+    transaction: transaction.legacy.transaction
+  })).map((item) => ({
     categoryId: item.categoryId,
     dayOfEpoch: item.dayOfEpoch,
     usedTime: item.usedTime,
@@ -68,26 +55,24 @@ export async function getUsedTimes({
     endMinuteOfDay: item.endMinuteOfDay,
   }))
 
-  const sessionDurationsForSyncing = (
-    await database.sessionDuration.findAll({
-      where: {
-        familyId: familyEntry.familyId,
-        categoryId: {
-          [Sequelize.Op.in]: categoryIdsToSyncUsedTimes,
-        },
-      },
-      attributes: [
-        "categoryId",
-        "maxSessionDuration",
-        "sessionPauseDuration",
-        "startMinuteOfDay",
-        "endMinuteOfDay",
-        "lastUsage",
-        "lastSessionDuration",
-      ],
-      transaction,
-    })
-  ).map((item) => ({
+  const sessionDurationsForSyncing = (await transaction.legacy.database.sessionDuration.findAll({
+    where: {
+      familyId: familyEntry.familyId,
+      categoryId: {
+        [Sequelize.Op.in]: categoryIdsToSyncUsedTimes
+      }
+    },
+    attributes: [
+      'categoryId',
+      'maxSessionDuration',
+      'sessionPauseDuration',
+      'startMinuteOfDay',
+      'endMinuteOfDay',
+      'lastUsage',
+      'lastSessionDuration'
+    ],
+    transaction: transaction.legacy.transaction
+  })).map((item) => ({
     categoryId: item.categoryId,
     maxSessionDuration: item.maxSessionDuration,
     sessionPauseDuration: item.sessionPauseDuration,

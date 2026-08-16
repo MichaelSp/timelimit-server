@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,29 +15,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Unauthorized } from "http-errors"
-import { Database } from "../../database/index.js"
-import { generateAuthToken, generateVersionId } from "../../util/token.js"
-import { WebsocketApi } from "../../websocket/index.js"
-import { sendUninstallWarnings } from "../warningmail/uninstall.js"
-import { notifyClientsAboutChangesDelayed } from "../websocket/index.js"
+import { Unauthorized } from 'http-errors'
+import { SimpleDatabase } from '../../database/simple'
+import { generateAuthToken, generateVersionId } from '../../util/token'
+import { WebsocketApi } from '../../websocket'
+import { sendUninstallWarnings } from '../warningmail/uninstall'
+import { notifyClientsAboutChangesDelayed } from '../websocket'
 
-export async function reportDeviceRemoved({
-  database,
-  deviceAuthToken,
-  websocket,
-}: {
-  database: Database
+export async function reportDeviceRemoved ({ database, deviceAuthToken, websocket }: {
+  database: SimpleDatabase
   deviceAuthToken: string
   websocket: WebsocketApi
   // no transaction here because this is directly called from an API endpoint
 }) {
   await database.transaction(async (transaction) => {
-    const deviceEntry = await database.device.findOne({
+    const deviceEntry = await transaction.legacy.database.device.findOne({
       where: {
         deviceAuthToken,
       },
-      transaction,
+      transaction: transaction.legacy.transaction
     })
 
     if (deviceEntry) {
@@ -45,53 +41,45 @@ export async function reportDeviceRemoved({
 
       deviceEntry.didDeviceReportUninstall = true
       deviceEntry.deviceAuthToken = generateAuthToken() // invalidiate the token
-      await deviceEntry.save({ transaction })
+      await deviceEntry.save({ transaction: transaction.legacy.transaction })
 
       // invalidiate device list
-      await database.family.update(
-        {
-          deviceListVersion: generateVersionId(),
+      await transaction.legacy.database.family.update({
+        deviceListVersion: generateVersionId()
+      }, {
+        where: {
+          familyId: deviceEntry.familyId
         },
-        {
-          where: {
-            familyId: deviceEntry.familyId,
-          },
-          transaction,
-        },
-      )
+        transaction: transaction.legacy.transaction
+      })
 
       // add to old devices
-      await database.oldDevice.create(
-        {
-          deviceAuthToken: currentAuthToken,
-        },
-        {
-          transaction,
-        },
-      )
+      await transaction.legacy.database.oldDevice.create({
+        deviceAuthToken: currentAuthToken
+      }, {
+        transaction: transaction.legacy.transaction
+      })
 
       await notifyClientsAboutChangesDelayed({
-        database,
+        transaction,
         websocket,
         familyId: deviceEntry.familyId,
         sourceDeviceId: null,
         generalLevel: 1,
         targetedLevels: new Map(),
-        transaction,
       })
 
       await sendUninstallWarnings({
-        database,
+        transaction,
         familyId: deviceEntry.familyId,
         deviceName: deviceEntry.name,
-        transaction,
       })
     } else {
-      const oldDeviceEntry = await database.oldDevice.findOne({
+      const oldDeviceEntry = await transaction.legacy.database.oldDevice.findOne({
         where: {
           deviceAuthToken,
         },
-        transaction,
+        transaction: transaction.legacy.transaction
       })
 
       if (!oldDeviceEntry) {

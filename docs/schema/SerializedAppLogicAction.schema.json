@@ -19,7 +19,10 @@
       "$ref": "#/definitions/SerializedMarkTaskPendingAction"
     },
     {
-      "$ref": "#/definitions/SerializedRemoveInstalledAppsAction"
+      "$ref": "#/definitions/SerializedPingAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedUpdateInstalledAppsAction"
     },
     {
       "$ref": "#/definitions/SerializedReplyToKeyRequestAction"
@@ -331,6 +334,112 @@
         "type"
       ],
       "title": "SerializedReplyToKeyRequestAction"
+    },
+    "SerializedMarkTaskPendingAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "MARK_TASK_PENDING"
+          ]
+        },
+        "taskId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "taskId",
+        "type"
+      ],
+      "title": "SerializedMarkTaskPendingAction"
+    },
+    "SerializedPingAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "PING"
+          ]
+        },
+        "deviceId": {
+          "type": "string"
+        },
+        "event": {
+          "$ref": "#/definitions/PingEvent"
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "deviceId",
+        "event",
+        "token",
+        "type"
+      ],
+      "title": "SerializedPingAction"
+    },
+    "PingEvent": {
+      "enum": [
+        "clear",
+        "ping",
+        "pong"
+      ],
+      "type": "string",
+      "title": "PingEvent"
+    },
+    "SerializedUpdateInstalledAppsAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "UPDATE_INSTALLED_APPS"
+          ]
+        },
+        "b": {
+          "type": "string"
+        },
+        "d": {
+          "type": "string"
+        },
+        "w": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "w"
+      ],
+      "title": "SerializedUpdateInstalledAppsAction"
+    },
+    "SerializedRemoveInstalledAppsAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "REMOVE_INSTALLED_APPS"
+          ]
+        },
+        "packageNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "packageNames",
+        "type"
+      ],
+      "title": "SerializedRemoveInstalledAppsAction"
     },
     "SerializedSendKeyRequestAction": {
       "type": "object",

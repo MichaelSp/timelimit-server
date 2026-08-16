@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,29 +15,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from "sequelize"
-import { Database } from "../../../database/index.js"
-import { U2fData } from "../../../object/serverdatastatus.js"
-import { FamilyEntry } from "./family-entry.js"
+import { SimpleDatabaseTransaction } from '../../../database/simple'
+import { U2fData } from '../../../object/serverdatastatus'
+import { FamilyEntry } from './family-entry'
 
-export async function getU2f({
-  database,
-  transaction,
-  familyEntry,
-  lastVersionId,
+export async function getU2f ({
+  transaction, familyEntry, lastVersionId
 }: {
-  database: Database
-  transaction: Sequelize.Transaction
+  transaction: SimpleDatabaseTransaction
   familyEntry: FamilyEntry
   lastVersionId: string | null
 }): Promise<U2fData | null> {
   if (lastVersionId === familyEntry.u2fKeysVersion) return null
 
-  const savedData = await database.u2fKey.findAll({
+  const savedData = await transaction.legacy.database.u2fKey.findAll({
     where: {
       familyId: familyEntry.familyId,
     },
-    transaction,
+    transaction: transaction.legacy.transaction
   })
 
   return {

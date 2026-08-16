@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2024 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -25,12 +25,12 @@ export async function dispatchCreateTimeLimitRule ({ action, cache, fromChildSel
   cache: Cache
   fromChildSelfLimitAddChildUserId: string | null
 }) {
-  const categoryEntryUnsafe = await cache.database.category.findOne({
+  const categoryEntryUnsafe = await cache.transaction.legacy.database.category.findOne({
     where: {
       familyId: cache.familyId,
       categoryId: action.rule.categoryId
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction,
     attributes: ['childId']
   })
 
@@ -44,7 +44,7 @@ export async function dispatchCreateTimeLimitRule ({ action, cache, fromChildSel
     }
   }
 
-  await cache.database.timelimitRule.create({
+  await cache.transaction.legacy.database.timelimitRule.create({
     familyId: cache.familyId,
     ruleId: action.rule.ruleId,
     categoryId: action.rule.categoryId,
@@ -57,7 +57,7 @@ export async function dispatchCreateTimeLimitRule ({ action, cache, fromChildSel
     sessionPauseMilliseconds: action.rule.sessionPauseMilliseconds,
     perDay: action.rule.perDay ? 1 : 0,
     expiresAt: action.rule.expiresAt ? action.rule.expiresAt.toString() : null
-  }, { transaction: cache.transaction })
+  }, { transaction: cache.transaction.legacy.transaction })
 
   cache.categoriesWithModifiedTimeLimitRules.add(action.rule.categoryId)
   cache.incrementTriggeredSyncLevel(2)

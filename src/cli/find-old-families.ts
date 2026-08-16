@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,10 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { defaultDatabase } from "../database/index.js"
-import { findOldFamilyIds } from "../function/cleanup/delete-old-families.js"
+import { defaultDatabase } from '../database'
+import { fromLegacy as createSimpleDatabase } from '../database/simple'
+import { findOldFamilyIds } from '../function/cleanup/delete-old-families'
 
-const database = defaultDatabase
+const database = createSimpleDatabase(defaultDatabase)
 
 findOldFamilyIds(database)
   .then((res) => console.log(JSON.stringify(res)))

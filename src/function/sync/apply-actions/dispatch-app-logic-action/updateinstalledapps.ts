@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -29,17 +29,14 @@ export async function dispatchUpdateInstalledApps({
   action: UpdateInstalledAppsAction
   cache: Cache
 }) {
-  async function upsert({ type, data }: { type: number; data: Buffer }) {
-    await cache.database.encryptedAppList.upsert(
-      {
-        familyId: cache.familyId,
-        deviceId,
-        type,
-        version: generateVersionId(),
-        data,
-      },
-      { transaction: cache.transaction },
-    )
+  async function upsert({ type, data }: { type: number, data: Buffer }) {
+    await cache.transaction.legacy.database.encryptedAppList.upsert({
+      familyId: cache.familyId,
+      deviceId,
+      type,
+      version: generateVersionId(),
+      data
+    }, { transaction: cache.transaction.legacy.transaction })
   }
 
   if (action.base) {
