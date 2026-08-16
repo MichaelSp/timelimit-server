@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,15 +15,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { createHash, timingSafeEqual } from "crypto"
-import * as Sequelize from "sequelize"
-import { Database } from "../../database/index.js"
-import { intToBuffer } from "../../util/binary-number.js"
-import {
-  calculateApplicationId,
-  isU2fSignatureValid,
-} from "../../util/u2fsignature.js"
-import { getSharedSecret, SharedSecretException } from "../dh/index.js"
+import { createHash, timingSafeEqual } from 'crypto'
+import { getSharedSecret, SharedSecretException } from '../dh'
+import { SimpleDatabaseTransaction} from '../../database/simple'
+import { intToBuffer } from '../../util/binary-number'
+import { isU2fSignatureValid, calculateApplicationId } from '../../util/u2fsignature'
 
 export class U2fValidationError extends Error {}
 class IntegrityMalformedException extends U2fValidationError {
@@ -62,7 +58,6 @@ export async function validateU2fIntegrity({
   hasFullVersion,
   familyId,
   deviceId,
-  database,
   transaction,
   calculateHmac,
 }: {
@@ -70,8 +65,7 @@ export async function validateU2fIntegrity({
   hasFullVersion: boolean
   familyId: string
   deviceId: string
-  database: Database
-  transaction: Sequelize.Transaction
+  transaction: SimpleDatabaseTransaction
   calculateHmac: (secret: Buffer) => Buffer
 }) {
   if (!integrity.startsWith("u2f:")) throw new IntegrityMalformedException()
@@ -102,7 +96,6 @@ export async function validateU2fIntegrity({
   const sharedSecret = await (async () => {
     try {
       return await getSharedSecret({
-        database,
         transaction,
         familyId,
         deviceId,
@@ -122,13 +115,13 @@ export async function validateU2fIntegrity({
     throw new HmacMismatchException()
   }
 
-  const keyDescriptorUnsafe = await database.u2fKey.findOne({
+  const keyDescriptorUnsafe = await transaction.legacy.database.u2fKey.findOne({
     where: {
       familyId,
       keyId: u2fKeyId,
     },
-    transaction,
-    attributes: ["publicKey", "userId"],
+    transaction: transaction.legacy.transaction,
+    attributes: ['publicKey', 'userId']
   })
 
   if (keyDescriptorUnsafe === null) throw new UnknownU2fKeyIdException()
@@ -166,18 +159,15 @@ export async function validateU2fIntegrity({
   // values; if this becomes necassary in the future, then it does not
   // require any client modification to add it
 
-  await database.u2fKey.update(
-    {
-      nextCounter: (u2fCounter + 1).toString(10),
+  await transaction.legacy.database.u2fKey.update({
+    nextCounter: (u2fCounter + 1).toString(10)
+  }, {
+    where: {
+      familyId,
+      keyId: u2fKeyId
     },
-    {
-      where: {
-        familyId,
-        keyId: u2fKeyId,
-      },
-      transaction,
-    },
-  )
+    transaction: transaction.legacy.transaction
+  })
 
   return {
     userId: keyDescriptor.userId,

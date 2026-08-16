@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2023 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -38,12 +38,12 @@ export async function dispatchUpdateDeviceStatus({
   action: UpdateDeviceStatusAction
   cache: Cache
 }) {
-  const deviceEntry = await cache.database.device.findOne({
+  const deviceEntry = await cache.transaction.legacy.database.device.findOne({
     where: {
       familyId: cache.familyId,
       deviceId,
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!deviceEntry) {
@@ -217,12 +217,11 @@ export async function dispatchUpdateDeviceStatus({
     }
   }
 
-  await deviceEntry.save({ transaction: cache.transaction })
+  await deviceEntry.save({ transaction: cache.transaction.legacy.transaction })
 
   if (hasDeviceManipulation(deviceEntry)) {
     if (!hadManipulationBefore) {
       await sendManipulationWarnings({
-        database: cache.database,
         transaction: cache.transaction,
         deviceName: deviceEntry.name,
         familyId: cache.familyId,

@@ -100,7 +100,10 @@ request properties: ``purchaseToken``, ``purchaseId`` and ``dryRun``
 
 - ``purchasetoken`` is a string which the client shows at the purchase screen
 - ``purchaseId`` is the ID that is used at the bill
-- ``dryRun`` is a boolean; setting true will skip the actual unlocking
+- ``dryRun`` is a boolean
+  - setting true will skip the actual unlocking
+  - false will add a four week tolerance to the token expiry to permit checking now and unlocking later
+- ``type`` is a string and must be ``year``, ``month`` or ``unpaid14``
 
 ### response
 
@@ -121,6 +124,7 @@ The response contains the following properties:
   - optional object
   - should be shown to the support
 - ``wasAlreadyExecuted`` (boolean, set if and only if ``ok`` is true)
+- ``mail`` (string, set if and only if ``ok`` is true)
 
 If the request was malformed: HTTP status code 400 Bad Request
 

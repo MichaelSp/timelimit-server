@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2024 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -29,12 +29,12 @@ export async function dispatchUpdateTimelimitRule ({
   cache: Cache
   fromChildSelfLimitAddChildUserId: string | null
 }) {
-  const ruleEntry = await cache.database.timelimitRule.findOne({
+  const ruleEntry = await cache.transaction.legacy.database.timelimitRule.findOne({
     where: {
       familyId: cache.familyId,
       ruleId: action.ruleId
     },
-    transaction: cache.transaction
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!ruleEntry) {
@@ -42,12 +42,12 @@ export async function dispatchUpdateTimelimitRule ({
   }
 
   if (fromChildSelfLimitAddChildUserId != null) {
-    const categoryEntryUnsafe = await cache.database.category.findOne({
+    const categoryEntryUnsafe = await cache.transaction.legacy.database.category.findOne({
       where: {
         familyId: cache.familyId,
         categoryId: ruleEntry.categoryId
       },
-      transaction: cache.transaction,
+      transaction: cache.transaction.legacy.transaction,
       attributes: ['childId']
     })
 
@@ -67,6 +67,9 @@ export async function dispatchUpdateTimelimitRule ({
     const wasSessionDurationLimitationEnabled =
       ruleEntry.sessionPauseMilliseconds > 0 && ruleEntry.sessionDurationMilliseconds > 0
 
+    const isSessionDurationLimitationEnabled =
+      action.sessionPauseMilliseconds > 0 && action.sessionDurationMilliseconds > 0
+
     const countOldAffectedDays = Array(7)
       .fill(0)
       .reduce((sum, _, index) => sum + ((ruleEntry.dayMaskAsBitmask >> index) & 1), 0)
@@ -78,6 +81,7 @@ export async function dispatchUpdateTimelimitRule ({
       action.start <= ruleEntry.startMinuteOfDay &&
       action.end >= ruleEntry.endMinuteOfDay &&
       (!wasSessionDurationLimitationEnabled || (
+          isSessionDurationLimitationEnabled &&
           action.sessionDurationMilliseconds <= ruleEntry.sessionDurationMilliseconds &&
           action.sessionPauseMilliseconds >= ruleEntry.sessionPauseMilliseconds
       )) &&
@@ -99,7 +103,7 @@ export async function dispatchUpdateTimelimitRule ({
   ruleEntry.perDay = action.perDay ? 1 : 0
   ruleEntry.expiresAt = action.expiresAt ? action.expiresAt.toString() : null
 
-  await ruleEntry.save({ transaction: cache.transaction })
+  await ruleEntry.save({ transaction: cache.transaction.legacy.transaction })
 
   cache.categoriesWithModifiedTimeLimitRules.add(ruleEntry.categoryId)
   cache.incrementTriggeredSyncLevel(2)

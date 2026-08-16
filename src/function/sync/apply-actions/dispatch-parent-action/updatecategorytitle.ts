@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -26,30 +26,27 @@ export async function dispatchUpdateCategoryTitle({
   action: UpdateCategoryTitleAction
   cache: Cache
 }) {
-  const oldCategory = await cache.database.category.findOne({
+  const oldCategory = await cache.transaction.legacy.database.category.findOne({
     where: {
       familyId: cache.familyId,
       categoryId: action.categoryId,
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (!oldCategory) {
     throw new MissingCategoryException()
   }
 
-  const [affectedRows] = await cache.database.category.update(
-    {
-      title: action.newTitle,
+  const [affectedRows] = await cache.transaction.legacy.database.category.update({
+    title: action.newTitle
+  }, {
+    where: {
+      familyId: cache.familyId,
+      categoryId: action.categoryId
     },
-    {
-      where: {
-        familyId: cache.familyId,
-        categoryId: action.categoryId,
-      },
-      transaction: cache.transaction,
-    },
-  )
+    transaction: cache.transaction.legacy.transaction
+  })
 
   if (affectedRows !== 0) {
     cache.categoriesWithModifiedBaseData.add(action.categoryId)

@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,33 +15,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { BadRequest } from "http-errors"
-import { ClientPushChangesRequest } from "../../../api/schema.js"
-import { VisibleConnectedDevicesManager } from "../../../connected-devices/index.js"
-import { Database, shouldRetryWithException } from "../../../database/index.js"
-import { EventHandler } from "../../../monitoring/eventhandler.js"
-import { WebsocketApi } from "../../../websocket/index.js"
-import { notifyClientsAboutChangesDelayed } from "../../websocket/index.js"
-import { getApplyActionBaseInfo } from "./baseinfo.js"
-import { Cache } from "./cache.js"
-import {
-  dispatchAppLogicAction,
-  dispatchChildAction,
-  dispatchParentAction,
-} from "./dispatch-helper/index.js"
-import { ApplyActionException } from "./exception/index.js"
-import { IllegalStateException } from "./exception/illegal-state.js"
-import { SequenceNumberRepeatedException } from "./exception/sequence.js"
-import { assertActionIntegrity } from "./integrity.js"
+import { BadRequest } from 'http-errors'
+import { ClientPushChangesRequest } from '../../../api/schema'
+import { VisibleConnectedDevicesManager } from '../../../connected-devices'
+import { SimpleDatabase } from '../../../database/simple'
+import { shouldRetryWithException } from '../../../database'
+import { EventHandler } from '../../../monitoring/eventhandler'
+import { WebsocketApi } from '../../../websocket'
+import { notifyClientsAboutChangesDelayed } from '../../websocket'
+import { getApplyActionBaseInfo } from './baseinfo'
+import { Cache } from './cache'
+import { dispatchAppLogicAction, dispatchChildAction, dispatchParentAction } from './dispatch-helper'
+import { ApplyActionException } from './exception'
+import { IllegalStateException } from './exception/illegal-state'
+import { SequenceNumberRepeatedException } from './exception/sequence'
+import { assertActionIntegrity } from './integrity'
 
-export const applyActionsFromDevice = async ({
-  database,
-  request,
-  websocket,
-  connectedDevicesManager,
-  eventHandler,
-}: {
-  database: Database
+export const applyActionsFromDevice = async ({ database, request, websocket, connectedDevicesManager, eventHandler }: {
+  database: SimpleDatabase
   websocket: WebsocketApi
   request: ClientPushChangesRequest
   connectedDevicesManager: VisibleConnectedDevicesManager
@@ -57,16 +48,11 @@ export const applyActionsFromDevice = async ({
   }
 
   return database.transaction(async (transaction) => {
-    const baseInfo = await getApplyActionBaseInfo({
-      database,
-      transaction,
-      deviceAuthToken: request.deviceAuthToken,
-    })
+    const baseInfo = await getApplyActionBaseInfo({ transaction, deviceAuthToken: request.deviceAuthToken })
 
     const cache = new Cache({
-      database,
-      hasFullVersion: baseInfo.hasFullVersion,
       transaction,
+      hasFullVersion: baseInfo.hasFullVersion,
       familyId: baseInfo.familyId,
       deviceId: baseInfo.deviceId,
       connectedDevicesManager,
@@ -129,10 +115,8 @@ export const applyActionsFromDevice = async ({
           }
         })
       } catch (ex) {
-        if (shouldRetryWithException(database, ex)) {
-          eventHandler.countEvent(
-            "applyActionsFromDevice got exception which should cause retry",
-          )
+        if (shouldRetryWithException(transaction.legacy.database, ex)) {
+          eventHandler.countEvent('applyActionsFromDevice got exception which should cause retry')
 
           throw ex
         } else if (ex instanceof ApplyActionException) {
@@ -158,18 +142,15 @@ export const applyActionsFromDevice = async ({
     if (nextSequenceNumber !== baseInfo.nextSequenceNumber) {
       eventHandler.countEvent("applyActionsFromDevice updateSequenceNumber")
 
-      await database.device.update(
-        {
-          nextSequenceNumber,
+      await transaction.legacy.database.device.update({
+        nextSequenceNumber
+      }, {
+        where: {
+          familyId: baseInfo.familyId,
+          deviceId: baseInfo.deviceId
         },
-        {
-          where: {
-            familyId: baseInfo.familyId,
-            deviceId: baseInfo.deviceId,
-          },
-          transaction,
-        },
-      )
+        transaction: transaction.legacy.transaction
+      })
     }
 
     await cache.saveModifiedVersionNumbers()
@@ -178,25 +159,18 @@ export const applyActionsFromDevice = async ({
       familyId: baseInfo.familyId,
       sourceDeviceId: baseInfo.deviceId,
       websocket,
-      database,
       transaction,
       generalLevel: cache.triggeredSyncLevel,
       targetedLevels: cache.targetedTriggeredSyncLevels,
     })
 
     if (cache.triggeredSyncLevel === 2) {
-      transaction.afterCommit(() => {
-        eventHandler.countEvent("applyActionsFromDevice areChangesImportant")
+      transaction.enqueueAfterCommit(() => {
+        eventHandler.countEvent('applyActionsFromDevice areChangesImportant')
       })
-    } else if (
-      [...cache.targetedTriggeredSyncLevels.entries()].some(
-        (entry) => entry[1] === 2,
-      )
-    ) {
-      transaction.afterCommit(() => {
-        eventHandler.countEvent(
-          "applyActionsFromDevice areChangesImportantTargeted",
-        )
+    } else if ([...cache.targetedTriggeredSyncLevels.entries()].some((entry) => entry[1] === 2)) {
+      transaction.enqueueAfterCommit(() => {
+        eventHandler.countEvent('applyActionsFromDevice areChangesImportantTargeted')
       })
     }
 

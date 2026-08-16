@@ -1708,47 +1708,6 @@ const definitions = {
       "type"
     ]
   },
-  "SerializedMarkTaskPendingAction": {
-    "type": "object",
-    "properties": {
-      "type": {
-        "type": "string",
-        "enum": [
-          "MARK_TASK_PENDING"
-        ]
-      },
-      "taskId": {
-        "type": "string"
-      }
-    },
-    "additionalProperties": false,
-    "required": [
-      "taskId",
-      "type"
-    ]
-  },
-  "SerializedRemoveInstalledAppsAction": {
-    "type": "object",
-    "properties": {
-      "type": {
-        "type": "string",
-        "enum": [
-          "REMOVE_INSTALLED_APPS"
-        ]
-      },
-      "packageNames": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        }
-      }
-    },
-    "additionalProperties": false,
-    "required": [
-      "packageNames",
-      "type"
-    ]
-  },
   "SerializedReplyToKeyRequestAction": {
     "type": "object",
     "properties": {
@@ -1777,6 +1736,107 @@ const definitions = {
       "rsn",
       "signature",
       "tempKey",
+      "type"
+    ]
+  },
+  "SerializedMarkTaskPendingAction": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": [
+          "MARK_TASK_PENDING"
+        ]
+      },
+      "taskId": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "taskId",
+      "type"
+    ]
+  },
+  "SerializedPingAction": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": [
+          "PING"
+        ]
+      },
+      "deviceId": {
+        "type": "string"
+      },
+      "event": {
+        "$ref": "#/definitions/PingEvent"
+      },
+      "token": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "deviceId",
+      "event",
+      "token",
+      "type"
+    ]
+  },
+  "PingEvent": {
+    "enum": [
+      "clear",
+      "ping",
+      "pong"
+    ],
+    "type": "string"
+  },
+  "SerializedUpdateInstalledAppsAction": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": [
+          "UPDATE_INSTALLED_APPS"
+        ]
+      },
+      "b": {
+        "type": "string"
+      },
+      "d": {
+        "type": "string"
+      },
+      "w": {
+        "type": "boolean"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "type",
+      "w"
+    ]
+  },
+  "SerializedRemoveInstalledAppsAction": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "enum": [
+          "REMOVE_INSTALLED_APPS"
+        ]
+      },
+      "packageNames": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "packageNames",
       "type"
     ]
   },
@@ -1973,31 +2033,6 @@ const definitions = {
     "additionalProperties": false,
     "required": [
       "type"
-    ]
-  },
-  "SerializedUpdateInstalledAppsAction": {
-    "type": "object",
-    "properties": {
-      "type": {
-        "type": "string",
-        "enum": [
-          "UPDATE_INSTALLED_APPS"
-        ]
-      },
-      "b": {
-        "type": "string"
-      },
-      "d": {
-        "type": "string"
-      },
-      "w": {
-        "type": "boolean"
-      }
-    },
-    "additionalProperties": false,
-    "required": [
-      "type",
-      "w"
     ]
   },
   "SerializedUploadDevicePublicKeyAction": {
@@ -2814,6 +2849,30 @@ const definitions = {
       "tempKey"
     ]
   },
+  "ServerPing": {
+    "type": "object",
+    "properties": {
+      "deviceId": {
+        "type": "string"
+      },
+      "token": {
+        "type": "string"
+      },
+      "type": {
+        "enum": [
+          "ping",
+          "pong"
+        ],
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "deviceId",
+      "token",
+      "type"
+    ]
+  },
   "ServerDhKey": {
     "type": "object",
     "properties": {
@@ -3207,13 +3266,19 @@ export const isSerializedAppLogicAction: (value: unknown) => value is Serialized
       "$ref": "#/definitions/SerializedForceSyncAction"
     },
     {
+      "$ref": "#/definitions/SerializedReplyToKeyRequestAction"
+    },
+    {
       "$ref": "#/definitions/SerializedMarkTaskPendingAction"
     },
     {
-      "$ref": "#/definitions/SerializedRemoveInstalledAppsAction"
+      "$ref": "#/definitions/SerializedPingAction"
     },
     {
-      "$ref": "#/definitions/SerializedReplyToKeyRequestAction"
+      "$ref": "#/definitions/SerializedUpdateInstalledAppsAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedRemoveInstalledAppsAction"
     },
     {
       "$ref": "#/definitions/SerializedSendKeyRequestAction"
@@ -3229,9 +3294,6 @@ export const isSerializedAppLogicAction: (value: unknown) => value is Serialized
     },
     {
       "$ref": "#/definitions/SerializedUpdateDeviceStatusAction"
-    },
-    {
-      "$ref": "#/definitions/SerializedUpdateInstalledAppsAction"
     },
     {
       "$ref": "#/definitions/SerializedUploadDevicePublicKeyAction"
@@ -3290,8 +3352,7 @@ export const isCanDoPurchaseRequest: (value: unknown) => value is CanDoPurchaseR
   },
   "additionalProperties": false,
   "required": [
-    "deviceAuthToken",
-    "type"
+    "deviceAuthToken"
   ],
   "definitions": definitions,
   "$schema": "http://json-schema.org/draft-07/schema#"

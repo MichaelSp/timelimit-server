@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,27 +15,19 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { json } from "body-parser"
-import { Router } from "express"
-import { BadRequest } from "http-errors"
-import { Database } from "../database/index.js"
-import { addChildDevice } from "../function/child/add-device.js"
-import { logoutAtPrimaryDevice } from "../function/child/logout-at-primary-device.js"
-import { setPrimaryDevice } from "../function/child/set-primary-device.js"
-import { EventHandler } from "../monitoring/eventhandler.js"
-import { WebsocketApi } from "../websocket/index.js"
-import {
-  isRegisterChildDeviceRequest,
-  isRequestWithAuthToken,
-  isUpdatePrimaryDeviceRequest,
-} from "./validator.js"
+import { json } from 'body-parser'
+import { Router } from 'express'
+import { BadRequest } from 'http-errors'
+import { SimpleDatabase } from '../database/simple'
+import { addChildDevice } from '../function/child/add-device'
+import { logoutAtPrimaryDevice } from '../function/child/logout-at-primary-device'
+import { setPrimaryDevice } from '../function/child/set-primary-device'
+import { WebsocketApi } from '../websocket'
+import { isRegisterChildDeviceRequest, isRequestWithAuthToken, isUpdatePrimaryDeviceRequest } from './validator'
+import { EventHandler } from '../monitoring/eventhandler'
 
-export const createChildRouter = ({
-  database,
-  websocket,
-  eventHandler,
-}: {
-  database: Database
+export const createChildRouter = ({ database, websocket, eventHandler }: {
+  database: SimpleDatabase
   websocket: WebsocketApi
   eventHandler: EventHandler
 }) => {

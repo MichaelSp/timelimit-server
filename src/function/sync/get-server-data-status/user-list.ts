@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2020 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,43 +15,35 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import * as Sequelize from "sequelize"
-import { Database } from "../../../database/index.js"
-import { ServerUserList } from "../../../object/serverdatastatus.js"
-import { FamilyEntry } from "./family-entry.js"
+import { SimpleDatabaseTransaction } from '../../../database/simple'
+import { ServerUserList } from '../../../object/serverdatastatus'
+import { FamilyEntry } from './family-entry'
 
-export async function getUserList({
-  database,
-  transaction,
-  familyEntry,
-}: {
-  database: Database
-  transaction: Sequelize.Transaction
+export async function getUserList ({ transaction, familyEntry }: {
+  transaction: SimpleDatabaseTransaction
   familyEntry: FamilyEntry
 }): Promise<ServerUserList> {
-  const users = (
-    await database.user.findAll({
-      where: {
-        familyId: familyEntry.familyId,
-      },
-      attributes: [
-        "userId",
-        "name",
-        "passwordHash",
-        "secondPasswordSalt",
-        "type",
-        "timeZone",
-        "disableTimelimitsUntil",
-        "mail",
-        "currentDevice",
-        "categoryForNotAssignedApps",
-        "relaxPrimaryDeviceRule",
-        "mailNotificationFlags",
-        "flags",
-      ],
-      transaction,
-    })
-  ).map((item) => ({
+  const users = (await transaction.legacy.database.user.findAll({
+    where: {
+      familyId: familyEntry.familyId
+    },
+    attributes: [
+      'userId',
+      'name',
+      'passwordHash',
+      'secondPasswordSalt',
+      'type',
+      'timeZone',
+      'disableTimelimitsUntil',
+      'mail',
+      'currentDevice',
+      'categoryForNotAssignedApps',
+      'relaxPrimaryDeviceRule',
+      'mailNotificationFlags',
+      'flags'
+    ],
+    transaction: transaction.legacy.transaction
+  })).map((item) => ({
     userId: item.userId,
     name: item.name,
     passwordHash: item.passwordHash,
@@ -67,15 +59,17 @@ export async function getUserList({
     flags: item.flags,
   }))
 
-  const limitLoginCategories = (
-    await database.userLimitLoginCategory.findAll({
-      where: {
-        familyId: familyEntry.familyId,
-      },
-      attributes: ["userId", "categoryId", "preBlockDuration"],
-      transaction,
-    })
-  ).map((item) => ({
+  const limitLoginCategories = (await transaction.legacy.database.userLimitLoginCategory.findAll({
+    where: {
+      familyId: familyEntry.familyId
+    },
+    attributes: [
+      'userId',
+      'categoryId',
+      'preBlockDuration'
+    ],
+    transaction: transaction.legacy.transaction
+  })).map((item) => ({
     userId: item.userId,
     categoryId: item.categoryId,
     preBlockDuration: item.preBlockDuration,

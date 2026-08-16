@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -36,7 +36,7 @@ export async function dispatchRemoveU2f({
     throw new ApplyActionUnacceptableAuthMethodException()
   }
 
-  await cache.database.u2fKey.destroy({
+  await cache.transaction.legacy.database.u2fKey.destroy({
     where: {
       familyId: cache.familyId,
       keyId: getU2fKeyId({
@@ -47,7 +47,7 @@ export async function dispatchRemoveU2f({
       keyHandle: action.keyHandle,
       publicKey: action.publicKey,
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction
   })
 
   cache.invalidateU2fList = true

@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2022 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -30,23 +30,23 @@ export async function dispatchUpdateChildTaskAction({
   action: UpdateChildTaskAction
   cache: Cache
 }) {
-  const categoryInfoUnsafe = await cache.database.category.findOne({
+  const categoryInfoUnsafe = await cache.transaction.legacy.database.category.findOne({
     where: {
       familyId: cache.familyId,
       categoryId: action.categoryId,
     },
-    attributes: ["childId"],
-    transaction: cache.transaction,
+    attributes: ['childId'],
+    transaction: cache.transaction.legacy.transaction
   })
 
   if (categoryInfoUnsafe === null) throw new MissingCategoryException()
 
-  const taskInfo = await cache.database.childTask.findOne({
+  const taskInfo = await cache.transaction.legacy.database.childTask.findOne({
     where: {
       familyId: cache.familyId,
       taskId: action.taskId,
     },
-    transaction: cache.transaction,
+    transaction: cache.transaction.legacy.transaction
   })
 
   const notFound = taskInfo === null
@@ -62,37 +62,31 @@ export async function dispatchUpdateChildTaskAction({
   }
 
   if (taskInfo === null) {
-    await cache.database.childTask.create(
-      {
-        familyId: cache.familyId,
-        taskId: action.taskId,
-        categoryId: action.categoryId,
-        taskTitle: action.taskTitle,
-        extraTimeDuration: action.extraTimeDuration,
-        pendingRequest: 0,
-        lastGrantTimestamp: "0",
-      },
-      {
-        transaction: cache.transaction,
-      },
-    )
+    await cache.transaction.legacy.database.childTask.create({
+      familyId: cache.familyId,
+      taskId: action.taskId,
+      categoryId: action.categoryId,
+      taskTitle: action.taskTitle,
+      extraTimeDuration: action.extraTimeDuration,
+      pendingRequest: 0,
+      lastGrantTimestamp: '0'
+    }, {
+      transaction: cache.transaction.legacy.transaction
+    })
 
     cache.categoriesWithModifiedTasks.add(action.categoryId)
   } else {
-    await cache.database.childTask.update(
-      {
-        taskTitle: action.taskTitle,
-        categoryId: action.categoryId,
-        extraTimeDuration: action.extraTimeDuration,
+    await cache.transaction.legacy.database.childTask.update({
+      taskTitle: action.taskTitle,
+      categoryId: action.categoryId,
+      extraTimeDuration: action.extraTimeDuration
+    }, {
+      where: {
+        familyId: cache.familyId,
+        taskId: action.taskId
       },
-      {
-        where: {
-          familyId: cache.familyId,
-          taskId: action.taskId,
-        },
-        transaction: cache.transaction,
-      },
-    )
+      transaction: cache.transaction.legacy.transaction
+    })
 
     cache.categoriesWithModifiedTasks.add(taskInfo.categoryId)
     cache.categoriesWithModifiedTasks.add(action.categoryId)

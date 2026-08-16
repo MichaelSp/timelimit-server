@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2024 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -16,29 +16,28 @@
  */
 
 import { Forbidden, Gone, TooManyRequests, Unauthorized } from 'http-errors'
-import { Database } from '../../database/index.js'
-import { sendAuthenticationMail } from '../../util/mail.js'
-import { areWordSequencesEqual, randomWords } from '../../util/random-words.js'
-import { checkMailSendLimit } from '../../util/ratelimit-authmail.js'
-import { generateAuthToken } from '../../util/token.js'
-import { createAuthTokenByMailAddress } from './index.js'
+import { SimpleDatabase } from '../../database/simple'
+import { sendAuthenticationMail } from '../../util/mail'
+import { areWordSequencesEqual, randomWords } from '../../util/random-words'
+import { checkMailSendLimit } from '../../util/ratelimit-authmail'
+import { generateAuthToken } from '../../util/token'
+import { createAuthTokenByMailAddress } from './index'
 
-export const sendLoginCode = async ({ mail, deviceAuthToken, locale, database, info }: {
+export const sendLoginCode = async ({ mail, deviceAuthToken, locale, database }: {
   mail: string
   deviceAuthToken?: string
   locale: string
-  database: Database
-  info: Buffer
+  database: SimpleDatabase
   // no transaction here because this is directly called from an API endpoint
 }): Promise<{ mailLoginToken: string }> => {
   let deviceName = null
 
   if (deviceAuthToken !== undefined) {
     const info = await database.transaction(async (transaction) => {
-      const deviceEntryUnsafe = await database.device.findOne({
+      const deviceEntryUnsafe = await transaction.legacy.database.device.findOne({
         where: { deviceAuthToken },
         attributes: ['familyId', 'name'],
-        transaction
+        transaction: transaction.legacy.transaction
       })
 
       if (!deviceEntryUnsafe) {
@@ -50,12 +49,12 @@ export const sendLoginCode = async ({ mail, deviceAuthToken, locale, database, i
         name: deviceEntryUnsafe.name
       }
 
-      const userEntryCounter = await database.user.count({
+      const userEntryCounter = await transaction.legacy.database.user.count({
         where: {
           familyId: deviceEntry.familyId,
           mail
         },
-        transaction
+        transaction: transaction.legacy.transaction
       })
 
       if (userEntryCounter === 1) {
@@ -84,18 +83,17 @@ export const sendLoginCode = async ({ mail, deviceAuthToken, locale, database, i
     code,
     locale,
     deviceName,
-    info
   })
 
   await database.transaction(async (transaction) => {
-    await database.mailLoginToken.create({
+    await transaction.legacy.database.mailLoginToken.create({
       mailLoginToken,
       receivedCode: code,
       mail,
       createdAt: Date.now().toString(10),
       remainingAttempts: 3,
       locale
-    }, { transaction })
+    }, { transaction: transaction.legacy.transaction })
   })
 
   return {
@@ -108,15 +106,15 @@ export const sendLoginCode = async ({ mail, deviceAuthToken, locale, database, i
 export const signInByMailCode = async ({ mailLoginToken, receivedCode, database }: {
   mailLoginToken: string
   receivedCode: string
-  database: Database
+  database: SimpleDatabase
   // no transaction here because this is directly called from an API endpoint
 }): Promise<{ mailAuthToken: string }> => {
   const result = await database.transaction(async (transaction) => {
-    const entry = await database.mailLoginToken.findOne({
+    const entry = await transaction.legacy.database.mailLoginToken.findOne({
       where: {
         mailLoginToken
       },
-      transaction
+      transaction: transaction.legacy.transaction
     })
 
     if ((!entry) || entry.remainingAttempts === 0) {
@@ -126,7 +124,7 @@ export const signInByMailCode = async ({ mailLoginToken, receivedCode, database 
     if (!areWordSequencesEqual(entry.receivedCode, receivedCode)) {
       entry.remainingAttempts--
 
-      await entry.save({ transaction })
+      await entry.save({ transaction: transaction.legacy.transaction })
 
       if (entry.remainingAttempts === 0) {
         return () => { throw new Gone() }
@@ -135,11 +133,11 @@ export const signInByMailCode = async ({ mailLoginToken, receivedCode, database 
       }
     }
 
-    const counter = await database.mailLoginToken.destroy({
+    const counter = await transaction.legacy.database.mailLoginToken.destroy({
       where: {
         mailLoginToken
       },
-      transaction
+      transaction: transaction.legacy.transaction
     })
 
     if (counter !== 1) {
@@ -149,7 +147,6 @@ export const signInByMailCode = async ({ mailLoginToken, receivedCode, database 
     const mailAuthToken = await createAuthTokenByMailAddress({
       mail: entry.mail,
       locale: entry.locale,
-      database,
       transaction
     })
 

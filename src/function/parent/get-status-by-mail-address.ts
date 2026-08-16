@@ -1,6 +1,6 @@
 /*
  * server component for the TimeLimit App
- * Copyright (C) 2019 - 2021 Jonas Lochmann
+ * Copyright (C) 2019 - 2026 Jonas Lochmann
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -15,30 +15,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { Database, Transaction } from "../../database/index.js"
-import { StaticMessageException } from "../../exception/index.js"
-import { requireMailAndLocaleByAuthToken } from "../authentication/index.js"
+import { SimpleDatabaseTransaction } from '../../database/simple'
+import { StaticMessageException } from '../../exception'
+import { requireMailAndLocaleByAuthToken } from '../authentication'
 
 const getStatusByMailAddress = async ({
-  mail,
-  database,
-  transaction,
-}: {
-  mail: string
-  database: Database
-  transaction: Transaction
-}) => {
+  mail, transaction
+}: { mail: string, transaction: SimpleDatabaseTransaction }) => {
   if (!mail) {
     throw new StaticMessageException({
       staticMessage: "getStatusByMailAddress: no mail address provided",
     })
   }
 
-  const entry = await database.user.findOne({
+  const entry = await transaction.legacy.database.user.findOne({
     where: {
       mail,
     },
-    transaction,
+    transaction: transaction.legacy.transaction
   })
 
   if (entry) {
@@ -49,23 +43,12 @@ const getStatusByMailAddress = async ({
 }
 
 export const getStatusByMailToken = async ({
-  mailAuthToken,
-  database,
-  transaction,
-}: {
-  mailAuthToken: string
-  database: Database
-  transaction: Transaction
-}) => {
-  const mailInfo = await requireMailAndLocaleByAuthToken({
-    mailAuthToken,
-    database,
-    transaction,
-    invalidate: false,
-  })
+  mailAuthToken, transaction
+}: { mailAuthToken: string, transaction: SimpleDatabaseTransaction }) => {
+  const mailInfo = await requireMailAndLocaleByAuthToken({ mailAuthToken, transaction, invalidate: false })
   const mail = mailInfo.mail
 
-  const status = await getStatusByMailAddress({ mail, database, transaction })
+  const status = await getStatusByMailAddress({ mail, transaction })
 
   return { mail, status }
 }
