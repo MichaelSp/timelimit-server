@@ -28,7 +28,6 @@ import {
   PlaintextParentPassword,
   assertPlaintextParentPasswordValid,
 } from "../../api/schema.js"
-import { Database } from "../../database/index.js"
 import { maxMailNotificationFlags } from "../../database/user.js"
 import { EventHandler } from "../../monitoring/eventhandler.js"
 import { createEmptyClientDataStatus } from "../../object/clientdatastatus.js"
