@@ -3,6 +3,23 @@ entries:
   timelimit:
   - apiVersion: v2
     appVersion: 1.17.1
+    created: "2026-08-19T18:54:12.282532837Z"
+    dependencies:
+    - condition: mariadb.enabled
+      name: mariadb
+      repository: oci://registry-1.docker.io/cloudpirates
+      version: 0.16.10
+    description: A Helm chart for timelimit server
+    digest: 154c0355736da62d4ad5d9fc0e1a28a7e7d06506f34b35471ee0b84753146308
+    maintainers:
+    - name: Michael
+    name: timelimit
+    type: application
+    urls:
+    - https://github.com/MichaelSp/timelimit-server/releases/download/timelimit-4.4.8/timelimit-4.4.8.tgz
+    version: 4.4.8
+  - apiVersion: v2
+    appVersion: 1.17.1
     created: "2026-08-16T21:04:56.107364922Z"
     dependencies:
     - condition: mariadb.enabled
@@ -660,4 +677,4 @@ entries:
     urls:
     - https://github.com/MichaelSp/timelimit-server/releases/download/timelimit-0.2.3/timelimit-0.2.3.tgz
     version: 0.2.3
-generated: "2026-08-16T21:04:56.107627253Z"
+generated: "2026-08-19T18:54:12.282871675Z"
