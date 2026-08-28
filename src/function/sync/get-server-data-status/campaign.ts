@@ -39,7 +39,16 @@ export function getCampaign({ familyId, isClient750OrNewer }: {
       startPercentage: 0,
       endPercentage: 10,
       message: updateMessage,
-    }
+    },
+    {
+      enable: !isClient750OrNewer,
+      seed: 'Q05NwM4nyUfiYg6K', // require('crypto').randomBytes(12).toString('base64')
+      startTime: 1788220800000, // new Date('2026-09-01').valueOf()
+      endTime: 1796083200000, // new Date('2026-12-01').valueOf()
+      startPercentage: 10,
+      endPercentage: 100,
+      message: updateMessage,
+    },
   ]
 
   for (const campaign of campaigns) {
