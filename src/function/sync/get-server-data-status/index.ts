@@ -65,7 +65,7 @@ export const generateServerDataStatus = async ({
       familyEntry.hasFullVersion ? parseInt(familyEntry.fullVersionUntil, 10) : 0
     ),
     message,
-    apiLevel: 9
+    apiLevel: 9,
   }
 
   if (familyEntry.deviceListVersion !== clientStatus.devices) {

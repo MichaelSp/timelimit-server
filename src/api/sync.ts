@@ -159,7 +159,12 @@ export const createSyncRouter = ({ database, websocket, connectedDevicesManager,
         eventHandler.countEvent("pullStatusRequest u2f")
       }
 
-      res.json(serverStatus)
+      // Only authenticated pull-status clients receive this optional contract.
+      // Legacy Android clients ignore unknown response fields.
+      res.json({
+        ...serverStatus,
+        desktopSync: { version: 1 },
+      })
     } catch (ex) {
       next(ex)
     }

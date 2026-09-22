@@ -76,7 +76,9 @@ On a invalid request body: HTTP status code 400 Bad request
 
 On a invalid auth token: HTTP status code 401 Unauthorized
 
-On success: see [this JSON schema](../schema/serverdatastatus.md)
+On success: see [this JSON schema](../schema/serverdatastatus.md). Responses
+also include the optional `desktopSync: { "version": 1 }` descriptor; legacy
+clients may ignore it, while desktop policy clients require exactly that shape.
 
 ## POST /sync/report-removed
 

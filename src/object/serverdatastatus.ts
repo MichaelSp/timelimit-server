@@ -22,6 +22,10 @@ import { ProtectionLevel } from "../model/protectionlevel.js"
 import { RuntimePermissionStatus } from "../model/runtimepermissionstatus.js"
 
 export interface ServerDataStatus {
+  // Optional capability descriptor. Legacy clients safely ignore this field.
+  desktopSync?: {
+    version: 1
+  }
   devices?: ServerDeviceList // newDeviceList
   devices2?: Array<ServerExtendedDeviceData> // updatedExtendedDeviceData
   apps?: Array<ServerInstalledAppsData> // newInstalledApps
