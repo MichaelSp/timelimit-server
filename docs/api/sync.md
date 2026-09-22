@@ -36,6 +36,21 @@ the encoded actions are stringified JSON objects of one of this schemes:
 The request must not contain more than 50 actions. The request may contain less than 50
 actions.
 
+#### desktop inventory (optional)
+
+Desktop clients that have negotiated `desktopSync: { "version": 1 }` may send
+the app-logic action `UPDATE_DESKTOP_INVENTORY` with one non-empty base64
+`data` field. `data` is an opaque format-3 ciphertext, not JSON or an Android
+base/diff container. Its decoded size is limited to 512 KiB. The server only
+stores and forwards this ciphertext; it never decrypts or exposes plaintext.
+The sending device must already have reported `platformType: "desktop"` and
+`platformLevel >= 1` via `UPDATE_DEVICE_STATUS`; other devices are rejected.
+
+On pull, an opted-in client reports the last seen per-device `appsI` version in
+`devicesDetail`. Changed data is delivered only to opted-in clients as
+`devices2[].desktopInventory: { version, data }`. Legacy Android `appsB` and
+`appsD` payloads are unchanged.
+
 The sequence numbers must be a increasing sequence per device.
 
 #### desktop checkpoint (optional)

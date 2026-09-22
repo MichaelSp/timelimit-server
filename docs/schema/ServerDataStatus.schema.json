@@ -315,6 +315,9 @@
         },
         "appsDiff": {
           "$ref": "#/definitions/ServerCryptContainer"
+        },
+        "desktopInventory": {
+          "$ref": "#/definitions/ServerCryptContainer"
         }
       },
       "additionalProperties": false,

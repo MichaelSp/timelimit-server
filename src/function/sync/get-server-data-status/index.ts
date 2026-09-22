@@ -53,6 +53,7 @@ export const generateServerDataStatus = async ({
   const doesClientSupportDh = clientLevel >= 5
   const doesClientSupportU2f = clientLevel >= 6
   const doesClientSupportPing = clientLevel >= 7
+  const doesClientSupportDesktopSync = clientStatus.desktopSync?.version === 1
   const isClient750OrNewer = clientLevel >= 8 // first release in the post gplay time
 
   const message: string | undefined =
@@ -122,13 +123,18 @@ export const generateServerDataStatus = async ({
     })
   }
 
-  if (doesClientSupportCryptoApps) {
+  if (doesClientSupportCryptoApps || doesClientSupportDesktopSync) {
     result.devices2 = await getDeviceDetailList({
       transaction,
       familyEntry,
-      devicesDetail: clientStatus.devicesDetail || {}
+      devicesDetail: clientStatus.devicesDetail || {},
+      includeLegacyCryptoApps: doesClientSupportCryptoApps,
+      includeDesktopInventory: doesClientSupportDesktopSync,
     }) || undefined
 
+  }
+
+  if (doesClientSupportCryptoApps) {
     result.krq = await getKeyRequests({
       transaction,
       familyEntry,

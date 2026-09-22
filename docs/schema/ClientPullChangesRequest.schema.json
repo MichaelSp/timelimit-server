@@ -55,6 +55,19 @@
         },
         "u2f": {
           "type": "string"
+        },
+        "desktopSync": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "number",
+              "const": 1
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "version"
+          ]
         }
       },
       "additionalProperties": false,
@@ -101,6 +114,9 @@
           "type": "string"
         },
         "appsD": {
+          "type": "string"
+        },
+        "appsI": {
           "type": "string"
         }
       },

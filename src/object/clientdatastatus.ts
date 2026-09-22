@@ -26,6 +26,11 @@ export interface ClientDataStatus {
   kr?: number // last key response index
   dh?: string // last Diffie Hellman key version
   u2f?: string // last u2f list version
+  // Opt-in capability. This keeps the opaque desktop inventory out of legacy
+  // Android responses while allowing a desktop client to request it.
+  desktopSync?: {
+    version: 1
+  }
 }
 
 export function createEmptyClientDataStatus({
@@ -59,4 +64,5 @@ export interface CategoryDataStatus {
 export interface DeviceDataStatus {
   appsB?: string // encrypted app list base version
   appsD?: string // encrypted app list diff version
+  appsI?: string // encrypted desktop inventory version
 }

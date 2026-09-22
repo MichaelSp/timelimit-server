@@ -157,9 +157,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "ADD_CATEGORY_APPS"
-          ]
+          "const": "ADD_CATEGORY_APPS"
         },
         "categoryId": {
           "type": "string"
@@ -184,9 +182,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "ADD_CATEGORY_NETWORK_ID"
-          ]
+          "const": "ADD_CATEGORY_NETWORK_ID"
         },
         "categoryId": {
           "type": "string"
@@ -212,9 +208,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "ADD_PARENT_U2F"
-          ]
+          "const": "ADD_PARENT_U2F"
         },
         "keyHandle": {
           "type": "string"
@@ -236,9 +230,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "ADD_USER"
-          ]
+          "const": "ADD_USER"
         },
         "name": {
           "type": "string"
@@ -299,9 +291,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "CHANGE_PARENT_PASSWORD"
-          ]
+          "const": "CHANGE_PARENT_PASSWORD"
         },
         "userId": {
           "type": "string"
@@ -335,9 +325,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "CREATE_CATEGORY"
-          ]
+          "const": "CREATE_CATEGORY"
         },
         "childId": {
           "type": "string"
@@ -363,9 +351,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "CREATE_TIMELIMIT_RULE"
-          ]
+          "const": "CREATE_TIMELIMIT_RULE"
         },
         "rule": {
           "$ref": "#/definitions/SerializedTimeLimitRule"
@@ -430,9 +416,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "DELETE_CATEGORY"
-          ]
+          "const": "DELETE_CATEGORY"
         },
         "categoryId": {
           "type": "string"
@@ -450,9 +434,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "DELETE_CHILD_TASK"
-          ]
+          "const": "DELETE_CHILD_TASK"
         },
         "taskId": {
           "type": "string"
@@ -470,9 +452,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "DELETE_TIMELIMIT_RULE"
-          ]
+          "const": "DELETE_TIMELIMIT_RULE"
         },
         "ruleId": {
           "type": "string"
@@ -490,9 +470,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "IGNORE_MANIPULATION"
-          ]
+          "const": "IGNORE_MANIPULATION"
         },
         "deviceId": {
           "type": "string"
@@ -549,9 +527,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "INCREMENT_CATEGORY_EXTRATIME"
-          ]
+          "const": "INCREMENT_CATEGORY_EXTRATIME"
         },
         "categoryId": {
           "type": "string"
@@ -576,9 +552,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "REMOVE_CATEGORY_APPS"
-          ]
+          "const": "REMOVE_CATEGORY_APPS"
         },
         "categoryId": {
           "type": "string"
@@ -603,9 +577,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "REMOVE_PARENT_U2F"
-          ]
+          "const": "REMOVE_PARENT_U2F"
         },
         "keyHandle": {
           "type": "string"
@@ -627,9 +599,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "REMOVE_USER"
-          ]
+          "const": "REMOVE_USER"
         },
         "userId": {
           "type": "string"
@@ -650,9 +620,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "RENAME_CHILD"
-          ]
+          "const": "RENAME_CHILD"
         },
         "childId": {
           "type": "string"
@@ -674,9 +642,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "REPORT_U2F_LOGIN"
-          ]
+          "const": "REPORT_U2F_LOGIN"
         }
       },
       "additionalProperties": false,
@@ -690,9 +656,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "RESET_CATEGORY_NETWORK_IDS"
-          ]
+          "const": "RESET_CATEGORY_NETWORK_IDS"
         },
         "categoryId": {
           "type": "string"
@@ -710,9 +674,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "REVIEW_CHILD_TASK"
-          ]
+          "const": "REVIEW_CHILD_TASK"
         },
         "taskId": {
           "type": "string"
@@ -741,9 +703,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "SET_CATEGORY_EXTRA_TIME"
-          ]
+          "const": "SET_CATEGORY_EXTRA_TIME"
         },
         "categoryId": {
           "type": "string"
@@ -768,9 +728,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "SET_CATEGORY_FOR_UNASSIGNED_APPS"
-          ]
+          "const": "SET_CATEGORY_FOR_UNASSIGNED_APPS"
         },
         "childId": {
           "type": "string"
@@ -792,9 +750,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "SET_CHILD_PASSWORD"
-          ]
+          "const": "SET_CHILD_PASSWORD"
         },
         "childId": {
           "type": "string"
@@ -816,9 +772,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "SET_CONSIDER_REBOOT_MANIPULATION"
-          ]
+          "const": "SET_CONSIDER_REBOOT_MANIPULATION"
         },
         "deviceId": {
           "type": "string"
@@ -840,9 +794,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "SET_DEVICE_DEFAULT_USER"
-          ]
+          "const": "SET_DEVICE_DEFAULT_USER"
         },
         "deviceId": {
           "type": "string"
@@ -864,9 +816,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "SET_DEVICE_DEFAULT_USER_TIMEOUT"
-          ]
+          "const": "SET_DEVICE_DEFAULT_USER_TIMEOUT"
         },
         "deviceId": {
           "type": "string"
@@ -888,9 +838,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "SET_DEVICE_USER"
-          ]
+          "const": "SET_DEVICE_USER"
         },
         "deviceId": {
           "type": "string"
@@ -912,9 +860,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "SET_KEEP_SIGNED_IN"
-          ]
+          "const": "SET_KEEP_SIGNED_IN"
         },
         "deviceId": {
           "type": "string"
@@ -936,9 +882,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "SET_PARENT_CATEGORY"
-          ]
+          "const": "SET_PARENT_CATEGORY"
         },
         "categoryId": {
           "type": "string"
@@ -960,9 +904,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "SET_RELAX_PRIMARY_DEVICE"
-          ]
+          "const": "SET_RELAX_PRIMARY_DEVICE"
         },
         "userId": {
           "type": "string"
@@ -984,9 +926,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "SET_SEND_DEVICE_CONNECTED"
-          ]
+          "const": "SET_SEND_DEVICE_CONNECTED"
         },
         "deviceId": {
           "type": "string"
@@ -1008,9 +948,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "SET_USER_DISABLE_LIMITS_UNTIL"
-          ]
+          "const": "SET_USER_DISABLE_LIMITS_UNTIL"
         },
         "childId": {
           "type": "string"
@@ -1032,9 +970,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "SET_USER_TIMEZONE"
-          ]
+          "const": "SET_USER_TIMEZONE"
         },
         "userId": {
           "type": "string"
@@ -1056,9 +992,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_CATEGORY_BATTERY_LIMIT"
-          ]
+          "const": "UPDATE_CATEGORY_BATTERY_LIMIT"
         },
         "categoryId": {
           "type": "string"
@@ -1082,9 +1016,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_CATEGORY_BLOCK_ALL_NOTIFICATIONS"
-          ]
+          "const": "UPDATE_CATEGORY_BLOCK_ALL_NOTIFICATIONS"
         },
         "categoryId": {
           "type": "string"
@@ -1098,6 +1030,7 @@
       },
       "additionalProperties": false,
       "required": [
+        "blockDelay",
         "blocked",
         "categoryId",
         "type"
@@ -1109,9 +1042,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_CATEGORY_BLOCKED_TIMES"
-          ]
+          "const": "UPDATE_CATEGORY_BLOCKED_TIMES"
         },
         "categoryId": {
           "type": "string"
@@ -1133,9 +1064,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_CATEGORY_DISABLE_LIMITS"
-          ]
+          "const": "UPDATE_CATEGORY_DISABLE_LIMITS"
         },
         "categoryId": {
           "type": "string"
@@ -1157,9 +1086,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_CATEGORY_FLAGS"
-          ]
+          "const": "UPDATE_CATEGORY_FLAGS"
         },
         "categoryId": {
           "type": "string"
@@ -1185,9 +1112,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_CATEGORY_SORTING"
-          ]
+          "const": "UPDATE_CATEGORY_SORTING"
         },
         "categoryIds": {
           "type": "array",
@@ -1208,9 +1133,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_CATEGORY_TEMPORARILY_BLOCKED"
-          ]
+          "const": "UPDATE_CATEGORY_TEMPORARILY_BLOCKED"
         },
         "categoryId": {
           "type": "string"
@@ -1235,9 +1158,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_CATEGORY_TIME_WARNINGS"
-          ]
+          "const": "UPDATE_CATEGORY_TIME_WARNINGS"
         },
         "categoryId": {
           "type": "string"
@@ -1266,9 +1187,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_CATEGORY_TITLE"
-          ]
+          "const": "UPDATE_CATEGORY_TITLE"
         },
         "categoryId": {
           "type": "string"
@@ -1290,9 +1209,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_CHILD_TASK"
-          ]
+          "const": "UPDATE_CHILD_TASK"
         },
         "isNew": {
           "type": "boolean"
@@ -1326,9 +1243,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_DEVICE_NAME"
-          ]
+          "const": "UPDATE_DEVICE_NAME"
         },
         "deviceId": {
           "type": "string"
@@ -1350,9 +1265,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_ENABLE_ACTIVITY_LEVEL_BLOCKING"
-          ]
+          "const": "UPDATE_ENABLE_ACTIVITY_LEVEL_BLOCKING"
         },
         "deviceId": {
           "type": "string"
@@ -1374,9 +1287,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_NETWORK_TIME_VERIFICATION"
-          ]
+          "const": "UPDATE_NETWORK_TIME_VERIFICATION"
         },
         "deviceId": {
           "type": "string"
@@ -1403,9 +1314,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_PARENT_NOTIFICATION_FLAGS"
-          ]
+          "const": "UPDATE_PARENT_NOTIFICATION_FLAGS"
         },
         "parentId": {
           "type": "string"
@@ -1431,9 +1340,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_TIMELIMIT_RULE"
-          ]
+          "const": "UPDATE_TIMELIMIT_RULE"
         },
         "ruleId": {
           "type": "string"
@@ -1481,9 +1388,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_USER_FLAGS"
-          ]
+          "const": "UPDATE_USER_FLAGS"
         },
         "userId": {
           "type": "string"
@@ -1509,9 +1414,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_USER_LIMIT_LOGIN_CATEGORY"
-          ]
+          "const": "UPDATE_USER_LIMIT_LOGIN_CATEGORY"
         },
         "userId": {
           "type": "string"
@@ -1532,9 +1435,7 @@
       "properties": {
         "type": {
           "type": "string",
-          "enum": [
-            "UPDATE_USER_LIMIT_LOGIN_PRE_BLOCK_DURATION"
-          ]
+          "const": "UPDATE_USER_LIMIT_LOGIN_PRE_BLOCK_DURATION"
         },
         "userId": {
           "type": "string"

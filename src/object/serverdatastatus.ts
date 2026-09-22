@@ -235,6 +235,8 @@ export interface ServerExtendedDeviceData {
   deviceId: string
   appsBase?: ServerCryptContainer
   appsDiff?: ServerCryptContainer
+  // Opaque format-3 desktop ciphertext. The server never decrypts it.
+  desktopInventory?: ServerCryptContainer
 }
 
 export interface ServerCryptContainer {

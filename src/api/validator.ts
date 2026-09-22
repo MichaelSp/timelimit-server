@@ -97,6 +97,19 @@ const definitions = {
       },
       "u2f": {
         "type": "string"
+      },
+      "desktopSync": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "number",
+            "const": 1
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "version"
+        ]
       }
     },
     "additionalProperties": false,
@@ -141,6 +154,9 @@ const definitions = {
         "type": "string"
       },
       "appsD": {
+        "type": "string"
+      },
+      "appsI": {
         "type": "string"
       }
     },
@@ -1721,6 +1737,25 @@ const definitions = {
       "w"
     ]
   },
+  "SerializedUpdateDesktopInventoryAction": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "const": "UPDATE_DESKTOP_INVENTORY"
+      },
+      "data": {
+        "minLength": 1,
+        "maxLength": 699052,
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "data",
+      "type"
+    ]
+  },
   "SerializedRemoveInstalledAppsAction": {
     "type": "object",
     "properties": {
@@ -2174,6 +2209,9 @@ const definitions = {
         "$ref": "#/definitions/ServerCryptContainer"
       },
       "appsDiff": {
+        "$ref": "#/definitions/ServerCryptContainer"
+      },
+      "desktopInventory": {
         "$ref": "#/definitions/ServerCryptContainer"
       }
     },
@@ -3205,6 +3243,9 @@ export const isSerializedAppLogicAction: (value: unknown) => value is Serialized
     },
     {
       "$ref": "#/definitions/SerializedUpdateInstalledAppsAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedUpdateDesktopInventoryAction"
     },
     {
       "$ref": "#/definitions/SerializedRemoveInstalledAppsAction"
