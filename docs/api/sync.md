@@ -38,6 +38,23 @@ actions.
 
 The sequence numbers must be a increasing sequence per device.
 
+#### desktop checkpoint (optional)
+
+Desktop clients may add `desktopCheckpoint` to make a push idempotent as one
+whole batch:
+
+```json
+{
+  "id": "desktop-20260922-01",
+  "payloadSha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+}
+```
+
+`id` is 1 through 128 printable ASCII characters. `payloadSha256` is a
+lowercase, 64-character SHA-256 hex digest. A repeated checkpoint with the
+same id and digest returns its original receipt without applying actions
+again. Reusing an id with another digest returns HTTP 409 Conflict.
+
 #### integrity
 
 The integrity field of a action may have got one of the following values:
@@ -55,7 +72,21 @@ On a invalid request body: HTTP status code 400 Bad request
 
 On a invalid auth token: HTTP status code 401 Unauthorized
 
-On success: JSON object with the property `shouldDoFullSync` - example: `{"shouldDoFullSync": false}`
+On success: JSON object with the property `shouldDoFullSync` - example: `{"shouldDoFullSync": false}`.
+When `desktopCheckpoint` was supplied, the response additionally contains:
+
+```json
+{
+  "desktopReceipt": {
+    "id": "desktop-20260922-01",
+    "payloadSha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "acceptedThrough": 42
+  }
+}
+```
+
+`acceptedThrough` is the last client action sequence number accepted by the
+server for that checkpoint.
 
 ### error handling
 

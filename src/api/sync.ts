@@ -56,7 +56,7 @@ export const createSyncRouter = ({ database, websocket, connectedDevicesManager,
           throw new BadRequest()
         }
 
-        const { shouldDoFullSync } = await applyActionsFromDevice({
+        const { shouldDoFullSync, desktopReceipt } = await applyActionsFromDevice({
           request: req.body,
           database,
           websocket,
@@ -70,6 +70,7 @@ export const createSyncRouter = ({ database, websocket, connectedDevicesManager,
 
         res.json({
           shouldDoFullSync,
+          ...(desktopReceipt ? { desktopReceipt } : {}),
         })
       } catch (ex) {
         next(ex)

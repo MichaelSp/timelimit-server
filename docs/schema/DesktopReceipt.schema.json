@@ -1,0 +1,23 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "payloadSha256": {
+      "type": "string"
+    },
+    "acceptedThrough": {
+      "type": "number"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "acceptedThrough",
+    "id",
+    "payloadSha256"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DesktopReceipt",
+  "$id": "https://timelimit.io/DesktopReceipt"
+}

@@ -23,6 +23,8 @@ const randomString = 'WK9fxjlOcM'
 
 const types = [
   'ClientPushChangesRequest',
+  'DesktopCheckpoint',
+  'DesktopReceipt',
   'ClientPullChangesRequest',
   'MailAuthTokenRequestBody',
   'CreateFamilyByMailTokenRequest',
