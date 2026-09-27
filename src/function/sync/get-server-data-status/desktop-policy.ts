@@ -9,8 +9,29 @@ const MAX_ITEMS = 4096
 const id = (value: string) => /^[a-zA-Z0-9]{6}$/.test(value)
 const compare = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0
 
+function canonicalDesktopTimeZone(value: string): string | undefined {
+  // Named IANA zones only, no offsets, whitespace, or filesystem-like paths.
+  if (typeof value !== 'string' || value.length > 128 ||
+    !/^[A-Za-z][A-Za-z0-9_+\-]*(\/[A-Za-z0-9_+\-]+)*$/.test(value)) return undefined
+  try {
+    const canonical = new Intl.DateTimeFormat('en', { timeZone: value }).resolvedOptions().timeZone
+    return canonical.length <= 128 &&
+      /^[A-Za-z][A-Za-z0-9_+\-]*(\/[A-Za-z0-9_+\-]+)*$/.test(canonical)
+      ? canonical
+      : undefined
+  } catch {
+    return undefined
+  }
+}
+
 // Reject the entire snapshot, never truncate policy into apparent completeness.
 export function boundDesktopPolicy(policy: ServerDesktopPolicy): ServerDesktopPolicy | undefined {
+  if (policy.version === 2) {
+    const timeZone = canonicalDesktopTimeZone(policy.timeZone)
+    if (!timeZone || !Number.isSafeInteger(policy.serverTimeMs) || policy.serverTimeMs < 1 ||
+      policy.serverTimeMs > 253402300799999) return undefined
+    policy.timeZone = timeZone
+  }
   if (!id(policy.deviceId) || !id(policy.childId)) return undefined
   const categories = new Set(policy.categoryBase.map((item) => item.categoryId))
   if (categories.size !== policy.categoryBase.length || policy.categoryBase.some(
@@ -47,11 +68,12 @@ export function boundDesktopPolicy(policy: ServerDesktopPolicy): ServerDesktopPo
   return policy
 }
 
-export async function getDesktopPolicy({ transaction, familyEntry, deviceId, serverCategoriesVersions }: {
+export async function getDesktopPolicy({ transaction, familyEntry, deviceId, serverCategoriesVersions, version = 1 }: {
   transaction: SimpleDatabaseTransaction
   familyEntry: FamilyEntry
   deviceId: string
   serverCategoriesVersions: ServerCategoryVersions
+  version?: 1 | 2
 }): Promise<ServerDesktopPolicy | undefined> {
   const { database, transaction: tx } = transaction.legacy
   const familyId = familyEntry.familyId
@@ -75,7 +97,8 @@ export async function getDesktopPolicy({ transaction, familyEntry, deviceId, ser
   if (rows.length > MAX_ITEMS) return undefined
   const common = { transaction, familyEntry, serverCategoriesVersions }
   return boundDesktopPolicy({
-    version: 1, deviceId, childId,
+    ...(version === 2 ? { version: 2 as const, timeZone: child.timeZone, serverTimeMs: Date.now() } : { version: 1 as const }),
+    deviceId, childId,
     categoryBase: await getCategoryBaseDatas({ ...common, categoryIdsToSyncBaseData: categoryIds }),
     assignments: rows.map(({ categoryId, platform, bundleId }) => ({ categoryId, platform, bundleId })),
     rules: await getRules({ ...common, categoryIdsToSyncRules: categoryIds }),

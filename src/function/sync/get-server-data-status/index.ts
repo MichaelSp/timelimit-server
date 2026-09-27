@@ -84,6 +84,7 @@ export const generateServerDataStatus = async ({
     result.desktopPolicy = await getDesktopPolicy({
       transaction, familyEntry, deviceId,
       serverCategoriesVersions: categoryDataToSync.serverCategoriesVersions,
+      version: clientStatus.desktopPolicy?.version === 2 ? 2 : 1,
     })
   }
 

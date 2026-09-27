@@ -110,6 +110,19 @@ const definitions = {
         "required": [
           "version"
         ]
+      },
+      "desktopPolicy": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "number",
+            "const": 2
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "version"
+        ]
       }
     },
     "additionalProperties": false,
@@ -2008,6 +2021,275 @@ const definitions = {
       "type"
     ]
   },
+  "ServerUpdatedCategoryBaseData": {
+    "type": "object",
+    "properties": {
+      "categoryId": {
+        "type": "string"
+      },
+      "childId": {
+        "type": "string"
+      },
+      "title": {
+        "type": "string"
+      },
+      "blockedTimes": {
+        "type": "string"
+      },
+      "extraTime": {
+        "type": "number"
+      },
+      "extraTimeDay": {
+        "type": "number"
+      },
+      "tempBlocked": {
+        "type": "boolean"
+      },
+      "tempBlockTime": {
+        "type": "number"
+      },
+      "version": {
+        "type": "string"
+      },
+      "parentCategoryId": {
+        "type": "string"
+      },
+      "blockAllNotifications": {
+        "type": "boolean"
+      },
+      "timeWarnings": {
+        "type": "number"
+      },
+      "mblCharging": {
+        "type": "number"
+      },
+      "mblMobile": {
+        "type": "number"
+      },
+      "sort": {
+        "type": "number"
+      },
+      "networks": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/ServerCategoryNetworkId"
+        }
+      },
+      "dlu": {
+        "type": "number"
+      },
+      "flags": {
+        "type": "number"
+      },
+      "blockNotificationDelay": {
+        "type": "number"
+      },
+      "atw": {
+        "type": "array",
+        "items": {
+          "type": "number"
+        }
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "atw",
+      "blockAllNotifications",
+      "blockNotificationDelay",
+      "blockedTimes",
+      "categoryId",
+      "childId",
+      "dlu",
+      "extraTime",
+      "extraTimeDay",
+      "flags",
+      "mblCharging",
+      "mblMobile",
+      "networks",
+      "parentCategoryId",
+      "sort",
+      "tempBlockTime",
+      "tempBlocked",
+      "timeWarnings",
+      "title",
+      "version"
+    ]
+  },
+  "ServerCategoryNetworkId": {
+    "type": "object",
+    "properties": {
+      "itemId": {
+        "type": "string"
+      },
+      "hashedNetworkId": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "hashedNetworkId",
+      "itemId"
+    ]
+  },
+  "ServerUpdatedTimeLimitRules": {
+    "type": "object",
+    "properties": {
+      "categoryId": {
+        "type": "string"
+      },
+      "version": {
+        "type": "string"
+      },
+      "rules": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/ServerTimeLimitRule"
+        }
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "categoryId",
+      "rules",
+      "version"
+    ]
+  },
+  "ServerTimeLimitRule": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "extraTime": {
+        "type": "boolean"
+      },
+      "dayMask": {
+        "type": "number"
+      },
+      "maxTime": {
+        "type": "number"
+      },
+      "start": {
+        "type": "number"
+      },
+      "end": {
+        "type": "number"
+      },
+      "session": {
+        "type": "number"
+      },
+      "pause": {
+        "type": "number"
+      },
+      "perDay": {
+        "type": "boolean"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "dayMask",
+      "end",
+      "extraTime",
+      "id",
+      "maxTime",
+      "pause",
+      "perDay",
+      "session",
+      "start"
+    ]
+  },
+  "ServerUpdatedCategoryUsedTimes": {
+    "type": "object",
+    "properties": {
+      "categoryId": {
+        "type": "string"
+      },
+      "times": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/ServerUsedTimeItem"
+        }
+      },
+      "sessionDurations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/ServerSessionDurationItem"
+        }
+      },
+      "version": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "categoryId",
+      "sessionDurations",
+      "times",
+      "version"
+    ]
+  },
+  "ServerUsedTimeItem": {
+    "type": "object",
+    "properties": {
+      "day": {
+        "type": "number"
+      },
+      "time": {
+        "type": "number"
+      },
+      "start": {
+        "type": "number"
+      },
+      "end": {
+        "type": "number"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "day",
+      "end",
+      "start",
+      "time"
+    ]
+  },
+  "ServerSessionDurationItem": {
+    "type": "object",
+    "properties": {
+      "md": {
+        "description": "the maximum duration of a session (maxSessionDuration)",
+        "type": "number"
+      },
+      "spd": {
+        "description": "the pause duration after a session (sessionPauseDuration)",
+        "type": "number"
+      },
+      "sm": {
+        "description": "the start minute of the day of the session/ the rule\nwhich created this session (startMinuteOfDay)",
+        "type": "number"
+      },
+      "em": {
+        "description": "the end minute of the day of the session/ the rule\nwhich created this session (endMinuteOfDay)",
+        "type": "number"
+      },
+      "l": {
+        "description": "the timestamp of the last usage of this session (lastUsage)",
+        "type": "number"
+      },
+      "d": {
+        "description": "the duration of the last/ current session (lastSessionDuration)",
+        "type": "number"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "d",
+      "em",
+      "l",
+      "md",
+      "sm",
+      "spd"
+    ]
+  },
   "ServerDeviceList": {
     "type": "object",
     "properties": {
@@ -2266,116 +2548,6 @@ const definitions = {
       "version"
     ]
   },
-  "ServerUpdatedCategoryBaseData": {
-    "type": "object",
-    "properties": {
-      "categoryId": {
-        "type": "string"
-      },
-      "childId": {
-        "type": "string"
-      },
-      "title": {
-        "type": "string"
-      },
-      "blockedTimes": {
-        "type": "string"
-      },
-      "extraTime": {
-        "type": "number"
-      },
-      "extraTimeDay": {
-        "type": "number"
-      },
-      "tempBlocked": {
-        "type": "boolean"
-      },
-      "tempBlockTime": {
-        "type": "number"
-      },
-      "version": {
-        "type": "string"
-      },
-      "parentCategoryId": {
-        "type": "string"
-      },
-      "blockAllNotifications": {
-        "type": "boolean"
-      },
-      "timeWarnings": {
-        "type": "number"
-      },
-      "mblCharging": {
-        "type": "number"
-      },
-      "mblMobile": {
-        "type": "number"
-      },
-      "sort": {
-        "type": "number"
-      },
-      "networks": {
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/ServerCategoryNetworkId"
-        }
-      },
-      "dlu": {
-        "type": "number"
-      },
-      "flags": {
-        "type": "number"
-      },
-      "blockNotificationDelay": {
-        "type": "number"
-      },
-      "atw": {
-        "type": "array",
-        "items": {
-          "type": "number"
-        }
-      }
-    },
-    "additionalProperties": false,
-    "required": [
-      "atw",
-      "blockAllNotifications",
-      "blockNotificationDelay",
-      "blockedTimes",
-      "categoryId",
-      "childId",
-      "dlu",
-      "extraTime",
-      "extraTimeDay",
-      "flags",
-      "mblCharging",
-      "mblMobile",
-      "networks",
-      "parentCategoryId",
-      "sort",
-      "tempBlockTime",
-      "tempBlocked",
-      "timeWarnings",
-      "title",
-      "version"
-    ]
-  },
-  "ServerCategoryNetworkId": {
-    "type": "object",
-    "properties": {
-      "itemId": {
-        "type": "string"
-      },
-      "hashedNetworkId": {
-        "type": "string"
-      }
-    },
-    "additionalProperties": false,
-    "required": [
-      "hashedNetworkId",
-      "itemId"
-    ]
-  },
   "ServerUpdatedCategoryAssignedApps": {
     "type": "object",
     "properties": {
@@ -2397,165 +2569,6 @@ const definitions = {
       "apps",
       "categoryId",
       "version"
-    ]
-  },
-  "ServerUpdatedCategoryUsedTimes": {
-    "type": "object",
-    "properties": {
-      "categoryId": {
-        "type": "string"
-      },
-      "times": {
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/ServerUsedTimeItem"
-        }
-      },
-      "sessionDurations": {
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/ServerSessionDurationItem"
-        }
-      },
-      "version": {
-        "type": "string"
-      }
-    },
-    "additionalProperties": false,
-    "required": [
-      "categoryId",
-      "sessionDurations",
-      "times",
-      "version"
-    ]
-  },
-  "ServerUsedTimeItem": {
-    "type": "object",
-    "properties": {
-      "day": {
-        "type": "number"
-      },
-      "time": {
-        "type": "number"
-      },
-      "start": {
-        "type": "number"
-      },
-      "end": {
-        "type": "number"
-      }
-    },
-    "additionalProperties": false,
-    "required": [
-      "day",
-      "end",
-      "start",
-      "time"
-    ]
-  },
-  "ServerSessionDurationItem": {
-    "type": "object",
-    "properties": {
-      "md": {
-        "description": "the maximum duration of a session (maxSessionDuration)",
-        "type": "number"
-      },
-      "spd": {
-        "description": "the pause duration after a session (sessionPauseDuration)",
-        "type": "number"
-      },
-      "sm": {
-        "description": "the start minute of the day of the session/ the rule\nwhich created this session (startMinuteOfDay)",
-        "type": "number"
-      },
-      "em": {
-        "description": "the end minute of the day of the session/ the rule\nwhich created this session (endMinuteOfDay)",
-        "type": "number"
-      },
-      "l": {
-        "description": "the timestamp of the last usage of this session (lastUsage)",
-        "type": "number"
-      },
-      "d": {
-        "description": "the duration of the last/ current session (lastSessionDuration)",
-        "type": "number"
-      }
-    },
-    "additionalProperties": false,
-    "required": [
-      "d",
-      "em",
-      "l",
-      "md",
-      "sm",
-      "spd"
-    ]
-  },
-  "ServerUpdatedTimeLimitRules": {
-    "type": "object",
-    "properties": {
-      "categoryId": {
-        "type": "string"
-      },
-      "version": {
-        "type": "string"
-      },
-      "rules": {
-        "type": "array",
-        "items": {
-          "$ref": "#/definitions/ServerTimeLimitRule"
-        }
-      }
-    },
-    "additionalProperties": false,
-    "required": [
-      "categoryId",
-      "rules",
-      "version"
-    ]
-  },
-  "ServerTimeLimitRule": {
-    "type": "object",
-    "properties": {
-      "id": {
-        "type": "string"
-      },
-      "extraTime": {
-        "type": "boolean"
-      },
-      "dayMask": {
-        "type": "number"
-      },
-      "maxTime": {
-        "type": "number"
-      },
-      "start": {
-        "type": "number"
-      },
-      "end": {
-        "type": "number"
-      },
-      "session": {
-        "type": "number"
-      },
-      "pause": {
-        "type": "number"
-      },
-      "perDay": {
-        "type": "boolean"
-      }
-    },
-    "additionalProperties": false,
-    "required": [
-      "dayMask",
-      "end",
-      "extraTime",
-      "id",
-      "maxTime",
-      "pause",
-      "perDay",
-      "session",
-      "start"
     ]
   },
   "ServerUpdatedCategoryTasks": {

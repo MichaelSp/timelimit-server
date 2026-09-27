@@ -4,6 +4,7 @@ import { Sequelize } from 'sequelize'
 import { createDesktopAssignmentModel, isDesktopBundleId } from '../../../database/desktopassignment.js'
 import { SimpleDatabaseTransaction } from '../../../database/simple/index.js'
 import { ServerDesktopPolicy } from '../../../object/serverdatastatus.js'
+import { isClientPullChangesRequest } from '../../../api/validator.js'
 import { boundDesktopPolicy } from './desktop-policy.js'
 import { generateServerDataStatus } from './index.js'
 
@@ -15,9 +16,17 @@ const category = {
   minBatteryMobile: 0, temporarilyBlockedEndTime: '0', sort: 0, disableLimitsUntil: '0', flags: '0', blockNotificationDelay: '0',
 }
 
+test('pull request validator accepts only the independent v2 opt-in shape', () => {
+  const base = { deviceAuthToken: 'x', status: { devices: '', apps: {}, categories: {}, users: '', desktopSync: { version: 1 } } }
+  assert.equal(isClientPullChangesRequest({ ...base, status: { ...base.status, desktopPolicy: { version: 2 } } }), true)
+  assert.equal(isClientPullChangesRequest({ ...base, status: { ...base.status, desktopPolicy: { version: 1 } } }), false)
+  assert.equal(isClientPullChangesRequest({ ...base, status: { ...base.status, desktopSync: { version: 2 } } }), false)
+  assert.equal(isClientPullChangesRequest({ ...base, status: { ...base.status, desktopPolicy: { version: 2, extra: true } } }), false)
+})
+
 function fixture() {
   let assignmentReads = 0
-  const child = { type: 'child', disableTimelimitsUntil: '0', blockedTimes: '', categoryForNotAssignedApps: '', flags: '0', relaxPrimaryDeviceRule: true, currentDevice: '' }
+  const child = { type: 'child', timeZone: 'Europe/Berlin', disableTimelimitsUntil: '0', blockedTimes: '', categoryForNotAssignedApps: '', flags: '0', relaxPrimaryDeviceRule: true, currentDevice: '' }
   const rows = [{ familyId: 'ABCDEFGHIJ', deviceId: 'DEV123', categoryId: 'CAT123', platform: 'macos', bundleId: 'com.example.study' }]
   const empty = { findAll: async () => [] }
   const transaction = { legacy: { transaction: {}, database: {
@@ -38,12 +47,13 @@ function fixture() {
       return rows
     } },
   } } } as unknown as SimpleDatabaseTransaction
-  const request = (desktop: boolean, unchanged = false) => generateServerDataStatus({
+  const request = (desktop: boolean, unchanged = false, policyVersion?: 2) => generateServerDataStatus({
     transaction, familyId: 'ABCDEFGHIJ', deviceId: 'DEV123', eventHandler: {} as never,
     clientStatus: {
       devices: 'DEVS', users: 'USER', apps: {},
       categories: unchanged ? { CAT123: { base: 'BASE', apps: 'APPS', rules: 'RULE', usedTime: 'USED', tasks: 'TASK' } } : {},
       ...(desktop ? { desktopSync: { version: 1 } as const } : {}),
+      ...(policyVersion ? { desktopPolicy: { version: policyVersion } as const } : {}),
     },
   })
   return { request, child, rows, assignmentReads: () => assignmentReads }
@@ -61,6 +71,24 @@ test('desktop projection is negotiated, full on unchanged status, and never chan
   const unchanged = await f.request(true, true)
   assert.equal(unchanged.categoryApp, undefined)
   assert.deepEqual(unchanged.desktopPolicy, desktop.desktopPolicy)
+  f.child.timeZone = 'europe/berlin'
+  const version2 = await f.request(true, false, 2)
+  assert.equal(version2.desktopPolicy?.version, 2)
+  if (version2.desktopPolicy?.version === 2) {
+    // The Rust chrono-tz parser requires the canonical casing.
+    assert.equal(version2.desktopPolicy.timeZone, 'Europe/Berlin')
+    assert.ok(Number.isSafeInteger(version2.desktopPolicy.serverTimeMs))
+  }
+  assert.equal((await f.request(true)).desktopPolicy?.version, 1)
+})
+
+test('version 2 rejects invalid IANA zones while version 1 stays available', async () => {
+  const f = fixture()
+  f.child.timeZone = '../etc/localtime'
+  assert.equal((await f.request(true, false, 2)).desktopPolicy, undefined)
+  assert.equal((await f.request(true)).desktopPolicy?.version, 1)
+  f.child.timeZone = 'Europe/Berlin'
+  assert.equal((await f.request(true, false, 2)).desktopPolicy?.version, 2)
 })
 
 test('unsupported user scope and stale/invalid mappings omit the entire projection', async () => {

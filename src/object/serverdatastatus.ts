@@ -48,8 +48,11 @@ export interface ServerDataStatus {
 }
 
 // Complete device-scoped snapshot; never inferred from categoryApp's Android packages.
-export interface ServerDesktopPolicy {
-  version: 1
+export type ServerDesktopPolicy = ServerDesktopPolicyContents & (
+  { version: 1 } | { version: 2; timeZone: string; serverTimeMs: number }
+)
+
+interface ServerDesktopPolicyContents {
   deviceId: string
   childId: string
   categoryBase: Array<ServerUpdatedCategoryBaseData>

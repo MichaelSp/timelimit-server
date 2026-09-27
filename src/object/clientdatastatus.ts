@@ -31,6 +31,10 @@ export interface ClientDataStatus {
   desktopSync?: {
     version: 1
   }
+  // Independent policy negotiation: desktopSync remains an exact v1 descriptor.
+  desktopPolicy?: {
+    version: 2
+  }
 }
 
 export function createEmptyClientDataStatus({

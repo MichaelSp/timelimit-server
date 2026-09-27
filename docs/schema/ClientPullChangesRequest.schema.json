@@ -68,6 +68,19 @@
           "required": [
             "version"
           ]
+        },
+        "desktopPolicy": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "number",
+              "const": 2
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "version"
+          ]
         }
       },
       "additionalProperties": false,
