@@ -34,7 +34,9 @@ export interface KeyRequestAttributes {
 export const types = {
   appListBase: 1,
   appListDiff: 2,
-  all: [1, 2],
+  desktopInventory: 3,
+  legacy: [1, 2],
+  all: [1, 2, 3],
 }
 
 export type KeyRequestModel = Sequelize.Model<KeyRequestAttributes> &

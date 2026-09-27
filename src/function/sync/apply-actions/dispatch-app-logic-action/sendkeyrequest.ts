@@ -16,6 +16,8 @@
  */
 
 import { SendKeyRequestAction } from "../../../../action/index.js"
+import { types } from "../../../../database/keyrequest.js"
+import { ApplyActionException } from "../exception/index.js"
 import { Cache } from "../cache.js"
 import { SourceFamilyNotFoundException } from "../exception/illegal-state.js"
 
@@ -28,6 +30,34 @@ export async function dispatchSendKeyRequestAction({
   action: SendKeyRequestAction
   cache: Cache
 }) {
+  if (action.type === types.desktopInventory) {
+    if (!action.deviceId || action.categoryId) {
+      throw new ApplyActionException({
+        staticMessage: 'desktop inventory key requests require a device target',
+      })
+    }
+
+    const targetDevice = await cache.transaction.legacy.database.device.findOne({
+      where: {
+        familyId: cache.familyId,
+        deviceId: action.deviceId,
+      },
+      attributes: ['platformType', 'platformLevel'],
+      transaction: cache.transaction.legacy.transaction,
+    })
+
+    if (
+      !targetDevice ||
+      targetDevice.platformType !== 'desktop' ||
+      !Number.isSafeInteger(targetDevice.platformLevel) ||
+      targetDevice.platformLevel < 1
+    ) {
+      throw new ApplyActionException({
+        staticMessage: 'desktop inventory key requests require a desktop target',
+      })
+    }
+  }
+
   const familyEntryUnsafe = await cache.transaction.legacy.database.family.findOne({
     where: {
       familyId: cache.familyId,

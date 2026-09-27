@@ -16,8 +16,10 @@
  */
 
 import { ReplyToKeyRequestAction } from "../../../../action/index.js"
+import { types as keyRequestTypes } from "../../../../database/keyrequest.js"
 import { EventHandler } from "../../../../monitoring/eventhandler.js"
 import { Cache } from "../cache.js"
+import { ApplyActionException } from "../exception/index.js"
 import { IllegalStateException } from "../exception/illegal-state.js"
 
 export async function dispatchReplyToKeyRequestAction({
@@ -36,7 +38,13 @@ export async function dispatchReplyToKeyRequestAction({
       familyId: cache.familyId,
       serverSequenceNumber: action.requestServerSequenceNumber.toString(10),
     },
-    attributes: ['senderDeviceId', 'senderSequenceNumber'],
+    attributes: [
+      'senderDeviceId',
+      'senderSequenceNumber',
+      'type',
+      'deviceId',
+      'categoryId',
+    ],
     transaction: cache.transaction.legacy.transaction
   })
 
@@ -51,6 +59,18 @@ export async function dispatchReplyToKeyRequestAction({
   const request = {
     senderDeviceId: requestUnsafe.senderDeviceId,
     senderSequenceNumber: requestUnsafe.senderSequenceNumber,
+    type: requestUnsafe.type,
+    deviceId: requestUnsafe.deviceId,
+    categoryId: requestUnsafe.categoryId,
+  }
+
+  if (
+    request.type === keyRequestTypes.desktopInventory &&
+    (!request.deviceId || request.categoryId !== null || request.deviceId !== deviceId)
+  ) {
+    throw new ApplyActionException({
+      staticMessage: 'desktop inventory key request can only be answered by its target',
+    })
   }
 
   const oldReplyCounter = await cache.transaction.legacy.database.keyResponse.count({

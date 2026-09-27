@@ -36,6 +36,7 @@ import { getKeyRequests } from './key-requests'
 import { getKeyResponses } from './key-responses'
 import { getU2f } from './u2f'
 import { getDesktopPolicy } from './desktop-policy'
+import { types as keyRequestTypes } from '../../../database/keyrequest'
 
 export const generateServerDataStatus = async ({
   transaction, clientStatus, familyId, deviceId, eventHandler
@@ -143,14 +144,20 @@ export const generateServerDataStatus = async ({
 
   }
 
-  if (doesClientSupportCryptoApps) {
+  if (doesClientSupportCryptoApps || doesClientSupportDesktopSync) {
     result.krq = await getKeyRequests({
       transaction,
       familyEntry,
       deviceId,
-      lastSeenRequestIndex: clientStatus.kri || null
+      lastSeenRequestIndex: clientStatus.kri || null,
+      requestTypes: doesClientSupportDesktopSync
+        ? [keyRequestTypes.desktopInventory]
+        : keyRequestTypes.legacy,
+      targetDeviceOnly: doesClientSupportDesktopSync,
     }) || undefined
+  }
 
+  if (doesClientSupportCryptoApps) {
     result.kr = await getKeyResponses({
       transaction,
       familyEntry,

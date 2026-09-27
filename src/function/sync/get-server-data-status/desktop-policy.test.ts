@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { Sequelize } from 'sequelize'
+import { Op, Sequelize } from 'sequelize'
 import { createDesktopAssignmentModel, isDesktopBundleId } from '../../../database/desktopassignment.js'
 import { SimpleDatabaseTransaction } from '../../../database/simple/index.js'
 import { ServerDesktopPolicy } from '../../../object/serverdatastatus.js'
@@ -26,15 +26,42 @@ test('pull request validator accepts only the independent v2 opt-in shape', () =
 
 function fixture() {
   let assignmentReads = 0
+  const keyRequestQueries: Array<{ where: Record<PropertyKey, unknown>; order: unknown; limit: number }> = []
   const child = { type: 'child', timeZone: 'Europe/Berlin', disableTimelimitsUntil: '0', blockedTimes: '', categoryForNotAssignedApps: '', flags: '0', relaxPrimaryDeviceRule: true, currentDevice: '' }
   const rows = [{ familyId: 'ABCDEFGHIJ', deviceId: 'DEV123', categoryId: 'CAT123', platform: 'macos', bundleId: 'com.example.study' }]
   const empty = { findAll: async () => [] }
+  const keyRequestRows = [
+    { familyId: 'ABCDEFGHIJ', serverSequenceNumber: '1', senderDeviceId: 'PARENT123', senderSequenceNumber: '1', deviceId: 'DEV123', categoryId: null, type: 1, tempKey: Buffer.alloc(32), signature: Buffer.alloc(64) },
+    { familyId: 'ABCDEFGHIJ', serverSequenceNumber: '2', senderDeviceId: 'PARENT123', senderSequenceNumber: '2', deviceId: 'DEV123', categoryId: null, type: 2, tempKey: Buffer.alloc(32), signature: Buffer.alloc(64) },
+    { familyId: 'ABCDEFGHIJ', serverSequenceNumber: '3', senderDeviceId: 'PARENT123', senderSequenceNumber: '3', deviceId: 'DEV123', categoryId: null, type: 3, tempKey: Buffer.alloc(32), signature: Buffer.alloc(64) },
+    { familyId: 'ABCDEFGHIJ', serverSequenceNumber: '4', senderDeviceId: 'PARENT123', senderSequenceNumber: '4', deviceId: 'OTHER123', categoryId: null, type: 3, tempKey: Buffer.alloc(32), signature: Buffer.alloc(64) },
+    { familyId: 'ABCDEFGHIJ', serverSequenceNumber: '5', senderDeviceId: 'DEV123', senderSequenceNumber: '5', deviceId: 'DEV123', categoryId: null, type: 3, tempKey: Buffer.alloc(32), signature: Buffer.alloc(64) },
+  ]
   const transaction = { legacy: { transaction: {}, database: {
     family: { findOne: async () => ({ deviceListVersion: 'DEVS', userListVersion: 'USER', fullVersionUntil: '0', hasFullVersion: false }) },
     config: { findByPk: async () => null },
     category: { findAll: async () => [category] },
     categoryApp: { findAll: async () => [{ categoryId: 'CAT123', packageName: 'com.android.app' }] },
     categoryNetworkId: empty, categoryTimeWarning: empty, timelimitRule: empty, usedTime: empty, sessionDuration: empty, encryptedAppList: empty,
+    keyRequest: { findAll: async (options: { where: Record<PropertyKey, unknown>; order: unknown; limit: number }) => {
+      keyRequestQueries.push(options)
+      const where = options.where
+      const typeFilter = where.type as Record<PropertyKey, number[]>
+      const senderFilter = where.senderDeviceId as Record<PropertyKey, string>
+      const cursorFilter = where.serverSequenceNumber as Record<PropertyKey, number> | undefined
+      const acceptedTypes = typeFilter[Op.in]
+      const senderDeviceId = senderFilter[Op.ne]
+      const cursor = cursorFilter?.[Op.gt]
+      return keyRequestRows
+        .filter((item) => item.familyId === where.familyId && item.senderDeviceId !== senderDeviceId)
+        .filter((item) => acceptedTypes.includes(item.type))
+        .filter((item) => where.deviceId === undefined || item.deviceId === where.deviceId)
+        .filter((item) => where.categoryId === undefined || item.categoryId === where.categoryId)
+        .filter((item) => cursor === undefined || Number(item.serverSequenceNumber) > cursor)
+        .sort((left, right) => Number(left.serverSequenceNumber) - Number(right.serverSequenceNumber))
+        .slice(0, options.limit)
+    } },
+    keyResponse: { findAll: async () => [] },
     device: { findOne: async ({ where }: { where: unknown }) => {
       assert.deepEqual(where, { familyId: 'ABCDEFGHIJ', deviceId: 'DEV123' })
       return { currentUserId: 'CHD123' }
@@ -47,17 +74,38 @@ function fixture() {
       return rows
     } },
   } } } as unknown as SimpleDatabaseTransaction
-  const request = (desktop: boolean, unchanged = false, policyVersion?: 2) => generateServerDataStatus({
+  const request = (desktop: boolean, unchanged = false, policyVersion?: 2, clientLevel?: number) => generateServerDataStatus({
     transaction, familyId: 'ABCDEFGHIJ', deviceId: 'DEV123', eventHandler: {} as never,
     clientStatus: {
       devices: 'DEVS', users: 'USER', apps: {},
+      ...(clientLevel !== undefined ? { clientLevel } : {}),
       categories: unchanged ? { CAT123: { base: 'BASE', apps: 'APPS', rules: 'RULE', usedTime: 'USED', tasks: 'TASK' } } : {},
       ...(desktop ? { desktopSync: { version: 1 } as const } : {}),
       ...(policyVersion ? { desktopPolicy: { version: policyVersion } as const } : {}),
     },
   })
-  return { request, child, rows, assignmentReads: () => assignmentReads }
+  return { request, child, rows, assignmentReads: () => assignmentReads, keyRequestQueries }
 }
+
+test('desktopSync receives only targeted type 3 requests while Android keeps legacy requests', async () => {
+  const f = fixture()
+  const desktop = await f.request(true)
+  assert.deepEqual(desktop.krq?.map((request) => request.type), [3])
+  assert.equal(desktop.kr, undefined)
+  assert.deepEqual(f.keyRequestQueries[0].where.type, { [Op.in]: [3] })
+  assert.equal(f.keyRequestQueries[0].where.deviceId, 'DEV123')
+  assert.equal(f.keyRequestQueries[0].where.categoryId, null)
+  assert.equal(f.keyRequestQueries[0].limit, 32)
+
+  const android = await f.request(false, true, undefined, 4)
+  assert.deepEqual(android.krq?.map((request) => request.type), [1, 2])
+  assert.deepEqual(f.keyRequestQueries[1].where.type, { [Op.in]: [1, 2] })
+  assert.equal(f.keyRequestQueries[1].where.deviceId, undefined)
+
+  const legacy = await f.request(false)
+  assert.equal(legacy.krq, undefined)
+  assert.equal(f.keyRequestQueries.length, 2)
+})
 
 test('desktop projection is negotiated, full on unchanged status, and never changes Android packages', async () => {
   const f = fixture()
