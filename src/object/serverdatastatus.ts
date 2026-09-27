@@ -26,6 +26,7 @@ export interface ServerDataStatus {
   desktopSync?: {
     version: 1
   }
+  desktopPolicy?: ServerDesktopPolicy
   devices?: ServerDeviceList // newDeviceList
   devices2?: Array<ServerExtendedDeviceData> // updatedExtendedDeviceData
   apps?: Array<ServerInstalledAppsData> // newInstalledApps
@@ -44,6 +45,17 @@ export interface ServerDataStatus {
   fullVersion: number // fullVersionUntil
   message?: string
   apiLevel: number
+}
+
+// Complete device-scoped snapshot; never inferred from categoryApp's Android packages.
+export interface ServerDesktopPolicy {
+  version: 1
+  deviceId: string
+  childId: string
+  categoryBase: Array<ServerUpdatedCategoryBaseData>
+  assignments: Array<{ categoryId: string; platform: 'macos'; bundleId: string }>
+  rules: Array<ServerUpdatedTimeLimitRules>
+  usedTimes: Array<ServerUpdatedCategoryUsedTimes>
 }
 
 export interface ServerDeviceList {

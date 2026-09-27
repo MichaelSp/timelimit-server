@@ -35,6 +35,7 @@ import { getUserList } from './user-list'
 import { getKeyRequests } from './key-requests'
 import { getKeyResponses } from './key-responses'
 import { getU2f } from './u2f'
+import { getDesktopPolicy } from './desktop-policy'
 
 export const generateServerDataStatus = async ({
   transaction, clientStatus, familyId, deviceId, eventHandler
@@ -78,6 +79,13 @@ export const generateServerDataStatus = async ({
   }
 
   const categoryDataToSync = await getCategoryDataToSync({ transaction, familyEntry, categoriesStatus: clientStatus.categories })
+
+  if (doesClientSupportDesktopSync) {
+    result.desktopPolicy = await getDesktopPolicy({
+      transaction, familyEntry, deviceId,
+      serverCategoriesVersions: categoryDataToSync.serverCategoriesVersions,
+    })
+  }
 
   if (categoryDataToSync.removedCategoryIds.length > 0) {
     result.rmCategories = categoryDataToSync.removedCategoryIds
