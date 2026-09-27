@@ -41,6 +41,7 @@ export async function getKeyRequests ({ transaction, familyEntry, lastSeenReques
           }),
     },
     transaction: transaction.legacy.transaction,
+    order: [['serverSequenceNumber', 'ASC']],
     limit: 32
   })
 
