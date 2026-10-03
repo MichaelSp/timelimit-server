@@ -35,6 +35,9 @@ export interface ClientDataStatus {
   desktopPolicy?: {
     version: 2
   }
+  desktopManagement?: {
+    version: 1
+  }
 }
 
 export function createEmptyClientDataStatus({

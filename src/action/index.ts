@@ -52,6 +52,7 @@ export { SetDeviceDefaultUserTimeoutAction } from './setdevicedefaultusertimeout
 export { SetDeviceUserAction } from './setdeviceuser'
 export { SetKeepSignedInAction } from './setkeepsignedin'
 export { SetParentCategoryAction } from './setparentcategory'
+export { SetDesktopAppCategoryAction } from './setdesktopappcategory'
 export { SetRelaxPrimaryDeviceAction } from './setrelaxprimarydevice'
 export { SetSendDeviceConnected } from './setsenddeviceconnected'
 export { SetUserDisableLimitsUntilAction } from './setuserdisablelimitsuntil'

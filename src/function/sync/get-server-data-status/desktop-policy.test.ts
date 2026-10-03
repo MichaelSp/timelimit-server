@@ -22,9 +22,11 @@ test('pull request validator accepts only the independent v2 opt-in shape', () =
   assert.equal(isClientPullChangesRequest({ ...base, status: { ...base.status, desktopPolicy: { version: 1 } } }), false)
   assert.equal(isClientPullChangesRequest({ ...base, status: { ...base.status, desktopSync: { version: 2 } } }), false)
   assert.equal(isClientPullChangesRequest({ ...base, status: { ...base.status, desktopPolicy: { version: 2, extra: true } } }), false)
+  assert.equal(isClientPullChangesRequest({ ...base, status: { ...base.status, desktopManagement: { version: 1 } } }), true)
+  assert.equal(isClientPullChangesRequest({ ...base, status: { ...base.status, desktopManagement: { version: 2 } } }), false)
 })
 
-function fixture() {
+function fixture({ requesterPlatform = 'desktop', requesterType = 'child' }: { requesterPlatform?: string; requesterType?: 'parent' | 'child' } = {}) {
   let assignmentReads = 0
   const keyRequestQueries: Array<{ where: Record<PropertyKey, unknown>; order: unknown; limit: number }> = []
   const child = { type: 'child', timeZone: 'Europe/Berlin', disableTimelimitsUntil: '0', blockedTimes: '', categoryForNotAssignedApps: '', flags: '0', relaxPrimaryDeviceRule: true, currentDevice: '' }
@@ -42,7 +44,15 @@ function fixture() {
     config: { findByPk: async () => null },
     category: { findAll: async () => [category] },
     categoryApp: { findAll: async () => [{ categoryId: 'CAT123', packageName: 'com.android.app' }] },
-    categoryNetworkId: empty, categoryTimeWarning: empty, timelimitRule: empty, usedTime: empty, sessionDuration: empty, encryptedAppList: empty,
+    categoryNetworkId: empty, categoryTimeWarning: empty, timelimitRule: empty, usedTime: empty, sessionDuration: empty, childTask: empty,
+    encryptedAppList: { findAll: async ({ where }: { where: Record<string, unknown> }) => {
+      const rows = [
+        { deviceId: 'DEV123', type: 1, version: 'B123', data: Buffer.from('legacy') },
+        { deviceId: 'DEV123', type: 3, version: 'I123', data: Buffer.from('inventory') },
+      ]
+      if (typeof where.type === 'number') return rows.filter((row) => row.type === where.type)
+      return rows
+    } },
     keyRequest: { findAll: async (options: { where: Record<PropertyKey, unknown>; order: unknown; limit: number }) => {
       keyRequestQueries.push(options)
       const where = options.where
@@ -64,23 +74,25 @@ function fixture() {
     keyResponse: { findAll: async () => [] },
     device: { findOne: async ({ where }: { where: unknown }) => {
       assert.deepEqual(where, { familyId: 'ABCDEFGHIJ', deviceId: 'DEV123' })
-      return { currentUserId: 'CHD123' }
+      return { currentUserId: requesterType === 'parent' ? 'PARENT1' : 'CHD123', platformType: requesterPlatform }
     } },
-    user: { findOne: async () => child },
-    desktopAssignment: { findAll: async ({ where, limit }: { where: unknown; limit: number }) => {
-      assert.deepEqual(where, { familyId: 'ABCDEFGHIJ', deviceId: 'DEV123' })
-      assert.equal(limit, 4097)
+    user: { findOne: async ({ where }: { where?: { type?: string } }) =>
+      where?.type === 'parent' ? (requesterType === 'parent' ? { userId: 'PARENT1' } : null) : child },
+    desktopAssignment: { findAll: async ({ where, limit }: { where: Record<string, unknown>; limit?: number }) => {
+      assert.deepEqual(where, where.deviceId ? { familyId: 'ABCDEFGHIJ', deviceId: 'DEV123' } : { familyId: 'ABCDEFGHIJ' })
+      if (where.deviceId) assert.equal(limit, 4097)
       assignmentReads++
       return rows
     } },
   } } } as unknown as SimpleDatabaseTransaction
-  const request = (desktop: boolean, unchanged = false, policyVersion?: 2, clientLevel?: number) => generateServerDataStatus({
+  const request = (desktop: boolean, unchanged = false, policyVersion?: 2, clientLevel?: number, management = false) => generateServerDataStatus({
     transaction, familyId: 'ABCDEFGHIJ', deviceId: 'DEV123', eventHandler: {} as never,
     clientStatus: {
       devices: 'DEVS', users: 'USER', apps: {},
       ...(clientLevel !== undefined ? { clientLevel } : {}),
       categories: unchanged ? { CAT123: { base: 'BASE', apps: 'APPS', rules: 'RULE', usedTime: 'USED', tasks: 'TASK' } } : {},
       ...(desktop ? { desktopSync: { version: 1 } as const } : {}),
+      ...(management ? { desktopManagement: { version: 1 } as const } : {}),
       ...(policyVersion ? { desktopPolicy: { version: policyVersion } as const } : {}),
     },
   })
@@ -128,6 +140,62 @@ test('desktop projection is negotiated, full on unchanged status, and never chan
     assert.ok(Number.isSafeInteger(version2.desktopPolicy.serverTimeMs))
   }
   assert.equal((await f.request(true)).desktopPolicy?.version, 1)
+})
+
+test('eligible Android parent reads back complete assignments and inventory while retaining legacy key requests', async () => {
+  const f = fixture({ requesterPlatform: 'android', requesterType: 'parent' })
+  const parent = await f.request(false, false, undefined, 4, true)
+  assert.deepEqual(parent.desktopAssignments, [{ deviceId: 'DEV123', categoryId: 'CAT123', platform: 'macos', bundleId: 'com.example.study' }])
+  assert.equal(parent.desktopPolicy, undefined)
+  assert.deepEqual(parent.krq?.map((item) => item.type), [1, 2])
+  assert.deepEqual(f.keyRequestQueries.at(-1)?.where.type, { [Op.in]: [1, 2] })
+  assert.equal(f.keyRequestQueries.at(-1)?.where.deviceId, undefined)
+  assert.deepEqual(parent.devices2, [{ deviceId: 'DEV123', appsBase: { version: 'B123', data: Buffer.from('legacy').toString('base64') }, desktopInventory: { version: 'I123', data: Buffer.from('inventory').toString('base64') } }])
+
+  f.rows.splice(0)
+  const emptySnapshot = await f.request(false, false, undefined, 4, true)
+  assert.deepEqual(emptySnapshot.desktopAssignments, [])
+  assert.deepEqual(emptySnapshot.krq?.map((item) => item.type), [1, 2])
+
+  const legacyAndroid = await f.request(false, false, undefined, 4, false)
+  assert.equal(legacyAndroid.desktopAssignments, undefined)
+  assert.deepEqual(legacyAndroid.krq?.map((item) => item.type), [1, 2])
+  assert.deepEqual(legacyAndroid.devices2, [{ deviceId: 'DEV123', appsBase: { version: 'B123', data: Buffer.from('legacy').toString('base64') } }])
+})
+
+test('desktopManagement capability alone does not expose snapshots or inventory to child/non-Android devices', async (t) => {
+  for (const [name, options] of [
+    ['child device', { requesterPlatform: 'android', requesterType: 'child' as const }],
+    ['non-Android device', { requesterPlatform: 'desktop', requesterType: 'parent' as const }],
+  ] as const) await t.test(name, async () => {
+    const f = fixture(options)
+    const status = await f.request(false, false, undefined, 4, true)
+    assert.equal(status.desktopAssignments, undefined)
+    assert.equal(f.assignmentReads(), 0)
+    assert.deepEqual(status.krq?.map((item) => item.type), [1, 2])
+    assert.deepEqual(status.devices2, [{ deviceId: 'DEV123', appsBase: { version: 'B123', data: Buffer.from('legacy').toString('base64') } }])
+  })
+})
+
+test('desktopManagement refuses oversized, duplicate, or noncanonical assignment snapshots', async (t) => {
+  const f = fixture({ requesterPlatform: 'android', requesterType: 'parent' })
+  f.rows.splice(0, 1, ...Array.from({ length: 4097 }, (_, i) => ({
+    familyId: 'ABCDEFGHIJ', deviceId: 'DEV123', categoryId: 'CAT123', platform: 'macos', bundleId: `com.example.app${i}`,
+  })))
+  await assert.rejects(f.request(false, false, undefined, 4, true), /exceeds supported limit/)
+
+  f.rows.splice(0, f.rows.length,
+    { familyId: 'ABCDEFGHIJ', deviceId: 'DEV123', categoryId: 'CAT123', platform: 'macos', bundleId: 'com.example.study' },
+    { familyId: 'ABCDEFGHIJ', deviceId: 'DEV123', categoryId: 'CAT999', platform: 'macos', bundleId: 'com.example.study' },
+  )
+  await assert.rejects(f.request(false, false, undefined, 4, true), /invalid or duplicate/)
+
+  f.rows.splice(0, f.rows.length, { familyId: 'ABCDEFGHIJ', deviceId: 'DEV123', categoryId: 'CAT123', platform: 'macos', bundleId: 'Applications/App.app' })
+  await assert.rejects(f.request(false, false, undefined, 4, true), /invalid or duplicate/)
+  await t.test('an empty snapshot remains valid and authoritative', async () => {
+    f.rows.splice(0)
+    assert.deepEqual((await f.request(false, false, undefined, 4, true)).desktopAssignments, [])
+  })
 })
 
 test('version 2 rejects invalid IANA zones while version 1 stays available', async () => {

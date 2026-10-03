@@ -123,6 +123,19 @@ const definitions = {
         "required": [
           "version"
         ]
+      },
+      "desktopManagement": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "type": "number",
+            "const": 1
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "version"
+        ]
       }
     },
     "additionalProperties": false,
@@ -774,6 +787,35 @@ const definitions = {
     "required": [
       "categoryId",
       "childId",
+      "type"
+    ]
+  },
+  "SerializedSetDesktopAppCategoryAction": {
+    "type": "object",
+    "properties": {
+      "type": {
+        "type": "string",
+        "const": "SET_DESKTOP_APP_CATEGORY"
+      },
+      "deviceId": {
+        "type": "string"
+      },
+      "childId": {
+        "type": "string"
+      },
+      "bundleId": {
+        "type": "string"
+      },
+      "categoryId": {
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "bundleId",
+      "categoryId",
+      "childId",
+      "deviceId",
       "type"
     ]
   },
@@ -3136,6 +3178,9 @@ export const isSerializedParentAction: (value: unknown) => value is SerializedPa
     },
     {
       "$ref": "#/definitions/SerializedSetCategoryForUnassignedAppsAction"
+    },
+    {
+      "$ref": "#/definitions/SerializedSetDesktopAppCategoryAction"
     },
     {
       "$ref": "#/definitions/SerializedSetChildPasswordAction"

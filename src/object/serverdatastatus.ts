@@ -27,6 +27,7 @@ export interface ServerDataStatus {
     version: 1
   }
   desktopPolicy?: ServerDesktopPolicy
+  desktopAssignments?: Array<{ deviceId: string; categoryId: string; platform: 'macos'; bundleId: string }>
   devices?: ServerDeviceList // newDeviceList
   devices2?: Array<ServerExtendedDeviceData> // updatedExtendedDeviceData
   apps?: Array<ServerInstalledAppsData> // newInstalledApps

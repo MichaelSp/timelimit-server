@@ -64,6 +64,9 @@
       "$ref": "#/definitions/SerializedSetCategoryForUnassignedAppsAction"
     },
     {
+      "$ref": "#/definitions/SerializedSetDesktopAppCategoryAction"
+    },
+    {
       "$ref": "#/definitions/SerializedSetChildPasswordAction"
     },
     {
@@ -744,6 +747,36 @@
         "type"
       ],
       "title": "SerializedSetCategoryForUnassignedAppsAction"
+    },
+    "SerializedSetDesktopAppCategoryAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "const": "SET_DESKTOP_APP_CATEGORY"
+        },
+        "deviceId": {
+          "type": "string"
+        },
+        "childId": {
+          "type": "string"
+        },
+        "bundleId": {
+          "type": "string"
+        },
+        "categoryId": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "bundleId",
+        "categoryId",
+        "childId",
+        "deviceId",
+        "type"
+      ],
+      "title": "SerializedSetDesktopAppCategoryAction"
     },
     "SerializedSetChildPasswordAction": {
       "type": "object",

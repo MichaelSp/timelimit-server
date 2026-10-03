@@ -37,6 +37,7 @@ import { getKeyResponses } from './key-responses'
 import { getU2f } from './u2f'
 import { getDesktopPolicy } from './desktop-policy'
 import { types as keyRequestTypes } from '../../../database/keyrequest'
+import { isDesktopBundleId } from '../../../database/desktopassignment'
 
 export const generateServerDataStatus = async ({
   transaction, clientStatus, familyId, deviceId, eventHandler
@@ -56,6 +57,22 @@ export const generateServerDataStatus = async ({
   const doesClientSupportU2f = clientLevel >= 6
   const doesClientSupportPing = clientLevel >= 7
   const doesClientSupportDesktopSync = clientStatus.desktopSync?.version === 1
+  let doesClientSupportDesktopManagement = clientStatus.desktopManagement?.version === 1
+  if (doesClientSupportDesktopManagement) {
+    const requestingDevice = await transaction.legacy.database.device.findOne({
+      attributes: ['platformType', 'currentUserId'],
+      where: { familyId, deviceId },
+      transaction: transaction.legacy.transaction,
+    })
+    const requestingUser = requestingDevice?.platformType === 'android' && requestingDevice.currentUserId
+      ? await transaction.legacy.database.user.findOne({
+        attributes: ['userId'],
+        where: { familyId, userId: requestingDevice.currentUserId, type: 'parent' },
+        transaction: transaction.legacy.transaction,
+      })
+      : null
+    doesClientSupportDesktopManagement = Boolean(requestingUser)
+  }
   const isClient750OrNewer = clientLevel >= 8 // first release in the post gplay time
 
   const message: string | undefined =
@@ -86,6 +103,31 @@ export const generateServerDataStatus = async ({
       transaction, familyEntry, deviceId,
       serverCategoriesVersions: categoryDataToSync.serverCategoriesVersions,
       version: clientStatus.desktopPolicy?.version === 2 ? 2 : 1,
+    })
+  }
+
+  if (doesClientSupportDesktopManagement) {
+    const assignmentRows = await transaction.legacy.database.desktopAssignment.findAll({
+      where: { familyId },
+      attributes: ['deviceId', 'categoryId', 'platform', 'bundleId'],
+      order: [['deviceId', 'ASC'], ['bundleId', 'ASC']],
+      limit: 4097,
+      transaction: transaction.legacy.transaction,
+    })
+    if (assignmentRows.length > 4096) throw new Error('desktop assignment snapshot exceeds supported limit')
+    const seenAssignments = new Set<string>()
+    result.desktopAssignments = assignmentRows.map((item) => {
+      const key = `${item.deviceId}:${item.platform}:${item.bundleId}`
+      if (item.platform !== 'macos' || !isDesktopBundleId(item.bundleId) || seenAssignments.has(key)) {
+        throw new Error('desktop assignment snapshot contains invalid or duplicate rows')
+      }
+      seenAssignments.add(key)
+      return ({
+      deviceId: item.deviceId,
+      categoryId: item.categoryId,
+      platform: item.platform,
+      bundleId: item.bundleId,
+      })
     })
   }
 
@@ -133,18 +175,18 @@ export const generateServerDataStatus = async ({
     })
   }
 
-  if (doesClientSupportCryptoApps || doesClientSupportDesktopSync) {
+  if (doesClientSupportCryptoApps || doesClientSupportDesktopSync || doesClientSupportDesktopManagement) {
     result.devices2 = await getDeviceDetailList({
       transaction,
       familyEntry,
       devicesDetail: clientStatus.devicesDetail || {},
       includeLegacyCryptoApps: doesClientSupportCryptoApps,
-      includeDesktopInventory: doesClientSupportDesktopSync,
+      includeDesktopInventory: doesClientSupportDesktopSync || doesClientSupportDesktopManagement,
     }) || undefined
 
   }
 
-  if (doesClientSupportCryptoApps || doesClientSupportDesktopSync) {
+  if (doesClientSupportCryptoApps || doesClientSupportDesktopSync || doesClientSupportDesktopManagement) {
     result.krq = await getKeyRequests({
       transaction,
       familyEntry,
@@ -152,7 +194,9 @@ export const generateServerDataStatus = async ({
       lastSeenRequestIndex: clientStatus.kri || null,
       requestTypes: doesClientSupportDesktopSync
         ? [keyRequestTypes.desktopInventory]
-        : keyRequestTypes.legacy,
+        : doesClientSupportDesktopManagement
+          ? (doesClientSupportCryptoApps ? keyRequestTypes.legacy : [])
+          : keyRequestTypes.legacy,
       targetDeviceOnly: doesClientSupportDesktopSync,
     }) || undefined
   }

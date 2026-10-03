@@ -25,7 +25,10 @@ export type DesktopAssignmentModelStatic = typeof Sequelize.Model & {
 export const attributes: SequelizeAttributes<DesktopAssignmentAttributes> = {
   familyId: { ...familyIdColumn, primaryKey: true },
   deviceId: { ...idWithinFamilyColumn, primaryKey: true },
-  categoryId: { ...idWithinFamilyColumn },
+  // A bundle has one category per device. Keep this out of the model's
+  // conflict key, matching the migration's (family, device, platform, bundle)
+  // primary key so upsert works across supported SQL dialects.
+  categoryId: { ...idWithinFamilyColumn, primaryKey: false },
   platform: { type: Sequelize.STRING(5), allowNull: false, primaryKey: true, validate: { isIn: [['macos']] } },
   bundleId: {
     type: Sequelize.STRING(255), allowNull: false, primaryKey: true,

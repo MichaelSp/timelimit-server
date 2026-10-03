@@ -160,6 +160,34 @@
         }
       ]
     },
+    "desktopAssignments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "deviceId": {
+            "type": "string"
+          },
+          "categoryId": {
+            "type": "string"
+          },
+          "platform": {
+            "type": "string",
+            "const": "macos"
+          },
+          "bundleId": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "bundleId",
+          "categoryId",
+          "deviceId",
+          "platform"
+        ]
+      }
+    },
     "devices": {
       "$ref": "#/definitions/ServerDeviceList"
     },

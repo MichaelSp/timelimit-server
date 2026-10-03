@@ -112,7 +112,7 @@ test('status capability lanes never add empty device rows to legacy or non-opted
     includeDesktopInventory,
   })
 
-  // Legacy and clientLevel-4-but-not-desktopSync clients receive no type-3
+  // Legacy and clientLevel-4-but-not-desktopManagement clients receive no type-3
   // row. The former does not call this helper in production; this proves the
   // filter is safe even if that changes.
   assert.equal(await request(false, false), null)

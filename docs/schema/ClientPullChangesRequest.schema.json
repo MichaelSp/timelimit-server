@@ -81,6 +81,19 @@
           "required": [
             "version"
           ]
+        },
+        "desktopManagement": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "number",
+              "const": 1
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "version"
+          ]
         }
       },
       "additionalProperties": false,
