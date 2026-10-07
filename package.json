@@ -49,7 +49,7 @@
     "ajv": "^8.18.0",
     "basic-auth": "^3.0.0",
     "body-parser": "^2.0.0",
-    "ejs": "^6.0.0",
+    "ejs": "^7.0.0",
     "email-addresses": "^5.0.0",
     "express": "^5.0.0",
     "http-errors": "^2.0.0",
