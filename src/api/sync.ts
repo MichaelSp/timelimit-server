@@ -171,6 +171,51 @@ export const createSyncRouter = ({ database, websocket, connectedDevicesManager,
     }
   })
 
+  router.post("/category-app-audit", json(), async (req, res, next) => {
+    try {
+      if (!isRequestWithAuthToken(req.body)) {
+        throw new BadRequest()
+      }
+
+      const entries = await database.transaction(async (transaction) => {
+        const device = await transaction.legacy.database.device.findOne({
+          attributes: ['familyId', 'currentUserId'],
+          where: { deviceAuthToken: req.body.deviceAuthToken },
+          transaction: transaction.legacy.transaction,
+        })
+
+        if (!device?.currentUserId) throw new Unauthorized()
+
+        const user = await transaction.legacy.database.user.findOne({
+          attributes: ['type'],
+          where: {
+            familyId: device.familyId,
+            userId: device.currentUserId,
+            type: 'parent',
+          },
+          transaction: transaction.legacy.transaction,
+        })
+
+        if (!user) throw new Unauthorized()
+
+        return transaction.legacy.database.categoryAppAuditLog.findAll({
+          attributes: [
+            'occurredAt', 'actorType', 'actorName', 'sourceDeviceId', 'childId', 'childName',
+            'packageName', 'fromCategoryTitle', 'toCategoryTitle',
+          ],
+          where: { familyId: device.familyId },
+          order: [['occurredAt', 'DESC'], ['id', 'DESC']],
+          limit: 200,
+          transaction: transaction.legacy.transaction,
+        })
+      })
+
+      res.json({ entries: entries.map((entry) => entry.get({ plain: true })) })
+    } catch (ex) {
+      next(ex)
+    }
+  })
+
   router.post("/report-removed", json(), async (req, res, next) => {
     try {
       if (!isRequestWithAuthToken(req.body)) {

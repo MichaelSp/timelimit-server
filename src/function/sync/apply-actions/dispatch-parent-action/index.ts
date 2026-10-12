@@ -144,6 +144,8 @@ export const dispatchParentAction = async ({
     return dispatchAddCategoryApps({
       action,
       cache,
+      parentUserId,
+      sourceDeviceId,
       fromChildSelfLimitAddChildUserId,
     })
   } else if (action instanceof CreateCategoryAction) {
