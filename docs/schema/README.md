@@ -16,6 +16,10 @@
 
 * [DeleteAccountPayload](./deleteaccountpayload.md) – `https://timelimit.io/DeleteAccountPayload`
 
+* [DesktopCheckpoint](./desktopcheckpoint.md) – `https://timelimit.io/DesktopCheckpoint`
+
+* [DesktopReceipt](./desktopreceipt.md) – `https://timelimit.io/DesktopReceipt`
+
 * [FinishPurchaseByGooglePlayRequest](./finishpurchasebygoogleplayrequest.md) – `https://timelimit.io/FinishPurchaseByGooglePlayRequest`
 
 * [IdentityTokenPayload](./identitytokenpayload.md) – `https://timelimit.io/IdentityTokenPayload`
@@ -59,6 +63,8 @@
 * [ClientDataStatus](./clientpullchangesrequest-definitions-clientdatastatus.md) – `https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus`
 
 * [ClientPushChangesRequestAction](./clientpushchangesrequest-definitions-clientpushchangesrequestaction.md) – `https://timelimit.io/ClientPushChangesRequest#/definitions/ClientPushChangesRequestAction`
+
+* [DesktopCheckpoint](./clientpushchangesrequest-definitions-desktopcheckpoint.md) – `https://timelimit.io/ClientPushChangesRequest#/definitions/DesktopCheckpoint`
 
 * [DeviceDataStatus](./clientpullchangesrequest-definitions-devicedatastatus.md) – `https://timelimit.io/ClientPullChangesRequest#/definitions/DeviceDataStatus`
 
@@ -275,6 +281,8 @@
 * [Untitled object in ClientPullChangesRequest](./clientpullchangesrequest-definitions-clientdatastatus-properties-devicesdetail.md) – `https://timelimit.io/ClientPullChangesRequest#/definitions/ClientDataStatus/properties/devicesDetail`
 
 * [Untitled object in SerializedAppLogicAction](./serializedapplogicaction-definitions-serializedaddusedtimeactionversion2-properties-i-items.md) – `https://timelimit.io/SerializedAppLogicAction#/definitions/SerializedAddUsedTimeActionVersion2/properties/i/items`
+
+* [Untitled object in ServerDataStatus](./serverdatastatus-properties-desktopsync.md) – `https://timelimit.io/ServerDataStatus#/properties/desktopSync`
 
 ### Arrays
 

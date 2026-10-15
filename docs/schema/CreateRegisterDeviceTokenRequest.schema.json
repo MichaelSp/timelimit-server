@@ -17,7 +17,6 @@
     "parentId",
     "parentPasswordSecondHash"
   ],
-  "definitions": {},
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CreateRegisterDeviceTokenRequest",
   "$id": "https://timelimit.io/CreateRegisterDeviceTokenRequest"

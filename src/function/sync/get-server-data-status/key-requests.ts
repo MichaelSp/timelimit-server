@@ -20,11 +20,13 @@ import { SimpleDatabaseTransaction } from '../../../database/simple'
 import { ServerKeyRequest } from '../../../object/serverdatastatus'
 import { FamilyEntry } from './family-entry'
 
-export async function getKeyRequests ({ transaction, familyEntry, lastSeenRequestIndex, deviceId }: {
+export async function getKeyRequests ({ transaction, familyEntry, lastSeenRequestIndex, deviceId, requestTypes, targetDeviceOnly }: {
   transaction: SimpleDatabaseTransaction
   familyEntry: FamilyEntry
   lastSeenRequestIndex: number | null
   deviceId: string
+  requestTypes: number[]
+  targetDeviceOnly?: boolean
 }): Promise<Array<ServerKeyRequest> | null> {
   const data = await transaction.legacy.database.keyRequest.findAll({
     where: {
@@ -32,6 +34,10 @@ export async function getKeyRequests ({ transaction, familyEntry, lastSeenReques
       senderDeviceId: {
         [Sequelize.Op.ne]: deviceId,
       },
+      type: {
+        [Sequelize.Op.in]: requestTypes,
+      },
+      ...(targetDeviceOnly ? { deviceId, categoryId: null } : {}),
       ...(lastSeenRequestIndex === null
         ? {}
         : {
@@ -41,6 +47,7 @@ export async function getKeyRequests ({ transaction, familyEntry, lastSeenReques
           }),
     },
     transaction: transaction.legacy.transaction,
+    order: [['serverSequenceNumber', 'ASC']],
     limit: 32
   })
 

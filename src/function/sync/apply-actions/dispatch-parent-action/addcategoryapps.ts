@@ -33,10 +33,14 @@ import {
 export async function dispatchAddCategoryApps({
   action,
   cache,
+  parentUserId,
+  sourceDeviceId,
   fromChildSelfLimitAddChildUserId,
 }: {
   action: AddCategoryAppsAction
   cache: Cache
+  parentUserId: string
+  sourceDeviceId: string | null
   fromChildSelfLimitAddChildUserId: string | null
 }) {
   const categoryEntryUnsafe = await cache.transaction.legacy.database.category.findOne({
@@ -45,14 +49,14 @@ export async function dispatchAddCategoryApps({
       categoryId: action.categoryId,
     },
     transaction: cache.transaction.legacy.transaction,
-    attributes: ['childId']
+    attributes: ['childId', 'title']
   })
 
   if (!categoryEntryUnsafe) {
     throw new MissingCategoryException()
   }
 
-  const { childId } = categoryEntryUnsafe
+  const { childId, title: targetCategoryTitle } = categoryEntryUnsafe
 
   if (fromChildSelfLimitAddChildUserId !== null) {
     if (childId !== fromChildSelfLimitAddChildUserId) {
@@ -131,6 +135,7 @@ export async function dispatchAddCategoryApps({
           attributes: [ 'categoryId' ],
           where: {
             familyId: cache.familyId,
+            packageName,
             categoryId: {
               [Sequelize.Op.in]: userCategoryIds
             },
@@ -185,6 +190,67 @@ export async function dispatchAddCategoryApps({
       } else throw ex
     }
   }
+
+  const actorUserId = fromChildSelfLimitAddChildUserId ?? parentUserId
+  const actorType = fromChildSelfLimitAddChildUserId !== null ? 'child_self_limit' : 'parent'
+  const [actor, child, categories, existingAssignments] = await Promise.all([
+    cache.transaction.legacy.database.user.findOne({
+      attributes: ['name'],
+      where: { familyId: cache.familyId, userId: actorUserId },
+      transaction: cache.transaction.legacy.transaction,
+    }),
+    cache.transaction.legacy.database.user.findOne({
+      attributes: ['name'],
+      where: { familyId: cache.familyId, userId: childId },
+      transaction: cache.transaction.legacy.transaction,
+    }),
+    cache.transaction.legacy.database.category.findAll({
+      attributes: ['categoryId', 'title'],
+      where: { familyId: cache.familyId, childId },
+      transaction: cache.transaction.legacy.transaction,
+    }),
+    cache.transaction.legacy.database.categoryApp.findAll({
+      attributes: ['categoryId', 'packageName'],
+      where: {
+        familyId: cache.familyId,
+        categoryId: { [Sequelize.Op.in]: userCategoryIds },
+        packageName: { [Sequelize.Op.in]: action.packageNames },
+      },
+      transaction: cache.transaction.legacy.transaction,
+    }),
+  ])
+  const categoryTitles = new Map(categories.map((item) => [item.categoryId, item.title]))
+  const oldAssignmentsByPackage = new Map<string, string[]>()
+  existingAssignments.forEach(({ packageName, categoryId }) => {
+    const assignments = oldAssignmentsByPackage.get(packageName) ?? []
+    assignments.push(categoryId)
+    oldAssignmentsByPackage.set(packageName, assignments)
+  })
+
+  await cache.transaction.legacy.database.categoryAppAuditLog.bulkCreate(
+    action.packageNames.flatMap((packageName) => {
+      const oldCategoryIds = oldAssignmentsByPackage.get(packageName) ?? []
+      const previousAssignments = oldCategoryIds.length > 0 ? oldCategoryIds : ['']
+      return previousAssignments
+        .filter((categoryId) => categoryId !== action.categoryId)
+        .map((fromCategoryId) => ({
+          familyId: cache.familyId,
+          occurredAt: Date.now().toString(10),
+          actorType,
+          actorUserId,
+          actorName: actor?.name ?? actorUserId,
+          sourceDeviceId: sourceDeviceId ?? '',
+          childId,
+          childName: child?.name ?? childId,
+          packageName,
+          fromCategoryId,
+          fromCategoryTitle: fromCategoryId ? categoryTitles.get(fromCategoryId) ?? fromCategoryId : '',
+          toCategoryId: action.categoryId,
+          toCategoryTitle: targetCategoryTitle,
+        }))
+    }),
+    { transaction: cache.transaction.legacy.transaction },
+  )
 
   if (oldCategories.length > 0) {
     await cache.transaction.legacy.database.categoryApp.destroy({

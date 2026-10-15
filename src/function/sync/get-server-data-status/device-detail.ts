@@ -22,10 +22,14 @@ import { ServerExtendedDeviceData, ServerCryptContainer } from '../../../object/
 import { FamilyEntry } from './family-entry'
 import { types } from '../../../database/encryptedapplist'
 
-export async function getDeviceDetailList ({ transaction, familyEntry, devicesDetail }: {
+export async function getDeviceDetailList ({
+  transaction, familyEntry, devicesDetail, includeLegacyCryptoApps, includeDesktopInventory,
+}: {
   transaction: SimpleDatabaseTransaction
   familyEntry: FamilyEntry
   devicesDetail: ClientDataStatusDevicesExtended
+  includeLegacyCryptoApps: boolean
+  includeDesktopInventory: boolean
 }): Promise<Array<ServerExtendedDeviceData> | null> {
   const serverEncryptedAppsVersions = (await transaction.legacy.database.encryptedAppList.findAll({
     where: {
@@ -33,7 +37,10 @@ export async function getDeviceDetailList ({ transaction, familyEntry, devicesDe
     },
     attributes: ['deviceId', 'type', 'version'],
     transaction: transaction.legacy.transaction
-  })).map((item) => ({
+  })).filter((item) =>
+    (includeLegacyCryptoApps && (item.type === types.base || item.type === types.diff)) ||
+    (includeDesktopInventory && item.type === types.desktopInventory),
+  ).map((item) => ({
     deviceId: item.deviceId,
     type: item.type,
     version: item.version,
@@ -41,6 +48,7 @@ export async function getDeviceDetailList ({ transaction, familyEntry, devicesDe
 
   const devicesWithChangedBaseApps: Array<string> = []
   const devicesWithChangedDiffApps: Array<string> = []
+  const devicesWithChangedDesktopInventory: Array<string> = []
 
   serverEncryptedAppsVersions.forEach((item) => {
     if (item.type === types.base) {
@@ -57,16 +65,27 @@ export async function getDeviceDetailList ({ transaction, familyEntry, devicesDe
       ) {
         devicesWithChangedDiffApps.push(item.deviceId)
       }
+    } else if (item.type === types.desktopInventory) {
+      if (
+        !devicesDetail[item.deviceId] ||
+        devicesDetail[item.deviceId].appsI !== item.version
+      ) {
+        devicesWithChangedDesktopInventory.push(item.deviceId)
+      }
     }
   })
 
   const updatedDeviceIds = Array.from(
-    new Set([...devicesWithChangedBaseApps, ...devicesWithChangedDiffApps]),
+    new Set([
+      ...devicesWithChangedBaseApps,
+      ...devicesWithChangedDiffApps,
+      ...devicesWithChangedDesktopInventory,
+    ]),
   )
 
   if (updatedDeviceIds.length === 0) return null
 
-  const updatedBaseApps = devicesWithChangedBaseApps.length === 0 ? [] : (await transaction.legacy.database.encryptedAppList.findAll({
+  const updatedBaseApps = !includeLegacyCryptoApps || devicesWithChangedBaseApps.length === 0 ? [] : (await transaction.legacy.database.encryptedAppList.findAll({
     where: {
       familyId: familyEntry.familyId,
       deviceId: {
@@ -86,7 +105,7 @@ export async function getDeviceDetailList ({ transaction, familyEntry, devicesDe
     data: item.data
   }))
 
-  const updatedDiffApps = devicesWithChangedDiffApps.length === 0 ? [] : (await transaction.legacy.database.encryptedAppList.findAll({
+  const updatedDiffApps = !includeLegacyCryptoApps || devicesWithChangedDiffApps.length === 0 ? [] : (await transaction.legacy.database.encryptedAppList.findAll({
     where: {
       familyId: familyEntry.familyId,
       deviceId: {
@@ -106,14 +125,36 @@ export async function getDeviceDetailList ({ transaction, familyEntry, devicesDe
     data: item.data
   }))
 
+  const updatedDesktopInventory = !includeDesktopInventory || devicesWithChangedDesktopInventory.length === 0 ? [] : (await transaction.legacy.database.encryptedAppList.findAll({
+    where: {
+      familyId: familyEntry.familyId,
+      deviceId: {
+        [Sequelize.Op.in]: devicesWithChangedDesktopInventory
+      },
+      type: types.desktopInventory
+    },
+    attributes: [
+      'deviceId',
+      'version',
+      'data'
+    ],
+    transaction: transaction.legacy.transaction
+  })).map((item) => ({
+    deviceId: item.deviceId,
+    version: item.version,
+    data: item.data
+  }))
+
   return updatedDeviceIds.map((deviceId) => {
     const appsBase = updatedBaseApps.find((item) => item.deviceId === deviceId)
     const appsDiff = updatedDiffApps.find((item) => item.deviceId === deviceId)
+    const desktopInventory = updatedDesktopInventory.find((item) => item.deviceId === deviceId)
 
     return {
       deviceId,
-      appsBase: appsBase ? wrapServerCryptContainer(appsBase) : undefined,
-      appsDiff: appsDiff ? wrapServerCryptContainer(appsDiff) : undefined,
+      ...(appsBase ? { appsBase: wrapServerCryptContainer(appsBase) } : {}),
+      ...(appsDiff ? { appsDiff: wrapServerCryptContainer(appsDiff) } : {}),
+      ...(desktopInventory ? { desktopInventory: wrapServerCryptContainer(desktopInventory) } : {}),
     }
   })
 }

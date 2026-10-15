@@ -30,6 +30,8 @@ export interface EncryptedAppListAttributes {
 export const types = {
   base: 1,
   diff: 2,
+  // Deliberately separate from the Android base/diff wire containers.
+  desktopInventory: 3,
 }
 
 export type EncryptedAppListModel =
@@ -52,7 +54,7 @@ export const attributes: SequelizeAttributes<EncryptedAppListAttributes> = {
     primaryKey: true,
     validate: {
       min: 1,
-      max: 2,
+      max: 3,
     },
   },
   version: {

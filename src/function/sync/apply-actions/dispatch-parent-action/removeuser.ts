@@ -169,6 +169,11 @@ export async function dispatchRemoveUser({
     })
   }
 
+  const reassignedDevices = await cache.transaction.legacy.database.device.findAll({
+    attributes: ['deviceId'],
+    where: { familyId: cache.familyId, currentUserId: action.userId },
+    transaction: cache.transaction.legacy.transaction,
+  })
   const [updatedDevices1] = await cache.transaction.legacy.database.device.update({
     currentUserId: '',
     isUserKeptSignedIn: false
@@ -179,6 +184,13 @@ export async function dispatchRemoveUser({
     },
     transaction: cache.transaction.legacy.transaction
   })
+
+  if (reassignedDevices.length > 0) {
+    await cache.transaction.legacy.database.desktopAssignment.destroy({
+      where: { familyId: cache.familyId, deviceId: { [Sequelize.Op.in]: reassignedDevices.map((item) => item.deviceId) } },
+      transaction: cache.transaction.legacy.transaction,
+    })
+  }
 
   const [updatedDevices2] = await cache.transaction.legacy.database.device.update({
     defaultUserId: ''

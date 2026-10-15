@@ -55,6 +55,45 @@
         },
         "u2f": {
           "type": "string"
+        },
+        "desktopSync": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "number",
+              "const": 1
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "version"
+          ]
+        },
+        "desktopPolicy": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "number",
+              "const": 2
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "version"
+          ]
+        },
+        "desktopManagement": {
+          "type": "object",
+          "properties": {
+            "version": {
+              "type": "number",
+              "const": 1
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "version"
+          ]
         }
       },
       "additionalProperties": false,
@@ -101,6 +140,9 @@
           "type": "string"
         },
         "appsD": {
+          "type": "string"
+        },
+        "appsI": {
           "type": "string"
         }
       },

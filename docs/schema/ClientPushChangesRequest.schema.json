@@ -9,6 +9,9 @@
       "items": {
         "$ref": "#/definitions/ClientPushChangesRequestAction"
       }
+    },
+    "desktopCheckpoint": {
+      "$ref": "#/definitions/DesktopCheckpoint"
     }
   },
   "additionalProperties": false,
@@ -50,6 +53,27 @@
         "userId"
       ],
       "title": "ClientPushChangesRequestAction"
+    },
+    "DesktopCheckpoint": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[\\x21-\\x7E]+$",
+          "type": "string"
+        },
+        "payloadSha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "payloadSha256"
+      ],
+      "title": "DesktopCheckpoint"
     }
   },
   "$schema": "http://json-schema.org/draft-07/schema#",

@@ -21,6 +21,20 @@ import { optionalPasswordRegex, optionalSaltRegex } from "../util/password.js"
 export interface ClientPushChangesRequest {
   deviceAuthToken: string
   actions: Array<ClientPushChangesRequestAction>
+  desktopCheckpoint?: DesktopCheckpoint
+}
+
+export interface DesktopCheckpoint {
+  /** @minLength 1 @maxLength 128 @pattern ^[\x21-\x7E]+$ */
+  id: string
+  /** @pattern ^[0-9a-f]{64}$ */
+  payloadSha256: string
+}
+
+export interface DesktopReceipt {
+  id: string
+  payloadSha256: string
+  acceptedThrough: number
 }
 
 export interface ClientPushChangesRequestAction {

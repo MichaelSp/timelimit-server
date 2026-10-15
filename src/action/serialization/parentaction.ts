@@ -92,6 +92,7 @@ import {
   SerializedSetCategoryForUnassignedAppsAction,
   SetCategoryForUnassignedAppsAction,
 } from "../setcategoryforunassignedapps.js"
+import { SerializedSetDesktopAppCategoryAction, SetDesktopAppCategoryAction } from "../setdesktopappcategory.js"
 import {
   SerializedSetChildPasswordAction,
   SetChildPasswordAction,
@@ -230,6 +231,7 @@ export type SerializedParentAction =
   | SerializeResetCategoryNetworkIdsAction
   | SerializedReviewChildTaskAction
   | SerializedSetCategoryForUnassignedAppsAction
+  | SerializedSetDesktopAppCategoryAction
   | SerializedSetChildPasswordAction
   | SerializedSetConsiderRebootManipulationAction
   | SerializedSetDeviceDefaultUserAction
@@ -306,6 +308,8 @@ export const parseParentAction = (
     return SetCategoryExtraTimeAction.parse(action)
   } else if (action.type === "SET_CATEGORY_FOR_UNASSIGNED_APPS") {
     return SetCategoryForUnassignedAppsAction.parse(action)
+  } else if (action.type === "SET_DESKTOP_APP_CATEGORY") {
+    return SetDesktopAppCategoryAction.parse(action)
   } else if (action.type === "SET_CHILD_PASSWORD") {
     return SetChildPasswordAction.parse(action)
   } else if (action.type === "SET_CONSIDER_REBOOT_MANIPULATION") {

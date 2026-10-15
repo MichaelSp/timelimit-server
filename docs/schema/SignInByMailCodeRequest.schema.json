@@ -13,7 +13,6 @@
     "mailLoginToken",
     "receivedCode"
   ],
-  "definitions": {},
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "SignInByMailCodeRequest",
   "$id": "https://timelimit.io/SignInByMailCodeRequest"

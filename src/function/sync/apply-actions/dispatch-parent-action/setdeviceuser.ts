@@ -60,6 +60,13 @@ export async function dispatchSetDeviceUser({
     transaction: cache.transaction.legacy.transaction
   })
 
+  if (oldDeviceItem.currentUserId !== action.userId) {
+    await cache.transaction.legacy.database.desktopAssignment.destroy({
+      where: { familyId: cache.familyId, deviceId: action.deviceId },
+      transaction: cache.transaction.legacy.transaction,
+    })
+  }
+
   cache.invalidiateDeviceList = true
 
   cache.incrementTriggeredSyncLevel(1)
