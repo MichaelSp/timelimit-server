@@ -12,11 +12,11 @@ const compare = (a: string, b: string) => a < b ? -1 : a > b ? 1 : 0
 function canonicalDesktopTimeZone(value: string): string | undefined {
   // Named IANA zones only, no offsets, whitespace, or filesystem-like paths.
   if (typeof value !== 'string' || value.length > 128 ||
-    !/^[A-Za-z][A-Za-z0-9_+\-]*(\/[A-Za-z0-9_+\-]+)*$/.test(value)) return undefined
+    !/^[A-Za-z][A-Za-z0-9_+-]*(\/[A-Za-z0-9_+-]+)*$/.test(value)) return undefined
   try {
     const canonical = new Intl.DateTimeFormat('en', { timeZone: value }).resolvedOptions().timeZone
     return canonical.length <= 128 &&
-      /^[A-Za-z][A-Za-z0-9_+\-]*(\/[A-Za-z0-9_+\-]+)*$/.test(canonical)
+      /^[A-Za-z][A-Za-z0-9_+-]*(\/[A-Za-z0-9_+-]+)*$/.test(canonical)
       ? canonical
       : undefined
   } catch {
