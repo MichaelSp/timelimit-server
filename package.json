@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node ./build/index.js",
     "test": "node scripts/test-launch-with-different-databases.js",
+    "test:desktop-sync-receipts": "tsc --rootDir src && DB_DRIVER=postgres node --test ./build/function/sync/apply-actions/desktop-checkpoint.test.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "build": "npm run build:clean && npm run build:json && npm run build:ts && npm run lint && npm run build:doc",

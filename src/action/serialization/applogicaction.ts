@@ -26,6 +26,7 @@ import { MarkTaskPendingAction, SerializedMarkTaskPendingAction } from '../markt
 import { UnknownActionTypeException } from '../meta/exception'
 import { PingAction, SerializedPingAction } from '../ping'
 import { UpdateInstalledAppsAction, SerializedUpdateInstalledAppsAction } from '../updateinstalledapps'
+import { UpdateDesktopInventoryAction, SerializedUpdateDesktopInventoryAction } from '../updatedesktopinventory'
 import { RemoveInstalledAppsAction, SerializedRemoveInstalledAppsAction } from '../removeinstalledapps'
 import { SendKeyRequestAction, SerializedSendKeyRequestAction } from '../sendkeyrequest'
 import { SerializedSignOutAtDeviceAction, SignOutAtDeviceAction } from '../signoutatdevice'
@@ -44,6 +45,7 @@ export type SerializedAppLogicAction =
   SerializedMarkTaskPendingAction |
   SerializedPingAction |
   SerializedUpdateInstalledAppsAction |
+  SerializedUpdateDesktopInventoryAction |
   SerializedRemoveInstalledAppsAction |
   SerializedSendKeyRequestAction |
   SerializedSignOutAtDeviceAction |
@@ -73,6 +75,8 @@ export const parseAppLogicAction = (
     return PingAction.parse(serialized)
   } else if (serialized.type === 'UPDATE_INSTALLED_APPS') {
     return UpdateInstalledAppsAction.parse(serialized)
+  } else if (serialized.type === 'UPDATE_DESKTOP_INVENTORY') {
+    return UpdateDesktopInventoryAction.parse(serialized)
   } else if (serialized.type === "REMOVE_INSTALLED_APPS") {
     return RemoveInstalledAppsAction.parse(serialized)
   } else if (serialized.type === "SEND_KEY_REQUEST") {

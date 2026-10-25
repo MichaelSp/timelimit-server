@@ -38,6 +38,7 @@ import {
   ReviewChildTaskAction,
   SetCategoryExtraTimeAction,
   SetCategoryForUnassignedAppsAction,
+  SetDesktopAppCategoryAction,
   SetChildPasswordAction,
   SetConsiderRebootManipulationAction,
   SetDeviceDefaultUserAction,
@@ -93,6 +94,7 @@ import { dispatchResetCategoryNetworkIds } from "./resetcategorynetworkids.js"
 import { dispatchReviewChildTaskAction } from "./reviewchildtaskaction.js"
 import { dispatchSetCategoryExtraTime } from "./setcategoryextratime.js"
 import { dispatchSetCategoryForUnassignedApps } from "./setcategoryforunassignedapps.js"
+import { dispatchSetDesktopAppCategory } from "./setdesktopappcategory.js"
 import { dispatchSetChildPassword } from "./setchildpassword.js"
 import { dispatchSetConsiderRebootManipulation } from "./setconsiderrebootmanipulation.js"
 import { dispatchSetDeviceDefaultUser } from "./setdevicedefaultuser.js"
@@ -142,6 +144,8 @@ export const dispatchParentAction = async ({
     return dispatchAddCategoryApps({
       action,
       cache,
+      parentUserId,
+      sourceDeviceId,
       fromChildSelfLimitAddChildUserId,
     })
   } else if (action instanceof CreateCategoryAction) {
@@ -215,6 +219,8 @@ export const dispatchParentAction = async ({
       return dispatchSetCategoryExtraTime({ action, cache })
     } else if (action instanceof SetCategoryForUnassignedAppsAction) {
       return dispatchSetCategoryForUnassignedApps({ action, cache })
+    } else if (action instanceof SetDesktopAppCategoryAction) {
+      return dispatchSetDesktopAppCategory({ action, cache })
     } else if (action instanceof SetChildPasswordAction) {
       return dispatchSetChildPassword({ action, cache })
     } else if (action instanceof SetConsiderRebootManipulationAction) {

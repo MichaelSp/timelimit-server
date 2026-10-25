@@ -32,6 +32,7 @@ import {
   UpdateAppActivitiesAction,
   UpdateDeviceStatusAction,
   UpdateInstalledAppsAction,
+  UpdateDesktopInventoryAction,
   UploadDevicePublicKeyAction
 } from '../../../../action'
 import { EventHandler } from '../../../../monitoring/eventhandler'
@@ -49,6 +50,7 @@ import { dispatchSignOutAtDevice } from './signoutatdevice'
 import { dispatchTriedDisablingDeviceAdmin } from './trieddisablingdeviceadmin'
 import { dispatchUpdateDeviceStatus } from './updatedevicestatus'
 import { dispatchUpdateInstalledApps } from './updateinstalledapps'
+import { dispatchUpdateDesktopInventory } from './updatedesktopinventory'
 import { dispatchUploadDevicePublicKeyAction } from './uploaddevicepublickey'
 
 export const dispatchAppLogicAction = async ({
@@ -102,6 +104,8 @@ export const dispatchAppLogicAction = async ({
     await dispatchTriedDisablingDeviceAdmin({ deviceId, action, cache })
   } else if (action instanceof UpdateInstalledAppsAction) {
     await dispatchUpdateInstalledApps({ deviceId, action, cache })
+  } else if (action instanceof UpdateDesktopInventoryAction) {
+    await dispatchUpdateDesktopInventory({ deviceId, action, cache })
   } else if (action instanceof UploadDevicePublicKeyAction) {
     await dispatchUploadDevicePublicKeyAction({
       deviceId,

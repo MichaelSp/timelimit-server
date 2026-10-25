@@ -22,6 +22,12 @@ import { ProtectionLevel } from "../model/protectionlevel.js"
 import { RuntimePermissionStatus } from "../model/runtimepermissionstatus.js"
 
 export interface ServerDataStatus {
+  // Optional capability descriptor. Legacy clients safely ignore this field.
+  desktopSync?: {
+    version: 1
+  }
+  desktopPolicy?: ServerDesktopPolicy
+  desktopAssignments?: Array<{ deviceId: string; categoryId: string; platform: 'macos'; bundleId: string }>
   devices?: ServerDeviceList // newDeviceList
   devices2?: Array<ServerExtendedDeviceData> // updatedExtendedDeviceData
   apps?: Array<ServerInstalledAppsData> // newInstalledApps
@@ -40,6 +46,20 @@ export interface ServerDataStatus {
   fullVersion: number // fullVersionUntil
   message?: string
   apiLevel: number
+}
+
+// Complete device-scoped snapshot; never inferred from categoryApp's Android packages.
+export type ServerDesktopPolicy = ServerDesktopPolicyContents & (
+  { version: 1 } | { version: 2; timeZone: string; serverTimeMs: number }
+)
+
+interface ServerDesktopPolicyContents {
+  deviceId: string
+  childId: string
+  categoryBase: Array<ServerUpdatedCategoryBaseData>
+  assignments: Array<{ categoryId: string; platform: 'macos'; bundleId: string }>
+  rules: Array<ServerUpdatedTimeLimitRules>
+  usedTimes: Array<ServerUpdatedCategoryUsedTimes>
 }
 
 export interface ServerDeviceList {
@@ -231,6 +251,8 @@ export interface ServerExtendedDeviceData {
   deviceId: string
   appsBase?: ServerCryptContainer
   appsDiff?: ServerCryptContainer
+  // Opaque format-3 desktop ciphertext. The server never decrypts it.
+  desktopInventory?: ServerCryptContainer
 }
 
 export interface ServerCryptContainer {

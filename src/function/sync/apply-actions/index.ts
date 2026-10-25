@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { BadRequest } from 'http-errors'
-import { ClientPushChangesRequest } from '../../../api/schema'
+import { BadRequest, Conflict } from 'http-errors'
+import { ClientPushChangesRequest, DesktopReceipt } from '../../../api/schema'
 import { VisibleConnectedDevicesManager } from '../../../connected-devices'
 import { SimpleDatabase } from '../../../database/simple'
 import { shouldRetryWithException } from '../../../database'
@@ -38,7 +38,7 @@ export const applyActionsFromDevice = async ({ database, request, websocket, con
   connectedDevicesManager: VisibleConnectedDevicesManager
   eventHandler: EventHandler
   // no transaction here because this is directly called from an API endpoint
-}): Promise<{ shouldDoFullSync: boolean }> => {
+}): Promise<{ shouldDoFullSync: boolean, desktopReceipt?: DesktopReceipt }> => {
   eventHandler.countEvent("applyActionsFromDevice")
 
   if (request.actions.length > 50) {
@@ -49,6 +49,34 @@ export const applyActionsFromDevice = async ({ database, request, websocket, con
 
   return database.transaction(async (transaction) => {
     const baseInfo = await getApplyActionBaseInfo({ transaction, deviceAuthToken: request.deviceAuthToken })
+
+    const checkpoint = request.desktopCheckpoint
+
+    if (checkpoint) {
+      const existingReceipt = await transaction.legacy.database.desktopSyncReceipt.findOne({
+        where: {
+          familyId: baseInfo.familyId,
+          deviceId: baseInfo.deviceId,
+          checkpointId: checkpoint.id,
+        },
+        transaction: transaction.legacy.transaction,
+      })
+
+      if (existingReceipt) {
+        if (existingReceipt.payloadSha256 !== checkpoint.payloadSha256) {
+          throw new Conflict('desktop checkpoint id was already used with a different payload')
+        }
+
+        return {
+          shouldDoFullSync: existingReceipt.shouldDoFullSync,
+          desktopReceipt: {
+            id: checkpoint.id,
+            payloadSha256: existingReceipt.payloadSha256,
+            acceptedThrough: Number(existingReceipt.acceptedThrough),
+          },
+        }
+      }
+    }
 
     const cache = new Cache({
       transaction,
@@ -174,8 +202,31 @@ export const applyActionsFromDevice = async ({ database, request, websocket, con
       })
     }
 
+    const shouldDoFullSync = cache.isSenderDoFullSyncTrue()
+    const acceptedThrough = nextSequenceNumber - 1
+
+    if (checkpoint) {
+      await transaction.legacy.database.desktopSyncReceipt.create({
+        familyId: baseInfo.familyId,
+        deviceId: baseInfo.deviceId,
+        checkpointId: checkpoint.id,
+        payloadSha256: checkpoint.payloadSha256,
+        acceptedThrough,
+        shouldDoFullSync,
+      }, {
+        transaction: transaction.legacy.transaction,
+      })
+    }
+
     return {
-      shouldDoFullSync: cache.isSenderDoFullSyncTrue(),
+      shouldDoFullSync,
+      ...(checkpoint ? {
+        desktopReceipt: {
+          id: checkpoint.id,
+          payloadSha256: checkpoint.payloadSha256,
+          acceptedThrough,
+        },
+      } : {}),
     }
   })
 }

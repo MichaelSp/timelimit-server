@@ -36,7 +36,39 @@ the encoded actions are stringified JSON objects of one of this schemes:
 The request must not contain more than 50 actions. The request may contain less than 50
 actions.
 
+#### desktop inventory (optional)
+
+Desktop clients that have negotiated `desktopSync: { "version": 1 }` may send
+the app-logic action `UPDATE_DESKTOP_INVENTORY` with one non-empty base64
+`data` field. `data` is an opaque format-3 ciphertext, not JSON or an Android
+base/diff container. Its decoded size is limited to 512 KiB. The server only
+stores and forwards this ciphertext; it never decrypts or exposes plaintext.
+The sending device must already have reported `platformType: "desktop"` and
+`platformLevel >= 1` via `UPDATE_DEVICE_STATUS`; other devices are rejected.
+
+On pull, an opted-in client reports the last seen per-device `appsI` version in
+`devicesDetail`. Changed data is delivered only to opted-in clients as
+`devices2[].desktopInventory: { version, data }`. Legacy Android `appsB` and
+`appsD` payloads are unchanged.
+
 The sequence numbers must be a increasing sequence per device.
+
+#### desktop checkpoint (optional)
+
+Desktop clients may add `desktopCheckpoint` to make a push idempotent as one
+whole batch:
+
+```json
+{
+  "id": "desktop-20260922-01",
+  "payloadSha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+}
+```
+
+`id` is 1 through 128 printable ASCII characters. `payloadSha256` is a
+lowercase, 64-character SHA-256 hex digest. A repeated checkpoint with the
+same id and digest returns its original receipt without applying actions
+again. Reusing an id with another digest returns HTTP 409 Conflict.
 
 #### integrity
 
@@ -55,7 +87,21 @@ On a invalid request body: HTTP status code 400 Bad request
 
 On a invalid auth token: HTTP status code 401 Unauthorized
 
-On success: JSON object with the property `shouldDoFullSync` - example: `{"shouldDoFullSync": false}`
+On success: JSON object with the property `shouldDoFullSync` - example: `{"shouldDoFullSync": false}`.
+When `desktopCheckpoint` was supplied, the response additionally contains:
+
+```json
+{
+  "desktopReceipt": {
+    "id": "desktop-20260922-01",
+    "payloadSha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+    "acceptedThrough": 42
+  }
+}
+```
+
+`acceptedThrough` is the last client action sequence number accepted by the
+server for that checkpoint.
 
 ### error handling
 
@@ -76,7 +122,9 @@ On a invalid request body: HTTP status code 400 Bad request
 
 On a invalid auth token: HTTP status code 401 Unauthorized
 
-On success: see [this JSON schema](../schema/serverdatastatus.md)
+On success: see [this JSON schema](../schema/serverdatastatus.md). Responses
+also include the optional `desktopSync: { "version": 1 }` descriptor; legacy
+clients may ignore it, while desktop policy clients require exactly that shape.
 
 ## POST /sync/report-removed
 
